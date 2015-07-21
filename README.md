@@ -1,2 +1,2 @@
 # shell_scripts
-my personal shell scripts
+My personal shell scripts
