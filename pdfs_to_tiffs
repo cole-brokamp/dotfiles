@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ $# < 1 ]]; then
+ 	echo "converts all PDFs in the current directory to TIFFs"
+ 	echo "must specifiy -a to run it"
+else
+	for f in *.pdf; do
+	filename="${f%.*}"
+	gs -sDEVICE=tiff12nc -r900x900 -o "${filename}.tiff" "${f}"
+	done
+fi
+
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ $# < 1 ]]; then
+ 	echo "splits PDF file into individual pages"
+ 	echo "usage: pdf_split -name_of_in_file.pdf -prefix_for_out_files"
+else
+	gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOUTPUTFILE=$2_%01d.pdf $1
+fi

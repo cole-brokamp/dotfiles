@@ -1,0 +1,3 @@
+#!/bin/bash
+
+screencapture -s -t pdf "${1}"
