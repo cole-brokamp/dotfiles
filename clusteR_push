@@ -41,7 +41,7 @@ ssh -q -T cchmc > /dev/null << HERE
 
 					module load R/3.1.2
 					cd ~/${base_name}_out
-					R CMD BATCH $1" > ${base_name}.bat
+					R CMD BATCH --vanilla $1" > ${base_name}.bat
 
 		bsub  < ${base_name}.bat
 
