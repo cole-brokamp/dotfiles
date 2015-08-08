@@ -2,6 +2,7 @@
 !.bash_profile
 !.gitignore
 !.nanorc
+!/.nano/
 !.nano/*
 !.gitconfig
 !.screenrc

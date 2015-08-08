@@ -1,0 +1,23 @@
+
+################################################################################
+#
+# todo.nanorc -- nano syntax-highlighting file for my to do list note file
+#
+# (C) 2015 by Cole Brokamp (cole [DOT] brokamp [AT] gmail [DOT] com)
+#
+################################################################################
+
+
+##
+syntax "asdfjkl;asdfjkl;asdf;lkjfdas"
+header "TODO"
+
+color cyan,blue "TODO"
+color white,blue "#.*$"
+color red "\*.*$"
+color green  "-.*$"
+color white,red "\*{3}.*$"
+
+
+
+
