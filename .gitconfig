@@ -1,0 +1,19 @@
+[user]
+	name = Cole Brokamp
+	email = cole.brokamp@gmail.com
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[core]
+	editor = nano
+[color]
+	ui = 1
+[credential]
+	helper = osxkeychain
+[push]
+	default = simple
+[alias]
+[alias]
+	st = status -sb
+	ls = log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative

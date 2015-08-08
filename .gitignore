@@ -1,0 +1,7 @@
+*
+!.bash_profile
+!.gitignore
+!.nanorc
+!.nano/*
+!.gitconfig
+!.screenrc
