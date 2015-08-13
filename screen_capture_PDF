@@ -1,3 +1,4 @@
 #!/bin/bash
 
-screencapture -s -t pdf "${1}"
+screencapture -s -x -t pdf "${1}"
+#echo "PDF exported to Downloads folder"
