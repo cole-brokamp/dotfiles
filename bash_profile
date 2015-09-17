@@ -31,6 +31,7 @@ alias r='R --vanilla --quiet'
 alias 'biostat'='cd ~/Documents/Biostatistics'
 alias 'tmp'='cd ~/Documents/Biostatistics/_TMP'
 alias 'dissertation'='cd ~/Dropbox/Cole/UC\ dropbox/Dissertation/'
+alias 'cb'='cd ~/Documents/Biostatistics/_CB'
 
 # Setting PATH for Python 2.7
 # The orginal version is saved in .bash_profile.pysave
