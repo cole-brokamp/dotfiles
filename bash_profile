@@ -17,6 +17,7 @@ alias todo='nano -B --backupdir="~Dropbox/Cole/notes/school/" ~/Dropbox/Cole/not
 
 # ls alias
 alias ls='ls -GFh'
+alias ll='ls -GFhal'
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 

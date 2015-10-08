@@ -1,6 +1,11 @@
 # source my bash profile by opening each window as a login shell
 shell -$SHELL
 
+# use more colors
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E38;5;%dm'
+defbce "on"
+
 # change escape key
 escape ``
 
