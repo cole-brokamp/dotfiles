@@ -4,6 +4,9 @@ PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]$(scutil --get ComputerName):\[\033[33
 # alias for newer version of screen for mac osx
 alias screen="/usr/local/bin/screen"
 
+# alias to lock mac
+alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+
 # alias to view names of all of my scripts
 alias myscripts='ls ~/Documents/Biostatistics/_CB/shell_scripts/'
 
