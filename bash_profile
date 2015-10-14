@@ -7,6 +7,10 @@ alias screen="/usr/local/bin/screen"
 # alias to lock mac
 alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
+# alias to open file in Sublime Text
+# use "s ." to open current directory in Sublime Text
+alias s='open -a "Sublime Text 2"'
+
 # alias to view names of all of my scripts
 alias myscripts='ls ~/Documents/Biostatistics/_CB/shell_scripts/'
 
