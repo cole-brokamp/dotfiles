@@ -2,7 +2,7 @@
 
 dir=~/dotfiles
 olddir=~/dotfiles_old 
-files=`ls | grep -v "makeSymLinks.sh" | grep -v "README.md"`  
+files=`ls | grep -v "makeSymLinks.sh" | grep -v "README.md" | grep -v "CB.terminal"`  
 
 # create dotfiles_old in homedir
 echo "Creating $olddir for backup of any existing dotfiles in ~ ..."
