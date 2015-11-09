@@ -33,15 +33,15 @@ ssh -q -T cchmc > /dev/null << HERE
 		cd  ~/${base_name}_out
 
 		echo "#BSUB -J $base_name
-					#BSUB -W 10:00
-					#BSUB -n 4
-					#BSUB -M 16000
-					#BSUB -oo ~/${base_name}_out/${base_name}.Rout 
-					#BSUB -u cole.brokamp@gmail.com
+			 #BSUB -W 10:00
+			 #BSUB -n 4
+			 #BSUB -M 16000
+			 #BSUB -oo ~/${base_name}_out/${base_name}.Rout 
+			 #BSUB -u cole.brokamp@gmail.com
 
-					module load R/3.1.2
-					cd ~/${base_name}_out
-					R CMD BATCH --vanilla $1" > ${base_name}.bat
+			 module load R/3.1.2
+			 cd ~/${base_name}_out
+			 R CMD BATCH --vanilla $1" > ${base_name}.bat
 
 		bsub  < ${base_name}.bat
 
