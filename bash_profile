@@ -10,6 +10,9 @@ alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resourc
 # alias to cd to current finder window
 alias cdf='cd "`osascript -e "tell application \\"Finder\\" to get POSIX path of (insertion location as alias)"`"'
 
+# alias to open file in markright
+alias md='open -a /Applications/Markright.app'
+
 # alias to open file in Sublime Text
 # use "s ." to open current directory in Sublime Text
 alias s='open -a "Sublime Text 2"'
