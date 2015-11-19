@@ -11,7 +11,7 @@ alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resourc
 alias cdf='cd "`osascript -e "tell application \\"Finder\\" to get POSIX path of (insertion location as alias)"`"'
 
 # alias to copy working directory
-alias cwd='pwd | tr -d "\r\n" | pbcopy'
+alias cwd="pwd | tr -d "\r\n" | pbcopy | echo '=> working directory copied to keyboard'"
 
 # alias to open file in markright
 alias md='open -a /Applications/Markright.app'
@@ -34,9 +34,16 @@ alias notes='cd ~/Dropbox/Cole/notes; ls'
 # todo alias will open todo note for school and backup when i save a copy
 alias todo='nano -B --backupdir="~Dropbox/Cole/notes/school/" ~/Dropbox/Cole/notes/school/todo'
 
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU
+    colorflag="--color"
+else # OS X
+    colorflag="-G"
+fi
+
 # ls alias
-alias ls='ls -GFh'
-alias ll='ls -GFhal'
+alias ls='ls -Fh ${colorflag}'
+alias ll='ls -Fhal ${colorflag}'
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
