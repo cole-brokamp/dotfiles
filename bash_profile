@@ -10,6 +10,9 @@ alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resourc
 # alias to cd to current finder window
 alias cdf='cd "`osascript -e "tell application \\"Finder\\" to get POSIX path of (insertion location as alias)"`"'
 
+# alias to copy working directory
+alias cwd='pwd | tr -d "\r\n" | pbcopy'
+
 # alias to open file in markright
 alias md='open -a /Applications/Markright.app'
 
