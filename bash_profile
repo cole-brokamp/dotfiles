@@ -86,6 +86,9 @@ alias 'tmp'='cd ~/Documents/Biostatistics/_TMP'
 alias 'dissertation'='cd ~/Dropbox/Cole/UC\ dropbox/Dissertation/'
 alias 'cb'='cd ~/Documents/Biostatistics/_CB'
 
+# tab-completion for brew
+source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
+
 # Setting PATH for Python 2.7
 # The orginal version is saved in .bash_profile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
