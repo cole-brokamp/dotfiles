@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 
 # first argument must be the .R file to run, the other arguments are dependent files
 # that need to be uploaded to the server in order for the script to run

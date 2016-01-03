@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 
 if [[ $# < 1 ]]; then
     echo "merges CSV files, retaining only the header from the first file"

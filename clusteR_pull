@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 
 # argument must be name of R script submitted to server
 # remaining arguments will be the names of files that you want to delete
