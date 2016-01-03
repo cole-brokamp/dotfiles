@@ -1,4 +1,13 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 
-screencapture -s -x -t pdf "${1}"
-#echo "PDF exported to Downloads folder"
+if [[ $# < 1 ]]; then
+    echo "captures screen to PDF file"
+    echo "select portion of screen with the mouse"
+    echo "will automatically open in Preview for editing"
+    echo "usage: screen_capture_PDF ex_screenshot.pdf"
+    exit 0
+fi
+          
+screencapture -sPx -t pdf ~/Downloads/$1
