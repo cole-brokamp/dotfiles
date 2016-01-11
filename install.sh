@@ -1,7 +1,7 @@
 #!/bin/bash
 
 dir=~/dotfiles
-olddir=~/dotfiles_old 
+olddir=~/.dotfiles_old 
 files=`ls | grep -v "makeSymLinks.sh" | grep -v "README.md" | grep -v "CB.terminal"`  
 
 # create dotfiles_old in homedir
