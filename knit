@@ -2,5 +2,6 @@
 
 args <- commandArgs(TRUE)
 if(length(args) == 0) {
-    cat("knits .md or .Rmd into .pdf\nusage: knit file_to_knit.Rmd\n")
-    }else rmarkdown::render(args[1], output_format='pdf_document', quiet = TRUE) 
+    cat("knits .md or .Rmd into PDF and HTML documents\nusage: knit file_to_knit.Rmd\n")
+    }else rmarkdown::render(args[1], output_format=c('pdf_document','html_document'), quiet 
+    = TRUE) 
