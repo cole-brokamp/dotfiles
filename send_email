@@ -7,6 +7,9 @@ parser = optparse.OptionParser()
 
 parser.add_option('-t', '--to',action='store',dest='to_email',help='destination email',default='NONE!')
 parser.add_option('-m', '--message',action='store',dest='email_body',help='email of body',default=' ')
+parser.add_option('-p', '--password-from-file',action='store',dest='pwd',help='file containing gmail password',default='~/.gmail_pwd')
+
+
 
 if len(sys.argv)==1:
     parser.print_help()
@@ -17,6 +20,6 @@ options, args = parser.parse_args()
 
 server = SMTP('smtp.gmail.com:587')
 server.starttls()
-server.login('cole.brokamp@gmail.com','PASSWORD')
+server.login('cole.brokamp@gmail.com','google_password')
 server.sendmail('cole.brokamp@gmail.com', '%s' % options.to_email, 'Subject: %s' % options.email_body)
 server.quit()
