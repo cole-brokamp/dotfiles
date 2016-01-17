@@ -7,9 +7,10 @@ parser = optparse.OptionParser()
 
 parser.add_option('-t', '--to',action='store',dest='to_email',help='destination email',default='NONE!')
 parser.add_option('-m', '--message',action='store',dest='email_body',help='email of body',default=' ')
-parser.add_option('-p', '--password-from-file',action='store',dest='pwd',help='file containing gmail password; defaults to ~/.gmail_pwd',default='.gmail_pwd')
 
-with open('.gmail_pwd', 'r') as f:
+print('reading gmail password from ~/shell_scripts/.gmail_pwd')
+
+with open(os.path.expanduser('~/shell_scripts/.gmail_pwd'), 'r') as f:
     gmail_pwd=f.read()
     
 if len(sys.argv)==1:
