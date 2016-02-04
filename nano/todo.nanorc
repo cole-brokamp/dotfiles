@@ -16,7 +16,7 @@ color cyan,blue "TODO"
 color white,blue "#.*$"
 color red "\*.*$"
 color green  "-.*$"
-color white,red "\*{3}.*$"
+color brightwhite,red "\*{3}.*$"
 
 
 
