@@ -95,9 +95,6 @@ source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
 PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 export PATH
 
-# add path for pwd script
-export PATH=/Users/cole/Dropbox/Cole/pwd.sh:${PATH}
-
 # MacPorts Installer addition on 2013-08-05_at_01:23:05: adding an appropriate PATH variable for use with MacPorts.
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
