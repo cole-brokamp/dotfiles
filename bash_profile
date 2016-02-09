@@ -47,7 +47,7 @@ alias rstudio='open -na "rstudio"'
 
 # alias to open file in Sublime Text
 # use "s ." to open current directory in Sublime Text
-alias s='open -a "Sublime Text 2"'
+alias s='open -a "Sublime Text 3"'
 
 # alias to view names of all of my scripts
 alias myscripts='ls ~/Documents/Biostatistics/_CB/shell_scripts/'
