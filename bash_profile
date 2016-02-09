@@ -85,6 +85,7 @@ alias 'biostat'='cd ~/Documents/Biostatistics'
 alias 'tmp'='cd ~/Documents/Biostatistics/_TMP'
 alias 'dissertation'='cd ~/Dropbox/Cole/UC\ dropbox/Dissertation/'
 alias 'cb'='cd ~/Documents/Biostatistics/_CB'
+alias 'scripts'='cd ~/Documents/Biostatistics/_CB/shell_scripts'
 
 # tab-completion for brew
 source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
