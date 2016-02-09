@@ -21,5 +21,3 @@ for file in $files; do
     ln -s $dir/$file ~/.$file 2>/dev/null
 done
 
-# remove the extra created nano folder
-rm -r ~/dotfiles/nano/nano
