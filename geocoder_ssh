@@ -3,13 +3,11 @@
 prlctl start geocoder_ubuntu
 ssh geocoder
 
-#read -p "Do you wish to shutdown the virtual machine?" yn
-#case $yn in
-#    [Yy]* ) prlctl stop geocoder_ubuntu;;
-#    [Nn]* ) echo "OK, leaving it running";echo "shutdown when you are ready with prlctl 
-#stop geocoder_ubuntu";break;;
-#    * ) echo "huh?, leaving it running";;
-
-echo "don't forget to shut down!"
-echo "prlctl stop geocoder_ubuntu"
-
+while true; do
+    read -p "Do you wish to shutdown the virtual machine? " yn
+    case $yn in
+        [Yy]* ) prlctl stop geocoder_ubuntu; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
