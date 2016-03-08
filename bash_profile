@@ -63,7 +63,7 @@ alias s='open -a "Sublime Text 3"'
 alias myscripts='ls ~/Documents/Biostatistics/_CB/shell_scripts/'
 
 # nano alias for options
-alias nano='nano --tabstospaces --tabsize=4 --autoindent --nohelp --quickblank'
+alias nano='nano --tabstospaces --tabsize=4 --smooth --autoindent --nohelp --quickblank -$'
 
 # notes alias
 alias notes='cd ~/Dropbox/Cole/notes; ls'
