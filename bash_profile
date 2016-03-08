@@ -27,6 +27,10 @@ PROMPT_COMMAND="find_git_branch; find_git_dirty; $PROMPT_COMMAND"
 # shell prompt name
 PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]$(scutil --get ComputerName):\[\033[33;1m\]\W\[\033[m\]\[\033[38;5;93m\]\$git_branch\$git_dirty\]\[\033[38;5;15m\]$ "
 
+# qfc commands
+# https://github.com/pindexis/qfc
+[[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
+
 # alias for newer version of screen for mac osx
 alias screen="/usr/local/bin/screen"
 
