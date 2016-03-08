@@ -108,9 +108,6 @@ export PATH
 # MacPorts Installer addition on 2013-08-05_at_01:23:05: adding an appropriate PATH variable for use with MacPorts.
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
-# setting path for latex2rtf
-export PATH=$PATH:/Users/cole/Documents/Users/cole/latex2rtf-2.3.8 
-
 # add path for gdal
 export PATH=$PATH:/Library/Frameworks/GDAL.framework/Versions/1.11/Programs
 
