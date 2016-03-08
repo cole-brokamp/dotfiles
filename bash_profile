@@ -27,6 +27,12 @@ PROMPT_COMMAND="find_git_branch; find_git_dirty; $PROMPT_COMMAND"
 # shell prompt name
 PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]$(scutil --get ComputerName):\[\033[33;1m\]\W\[\033[m\]\[\033[38;5;93m\]\$git_branch\$git_dirty\]\[\033[38;5;15m\]$ "
 
+# bash completion
+# install more at https://github.com/Homebrew/homebrew-completions
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
+fi
+
 # qfc commands
 # https://github.com/pindexis/qfc
 [[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
