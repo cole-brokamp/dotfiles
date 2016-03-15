@@ -25,7 +25,8 @@ find_git_dirty() {
 PROMPT_COMMAND="find_git_branch; find_git_dirty; $PROMPT_COMMAND"
 
 # shell prompt name
-PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]$(scutil --get ComputerName):\[\033[33;1m\]\W\[\033[m\]\[\033[38;5;93m\]\$git_branch\$git_dirty\]\[\033[38;5;15m\]$ "
+PROMPT_DIRTRIM=5
+PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]$(scutil --get ComputerName):\[\033[33;1m\]\w\[\033[m\]\[\033[38;5;93m\]\$git_branch\$git_dirty\]\[\033[38;5;15m\]\\n  > "
 
 # bash completion
 # install more at https://github.com/Homebrew/homebrew-completions
