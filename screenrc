@@ -41,6 +41,8 @@ stuff "biostat ^M"
 screen -t shell
 screen -t cchmc_cluster
 stuff "ssh cchmc ^M "
+screen -t notes
+stuff "notes"
 select 1
 
 
