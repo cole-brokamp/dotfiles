@@ -33,16 +33,14 @@ bind s split
 
 # default windows
 screen -t htop
-stuff "htop ^M"
+stuff "sudo htop ^M"
 screen -t todo
 stuff "todo ^M"
 screen -t biostat
 stuff "biostat ^M"
 screen -t shell
-screen -t cchmc_cluster
-stuff "ssh cchmc ^M "
 screen -t notes
-stuff "notes"
+stuff "notes ^M"
 select 1
 
 
