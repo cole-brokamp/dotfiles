@@ -50,7 +50,7 @@ layout autosave on
 layout new one
 split -v
 select 1
-resize -30
+resize -40
 focus right
 select 2
 split
