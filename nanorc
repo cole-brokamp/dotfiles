@@ -1,4 +1,5 @@
 # include ~/.nano/Rmarkdown.nanorc
+include ~/.nano/jrnl.nanorc
 include ~/.nano/todo.nanorc
 include ~/.nano/R.nanorc
 include ~/.nano/apacheconf.nanorc
