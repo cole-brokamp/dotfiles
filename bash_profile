@@ -45,7 +45,7 @@ fi
 
 # alias for newer version of screen for mac osx
 # add flags to use UTF-8 encoding [U], detach elsewhere and reattach here [d], and reattach if possible, otherwise start a new session
-alias screen="/usr/local/bin/screen -UdR"
+alias screen="/usr/local/bin/screen -U"
 alias screen_="/usr/local/bin/screen -U -c ~/dotfiles/screenrc_simple"
 
 # alias to lock mac
