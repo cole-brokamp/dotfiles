@@ -1,0 +1,21 @@
+
+################################################################################
+#
+# jrnl.nanorc -- nano syntax-highlighting file for my work journal note file
+#
+# (C) 2016 by Cole Brokamp (cole [DOT] brokamp [AT] gmail [DOT] com)
+#
+################################################################################
+
+
+##
+syntax "asdfjkl;asdfjkl;asdf;lkjfdas"
+header "JRNL"
+
+color cyan,blue "JRNL"
+color white,blue "@.*"
+color white,yellow  "####.*$"
+
+
+
+

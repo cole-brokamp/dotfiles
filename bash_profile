@@ -76,6 +76,8 @@ alias nano='/usr/local/Cellar/nano/2.5.3/bin/nano --tabstospaces --tabsize=4 --s
 alias notes='cd ~/Dropbox/Cole/notes; ls'
 # todo alias will open todo note for school and backup when i save a copy
 alias todo='nano -B --backupdir="~Dropbox/Cole/notes/school/" ~/Dropbox/Cole/notes/school/todo'
+# jrnl alias will open jrnl note for work and backup when i save a copy
+alias jrnl='nano -B --backupdir="~Dropbox/Cole/notes/school/" ~/Dropbox/Cole/notes/school/jrnl'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU
