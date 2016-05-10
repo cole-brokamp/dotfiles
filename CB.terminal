@@ -63,7 +63,7 @@
 	k5yusbYAAAAAAAABAQAAAAAAAAAZAAAAAAAAAAAAAAAAAAAAuA==
 	</data>
 	<key>ShowActiveProcessInTitle</key>
-	<true/>
+	<false/>
 	<key>ShowCommandKeyInTitle</key>
 	<false/>
 	<key>ShowDimensionsInTitle</key>
@@ -97,11 +97,11 @@
 	<key>VisualBellOnlyWhenMuted</key>
 	<false/>
 	<key>WindowTitle</key>
-	<string>Terminal</string>
+	<string></string>
 	<key>columnCount</key>
 	<integer>100</integer>
 	<key>name</key>
-	<string>Pro CB</string>
+	<string>CB</string>
 	<key>noWarnProcesses</key>
 	<array>
 		<dict>
