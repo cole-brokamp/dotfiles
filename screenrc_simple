@@ -31,20 +31,6 @@ shelltitle "shell"
 # get rid of silly xoff stuff
 bind s split
 
-# default windows
-screen -t htop
-stuff "sudo htop ^M"
-screen -t todo
-stuff "todo ^M"
-screen -t jrnl
-stuff "jrnl ^M"
-screen -t biostat
-stuff "biostat ^M"
-screen -t shell
-screen -t notes
-stuff "notes ^M"
-select 1
-
 
 # layouts
 layout autosave on
@@ -52,7 +38,7 @@ layout autosave on
 layout new one
 split -v
 select 1
-resize -40
+resize -30
 focus right
 select 2
 split
