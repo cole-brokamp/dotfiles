@@ -21,7 +21,7 @@ activity "Hey - something's moving in %t (%n)"
 vbellwait 2
 msgwait 2
 
-hardstatus alwayslastline " 👊 %{= .W} %{= .G}$USER %{-}@ %{= .c}%H %{-}[%{= .Y}%S%{-}] 👊 %= %-Lw%{+b RW}%50>%n%f* %t%{-}%+Lw %= %D %M %d %C%a"
+hardstatus alwayslastline " 👊 %{= .W} %{= .c}$USER %{-}@ %{= .G}%H %{-}[%{= .Y}%S%{-}] 👊 %= %-Lw%{+b RW}%50>%n%f* %t%{-}%+Lw %= %D %M %d %C%a"
 shelltitle "shell"
 
 # saves screen split layout for detach/reattach
