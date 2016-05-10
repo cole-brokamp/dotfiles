@@ -9,13 +9,10 @@
 
 
 ##
-syntax "asdfjkl;asdfjkl;asdf;lkjfdas"
+syntax "asdfjkl;asdfjkl;asdf;lkjfdasadffjdas;ljdf"
 header "JRNL"
 
-color cyan,blue "JRNL"
-color white,blue "@.*"
-color white,yellow  "####.*$"
-
-
-
-
+color brightwhite,blue "JRNL"
+#color brightblue "@.*"
+color brightblue "@[a-z,_,1-9]*"
+color yellow  "#{3}.*$"
