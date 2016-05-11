@@ -43,6 +43,12 @@ fi
 # https://github.com/pindexis/qfc
 [[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
 
+# aliases to start rstudio server over ssh tunnel
+    # make sure to add `www-address=127.0.0.1 to `/etc/rstudio/rserver.conf` so it listens on localhost for connections
+alias rstudio_server_viao="open http://localhost:8787 && ssh -N -L localhost:8787:localhost:8787 viao"
+alias rstudio_server_hp_int="open http://localhost:8788 && ssh -N -L localhost:8788:localhost:8787 hp_int"
+
+
 # alias for newer version of screen for mac osx
 # add flags to use UTF-8 encoding [U], detach elsewhere and reattach here [d], and reattach if possible, otherwise start a new session
 alias screen="/usr/local/bin/screen -U"
