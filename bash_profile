@@ -49,6 +49,8 @@ fi
 alias rstudio_server_viao="open /Applications/RStudio\ Server\ \(viao\).app && ssh -N -L localhost:8787:localhost:8787 viao"
 alias rstudio_server_hp_int="open /Applications/RStudio\ Server\ \(hp_int\).app && ssh -N -L localhost:8788:localhost:8787 hp_int"
 
+# sshuttle aliases
+alias sshuttle_viao="sshuttle --dns -r viao 0/0"
 
 # alias for newer version of screen for mac osx
 # add flags to use UTF-8 encoding [U], detach elsewhere and reattach here [d], and reattach if possible, otherwise start a new session
