@@ -52,6 +52,10 @@ alias rstudio_server_hp_int="open /Applications/RStudio\ Server\ \(hp_int\).app 
 # sshuttle aliases
 alias sshuttle_viao="sshuttle --dns -r viao 0/0"
 
+# python quick server alias
+    # will make current directory available on local network, port 8000
+alias quick_serve="python -m SimpleHTTPServer"
+
 # alias for newer version of screen for mac osx
 # add flags to use UTF-8 encoding [U], detach elsewhere and reattach here [d], and reattach if possible, otherwise start a new session
 alias screen="/usr/local/bin/screen -U"
