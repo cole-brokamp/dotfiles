@@ -83,6 +83,10 @@ alias s='open -a "Sublime Text 3"'
 # alias to view names of all of my scripts
 alias myscripts='ls ~/Documents/Biostatistics/_CB/shell_scripts/'
 
+# ip address finder aliases
+alias ip_public='wget http://ipinfo.io/ip -qO -'
+alias ip_local='ipconfig getifaddr en0'
+
 # nano alias for options
 alias nano='/usr/local/Cellar/nano/2.5.3/bin/nano --tabstospaces --tabsize=4 --smooth --autoindent --nohelp --quickblank -$'
 
