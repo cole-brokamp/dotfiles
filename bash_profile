@@ -141,3 +141,10 @@ export PATH=$PATH:/Users/cole/Documents/Biostatistics/_CB/shell_scripts
 
 # setting path for pandoc
 export PATH=$PATH:/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc
+
+# Wed Jun 22 17:16:22 EDT 2016 - MODIS Reprojection Tool modifications
+MRT_HOME="/Users/cole/.MRT"
+PATH="$PATH:/Users/cole/.MRT/bin"
+MRT_DATA_DIR="/Users/cole/.MRT/data"
+export MRT_HOME PATH MRT_DATA_DIR
+
