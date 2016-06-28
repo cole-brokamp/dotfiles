@@ -141,3 +141,6 @@ export PATH=$PATH:/Users/cole/Documents/Biostatistics/_CB/shell_scripts
 
 # setting path for pandoc
 export PATH=$PATH:/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc
+
+# export variables for docker machine
+alias 'docker_env'='eval "$(docker-machine env default)"'
