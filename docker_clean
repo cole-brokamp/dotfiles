@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Delete all stopped containers
-docker rm $( docker ps -q -f status=exited)
-# Delete all dangling (unused) images
-docker rmi $( docker images -q -f dangling=true)
+docker rm $(docker ps -aq 2>/dev/null) 2>/dev/null
+docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
+docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
