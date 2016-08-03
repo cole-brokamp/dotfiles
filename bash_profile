@@ -44,7 +44,7 @@ fi
 [[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
 
 # aliases to start rstudio server over ssh tunnel
-    # make sure to add `www-address=127.0.0.1 to `/etc/rstudio/rserver.conf` so it listens on localhost for connections
+    # make sure to add `www-address=127.0.0.1` to `/etc/rstudio/rserver.conf` so it listens on localhost for connections
     # also make applications using fluid application, so rstudio is standalone window instead of in browser
 alias rstudio_server_viao="open /Applications/RStudio\ Server\ \(viao\).app && ssh -N -L localhost:8787:localhost:8787 viao"
 alias rstudio_server_hp_int="open /Applications/RStudio\ Server\ \(hp_int\).app && ssh -N -L localhost:8788:localhost:8787 hp_int"
@@ -144,3 +144,9 @@ export PATH=$PATH:/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc
 
 # export variables for docker machine
 alias 'docker_env'='eval "$(docker-machine env default)"'
+
+# homebrew bash completion
+    # install additional scripts at https://github.com/Homebrew/homebrew-completions
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
+fi
