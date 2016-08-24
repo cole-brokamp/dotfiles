@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+if [[ $# > 1 ]]; then
+        echo "copies shiny app inside the current folder to server"
+        echo "dockerizes, builds, and runs"
+        echo "usage: docker_shiny_push"
+        exit 0
+fi
+
+af=`basename $PWD`
+scp -r $PWD <server>:~
+ssh -q -T <server> > /dev/null << HERE
+      cd ~/$af
+      wget https://raw.githubusercontent.com/cole-brokamp/shiny_docker/master/Dockerfile -q -O ./Dockerfile
+      docker build --build-arg app_folder=$PWD \\
+        --build-arg http_proxy=http://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80 \\
+        --build-arg https_proxy=https://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80 \\
+        -t cole/$af .
+      docker run -d -p 3838:3838 cole/$af
+HERE
+
+echo "dockerized shiny app is now running"
