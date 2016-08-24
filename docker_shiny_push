@@ -13,6 +13,8 @@ af=`basename $PWD`
 scp -r $PWD <server>:~
 ssh -q -T <server> > /dev/null << HERE
       cd ~/$af
+      export http_proxy=http://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80
+      export https_proxy=https://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80
       wget https://raw.githubusercontent.com/cole-brokamp/shiny_docker/master/Dockerfile -q -O ./Dockerfile
       docker build --build-arg app_folder=$PWD \\
         --build-arg http_proxy=http://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80 \\
