@@ -1,1 +1,1 @@
-docker run -v /var/run/docker.sock:/var/run/docker.sock:ro --name glances --pid host --rm -it docker.io/nicolargo/glances
+docker run -v /var/run/docker.sock:/var/run/docker.sock:ro --name glances --pid host --rm -it docker.io/nicolargo/glances python -m glances --disable-quicklook --disable-cpu --disable-mem --disable-swap --disable-load --disable-network --disable-ip --disable-diskio --disable-fs --disable-folder --disable-sensors --disable-hddtemp --disable-raid --disable-top --disable-left-sidebar --disable-process --disable-log
