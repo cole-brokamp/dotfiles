@@ -10,4 +10,4 @@ if [[ $# < 1 ]]; then
 fi
 
 # run docker image and job (map volumes and delete container when complete)
-docker run --name=geocoder --rm=true --volume=$PWD:/tmp geocoder bash -c "./geocode.R /tmp/$1 $2"
+docker run --name=geocoder --rm=true --volume=$PWD:/tmp colebrokamp/geocoder bash -c "./geocode.R /tmp/$1 $2"
