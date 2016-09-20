@@ -84,6 +84,9 @@ alias rstudio='open -na "rstudio"'
 alias s='open -a "Sublime Text 3"'
 alias a='open -a "Atom"'
 
+# alias for googler
+alias g='googler --colors bjdxxy -n 6'
+
 # alias to view names of all of my scripts
 alias myscripts='ls ~/Documents/Biostatistics/_CB/shell_scripts/'
 
