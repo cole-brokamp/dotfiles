@@ -72,15 +72,10 @@ alias cdf='cd "`osascript -e "tell application \\"Finder\\" to get POSIX path of
 # alias to copy working directory
 alias cwd="pwd | tr -d '\r\n' | pbcopy | echo '=> working directory copied to keyboard'"
 
-# alias to open file in markright
-alias md='open -a /Applications/Markright.app'
-
 # alias to open file in new R Studio instance
 alias rstudio='open -na "rstudio"'
 
-# alias to open file in Sublime Text
-# use "s ." to open current directory in Sublime Text
-alias s='open -a "Sublime Text 3"'
+# alias to open file in Atom
 alias a='open -a "Atom"'
 
 # alias for googler
@@ -99,9 +94,7 @@ alias nano='/usr/local/Cellar/nano/2.5.3/bin/nano --tabstospaces --tabsize=4 --s
 # notes alias
 alias notes='cd /Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes; ls'
 # todo alias will open todo note for school and backup when i save a copy
-alias todo='nano -B --backupdir="/Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes/school/" /Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes/school/todo'
-# jrnl alias will open jrnl note for work and backup when i save a copy
-alias jrnl='nano -B --backupdir="/Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes/school/" /Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes/school/jrnl'
+alias todo='nano -B --backupdir="/Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes/cchmc/" /Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes/cchmc/todo'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU
