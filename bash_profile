@@ -49,7 +49,6 @@ fi
     # also make applications using fluid application, so rstudio is standalone window instead of in browser
 alias rstudio_server_viao="open /Applications/RStudio\ Server\ \(viao\).app && ssh -f -N -L localhost:8787:localhost:8787 viao"
 alias rstudio_server_hp_int="open /Applications/RStudio\ Server\ \(hp_int\).app && ssh -f -N -L localhost:8788:localhost:8787 hp_int"
-alias rstudio_server_ec2="open /Applications/RStudio\ Server\ \(amazon_rstudio\).app && ssh -f -N -L localhost:8789:localhost:8787 amazon_rstudio"
 
 
 # sshuttle aliases
