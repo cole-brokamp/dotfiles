@@ -47,6 +47,9 @@ alias rstudio_server_hp_int="open /Applications/RStudio\ Server\ \(hp_int\).app 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
 # sshuttle aliases
 alias sshuttle_viao="sshuttle --dns -r viao 0/0"
 
