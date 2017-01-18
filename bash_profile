@@ -81,9 +81,6 @@ alias a='open -a "Atom"'
 # alias for googler
 alias g='googler --colors bjdxxy -n 6'
 
-# alias to view names of all of my scripts
-alias myscripts='ls ~/Documents/Biostatistics/_CB/shell_scripts/'
-
 # ip address finder aliases
 alias ip_public='wget http://ipinfo.io/ip -qO -'
 alias ip_local='ipconfig getifaddr en0'
@@ -135,8 +132,8 @@ export PATH=$PATH:/Library/Frameworks/GDAL.framework/Versions/1.11/Programs
 
 test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
-# setting path for my own shell scripts
-export PATH=$PATH:/Users/cole/Documents/Biostatistics/_CB/shell_scripts
+# setting path for my own scripts
+export PATH=$PATH:/Users/cole/dotfiles/bin
 
 # setting path for pandoc
 export PATH=$PATH:/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc
