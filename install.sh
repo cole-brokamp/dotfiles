@@ -24,8 +24,19 @@ cp -rf ~/$dir/nano/ ~/.nano/
 
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
-    # source install/brew.sh
-    # source install/macOS.sh
+    read -p "Do you want to brew command line applications? "
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        source install/brew.sh
+    fi
+    echo "=============================="
+    read -p "Do you want to set macOS options? "
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        source install/macOS.sh
+    fi
 fi
 
 echo "Done. Reload the terminal."
