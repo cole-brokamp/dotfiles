@@ -30,21 +30,6 @@ shelltitle "shell"
 # get rid of silly xoff stuff
 bind s split
 
-# default windows
-screen -t htop
-stuff "sudo htop ^M"
-screen -t todo
-stuff "todo ^M"
-screen -t jrnl
-stuff "jrnl ^M"
-screen -t biostat
-stuff "biostat ^M"
-screen -t shell
-screen -t notes
-stuff "notes ^M"
-select 1
-
-
 # layouts
 layout autosave on
 
@@ -78,5 +63,3 @@ bind -c rsz -k kr eval "focus right" "command -c rsz" # Right
 bind -c rsz -k ku eval "focus up"    "command -c rsz" # Up
 bind -c rsz -k kd eval "focus down"  "command -c rsz" # Down
 # then use escape key to exit resize mode
-
-

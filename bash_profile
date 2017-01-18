@@ -44,7 +44,6 @@ fi
 alias rstudio_server_viao="open /Applications/RStudio\ Server\ \(viao\).app && ssh -f -N -L localhost:8787:localhost:8787 viao"
 alias rstudio_server_hp_int="open /Applications/RStudio\ Server\ \(hp_int\).app && ssh -f -N -L localhost:8788:localhost:8787 hp_int"
 
-
 # sshuttle aliases
 alias sshuttle_viao="sshuttle --dns -r viao 0/0"
 
@@ -54,8 +53,7 @@ alias quick_serve="python -m SimpleHTTPServer"
 
 # alias for newer version of screen for mac osx
 # add flags to use UTF-8 encoding [U], detach elsewhere and reattach here [d], and reattach if possible, otherwise start a new session
-alias screen="/usr/local/bin/screen -U"
-alias screen_="/usr/local/bin/screen -U -c ~/dotfiles/screenrc_simple"
+alias screen="/usr/local/bin/screen -U -d"
 
 # alias to lock mac
 alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
@@ -111,7 +109,6 @@ alias r='R --vanilla --quiet'
 alias 'biostat'='cd ~/Documents/Biostatistics'
 alias 'tmp'='cd ~/Documents/Biostatistics/_TMP'
 alias 'cb'='cd ~/Documents/Biostatistics/_CB'
-alias 'scripts'='cd ~/Documents/Biostatistics/_CB/shell_scripts'
 
 # Setting PATH for Python 2.7
 # The orginal version is saved in .bash_profile.pysave
