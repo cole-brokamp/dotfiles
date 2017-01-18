@@ -1,0 +1,61 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# argument must be name of R script submitted to server
+# remaining arguments will be the names of files that you want to delete
+		# and not redownload
+
+if [[ $# < 1 ]]; then
+        echo "downloads job from CCHMC cluster"
+        echo "will delete the R script"
+        echo "(but download a copy of the script submitted to the cluster)"
+        echo "and then delete all the dependent files"
+        echo "then download the output folder and delete it from cluster"
+        echo "usage: clusteR_pull rscript_to_run.R dependent_file_1 dependent_file_2 ..."
+        exit 0
+fi
+
+base_name=$(echo $1 | cut -d'.' -f 1)
+
+# first check to make sure file exists
+echo "connecting to server" 
+echo "..."
+ssh -q -T cchmc [[ -e "~/${base_name}_out/${base_name}.Rout" ]] && 
+file_exists=true || file_exists=false
+
+if [ "$file_exists" = true ]
+	then
+
+		echo "cleaning up $base_name input files and collecting output files..."
+
+		# ssh into shell (-T disables pseudo-tty allocation) (-q suppresses messages and warnings)
+		ssh -q -T cchmc > /dev/null <<- HERE
+
+			cd ${base_name}_out
+
+			# make copy of R script as it was submitted
+			cp ${base_name}.R ${base_name}_clusteR.R
+
+			# delete files that were used
+			rm $@
+
+			exit
+		HERE
+
+		echo "downloading $base_name output folder..."
+		scp -r cchmc:${base_name}_out ./
+		echo "download done!"
+
+		echo "deleting output folder from server."
+		ssh -q -T cchmc > /dev/null <<- HEREE
+			rm -rf ${base_name}_out
+			exit
+		HEREE
+	else 
+		echo ".Rout file for $base_name does not exist!"
+		echo "job not done yet?"
+fi
+
+# exit 1
+

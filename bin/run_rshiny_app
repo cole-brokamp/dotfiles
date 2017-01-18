@@ -1,0 +1,22 @@
+#!/usr/bin/Rscript
+
+suppressPackageStartupMessages(library(argparser))
+
+p <- arg_parser('run shiny app')
+p <- add_argument(p,'app_name',help='name of app; must be one of: ecat_map, ecat_file')
+p <- add_argument(p,'--showcase',help='open app in showcase mode',type='logical',flag=TRUE)
+p <- add_argument(p,'--port',help="set to '0.0.0.0' to share apps with local clients",
+                  default='127.0.0.1')
+args <- parse_args(p)
+
+app_dir <- switch(args$app_name,
+  ecat_map = '/Users/cole/Documents/Biostatistics/ECAT shiny app/ecat-app_map',
+  ecat_file = '/Users/cole/Documents/Biostatistics/ECAT shiny app/ecat-app_file')
+
+
+
+shiny::runApp(appDir = app_dir,
+       port = getOption('shiny.port'),
+       quiet = FALSE,
+       launch.browser = TRUE,
+       display.mode = ifelse(args$showcase,'showcase','normal'))

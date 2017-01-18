@@ -1,0 +1,55 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# first argument must be the .R file to run, the other arguments are dependent files
+# that need to be uploaded to the server in order for the script to run
+
+if [[ $# < 1 ]]; then
+        echo "uploads job to CCHMC cluster"
+        echo "usage: clusteR_push rscript_to_run.R dependent_file_1 dependent_file_2 ..."
+        exit 0
+fi
+
+base_name=$(echo $1 | cut -d'.' -f 1)
+
+# take all arguments and upload them to a folder in the ssh cluster
+echo "connecting to server" 
+echo "....................."
+ssh -q -T cchmc << HEREE
+		mkdir -p ${base_name}_out
+		exit
+HEREE
+echo "....................."
+
+
+echo "uploading: ..."
+scp $@ cchmc:~/${base_name}_out
+echo "upload done!"
+
+echo "submitting $1 ..."
+
+# next ssh into shell
+ssh -q -T cchmc > /dev/null << HERE 
+
+		cd  ~/${base_name}_out
+
+		echo "#BSUB -J $base_name
+			 #BSUB -W 10:00
+			 #BSUB -n 4
+			 #BSUB -M 16000
+			 #BSUB -oo ~/${base_name}_out/${base_name}.Rout 
+			 #BSUB -u cole.brokamp@gmail.com
+
+			 module load R/3.1.2
+			 cd ~/${base_name}_out
+			 R CMD BATCH --vanilla $1" > ${base_name}.bat
+
+		bsub  < ${base_name}.bat
+
+exit
+HERE
+
+echo "$1 has been submitted."
+
+

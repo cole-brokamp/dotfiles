@@ -1,0 +1,22 @@
+#!/usr/local/bin/python
+
+import csv, sys
+
+if len(sys.argv) < 2:
+		print 'usage: name_of_csv_file'
+else:
+
+		loc = sys.argv[1]
+		f = open(loc,'U')
+		reader = csv.reader(f, delimiter=',')
+
+		ncol = len(next(reader))
+		print "number of columns:", ncol
+
+		f.seek(0)
+
+		nrow = 0
+		for row in reader:
+		    nrow += 1
+    
+		print "number of rows:",nrow

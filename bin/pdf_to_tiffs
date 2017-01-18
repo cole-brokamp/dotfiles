@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+if [[ $# < 1 ]]; then
+ 	echo "converts each page of a PDF into a TIFF"
+ 	echo "usage: pdf_to_tiffs -name_of_file.pdf"
+else
+	gs -o Figure_%01d.tif -sDEVICE=tiff12nc -r900x900 $1
+fi
