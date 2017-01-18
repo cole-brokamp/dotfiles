@@ -1,5 +1,3 @@
-## on a mac?  use `brew install gdal` instead!
-
 # update system
 sudo apt-get update && sudo apt-get upgrade
 
