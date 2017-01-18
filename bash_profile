@@ -64,8 +64,8 @@ alias sshuttle_viao="sshuttle --dns -r viao 0/0"
 alias quick_serve="python -m SimpleHTTPServer"
 
 # alias for newer version of screen for mac osx
-# add flags to use UTF-8 encoding [U], detach elsewhere and reattach here [d], and reattach if possible, otherwise start a new session
-alias screen="/usr/local/bin/screen -U -d"
+# add flags to use UTF-8 encoding [U]
+alias screen="/usr/local/bin/screen -U"
 
 # alias to lock mac
 alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
