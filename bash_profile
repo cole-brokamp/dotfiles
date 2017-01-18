@@ -44,6 +44,9 @@ fi
 alias rstudio_server_viao="open /Applications/RStudio\ Server\ \(viao\).app && ssh -f -N -L localhost:8787:localhost:8787 viao"
 alias rstudio_server_hp_int="open /Applications/RStudio\ Server\ \(hp_int\).app && ssh -f -N -L localhost:8788:localhost:8787 hp_int"
 
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec $SHELL -l"
+
 # sshuttle aliases
 alias sshuttle_viao="sshuttle --dns -r viao 0/0"
 
