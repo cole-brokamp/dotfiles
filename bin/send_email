@@ -8,11 +8,11 @@ parser = optparse.OptionParser()
 parser.add_option('-t', '--to',action='store',dest='to_email',help='destination email',default='NONE!')
 parser.add_option('-m', '--message',action='store',dest='email_body',help='email of body',default=' ')
 
-print('reading gmail password from ~/shell_scripts/.gmail_pwd')
+print('reading gmail password from ~/dotfiles/bin/.gmail_pwd')
 
-with open(os.path.expanduser('~/shell_scripts/.gmail_pwd'), 'r') as f:
+with open(os.path.expanduser('~/dotfiles/bin/.gmail_pwd'), 'r') as f:
     gmail_pwd=f.read()
-    
+
 if len(sys.argv)==1:
     parser.print_help()
     sys.exit(1)
