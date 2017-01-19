@@ -20,7 +20,7 @@ echo -e "\nCopying nano directory"
 echo "=============================="
 
 # manually copy over nano folder
-cp -rf ~/$dir/nano/ ~/.nano/
+cp -rf $dir/nano/ ~/.nano/
 
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
