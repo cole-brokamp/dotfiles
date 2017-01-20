@@ -19,22 +19,21 @@ brew cask install firefox
 brew cask install transmit
 brew cask install transmission
 brew cask install texstudio
-brew cask middleclick
+brew cask install middleclick
 brew cask install xtrafinder
 brew cask install caprine #fb messenger
-brew cask install quik
 brew cask install cumulus
-brew cask vlc
-brew cask github-desktop
-brew cask qgis
-brew cask duet
-brew cask kindle
-brew cask microsoft-office
-brew cask docker
-brew cask rstudio
-brew cask r-app
-cask install the-unarchiver
-cask install sublime-text
+brew cask install vlc
+brew cask install github-desktop
+brew cask install qgis
+brew cask install duet
+brew cask install kindle
+brew cask install microsoft-office
+brew cask install docker
+brew cask install rstudio
+brew cask install r-app
+brew cask install the-unarchiver
+brew cask install sublime-text
 
 brew cleanup
 
