@@ -90,7 +90,7 @@ alias ip_public='wget http://ipinfo.io/ip -qO -'
 alias ip_local='ipconfig getifaddr en0'
 
 # nano alias for options
-alias nano='/usr/local/Cellar/nano/2.5.3/bin/nano --tabstospaces --tabsize=4 --smooth --autoindent --nohelp --quickblank -$'
+alias nano='/usr/local/Cellar/nano/2.7.4/bin/nano --tabstospaces --tabsize=4 --smooth --autoindent --nohelp --quickblank -$'
 
 # notes alias
 alias notes='cd /Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes; ls'
