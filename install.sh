@@ -8,7 +8,7 @@ cd $dir
 echo -e "\nCreating symlinks"
 echo "=============================="
 
-linkables=( "bash_profile" "git/gitconfig" "git/gitignore_global" "hushlogin" "nanorc" "screenrc")
+linkables=( "bash_profile" "git/gitconfig" "git/gitignore_global" "hushlogin" "nanorc" "screenrc" "tmux/tmux.conf" )
 
 for file in "${linkables[@]}" ; do
     echo "Creating symlink for $file"
@@ -16,11 +16,44 @@ for file in "${linkables[@]}" ; do
     ln -sf $dir/$file $target
 done
 
-echo -e "\nCopying nano directory"
+
+echo -e "\n\ninstalling to ~/.config"
 echo "=============================="
 
-# manually copy over nano folder
-cp -rf $dir/nano/ ~/.nano/
+if [ -d ~/.config/vimrc ]; then
+    echo "Deleting old ~/.config/nvim"
+    rm -rf ~/.config/nvim
+fi
+
+if [ ! -d ~/.config/vimrc ]; then
+    echo "Creating ~/.config/nvim"
+    mkdir -p ~/.config/nvim
+fi
+
+for config in $dir/config/nvim/*; do
+    target=$HOME/.config/nvim/$( basename $config )
+    echo "Creating symlink for $config"
+    ln -sf $config $target
+done
+
+echo -e "\n\ninstalling to ~/.nano"
+echo "=============================="
+
+if [ -d ~/.nano ]; then
+    echo "Deleting old ~/.nano/"
+    rm -rf ~/.nano
+fi
+
+if [ ! -d ~/.nano ]; then
+    echo "Creating ~/.nano/"
+    mkdir -p ~/.nano
+fi
+
+for file in $dir/nano/*; do
+    target=$HOME/.nano/$( basename $file )
+    echo "Creating symlink for $file"
+    ln -sf $file $target
+done
 
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
