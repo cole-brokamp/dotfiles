@@ -63,10 +63,6 @@ alias sshuttle_viao="sshuttle --dns -r viao 0/0"
     # will make current directory available on local network, port 8000
 alias quick_serve="python -m SimpleHTTPServer"
 
-# alias for newer version of screen for mac osx
-# add flags to use UTF-8 encoding [U]
-alias screen="/usr/local/bin/screen -U"
-
 # alias to lock mac
 alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
@@ -118,28 +114,12 @@ alias R='R --vanilla --quiet'
 alias r='R --vanilla --quiet'
 
 # alias to change to common directories
-
-# Setting PATH for Python 2.7
-# The orginal version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
-export PATH
-
-# MacPorts Installer addition on 2013-08-05_at_01:23:05: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-
-# add path for gdal
-export PATH=$PATH:/Library/Frameworks/GDAL.framework/Versions/1.11/Programs
-
-test -r /sw/bin/init.sh && . /sw/bin/init.sh
 alias 'biostat'='cd ~/Biostatistics'
 alias 'tmp'='cd ~/Biostatistics/_TMP'
 alias 'cb'='cd ~/Biostatistics/_CB'
 
 # setting path for my own scripts
 export PATH=$PATH:/Users/cole/dotfiles/bin
-
-# setting path for pandoc
-export PATH=$PATH:/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc
 
 # homebrew bash completion
     # install additional scripts at https://github.com/Homebrew/homebrew-completions
