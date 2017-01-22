@@ -26,6 +26,10 @@ brew install bash-completion2
 brew install homebrew/completions/brew-cask-completion
 brew install docker-completion
 
+# fonts
+brew tap caskroom/fonts
+brew cask install font-hack font-fira-code
+
 # tools
 brew install tree
 brew install wget
