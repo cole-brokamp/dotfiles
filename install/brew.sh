@@ -53,6 +53,7 @@ brew install imagemagick
 brew install lame
 brew install googler
 brew install tldr
+brew install awscli
 
 # science
 brew install pandoc
