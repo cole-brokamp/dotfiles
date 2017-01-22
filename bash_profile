@@ -79,8 +79,8 @@ alias cwd="pwd | tr -d '\r\n' | pbcopy | echo '=> working directory copied to ke
 # alias to open file in new R Studio instance
 alias rstudio='open -na "rstudio"'
 
-# alias to open file in Atom
-alias a='open -a "Atom"'
+# alias to open file in Sublime
+alias s='open -a "Submlime"'
 
 # alias for googler
 alias g='googler --colors bjdxxy -n 6'
