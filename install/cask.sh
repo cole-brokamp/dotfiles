@@ -34,7 +34,11 @@ brew cask install rstudio
 brew cask install r-app
 brew cask install the-unarchiver
 brew cask install sublime-text
+brew cask install macdown
 
-brew cleanup
+brew cask cleanup
+
+echo -e "/n/nDone!\n\n"
 
 echo -e "If installing from scratch, install Airmail 3 from the App Store"
+
