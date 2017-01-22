@@ -118,9 +118,6 @@ alias R='R --vanilla --quiet'
 alias r='R --vanilla --quiet'
 
 # alias to change to common directories
-alias 'biostat'='cd ~/Documents/Biostatistics'
-alias 'tmp'='cd ~/Documents/Biostatistics/_TMP'
-alias 'cb'='cd ~/Documents/Biostatistics/_CB'
 
 # Setting PATH for Python 2.7
 # The orginal version is saved in .bash_profile.pysave
@@ -134,6 +131,9 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=$PATH:/Library/Frameworks/GDAL.framework/Versions/1.11/Programs
 
 test -r /sw/bin/init.sh && . /sw/bin/init.sh
+alias 'biostat'='cd ~/Biostatistics'
+alias 'tmp'='cd ~/Biostatistics/_TMP'
+alias 'cb'='cd ~/Biostatistics/_CB'
 
 # setting path for my own scripts
 export PATH=$PATH:/Users/cole/dotfiles/bin
