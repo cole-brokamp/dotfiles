@@ -88,6 +88,11 @@ alias ip_local='ipconfig getifaddr en0'
 # nano alias for options
 alias nano='/usr/local/Cellar/nano/2.7.4/bin/nano --tabstospaces --tabsize=4 --smooth --autoindent --nohelp --quickblank -$'
 
+# docker aliases
+alias di='docker images'
+alias dp='docker ps -a'
+alias dc='docker_clean'
+
 # notes alias
 alias notes='cd /Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes; ls'
 # todo alias will open todo note for school and backup when i save a copy
