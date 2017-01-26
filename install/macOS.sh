@@ -137,6 +137,15 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # Disable continuous spell checking
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
+##############################################################################
+# settings for preview plugin called "QL Color Code"
+##############################################################################
+
+defaults write org.n8gray.QLColorCode fontSizePoints 9
+defaults write org.n8gray.QLColorCode font Hack
+defaults write org.n8gray.QLColorCode hlTheme blacknblue
+defaults write org.n8gray.QLColorCode hlThumbTheme blacknblue
+
 ###############################################################################
 # Transmission.app                                                            #
 ###############################################################################

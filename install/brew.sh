@@ -73,6 +73,7 @@ npm install -g how2
 
 # quick look plugins for developers
 brew cask install qlcolorcode qlmarkdown \
+    qlstephen suspicious-package qlvideo \
     quicklook-json qlprettypatch quicklook-csv betterzipql \
         qlimagesize webpquicklook
 
