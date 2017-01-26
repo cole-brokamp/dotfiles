@@ -31,6 +31,7 @@ brew tap caskroom/fonts
 brew cask install font-hack font-fira-code
 
 # tools
+brew install less
 brew install tree
 brew install wget
 brew install git
