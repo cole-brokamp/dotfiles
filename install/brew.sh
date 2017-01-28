@@ -22,9 +22,12 @@ if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
 fi;
 
 # completion
-brew install bash-completion2
-brew install homebrew/completions/brew-cask-completion
+brew install bash-completion
+brew link --overwrite bash-completion
 brew install docker-completion
+brew install brew-cask-completion
+brew install docker-compose-completion
+brew install tmuxinator-completion
 
 # fonts
 brew tap caskroom/fonts
@@ -50,7 +53,6 @@ brew install nano
 brew install htop-osx
 brew install sshuttle
 brew install youtube-dl
-brew install sqlite
 brew install asciinema
 brew install emojify
 brew install ffmpeg
@@ -59,6 +61,7 @@ brew install lame
 brew install googler
 brew install tldr
 brew install awscli
+brew install vim
 
 # science
 brew install pandoc
