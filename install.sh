@@ -55,21 +55,35 @@ for file in $dir/nano/*; do
     ln -sf $file $target
 done
 
+if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
+    echo -e "/n/ninstalling Vundle"
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
+
+echo -e "/n/ninstalling vim plugins"
+echo "=============================="
+vim +PluginInstall +qall
+
+echo -e "/n/ninstalling vimrc"
+ln -sf $dir/vimrc .vimrc
+
+
+echo "=============================="
+
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
     read -p "Do you want to brew command line applications? "
     echo
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
         source install/brew.sh
     fi
     echo "=============================="
     read -p "Do you want to set macOS options? "
     echo
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
         source install/macOS.sh
     fi
 fi
 
-echo "Done. Reload the terminal."
+echo "Done. Reload the shell."
+
