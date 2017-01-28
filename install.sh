@@ -65,7 +65,7 @@ echo "=============================="
 vim +PluginInstall +qall
 
 echo -e "/n/ninstalling vimrc"
-ln -sf $dir/vimrc .vimrc
+ln -sf $dir/vimrc ~/.vimrc
 
 
 echo "=============================="
