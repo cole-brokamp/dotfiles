@@ -70,7 +70,7 @@ brew install proj
 
 # node stuff
 brew install node
-npm install -g how2
+sudo npm install -g how2
 
 # quick look plugins for developers
 brew cask install qlcolorcode qlmarkdown \
