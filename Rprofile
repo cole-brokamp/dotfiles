@@ -11,9 +11,8 @@ options(prompt='R > ')
 utils::rc.settings(ipck=TRUE)
 
 # set system variables
-Sys.setenv(GITHUB_PAT='b43a583af6fd09f0ca8c7fb016510929f7d38660') # allows for lots of github calls
 # if on CCHMC HPC, set proxy variables
-if (Sys.info()['user'] == 'broeg1') { # better way to determine this? 
+if (Sys.info()['user'] == 'broeg1') { # better way to determine this?
     Sys.setenv(http_proxy='http://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80')
     Sys.setenv(https_proxy='https://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80')
 }
