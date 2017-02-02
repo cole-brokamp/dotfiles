@@ -114,8 +114,8 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 alias grep='grep --color=auto'
 
 # R alias
-alias R='R --vanilla --quiet'
-alias r='R --vanilla --quiet'
+alias R='R --quiet'
+alias r='R --quiet'
 
 # alias to change to common directories
 alias 'biostat'='cd ~/Biostatistics'
@@ -124,3 +124,6 @@ alias 'cb'='cd ~/Biostatistics/_CB'
 
 # setting path for my own scripts
 export PATH=$PATH:/Users/cole/dotfiles/bin
+
+# export COLUMNS variable for proper setting of R's width on resize
+export COLUMNS
