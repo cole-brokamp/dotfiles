@@ -75,7 +75,7 @@ alias cwd="pwd | tr -d '\r\n' | pbcopy | echo '=> working directory copied to ke
 alias rstudio='open -na "rstudio"'
 
 # alias to open file in Sublime
-alias s='open -a "Submlime"'
+alias s='open -a "Sublime Text"'
 
 # alias for googler
 alias g='googler --colors bjdxxy -n 6'
