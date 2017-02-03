@@ -13,9 +13,12 @@ cd ~/dotfiles
 ```
 If on a Mac, `install/brew.sh` and `install/macOS.sh` will be run to install programs and set macOS options.
 
-#### Updating
+#### Lunch
 
-Update homebrew applications (`install/brew_update.sh`)
+Run `lunch` when you're about to leave for lunch and this script will lock the computer as well as:
+
+- Update homebrew applications (`install/brew_update.sh`)
+- Archive a copy of select $HOME folders to CCHMC CB shared drive (`bin/cb_cchmc_backup`)
 
 #### Optional Installations
 
