@@ -2,8 +2,6 @@
 
 echo "Have a good lunch! 😃"
 
-lock
-
 ~/dotfiles/install/brew_update.sh
 
 cb_cchmc_backup
