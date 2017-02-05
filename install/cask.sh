@@ -35,6 +35,7 @@ brew cask install r-app
 brew cask install the-unarchiver
 brew cask install sublime-text
 brew cask install macdown
+brew cask install 1password
 
 brew cask cleanup
 
