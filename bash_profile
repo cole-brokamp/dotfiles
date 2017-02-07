@@ -91,6 +91,7 @@ alias nano='nano --tabstospaces --tabsize=4 --smooth --autoindent --nohelp --qui
 alias di='docker images | less -SX'
 alias dp='docker ps -a | less -SX'
 alias dc='docker_clean'
+alias de='docker exec -ti $( docker ps -a -q -l) /bin/bash'
 
 # notes alias
 alias notes='cd /Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes; ls'
