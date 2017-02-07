@@ -34,6 +34,7 @@ brew tap caskroom/fonts
 brew cask install font-hack font-fira-code
 
 # tools
+brew tap homebrew/dupes
 brew install less
 brew install tree
 brew install wget
@@ -46,9 +47,9 @@ brew install diff-so-fancy
 brew install neovim/neovim/neovim
 brew install pv
 brew install ssh-copy-id
-brew install homebrew/dupes/grep
-brew install homebrew/dupes/openssh
-brew install homebrew/dupes/screen
+brew install grep
+brew install openssh
+brew install screen
 brew install nano
 brew install htop-osx
 brew install sshuttle
@@ -61,7 +62,8 @@ brew install lame
 brew install googler
 brew install tldr
 brew install awscli
-brew install vim
+brew install vim --override-system-vi
+brew install unzip
 
 # science
 brew install pandoc
