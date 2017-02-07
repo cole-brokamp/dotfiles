@@ -88,8 +88,8 @@ alias ip_local='ipconfig getifaddr en0'
 alias nano='nano --tabstospaces --tabsize=4 --smooth --autoindent --nohelp --quickblank -$'
 
 # docker aliases
-alias di='docker images'
-alias dp='docker ps -a'
+alias di='docker images | less -SX'
+alias dp='docker ps -a | less -SX'
 alias dc='docker_clean'
 
 # notes alias
