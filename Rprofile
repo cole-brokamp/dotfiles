@@ -30,6 +30,14 @@ if (Sys.getenv("RSTUDIO") == "") {
 
 suppressPackageStartupMessages({
 
+    library(stats)
+    library(graphics)
+    library(grDevices)
+    library(datasets)
+    library(utils)
+    library(methods)
+    library(base)
+
     if (suppressWarnings(!require(devtools, quietly=TRUE))) install.packages('devtools')
     if (suppressWarnings(!require(colorout, quietly=TRUE))) devtools::install_github('jalvesaq/colorout')
     if (interactive()) {
