@@ -1,6 +1,9 @@
 # source my bash profile by opening each window as a login shell
 shell -$SHELL
 
+# don't keep full screen programs in the scrollback buffer
+altscreen on
+
 # use more colors
 attrcolor b ".I"
 termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E38;5;%dm'
@@ -48,6 +51,7 @@ focus left
 layout attach one
 layout select one
 
+mousetrack on
 
 # F2 puts Screen into resize mode. Resize regions using hjkl keys.
 bindkey "^[OQ" eval "command -c rsz" # enter resize mode
