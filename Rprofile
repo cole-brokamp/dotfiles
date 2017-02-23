@@ -38,12 +38,12 @@ suppressPackageStartupMessages({
     library(methods)
     library(base)
 
-    if (suppressWarnings(!require(devtools, quietly=TRUE))) install.packages('devtools')
-    if (suppressWarnings(!require(colorout, quietly=TRUE))) devtools::install_github('jalvesaq/colorout')
+    if (suppressWarnings(!require(remotes, quietly=TRUE))) install.packages('remotes')
+    if (suppressWarnings(!require(colorout, quietly=TRUE))) remotes::install_github('jalvesaq/colorout')
     if (interactive()) {
         if (suppressWarnings(!require(tidyverse, quietly=TRUE))) install.packages('tidyverse')
-        if (suppressWarnings(!require(lookup, quietly=TRUE))) devtools::install_github('jimhester/lookup')
-        if (suppressWarnings(!require(CB, quietly=TRUE))) devtools::install_github('cole-brokamp/CB')
+        if (suppressWarnings(!require(lookup, quietly=TRUE))) remotes::install_github('jimhester/lookup')
+        if (suppressWarnings(!require(CB, quietly=TRUE))) remotes::install_github('cole-brokamp/CB')
     }
 
 })
