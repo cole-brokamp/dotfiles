@@ -8,7 +8,7 @@ cd $dir
 echo -e "\nCreating symlinks"
 echo "=============================="
 
-linkables=( "bash_profile" "git/gitconfig" "git/gitignore_global" "hushlogin" "nanorc" "screenrc" "tmux/tmux.conf" "Rprofile")
+linkables=( "bash_profile" "gitconfig" "gitignore" "hushlogin" "nanorc" "screenrc" "tmux.conf" "Rprofile")
 
 for file in "${linkables[@]}" ; do
     echo "Creating symlink for $file"
@@ -16,25 +16,6 @@ for file in "${linkables[@]}" ; do
     ln -sf $dir/$file $target
 done
 
-
-echo -e "\n\ninstalling to ~/.config"
-echo "=============================="
-
-if [ -d ~/.config/vimrc ]; then
-    echo "Deleting old ~/.config/nvim"
-    rm -rf ~/.config/nvim
-fi
-
-if [ ! -d ~/.config/vimrc ]; then
-    echo "Creating ~/.config/nvim"
-    mkdir -p ~/.config/nvim
-fi
-
-for config in $dir/config/nvim/*; do
-    target=$HOME/.config/nvim/$( basename $config )
-    echo "Creating symlink for $config"
-    ln -sf $config $target
-done
 
 echo -e "\n\ninstalling to ~/.nano"
 echo "=============================="
@@ -56,15 +37,15 @@ for file in $dir/nano/*; do
 done
 
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
-    echo -e "/n/ninstalling Vundle"
+    echo -e "\n\ninstalling Vundle"
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
-echo -e "/n/ninstalling vim plugins"
+echo -e "\n\ninstalling vim plugins"
 echo "=============================="
 vim +PluginInstall +qall
 
-echo -e "/n/ninstalling vimrc"
+echo -e "\n\ninstalling vimrc"
 ln -sf $dir/vimrc ~/.vimrc
 
 
@@ -72,17 +53,8 @@ echo "=============================="
 
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
-    read -p "Do you want to brew command line applications? "
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        source install/brew.sh
-    fi
-    echo "=============================="
-    read -p "Do you want to set macOS options? "
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        source install/macOS.sh
-    fi
+    read -e -p "Do you want to brew command line applications? " reply
+    [[ $reply == [Yy]* ]] && source install/brew.sh || echo "I'll take that as a no"
 fi
 
 echo "Done. Reload the shell."
