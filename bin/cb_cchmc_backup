@@ -4,6 +4,7 @@
   # con: must have Finder running
   # pro: uses stored username/password
 open 'smb://rds6.cchmc.org/DBE-64/CB'
+# mount_smbfs //broeg1@rds6.cchmc.org/DBE-64/CB /Volumes
 
 # rsync $HOME to this backup folder
 rsync -a --delete --progress /Users/cole/Desktop/ /Volumes/CB/Desktop && \

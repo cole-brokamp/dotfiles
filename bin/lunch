@@ -1,9 +1,19 @@
 #!/bin/bash
 
-echo "Have a good lunch! 😃"
+echo -e "\n\nHave a good lunch! 😃"
 
+echo -e "\n\n updating brew packages"
+echo "=================="
 ~/dotfiles/install/brew_update.sh
 
+echo -e "\n\n backing up to cchmc drive"
+echo "=============================="
 cb_cchmc_backup
 
-echo "Backup completed."
+echo -e "\n\n updating Node packages"
+echo "=================="
+npm install npm -g; npm update -g
+
+
+echo "\n\nDone."
+echo "========="

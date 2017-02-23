@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo "updating homebrew..."
+echo -e  "\n\nupdating homebrew..."
 brew update
-echo "upgrading formulas..."
+echo -e "\n\nupgrading formulas..."
 brew upgrade
-echo "cleaning up..."
+echo -e "\n\ncleaning up..."
 brew cleanup
