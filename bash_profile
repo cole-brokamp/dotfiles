@@ -115,8 +115,8 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 alias grep='grep --color=auto'
 
 # R alias
-alias R='R --quiet'
-alias r='R --quiet'
+alias R='R --quiet --no-save'
+alias r='R --quiet --no-save'
 
 # alias to change to common directories
 alias 'biostat'='cd ~/Biostatistics'
