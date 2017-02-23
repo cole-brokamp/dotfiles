@@ -42,12 +42,10 @@ brew install git
 brew install reattach-to-user-namespace
 brew install tmux
 brew install highlight
-brew install markdown
 brew install diff-so-fancy
-brew install neovim/neovim/neovim
 brew install pv
 brew install ssh-copy-id
-brew install grep
+brew install grep --with-default-names
 brew install openssh
 brew install screen
 brew install nano
@@ -62,8 +60,7 @@ brew install lame
 brew install googler
 brew install tldr
 brew install awscli
-brew install vim --override-system-vi
-brew install unzip
+brew install vim
 
 # science
 brew install pandoc
