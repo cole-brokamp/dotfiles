@@ -48,6 +48,10 @@ vim +PluginInstall +qall
 echo -e "\n\ninstalling vimrc"
 ln -sf $dir/vimrc ~/.vimrc
 
+echo -e "\n\ninstalling vim plugins again just in case theme wasn't recognized"
+echo "=============================="
+vim +PluginInstall +qall
+
 
 echo "=============================="
 
