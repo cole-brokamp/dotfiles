@@ -33,7 +33,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdTree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'yggdroot/indentline'
 Plugin 'VundleVim/Vundle.vim'
