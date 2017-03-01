@@ -19,6 +19,6 @@ echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.
 echo 'options(repos=c(CRAN = "https://cran.rstudio.com/"), download.file.method="wget")' >> /etc/R/Rprofile.site
 
 # run the following in R to install packages as sudo to make avail for all users
-sudo su - -c "R -e \"install.packages('devtools', repos='http://cran.rstudio.com/')\""
-sudo su - -c "R -e \"devtools::install_github('cole-brokamp/CB')\""
-sudo su - -c "R -e \"devtools::install_github('cole-brokamp/automagic')\""
+sudo su - -c "R -e \"install.packages('remotes')\""
+sudo su - -c "R -e \"install.packages('automagic')\""
+sudo su - -c "R -e \"remotes::install_github('cole-brokamp/CB')\""
