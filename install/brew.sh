@@ -61,6 +61,7 @@ brew install googler
 brew install tldr
 brew install awscli
 brew install vim
+brew install 1password
 
 # science
 brew install pandoc
