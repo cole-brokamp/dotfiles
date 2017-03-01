@@ -43,7 +43,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
 
 # setting path for my own scripts
-export PATH=$PATH:/Users/cole/dotfiles/bin
+export PATH=$PATH:~/dotfiles/bin
 
 # export COLUMNS variable for proper setting of R's width on resize
 export COLUMNS
