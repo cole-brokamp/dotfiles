@@ -15,7 +15,7 @@
 	default = simple
 [alias]
 	st = status -sb
-	ls = !git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative | emojify | less --RAW-CONTROL-CHARS 
+	ls = !git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
         undo = reset --soft HEAD^
         merge = merge --no-ff --interactive
 [pager]
