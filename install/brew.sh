@@ -74,6 +74,7 @@ brew install proj
 # node stuff
 brew install node
 sudo npm install -g how2
+npm install --global fkill-cli
 
 # quick look plugins for developers
 brew cask install qlcolorcode qlmarkdown \
