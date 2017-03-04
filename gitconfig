@@ -7,6 +7,7 @@
 	required = true
 [core]
 	editor = nano
+	excludesfile = /Users/cole/.gitignore
 [color]
 	ui = 1
 [credential]
