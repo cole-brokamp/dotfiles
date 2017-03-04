@@ -42,6 +42,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'qpkorr/vim-bufkill'
 " Plugin jalvesaq/Nvim-R
 call vundle#end()
 
