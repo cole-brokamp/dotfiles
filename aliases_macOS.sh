@@ -1,5 +1,8 @@
 ### macOS specific aliases
 
+# use gnu ls for better colors
+alias ls='gls -Fh --color'
+
 # lock
 alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 

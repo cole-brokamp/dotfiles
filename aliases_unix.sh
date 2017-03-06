@@ -1,5 +1,8 @@
 ### unix aliases
 
+alias ll='ls -l'
+alias la='ls -al'
+
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
