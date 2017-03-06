@@ -1,5 +1,6 @@
 source ~/dotfiles/prompt.sh
 
+export TERM=screen-256color
 ## pick between macOS and unix
 if [ "$(uname)" == "Darwin" ]; then
     source ~/dotfiles/aliases_macOS.sh
