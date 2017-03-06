@@ -25,7 +25,7 @@ shopt -s cdspell;
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
 # Solarized colorscheme for GNU `ls`:
-eval `gdircolors ~/dotfiles/dircolors-solarized`
+eval `dircolors ~/dotfiles/dircolors-solarized`
 
 # setting path for my own scripts
 export PATH=$PATH:~/dotfiles/bin
