@@ -4,8 +4,8 @@ source ~/dotfiles/prompt.sh
 
 ## pick between macOS and unix
 if [ "$(uname)" == "Darwin" ]; then
-    source ~/dotfiles/aliases_macOS.sh
     source ~/dotfiles/aliases_unix.sh
+    source ~/dotfiles/aliases_macOS.sh
     # brew completion
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
         . $(brew --prefix)/etc/bash_completion
