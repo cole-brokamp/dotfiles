@@ -16,6 +16,18 @@ for file in "${linkables[@]}" ; do
     ln -sf $dir/$file $target
 done
 
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+    echo -e "\n\ninstalling tmux plugin manager"
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+echo -e "\n\ninstalling, updating, and cleaning tmux plugins"
+echo "=============================="
+
+~/.tmux/plugins/tpm/bin/install_plugins
+~/.tmux/plugins/tpm/bin/update_plugins all
+~/.tmux/plugins/tpm/bin/clean_plugins
+
 
 echo -e "\n\ninstalling to ~/.nano"
 echo "=============================="
