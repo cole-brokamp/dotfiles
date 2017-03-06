@@ -33,6 +33,9 @@ brew install tmuxinator-completion
 brew tap caskroom/fonts
 brew cask install font-hack font-fira-code
 
+# install gnu coreutils with a g prefixed
+brew install coreutils
+
 # tools
 brew tap homebrew/dupes
 brew install less
