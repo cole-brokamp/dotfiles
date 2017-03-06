@@ -14,6 +14,15 @@ echo -e "\n\n updating Node packages"
 echo "=================="
 npm install npm -g; npm update -g
 
+echo -e "\n\n updating Vim plugins"
+echo "================="
+vim +PluginUpdate +qall
+vim +PluginClean! +qall
+
+echo -e "\n\n updating tmux plugins"
+echo "================="
+~/.tmux/plugins/tpm/bin/update_plugins all
+~/.tmux/plugins/tpm/bin/clean_plugins
 
 echo "\n\nDone."
 echo "========="
