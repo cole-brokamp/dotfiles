@@ -1,12 +1,15 @@
 set nocompatible
 set autoread
 
+set relativenumber
+set number
+
 set cursorline
+
 set history=1000
 set autoindent
 set smartindent
 set backspace=indent,eol,start
-" set number
 set showmatch
 
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
