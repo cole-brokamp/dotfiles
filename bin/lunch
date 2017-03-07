@@ -17,7 +17,7 @@ npm install npm -g; npm update -g
 echo -e "\n\n updating Vim plugins"
 echo "================="
 vim +PluginUpdate +qall
-vim +PluginClean! +qall
+vim +PluginClean +qall
 
 echo -e "\n\n updating tmux plugins"
 echo "================="
