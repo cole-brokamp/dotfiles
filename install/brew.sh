@@ -2,12 +2,14 @@
 
 if test ! $(which brew); then
     echo "Installing homebrew"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
 fi
 
 brew update
 brew upgrade
 brew cleanup
+
+brew install gcc
 
 brew tap homebrew/versions
 
@@ -27,11 +29,10 @@ brew link --overwrite bash-completion
 brew install docker-completion
 brew install brew-cask-completion
 brew install docker-compose-completion
-brew install tmuxinator-completion
 
 # fonts
 brew tap caskroom/fonts
-brew cask install font-hack font-fira-code
+brew cask install font-hack
 
 # install gnu coreutils with a g prefixed
 brew install coreutils
@@ -42,9 +43,8 @@ brew install less
 brew install tree
 brew install wget
 brew install git
-brew install reattach-to-user-namespace
 brew install tmux
-brew install highlight
+# brew install highlight # not installable on linux
 brew install diff-so-fancy
 brew install pv
 brew install ssh-copy-id
@@ -52,7 +52,7 @@ brew install grep --with-default-names
 brew install openssh
 brew install screen
 brew install nano
-brew install htop-osx
+brew install htop-osx # mac only
 brew install sshuttle
 brew install youtube-dl
 brew install asciinema
@@ -63,8 +63,7 @@ brew install lame
 brew install googler
 brew install tldr
 brew install awscli
-brew install vim
-brew install 1password
+brew install vim --with-override-system-vi 
 
 # science
 brew install pandoc

@@ -28,6 +28,9 @@ alias grep='grep --color=auto'
 alias R='R --quiet --no-save'
 alias r='R --quiet --no-save'
 
+# googler
+alias g='googler --colors bjdxxy -n 6'
+
 ##  SSH tunnels
 # aliases to start rstudio server over ssh tunnel
 # make sure to add `www-address=127.0.0.1` to `/etc/rstudio/rserver.conf` so it listens only on localhost for connections

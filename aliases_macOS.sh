@@ -19,9 +19,6 @@ alias rstudio='open -na "rstudio"'
 # open file in Sublime
 alias s='open -a "Sublime Text"'
 
-# googler
-alias g='googler --colors bjdxxy -n 6'
-
 # notes
 alias notes='cd /Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes; ls'
 # todo will open todo note for school and backup when i save a copy

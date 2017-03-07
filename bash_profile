@@ -11,6 +11,10 @@ if [ "$(uname)" == "Darwin" ]; then
         . $(brew --prefix)/etc/bash_completion
     fi
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+   # set path for linux brew
+    export PATH="$HOME/.linuxbrew/bin:$PATH"
+    export MANPATH="HOME/.linuxbrew/share/man:$MANPATH"
+    export INFOPATH="HOME/.linuxbrew/share/info:$INFOPATH"
     source ~/dotfiles/aliases_unix.sh
 fi
 
