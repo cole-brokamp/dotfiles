@@ -76,7 +76,7 @@ brew install proj
 
 # node stuff
 brew install node
-sudo npm install -g how2
-npm install --global fkill-cli
+npm install -g how2
+npm install -g fkill-cli
 
 brew cleanup
