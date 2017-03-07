@@ -12,8 +12,6 @@ set smartindent
 set backspace=indent,eol,start
 set showmatch
 
-" Use the OS clipboard by default (on versions compiled with `+clipboard`)
-set clipboard=unnamed
 " Enhance command-line completion
 set wildmenu
 
