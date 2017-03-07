@@ -16,11 +16,11 @@ do
 	case $opt in
 		"new session")
 			read -p "Enter new session name: " SESSION_NAME
-			tmux new -s "$SESSION_NAME"
+			tmux -2 new -s "$SESSION_NAME"
 			break
 			;;
 		*)
-			tmux attach-session -t $opt
+			tmux -2 attach-session -t $opt
 			break
 			;;
 	esac
