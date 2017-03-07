@@ -56,6 +56,8 @@ syntax enable
 set background=dark
 colorscheme solarized
 
+hi CursorLine cterm=underline ctermfg=None ctermbg=None
+
 """ nerdtree settings
 map <C-n> :NERDTreeTabsToggle<CR>
 " close vim if only window left is nerdtree
