@@ -79,10 +79,4 @@ brew install node
 sudo npm install -g how2
 npm install --global fkill-cli
 
-# quick look plugins for developers
-brew cask install qlcolorcode qlmarkdown \
-    qlstephen suspicious-package qlvideo \
-    quicklook-json qlprettypatch quicklook-csv betterzipql \
-        qlimagesize webpquicklook
-
 brew cleanup

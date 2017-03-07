@@ -12,6 +12,13 @@ brew cleanup
 echo -e "\n\nInstalling homebrew cask packages..."
 echo "=============================="
 
+# quick look plugins for developers
+# mac only
+brew cask install qlcolorcode qlmarkdown \
+	qlstephen qlvideo quicklook-json \
+	qlprettypatch quicklook-csn \
+	betterzipql qlimagesize webpquicklook
+
 ### install gui apps
 brew tap caskroom/cask
 brew cask install Caskroom/cask/mactex
