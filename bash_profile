@@ -36,3 +36,7 @@ export PATH=$PATH:~/dotfiles/bin
 
 # export COLUMNS variable for proper setting of R's width on resize
 export COLUMNS
+
+# set default editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
