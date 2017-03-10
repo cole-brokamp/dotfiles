@@ -2,6 +2,9 @@
 
 echo "Installing dotfiles"
 
+# exit on error
+set -e
+
 dir=~/dotfiles
 cd $dir
 
