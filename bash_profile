@@ -2,6 +2,9 @@ export TERM=screen-256color
 
 source ~/dotfiles/prompt.sh
 
+# export secrets if it exists
+source ~/dotfiles/secrets.sh 2> /dev/null
+
 ## pick between macOS and unix
 if [ "$(uname)" == "Darwin" ]; then
     source ~/dotfiles/aliases_unix.sh
