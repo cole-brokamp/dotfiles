@@ -47,5 +47,6 @@ alias di='docker images | less -SX'
 alias dp='docker ps -a | less -SX'
 alias dc='docker_clean'
 alias de='docker exec -ti $( docker ps -a -q -l) /bin/bash'
+alias dt='docker run -ti --name ctop --rm -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
 alias docker_update_all='docker images | grep -v REPOSITORY | awk '\''{print $1 ":" $2}'\'' | xargs -L1 docker pull' # updates all local images
 
