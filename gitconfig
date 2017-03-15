@@ -6,7 +6,7 @@
 	smudge = git-lfs smudge %f
 	required = true
 [core]
-	editor = nano
+	editor = vim
 	excludesfile = /Users/cole/.gitignore
 [color]
 	ui = 1
