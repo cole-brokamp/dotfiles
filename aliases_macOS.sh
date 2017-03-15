@@ -20,9 +20,7 @@ alias rstudio='open -na "rstudio"'
 alias s='open -a "Sublime Text"'
 
 # notes
-alias notes='cd /Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes; ls'
-# todo will open todo note for school and backup when i save a copy
-alias todo='nano -B --backupdir="/Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes/cchmc/" /Users/cole/Library/Mobile\ Documents/com~apple~CloudDocs/notes/cchmc/todo'
+alias notes='vim ~/Documents/notes/'
 
 # change to common directories
 alias 'biostat'='cd ~/Biostatistics'
