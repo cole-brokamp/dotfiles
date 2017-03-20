@@ -3,7 +3,6 @@ set autoread
 
 set relativenumber
 set number
-
 set cursorline
 
 set history=1000
@@ -16,6 +15,9 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+
+" show when leader key is pressed
+set showcmd
 " Enhance command-line completion
 set wildmenu
 
