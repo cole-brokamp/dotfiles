@@ -11,7 +11,7 @@ cd $dir
 echo -e "\nCreating symlinks"
 echo "=============================="
 
-linkables=( "bash_profile" "gitconfig" "gitignore" "hushlogin" "nanorc" "screenrc" "tmux.conf" "Rprofile")
+linkables=( "bash_profile" "gitconfig" "gitignore" "hushlogin" "nanorc" "screenrc" "tmux.conf" "Rprofile" "inputrc")
 
 for file in "${linkables[@]}" ; do
     echo "Creating symlink for $file"
