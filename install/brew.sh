@@ -58,7 +58,6 @@ brew install htop-osx # mac only
 brew install sshuttle
 brew install youtube-dl
 brew install asciinema
-brew install emojify
 brew install ffmpeg
 brew install imagemagick
 brew install lame
@@ -79,5 +78,6 @@ brew install proj
 brew install node
 npm install -g how2
 npm install -g fkill-cli
+npm install -g emoj
 
 brew cleanup
