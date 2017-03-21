@@ -46,6 +46,7 @@ brew install tree
 brew install wget
 brew install git
 brew install tmux
+brew install reattach-to-user-namespace
 # brew install highlight # not installable on linux
 brew install diff-so-fancy
 brew install pv
