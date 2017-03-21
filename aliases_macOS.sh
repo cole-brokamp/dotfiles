@@ -1,5 +1,9 @@
 ### macOS specific aliases
 
+# mount shared drives
+alias mount_cb="open -g 'smb://rds6.cchmc.org/DBE-64/CB'"
+alias mount_gis="open -g 'smb://rds6.cchmc.org/DBE-65/GIS'"
+
 # use gnu ls for better colors
 alias ls='gls -Fh --color'
 alias dircolors='gdircolors'
