@@ -1,6 +1,10 @@
 set nocompatible
 set autoread
 
+" faster scrolling
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
+
 set relativenumber
 set number
 set cursorline
