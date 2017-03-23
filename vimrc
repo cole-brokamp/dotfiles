@@ -91,6 +91,7 @@ let g:airline#extensions#tabline#tab_min_count = 0 " only show tabline if tabs a
 
 " remap for escape
 inoremap jk <esc>
+vnoremap jk <esc>
 
 " switch between buffers with tab and shift+tab
 nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
