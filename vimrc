@@ -53,8 +53,12 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'qpkorr/vim-bufkill'
-" Plugin jalvesaq/Nvim-R
+Plugin 'qpkorr/vim-bufkill' "close buffers leaving split open with :BW
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-commentary' "use gcc or gc <target> to comment out lines
+Plugin 'tpope/vim-fugitive'
+Plugin 'ervandew/supertab' "completions with tab
+Plugin 'cole-brokamp/vim-todo'
 call vundle#end()
 
 filetype plugin indent on
