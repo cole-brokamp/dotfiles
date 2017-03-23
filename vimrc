@@ -72,11 +72,14 @@ hi CursorLine cterm=underline ctermfg=None ctermbg=None
 map <C-n> :NERDTreeTabsToggle<CR>
 " close vim if only window left is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden=0
 let NERDTreeDirArrowExpandable = '▷'
 let NERDTreeDirArrowCollapsible = '▼'
 let g:nerdtree_tabs_open_on_console_startup=2 " open NT if vim opened with a directory
 let g:nerdtree_tabs_autofind=1 "auto find and select currently opened file in NT
+let NERDTreeStatusLine=-1
+let NERDTreeMinimalUI=1
+let NERDTreeIgnore = ['\.swp$','\.DS_Store$']
 
 """ airline settings
 set laststatus=2
