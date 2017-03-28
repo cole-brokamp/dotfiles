@@ -57,7 +57,7 @@ setOutputColors256(normal = 241, negnum = 247, zero = 226,
         const = 252, false = 203, true = 78,
         infinite = 39, stderror = 88,
         warn = c(1, 0, 1), error = c(1, 15),
-        verbose = TRUE, # set to TRUE to show results of setup
+        verbose = FALSE, # set to TRUE to show results of setup
         zero.limit = NA)
 
 
