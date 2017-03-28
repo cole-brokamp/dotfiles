@@ -10,8 +10,6 @@
 	excludesfile = /Users/cole/.gitignore
 [color]
 	ui = 1
-[credential]
-	helper = osxkeychain
 [push]
 	default = simple
 [alias]
