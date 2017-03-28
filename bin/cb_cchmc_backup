@@ -6,6 +6,8 @@
 open -g 'smb://rds6.cchmc.org/DBE-64/CB'
 # mount_smbfs //broeg1@rds6.cchmc.org/DBE-64/CB /Volumes
 
+# give finder time to connect and mount drive
+sleep 10
 # rsync $HOME to this backup folder
 rsync -a --delete --progress /Users/cole/Desktop/ /Volumes/CB/Desktop && \
 rsync -a --delete --progress /Users/cole/Biostatistics/ /Volumes/CB/Biostatistics && \
