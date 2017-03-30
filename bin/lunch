@@ -24,5 +24,5 @@ echo "================="
 ~/.tmux/plugins/tpm/bin/update_plugins all
 ~/.tmux/plugins/tpm/bin/clean_plugins
 
-echo "\n\nDone."
+echo -e "\n\nDone."
 echo "========="
