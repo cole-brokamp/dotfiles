@@ -20,7 +20,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" show when leader key is pressed
+" show commands as they are typed
 set showcmd
 " Enhance command-line completion
 set wildmenu
@@ -31,12 +31,14 @@ set lazyredraw
 
 " Add the g flag to search/replace by default
 set gdefault
+" Highlight dynamically as pattern is typed
+set incsearch
 " Highlight searches
 set hlsearch
 " Ignore case of searches
 set ignorecase
-" Highlight dynamically as pattern is typed
-set incsearch
+" do not ignore capitalization if in all caps
+set smartcase
 "This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
