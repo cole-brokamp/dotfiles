@@ -1,4 +1,26 @@
-# show if I am in a git branch
+# define colors
+
+white=$(tput setaf 231)
+grey=$(tput setaf 240)
+greyB=$(tput setab 237)
+blue=$(tput setaf 33)
+blueB=$(tput setab 33)
+green=$(tput setaf 29)
+greenB=$(tput setab 29)
+yellow=$(tput setaf 136)
+yellowB=$(tput setab 136)
+purple=$(tput setaf 61)
+purpleB=$(tput setab 61)
+red=$(tput setaf 160)
+
+find_git_dirty() {
+  local status=$(git status --porcelain 2> /dev/null)
+  if [[ "$status" != "" ]]; then
+      git_dirty=" ${red}$white"
+  else
+    git_dirty=" "
+  fi
+}
 
 find_git_branch() {
   # Based on: http://stackoverflow.com/a/13003854/170413
@@ -7,36 +29,21 @@ find_git_branch() {
     if [[ "$branch" == "HEAD" ]]; then
       branch='detached*'
     fi
-    git_branch="($branch)"
+    git_branch="$git_dirty $branch"
   else
     git_branch=""
   fi
 }
 
-find_git_dirty() {
-  local status=$(git status --porcelain 2> /dev/null)
-  if [[ "$status" != "" ]]; then
-    git_dirty='*'
-  else
-    git_dirty=''
-  fi
-}
+PROMPT_COMMAND="find_git_dirty; find_git_branch; $PROMPT_COMMAND"
 
-PROMPT_COMMAND="find_git_branch; find_git_dirty; $PROMPT_COMMAND"
-
-# shell prompt name
 PROMPT_DIRTRIM=5
-# PS1="\[\033[36m\]\u\[\033[m\] @ \[\033[32m\]\h: \[\033[m\][\[\033[33;1m\]\w\[\033[m\]]\[\033[m\]\[\033[38;5;93m\] \$git_branch\$git_dirty\]\[\033[38;5;15m\]\\n  > "
-BLACK=$(tput setaf 235)
-GREY=$(tput setaf 240)
-YELLOW=$(tput setaf 136)
-ORANGE=$(tput setaf 166)
-RED=$(tput setaf 160)
-MAGENTA=$(tput setaf 125)
-VIOLET=$(tput setaf 61)
-BLUE=$(tput setaf 33)
-CYAN=$(tput setaf 37)
-GREEN=$(tput setaf 29)
-											  
-											  
-PS1="\[\033[$BLUE\]\u\[\033[m\] @ \[\033[$GREEN\]\h: \[\033[m\][\[\033[$YELLOW\]\w\[\033[m\]]\[\033[m\]\[\033[$VIOLET\] \$git_branch\$git_dirty\]\[\033[38;5;15m\]\\n  > "
+
+PS1="
+$white$blueB \u $blue${greenB}\
+$white$greenB \h $green${yellowB}\
+$white$yellowB \w $yellow${purpleB}\
+$white$purpleB\${git_branch} $purple${greyB}\
+$(tput sgr0)\n  > "
+
+
