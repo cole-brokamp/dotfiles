@@ -124,6 +124,9 @@ STICKY 48;5;33;38;5;230 # dir with the sticky bit set (+t) and not other-writabl
 # This is for files with execute permission:
 EXEC 00;38;5;64
 
+# Rstudio projects
+.Rproj  07;38;5;61
+
 ## Archives or compressed (violet + bold for compression)
 .tar    00;38;5;61
 .tgz    00;38;5;61
@@ -208,6 +211,7 @@ EXEC 00;38;5;64
 *readme.txt      00;38;5;245
 .md              00;38;5;245
 *README.markdown 00;38;5;245
+*README.md       00;38;5;245
 .ini             00;38;5;245
 .yml             00;38;5;245
 .cfg             00;38;5;245
