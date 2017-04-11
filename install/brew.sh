@@ -65,17 +65,22 @@ brew install lame
 brew install googler
 brew install tldr
 brew install awscli
-brew install vim --with-override-system-vi 
+brew install vim --with-override-system-vi
 
 # science
 brew install pandoc
 brew install pandoc-citeproc
 brew install python
-brew install gdal
+# geoinformatics
+brew tap osgeo/osgeo4mac
+# brew install gdal
+brew install udunits
+brew install gdal2 --with-armadillo --with-complete --withlibkml --with-unsupported
+brew link --force gdal2
 brew install geos
 brew install proj
 
-# node stuff
+# node
 brew install node
 npm install -g how2
 npm install -g fkill-cli
