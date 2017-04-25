@@ -78,14 +78,14 @@ hi CursorLine cterm=underline ctermfg=None ctermbg=None
 map <C-n> :NERDTreeTabsToggle<CR>
 " close vim if only window left is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let NERDTreeShowHidden=0
+let NERDTreeShowHidden=1
 let NERDTreeDirArrowExpandable = '▷'
 let NERDTreeDirArrowCollapsible = '▼'
 let g:nerdtree_tabs_open_on_console_startup=2 " open NT if vim opened with a directory
 let g:nerdtree_tabs_autofind=1 "auto find and select currently opened file in NT
 let NERDTreeStatusLine=-1
 let NERDTreeMinimalUI=1
-let NERDTreeIgnore = ['\.swp$','\.DS_Store$']
+let NERDTreeIgnore = ['\.swp$','\.DS_Store$','\.git$']
 
 """ airline settings
 set laststatus=2
@@ -94,7 +94,7 @@ let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
 let g:airline#extensions#tabline#tab_min_count = 0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#show_splits = 1
-let g:airline#extensions#tabline#buffers_label = 'b'
+let g:airline#extensions#tabline#buffers_label = '🗂 '
 
 
 " configure separators for the tabline only. >
