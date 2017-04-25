@@ -1,7 +1,8 @@
-### macOS specific aliases
+
 
 # when using tmux this is needed
 alias pbcopy="reattach-to-user-namespace pbcopy"
+alias open="reattach-to-user-namespace open"
 
 # mount shared drives
 alias mount_cb="open -g 'smb://rds6.cchmc.org/DBE-64/CB'"
