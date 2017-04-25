@@ -1,4 +1,4 @@
-set nocompatible
+
 set autoread
 
 " faster scrolling
@@ -46,6 +46,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'jalvesaq/Nvim-R'
 Plugin 'scrooloose/nerdTree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'yggdroot/indentline'
@@ -60,6 +61,11 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary' "use gcc or gc <target> to comment out lines
 Plugin 'tpope/vim-fugitive'
 Plugin 'ervandew/supertab' "completions with tab
+Plugin 'suan/vim-instant-markdown' " auto open preview of markdown files in background
+Plugin 'chrisbra/csv.vim'
+Plugin 'airblade/vim-gitgutter' " stage hunks, etc
+    " jump between hunks with `[c` and `]c`
+    " preview, stage, undo hunks with `<leader>hp`, `<leader>hs`, `<leader>hu`
 Plugin 'cole-brokamp/vim-todo'
 call vundle#end()
 
@@ -71,6 +77,12 @@ let g:solarized_termcolors=256
 syntax enable
 set background=dark
 colorscheme solarized
+
+""" csv.vim settings
+let g:csv_autocmd_arrange      = 1 " auto arrange when csv file opened
+let g:csv_autocmd_arrange_size = 1024*10240 " only auto arrange on files < 10 MB
+" let g:csv_strict_columns=1 "assume delim not in quotes or escaped (speed up)
+" let g:csv_highlight_column = 'y'
 
 hi CursorLine cterm=underline ctermfg=None ctermbg=None
 
@@ -120,6 +132,7 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
+" let g:markdown_folding=1 " markdown folding
 
 " remap for escape
 inoremap jk <esc>
@@ -128,3 +141,11 @@ vnoremap jk <esc>
 " switch between buffers with tab and shift+tab
 nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+
+""" Nvim-R options
+
+" use my own tmux conf file
+let R_notmuxconf = 1
+let R_in_buffer = 0
+let R_applescript = 0
+let R_tmux_split = 1
