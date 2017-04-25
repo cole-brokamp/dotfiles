@@ -85,5 +85,6 @@ brew install node
 npm install -g how2
 npm install -g fkill-cli
 npm install -g emoj
+npm install -g instant-markdown-d
 
 brew cleanup
