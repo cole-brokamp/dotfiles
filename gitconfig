@@ -7,7 +7,7 @@
 [color]
 	ui = 1
 [push]
-	default = simple
+	default = current
 [alias]
 	st = status -sb
 	ls = !git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
