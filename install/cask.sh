@@ -43,6 +43,7 @@ brew cask install the-unarchiver
 brew cask install sublime-text
 brew cask install macdown
 brew cask install 1password
+brew cask install xquartz
 
 brew cask cleanup
 
