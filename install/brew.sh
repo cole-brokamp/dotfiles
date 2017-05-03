@@ -66,6 +66,7 @@ brew install googler
 brew install tldr
 brew install awscli
 brew install vim --with-override-system-vi
+brew install socat
 
 # science
 brew install pandoc
