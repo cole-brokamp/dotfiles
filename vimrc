@@ -39,7 +39,7 @@ set hlsearch
 set ignorecase
 " do not ignore capitalization if in all caps
 set smartcase
-"This unsets the "last search pattern" register by hitting return
+"This unsets the 'last search pattern' register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -49,7 +49,7 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'jalvesaq/Nvim-R'
 Plugin 'scrooloose/nerdTree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'yggdroot/indentline'
+" Plugin 'yggdroot/indentline'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -142,6 +142,8 @@ vnoremap jk <esc>
 nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
+let maplocalleader = ","
+
 """ Nvim-R options
 
 " use my own tmux conf file
@@ -149,3 +151,7 @@ let R_notmuxconf = 1
 let R_in_buffer = 0
 let R_applescript = 0
 let R_tmux_split = 1
+
+let R_assign = 0
+vmap <Space> <Plug>RDSendSelection
+nmap <Space> <Plug>RDSendLine
