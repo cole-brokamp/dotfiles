@@ -153,12 +153,54 @@ let maplocalleader = ","
 
 """ Nvim-R options
 
-" use my own tmux conf file
-let R_notmuxconf = 1
-let R_in_buffer = 0
-let R_applescript = 0
-let R_tmux_split = 1
+""" R Markdown and Latex 
+let R_texerr = 1                          " show summary of latex errors after compilation
+let R_pdfviewer = 'Preview'               " application used to view PDF
+let R_openpdf = 1                         " always open pdf after `knit()` is called
+let R_openhtml = 1                        " always open html file after `knit()` is called
+let R_rmd_environment = "new.env()"       " knit in a new env
 
+""" R Session Behavior
+let R_args = ['--no-save', '--quiet']     " start R with options
+let R_wait_reply = 864000                 " set a long time to wait for R to reply
+let R_commented_lines = 1                 " include commented lines when sending to R
+let R_allnames = 1                        " show hidden names
+let g:R_rmhidden = 0                      " don't include hidden objects when clearing R workspace
+
+"""Tmux Setup
+let R_notmuxconf = 1                      " use my own ~/.tmux.conf
+let R_in_buffer = 0                       " use external terminal emulator
+let R_applescript = 0                     " use tmux to send R code to REPL
+let R_tmux_split = 1                      " use a split in tmux when starting R session
+let R_editor_w = 64                       " desired width of R script buffer
+let R_help_w = 46                         " desired width of R documentation buffer
+let R_rconsole_width = 125                " number of columns of R Console
+let R_tmux_title = "automatic"            " don't rename tmux splits 'NvimR'
+
+""" Object Browser
+let R_objbr_opendf = 0                    " hide data.frames elements
+let R_objbr_openlist = 0                  " hide lists elements
+let R_objbr_allnames = 1                  " Show .GlobalEnv hidden objects
+let R_objbr_place = "script,left"         " place object browser at left side of vim pane
+" let R_objbr_h = 20                        " set default height in lines
+
+""" NVim-R Plugin Settings
+let Rout_more_colors = 1                  " show more colors in .Rout files
+let g:R_allnames = 1                      " include hidden objects in omnicompletion
+let R_assign = 0                          " to diable undersore replacement
+let R_nvimpager = "horizontal"            " open R help in horizontal split
+let R_show_args = 1                       " show extra information during omnicompletion
+let R_nvim_wd = 'yes'                     " start R in Vim's working directory
+" R_after_start                           " System command to execute after R startup
+" Nvim-R-df-view                          " Options for visualizing a data.frame or matrix
+
+"""  Add comment string <cr> instead of at fixed column value
+autocmd FileType r setlocal formatoptions-=t formatoptions+=croql
+
+""" Access Packages in Omnicompletion without R running
+let R_start_libs = "base,stats,graphics,grDevices,utils,methods,tidyverse,CB,sp,rgeos,rgdal,sf"
+
+""" Custom Mappings
 let R_assign = 0
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
