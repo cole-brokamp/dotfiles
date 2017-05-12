@@ -25,6 +25,9 @@ set showcmd
 " Enhance command-line completion
 set wildmenu
 
+"complete options
+set completeopt=noinsert,menuone,preview
+
 " support mouse for resizing splits
 set mouse=n
 set ttymouse=xterm2
