@@ -25,6 +25,10 @@ set showcmd
 " Enhance command-line completion
 set wildmenu
 
+" support mouse for resizing splits
+set mouse=n
+set ttymouse=xterm2
+
 " Optimize for fast terminal connections
 set ttyfast
 set lazyredraw
