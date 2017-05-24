@@ -35,6 +35,8 @@ brew install docker-compose-completion
 # fonts
 brew tap caskroom/fonts
 brew cask install font-hack
+brew cask install font-roboto
+brew cask install font-roboto-condensed
 
 # install gnu coreutils with a g prefixed
 brew install coreutils
