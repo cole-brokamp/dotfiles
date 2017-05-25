@@ -67,9 +67,6 @@ setOutputColors256(normal = 241, negnum = 247, zero = 226,
 # use lookup during interactive sessions
 if(interactive()) suppressPackageStartupMessages(library(lookup))
 
-# set ggplot to my custom theme
-theme_set(theme_cb())
-
 # print time and wd on startup
 .First <- function(){
   if(interactive()){
