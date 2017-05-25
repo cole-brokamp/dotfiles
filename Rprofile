@@ -10,13 +10,8 @@ options(prompt='R > ')
 # tab completion for library
 utils::rc.settings(ipck=TRUE)
 
-# set system variables
-# if on CCHMC HPC, set proxy variables
+# if on CCHMC HPC, use custom tempdir for installing packages
 if (Sys.info()['user'] == 'broeg1') { # better way to determine this?
-    Sys.setenv(http_proxy='http://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80')
-    Sys.setenv(https_proxy='https://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80')
-    # Sys.setenv(http_proxy='http://bmiproxyp.chmcres.cchmc.org:80')
-    # Sys.setenv(https_proxy='https://bmiproxyp.chmcres.cchmc.org:80')
     # install unixtools with `mkdir rtmp; TMPDIR=$PWD/rtmp R -e "install.packages('unixtools',repos='http://www.rforge.net/')"; rm -rf rtmp` from the shell
     unixtools::set.tempdir('~/myRinstalls/')
     Sys.setenv(TMP='~/myRinstalls/')
