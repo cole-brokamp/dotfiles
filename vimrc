@@ -26,7 +26,7 @@ set showcmd
 set wildmenu
 
 "complete options
-set completeopt=noinsert,menuone,preview
+set completeopt=menuone,preview
 
 " support mouse for resizing splits
 set mouse=n
@@ -65,6 +65,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'qpkorr/vim-bufkill' "close buffers leaving split open with :BW
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary' "use gcc or gc <target> to comment out lines
 Plugin 'tpope/vim-fugitive'
 Plugin 'ervandew/supertab' "completions with tab
@@ -151,9 +152,12 @@ nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 
 let maplocalleader = ","
 
+""" Supertab settings
+let g:SuperTabDefaultCompletionType = "context"
+
 """ Nvim-R options
 
-""" R Markdown and Latex 
+""" R Markdown and Latex
 let R_texerr = 1                          " show summary of latex errors after compilation
 let R_pdfviewer = 'Preview'               " application used to view PDF
 let R_openpdf = 1                         " always open pdf after `knit()` is called
