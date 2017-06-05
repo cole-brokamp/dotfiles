@@ -49,6 +49,3 @@ brew cask install kitematic
 brew cask cleanup
 
 echo -e "/n/nDone!\n\n"
-
-echo -e "If installing from scratch, install Airmail 3 from the App Store"
-
