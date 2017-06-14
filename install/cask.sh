@@ -29,7 +29,6 @@ brew cask install texstudio
 brew cask install middleclick
 # brew cask install xtrafinder # unstable on sierra
 brew cask install caprine #fb messenger
-brew cask install cumulus
 brew cask install vlc
 brew cask install github-desktop
 brew cask install qgis
