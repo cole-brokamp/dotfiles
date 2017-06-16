@@ -193,10 +193,13 @@ let Rout_more_colors = 1                  " show more colors in .Rout files
 let g:R_allnames = 1                      " include hidden objects in omnicompletion
 let R_assign = 0                          " to diable undersore replacement
 let R_nvimpager = "horizontal"            " open R help in horizontal split
-let R_show_args = 1                       " show extra information during omnicompletion
 let R_nvim_wd = 'yes'                     " start R in Vim's working directory
 " R_after_start                           " System command to execute after R startup
-" Nvim-R-df-view                          " Options for visualizing a data.frame or matrix
+let R_df_viewer = "CB::htable(%s)"        " Options for visualizing a data.frame or matrix
+
+""" Function Arguments and Autocompletion
+let R_show_args = 1                       " show preview window with arguments during omnicompletion
+" let R_args_in_stline = 1                  " show args in status line after `(` is pressed; end with `)`
 
 """  Add comment string <cr> instead of at fixed column value
 autocmd FileType r setlocal formatoptions-=t formatoptions+=croql
