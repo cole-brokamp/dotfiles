@@ -6,10 +6,6 @@ echo -e "\n\n updating brew packages"
 echo "=================="
 ~/dotfiles/install/brew_update.sh
 
-echo -e "\n\n backing up to cchmc drive"
-echo "=============================="
-cb_cchmc_backup
-
 echo -e "\n\n updating Node packages"
 echo "=================="
 npm install npm -g; npm update -g
@@ -26,3 +22,8 @@ echo "================="
 
 echo -e "\n\nDone."
 echo "========="
+
+echo -e "\n\n don't forget to back up to cchmc drive!"
+echo "=============================="
+# cb_cchmc_backup
+
