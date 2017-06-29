@@ -74,14 +74,16 @@ brew install socat
 brew install pandoc
 brew install pandoc-citeproc
 brew install python
+
 # geoinformatics
 brew tap osgeo/osgeo4mac
 # brew install gdal
-brew install udunits
-brew install gdal2 --with-armadillo --with-complete --withlibkml --with-unsupported
-brew link --force gdal2
-brew install geos
 brew install proj
+brew install geos
+brew install udunits
+brew install postgis # takes care of liblwgeom issue
+brew install gdal2 --with-armadillo --with-complete --with-libkml --with-unsupported
+brew link --force gdal2
 
 # node
 brew install node
