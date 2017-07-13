@@ -78,6 +78,7 @@ brew install python
 # geoinformatics
 brew tap osgeo/osgeo4mac
 # brew install gdal
+brew install libkml-dev
 brew install proj
 brew install geos
 brew install udunits
