@@ -1,16 +1,20 @@
 #!/bin/bash
 
-# connect to drive (this relies on Finder)
-  # con: must have Finder running
-  # pro: uses stored username/password
-open -g 'smb://rds6.cchmc.org/DBE-64/CB'
-# mount_smbfs //broeg1@rds6.cchmc.org/DBE-64/CB /Volumes
+# # connect to drive (this relies on Finder)
+#   # con: must have Finder running
+#   # pro: uses stored username/password
+# open -g 'smb://rds6.cchmc.org/DBE-64/CB'
+# sleep 10 # give finder time to connect and mount drive
+# drive_location='/Volumes/CB'
 
-# give finder time to connect and mount drive
-sleep 10
-# rsync $HOME to this backup folder
-rsync -a --delete --progress --exclude='cache/' --exclude='.git/' /Users/cole/Desktop/ /Volumes/CB/Desktop && \
-rsync -a --delete --progress --exclude='cache/' --exclude='.git/' /Users/cole/Biostatistics/ /Volumes/CB/Biostatistics && \
-rsync -a --delete --progress --exclude='cache/' --exclude='.git/' /Users/cole/Documents/ /Volumes/CB/Documents && \
-rsync -a --delete --progress --exclude='cache/' --exclude='.git/' /Users/cole/dotfiles/ /Volumes/CB/dotfiles && \
-rsync -a --delete --progress --exclude='cache/' --exclude='.git/' /Users/cole/Downloads/ /Volumes/CB/Downloads
+# use transmit mount
+drive_location='/Volumes/cchmc/rds/DBE-64/CB/'
+
+backup_locs=( "Desktop" "Biostatistics" "Documents" "dotfiles" "Downloads")
+
+# rsync
+for folder in "${backup_locs[@]}" ; do
+    echo "Backing up $folder"
+    rsync -a --delete --exclude='cache/' --exclude='.git/' /Users/cole/${folder}/ ${drive_location}${folder}
+done
+

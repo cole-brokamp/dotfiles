@@ -20,10 +20,10 @@ echo "================="
 ~/.tmux/plugins/tpm/bin/update_plugins all
 ~/.tmux/plugins/tpm/bin/clean_plugins
 
+echo -e "\n\n backkng up to cchmc drive..."
+echo "=============================="
+cb_cchmc_backup
+
 echo -e "\n\nDone."
 echo "========="
-
-echo -e "\n\n don't forget to back up to cchmc drive!"
-echo "=============================="
-# cb_cchmc_backup
 
