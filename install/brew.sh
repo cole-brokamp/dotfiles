@@ -62,6 +62,7 @@ brew install sshuttle
 brew install youtube-dl
 brew install asciinema
 brew install ffmpeg
+brew install cmus --with-ffmpeg --with-jack
 brew install imagemagick
 brew install lame
 brew install googler
