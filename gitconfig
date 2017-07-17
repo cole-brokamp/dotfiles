@@ -5,7 +5,7 @@
 	editor = vim
 	excludesfile = /Users/cole/.gitignore
 [color]
-	ui = 1
+	ui = true
 [push]
 	default = current
 [alias]
@@ -16,3 +16,15 @@
 [pager]
 	diff = diff-so-fancy | less --tabs=1,5 -rFX
 	show = diff-so-fancy | less --tabs=1,5 -rFX
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 227
+	frag = magenta bold
+	commit = 227 bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
