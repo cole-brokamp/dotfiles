@@ -37,3 +37,12 @@ The `install` folder contains other scripts for installing other optional packag
 
 - Import `resources/CB_solarized.terminal` for Terminal's preferences
 - Import `applescripts/*` to Automator
+
+#### `cchmc` branch
+
+This branch is specifically designed for the CCHMC HPC. Because pulling master will break git by changing `.gitconfig` settings, fetch the branch and cherry pick commits instead:
+
+```
+git fetch origin master
+git cherry-pick <sha1>
+```
