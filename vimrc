@@ -144,7 +144,6 @@ let g:airline_symbols.linenr = ''
 
 " remap for escape
 inoremap jk <esc>
-vnoremap jk <esc>
 
 " switch between buffers with tab and shift+tab
 nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
