@@ -37,6 +37,7 @@ brew tap caskroom/fonts
 brew cask install font-hack
 brew cask install font-roboto
 brew cask install font-roboto-condensed
+brew cask install font-computer-modern
 
 # install gnu coreutils with a g prefixed
 brew install coreutils
