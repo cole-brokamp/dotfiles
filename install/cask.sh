@@ -44,6 +44,7 @@ brew cask install macdown
 brew cask install 1password
 brew cask install xquartz
 brew cask install kitematic
+brew cask install backblaze
 
 brew cask cleanup
 
