@@ -36,7 +36,8 @@ brew cask install duet
 brew cask install kindle
 brew cask install microsoft-office
 brew cask install docker
-brew cask install rstudio
+# brew cask install rstudio
+brew cask install caskroom/versions/rstudio-preview
 brew cask install r-app
 brew cask install the-unarchiver
 brew cask install sublime-text

@@ -69,7 +69,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary' "use gcc or gc <target> to comment out lines
 Plugin 'tpope/vim-fugitive'
 Plugin 'ervandew/supertab' "completions with tab
-" Plugin 'suan/vim-instant-markdown' " auto open preview of markdown files in background
 Plugin 'chrisbra/csv.vim'
 Plugin 'airblade/vim-gitgutter' " stage hunks, etc
     " jump between hunks with `[c` and `]c`
