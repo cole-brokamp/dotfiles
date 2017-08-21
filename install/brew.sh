@@ -50,7 +50,7 @@ brew install wget
 brew install git
 brew install tmux
 brew install reattach-to-user-namespace
-# brew install highlight # not installable on linux
+brew install highlight # mac only
 brew install diff-so-fancy
 brew install pv
 brew install ssh-copy-id
@@ -65,7 +65,6 @@ brew install asciinema
 brew install ffmpeg
 brew tap clangen/musikcube
 brew install musikcube
-brew install cmus --with-ffmpeg --with-jack
 brew install imagemagick
 brew install lame
 brew install googler
@@ -78,8 +77,6 @@ brew install socat
 brew install pandoc
 brew install pandoc-citeproc
 brew install python
-
-# geoinformatics
 brew tap osgeo/osgeo4mac
 # brew install gdal
 brew install libkml-dev
