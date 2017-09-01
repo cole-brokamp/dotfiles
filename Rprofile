@@ -65,6 +65,5 @@ if ('colorout' %in% loadedNamespaces()){
   if(interactive()){
     library(utils)
     timestamp(,prefix=paste("##------ [",getwd(),"] ",sep=""))
-    .wideScreen()
-  }
+    if (Sys.getenv("RSTUDIO") == "") .wideScreen()
 }
