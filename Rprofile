@@ -42,6 +42,9 @@ for (pkg in pkgs) {
     if (suppressPackageStartupMessages(!require(pkg, character.only = TRUE, quietly = TRUE)))
         message(sprintf("Package '%s' not installed", pkg))
 }
+rm(pkgs, pkg)
+
+
 
 # jalvesaq/colorout
 # jimhester/lookup
