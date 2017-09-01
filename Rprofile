@@ -22,13 +22,12 @@ if (Sys.getenv("RSTUDIO") == "") {
     .wideScreen <- function(howWide=Sys.getenv("COLUMNS")) {
       options(width=as.integer(howWide))
     }
-    .wideScreen()
+    # .wideScreen()
 }
 
 # make sure that these packages are available
 
 suppressPackageStartupMessages({
-
     library(stats)
     library(graphics)
     library(grDevices)
@@ -36,36 +35,36 @@ suppressPackageStartupMessages({
     library(utils)
     library(methods)
     library(base)
-
-    if (suppressWarnings(!require(remotes, quietly=TRUE))) install.packages('remotes')
-    if (suppressWarnings(!require(colorout, quietly=TRUE))) remotes::install_github('jalvesaq/colorout')
-    if (suppressWarnings(!require(tidyverse, quietly=TRUE))) install.packages('tidyverse')
-    if (suppressWarnings(!require(lookup, quietly=TRUE))) remotes::install_github('jimhester/lookup')
-    if (suppressWarnings(!require(CB, quietly=TRUE))) remotes::install_github('cole-brokamp/CB')
-
 })
 
-# use colorout
-library(colorout)
+pkgs = c('remotes', 'colorout', 'tidyverse', 'lookup', 'CB')
+for (pkg in pkgs) {
+    if (suppressPackageStartupMessages(!require(pkg, character.only = TRUE, quietly = TRUE)))
+        message(sprintf("Package '%s' not installed", pkg))
+}
+
+# jalvesaq/colorout
+# jimhester/lookup
+# cole-brokamp/CB
+
+# use colorout, if available
+if ('colorout' %in% loadedNamespaces()){
 # customize colors
 # use colorout::show256Colors() to show all colors in browser window
-setOutputColors256(normal = 241, negnum = 247, zero = 226,
-        number = 247, date = 179, string = 33,
-        const = 252, false = 203, true = 78,
-        infinite = 39, stderror = 88,
-        warn = c(1, 0, 1), error = c(1, 15),
-        verbose = FALSE, # set to TRUE to show results of setup
-        zero.limit = NA)
+        setOutputColors256(normal = 241, negnum = 247, zero = 226,
+                number = 247, date = 179, string = 33,
+                const = 252, false = 203, true = 78,
+                infinite = 39, stderror = 88,
+                warn = c(1, 0, 1), error = c(1, 15),
+                verbose = FALSE, # set to TRUE to show results of setup
+                zero.limit = NA)
+}
 
-
-# use lookup during interactive sessions
-if(interactive()) suppressPackageStartupMessages(library(lookup))
-
-# print time and wd on startup
+# print time and wd on startup if interactive
 .First <- function(){
   if(interactive()){
     library(utils)
     timestamp(,prefix=paste("##------ [",getwd(),"] ",sep=""))
-
+    .wideScreen()
   }
 }

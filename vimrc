@@ -140,6 +140,7 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
 " let g:markdown_folding=1 " markdown folding
+" set foldcolumn=2
 
 " remap for escape
 inoremap jk <esc>
