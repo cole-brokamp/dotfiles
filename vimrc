@@ -153,6 +153,9 @@ let maplocalleader = ","
 
 """ Supertab settings
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+let g:SuperTabContextTextMemberPatterns = ['\.', '>\?::', '$'] " use $ for R omnicompletion
+let g:SuperTabCrMapping = 1
 
 """ Nvim-R options
 
@@ -198,7 +201,7 @@ let R_df_viewer = "CB::htable(%s)"        " Options for visualizing a data.frame
 
 """ Function Arguments and Autocompletion
 let R_show_args = 1                       " show preview window with arguments during omnicompletion
-" let R_args_in_stline = 1                  " show args in status line after `(` is pressed; end with `)`
+let R_args_in_stline = 1                  " show args in status line after `(` is pressed; end with `)`
 
 """  Add comment string <cr> instead of at fixed column value
 autocmd FileType r setlocal formatoptions-=t formatoptions+=croql
