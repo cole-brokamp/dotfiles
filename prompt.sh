@@ -43,7 +43,7 @@ PS1="
 $white$blueB \u $blue${greenB}\
 $white$greenB \h $green${yellowB}\
 $white$yellowB \w $yellow${purpleB}\
-$white$purpleB\${git_branch} $purple${greyB}\
+$white$purpleB\${git_branch} $(tput sgr0)${purple}\
 $(tput sgr0)\n  > "
 
-
+# unicode arrow: ❯
