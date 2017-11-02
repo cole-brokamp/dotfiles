@@ -68,6 +68,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary' "use gcc or gc <target> to comment out lines
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rhubarb'
 Plugin 'ervandew/supertab' "completions with tab
 Plugin 'chrisbra/csv.vim'
 Plugin 'airblade/vim-gitgutter' " stage hunks, etc
