@@ -31,26 +31,6 @@ echo "=============================="
 ~/.tmux/plugins/tpm/bin/update_plugins all
 ~/.tmux/plugins/tpm/bin/clean_plugins
 
-
-echo -e "\n\ninstalling to ~/.nano"
-echo "=============================="
-
-if [ -d ~/.nano ]; then
-    echo "Deleting old ~/.nano/"
-    rm -rf ~/.nano
-fi
-
-if [ ! -d ~/.nano ]; then
-    echo "Creating ~/.nano/"
-    mkdir -p ~/.nano
-fi
-
-for file in $dir/nano/*; do
-    target=$HOME/.nano/$( basename $file )
-    echo "Creating symlink for $file"
-    ln -sf $file $target
-done
-
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
     echo -e "\n\ninstalling Vundle"
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
