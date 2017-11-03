@@ -47,6 +47,7 @@ brew cask install xquartz
 brew cask install kitematic
 brew cask install backblaze
 brew cask install jabref
+brew cask install screens-connect # install screens from app store
 
 brew cask cleanup
 
