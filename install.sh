@@ -47,18 +47,5 @@ echo -e "\n\ninstalling vim plugins again just in case theme wasn't recognized"
 echo "=============================="
 vim +PluginInstall +qall
 
-
-echo -e "\n\n installing brew and its packages"
-echo "=============================="
-install/brew.sh
-
-if [ "$(uname)" == "Darwin" ]; then
-    echo -e "\n\n=============================="
-    echo -e "\n\nIf running on macOS, you may want to"
-    echo -e "\n brew cask gui apps with install/cask.sh"
-    echo -e "\n and/or set macOS options with install/macOS.sh"
-    echo -e "===============================\n\n"
-fi
-
 echo "Done. Reload the shell."
 
