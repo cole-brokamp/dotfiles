@@ -12,6 +12,7 @@ utils::rc.settings(ipck=TRUE)
 
 # if on CCHMC HPC, use custom tempdir for installing packages
 if (Sys.info()['user'] == 'broeg1') { # better way to determine this?
+    # install unixtools with `mkdir rtmp; TMPDIR=$PWD/rtmp R -e "install.packages('unixtools',repos='http://www.rforge.net/')"; rm -rf rtmp` from the shell
     unixtools::set.tempdir('~/myRinstalls/')
     Sys.setenv(TMP='~/myRinstalls/')
 }
@@ -22,7 +23,6 @@ if (Sys.getenv("RSTUDIO") == "") {
     .wideScreen <- function(howWide=Sys.getenv("COLUMNS")) {
       options(width=as.integer(howWide))
     }
-    # .wideScreen()
 }
 
 # make sure that these packages are available
@@ -45,7 +45,7 @@ for (pkg in pkgs) {
 rm(pkgs, pkg)
 
 
-
+# install these packages from github:
 # jalvesaq/colorout
 # jimhester/lookup
 # cole-brokamp/CB
@@ -63,9 +63,8 @@ if ('colorout' %in% loadedNamespaces()){
                 zero.limit = NA)
 }
 
-# print time and wd on startup if interactive
+# print time and wd on startup
 .First <- function(){
-  if(interactive()){
     library(utils)
     timestamp(,prefix=paste("##------ [",getwd(),"] ",sep=""))
     if (Sys.getenv("RSTUDIO") == "") .wideScreen()

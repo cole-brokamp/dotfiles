@@ -3,7 +3,7 @@
 	email = cole.brokamp@gmail.com
 [core]
 	editor = vim
-	excludesfile = /Users/cole/.gitignore
+	excludesfile = /Users/broeg1/.gitignore
 [color]
 	ui = true
 [push]
@@ -28,3 +28,7 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+# [https]
+# 	proxy = https://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80
+# [http]
+# 	proxy = http://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80
