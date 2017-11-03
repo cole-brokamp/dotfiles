@@ -4,7 +4,14 @@ echo -e "\n\nHave a good lunch! 😃"
 
 echo -e "\n\n updating brew packages"
 echo "=================="
-~/dotfiles/install/brew_update.sh
+if test ! $(which brew); then
+    echo -e  "\n\nupdating homebrew..."
+    brew update
+    echo -e "\n\nupgrading formulas..."
+    brew upgrade
+    echo -e "\n\ncleaning up..."
+    brew cleanup
+fi
 
 echo -e "\n\n updating Node packages"
 echo "=================="
@@ -19,10 +26,6 @@ echo -e "\n\n updating tmux plugins"
 echo "================="
 ~/.tmux/plugins/tpm/bin/update_plugins all
 ~/.tmux/plugins/tpm/bin/clean_plugins
-
-# echo -e "\n\n backing up to cchmc drive..."
-# echo "=============================="
-# cb_cchmc_backup
 
 echo -e "\n\nDone."
 echo "========="
