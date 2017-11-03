@@ -28,6 +28,8 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[fetch]
+	prune = true
 # [https]
 # 	proxy = https://srv-sysproxy:ieQu3nei@bmiproxyp.chmcres.cchmc.org:80
 # [http]
