@@ -47,17 +47,21 @@ export EDITOR="$VISUAL"
 # exec $SHELL -l # use my dotfiles
 # source ~/.bash_profile
 
+# do the following only if on the HPC
+if [ -n "$MODULESHOME" ]; then
 # load modules
-module load tmux/2.4
-module load vim
-module load R/3.3.2
-module load proj.4/4.9.1
-module load gdal/2.1.2
-module load geos/3.5.1
-module load gcc/4.9.0
-# module load rstudio/0.98
+    module load tmux/2.4
+    module load vim
+    module load R/3.3.2
+    module load proj.4/4.9.1
+    module load gdal/2.1.2
+    module load geos/3.5.1
+    module load gcc/4.9.0
+    # module load rstudio/0.98
 
-# use newer version of git that was installed from source
-export PATH="$HOME/git-2.12.2:$PATH"
+    # use newer version of git that was installed from source
+    export PATH="$HOME/git-2.12.2:$PATH"
+fi
+
 
 

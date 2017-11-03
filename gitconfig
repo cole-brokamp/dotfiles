@@ -3,7 +3,7 @@
 	email = cole.brokamp@gmail.com
 [core]
 	editor = vim
-	excludesfile = /Users/broeg1/.gitignore
+	excludesfile = ~/.gitignore
 [color]
 	ui = true
 [push]
@@ -14,8 +14,8 @@
         undo = reset --soft HEAD^
         merge = merge --no-ff --interactive
 [pager]
-	diff = diff-so-fancy | less --tabs=1,5 -rFX
-	show = diff-so-fancy | less --tabs=1,5 -rFX
+	diff = less --tabs=1,5 -rFX
+	show = less --tabs=1,5 -rFX
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = red bold 52

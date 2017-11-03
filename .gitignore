@@ -1,3 +1,4 @@
 .gitconfig
+rds_credentials
 secrets.sh
 *.swp
