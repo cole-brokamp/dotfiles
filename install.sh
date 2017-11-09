@@ -11,7 +11,7 @@ cd $dir
 echo -e "\nCreating symlinks"
 echo "=============================="
 
-linkables=( "bash_profile" "gitconfig" "gitignore" "hushlogin" "nanorc" "screenrc" "tmux.conf" "Rprofile" "inputrc")
+linkables=( "bash_profile" "gitconfig" "gitignore" "hushlogin" "nanorc" "screenrc" "tmux.conf" "vimrc" "Rprofile" "inputrc")
 
 for file in "${linkables[@]}" ; do
     echo "Creating symlink for $file"
@@ -38,14 +38,8 @@ fi
 
 echo -e "\n\ninstalling vim plugins"
 echo "=============================="
-vim +PluginInstall +qall
-
-echo -e "\n\ninstalling vimrc"
-ln -sf $dir/vimrc ~/.vimrc
-
-echo -e "\n\ninstalling vim plugins again just in case theme wasn't recognized"
-echo "=============================="
-vim +PluginInstall +qall
+# vim --not-a-term +PluginInstall +qall
+echo | echo | vim +PluginInstall +qall &>/dev/null # hacky workaround for no UI install of plugins
 
 echo "Done. Reload the shell."
 
