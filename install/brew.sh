@@ -94,5 +94,6 @@ npm install -g fkill-cli
 npm install -g emoj
 npm install -g tmux-cpu
 npm install -g tmux-mem
+npm install -g ttystudio
 
 brew cleanup
