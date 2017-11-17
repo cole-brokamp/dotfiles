@@ -33,6 +33,16 @@ The `install` folder contains other install scripts:
 - Update the computer's hostname with `update_hostname.md`
 - Increase a computer's swap space with `increase_swapspace.sh`
 
+## Docker
+
+A complete install of the dotfiles repo along with R and some of my frequently used packages are prepared as a Docker image using the `Dockerfile` in this repo. The container is called `cole-brokamp/waffle` and is hosted on Dockerhub. A shell alias `waffle` starts an interactive container based on this image, mapping the current working directory to the container.
+
+```
+alias waffle='docker run --name waffle -it --rm -v $PWD:/home/cole/`basename $PWD` cole-brokamp/waffle:latest'
+```
+
+Note the whale emoji 🐳 in the prompt if you are inside a docker container.
+
 ## Mac Specific Installs
 
 - Run `install/brew.sh` to install macOS command line applications as well as NPM and its packages

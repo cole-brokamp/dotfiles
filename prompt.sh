@@ -35,13 +35,21 @@ find_git_branch() {
   fi
 }
 
-PROMPT_COMMAND="find_git_dirty; find_git_branch; $PROMPT_COMMAND"
+find_docker() {
+    if grep docker /proc/1/cgroup -qsa; then
+        dock="🐳 "
+    else
+        dock=""
+    fi
+}
+
+PROMPT_COMMAND="find_docker; find_git_dirty; find_git_branch; $PROMPT_COMMAND"
 
 PROMPT_DIRTRIM=5
 
 PS1="
 $white$blueB \u $blue${greenB}\
-$white$greenB \h $green${yellowB}\
+$white$greenB \${dock}\h $green${yellowB}\
 $white$yellowB \w $yellow${purpleB}\
 $white$purpleB\${git_branch} $(tput sgr0)${purple}\
 $(tput sgr0)\n  > "
