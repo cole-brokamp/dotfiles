@@ -43,6 +43,8 @@ alias waffle='docker run --name waffle -it --rm -v $PWD:/home/cole/`basename $PW
 
 Note the whale emoji 🐳 in the prompt if you are inside a docker container.
 
+Docker version tags will correspond with git version tags, e.g. `docker pull cole-brokamp/waffle:0.1`.
+
 ## Mac Specific Installs
 
 - Run `install/brew.sh` to install macOS command line applications as well as NPM and its packages
