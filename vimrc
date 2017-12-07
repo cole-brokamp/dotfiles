@@ -75,6 +75,7 @@ Plugin 'airblade/vim-gitgutter' " stage hunks, etc
     " jump between hunks with `[c` and `]c`
     " preview, stage, undo hunks with `<leader>hp`, `<leader>hs`, `<leader>hu`
 Plugin 'cole-brokamp/vim-todo'
+Plugin 'roxma/vim-paste-easy' " auto set paste option when pasting
 call vundle#end()
 
 filetype plugin indent on
