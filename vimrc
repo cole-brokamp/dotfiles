@@ -86,6 +86,17 @@ syntax enable
 set background=dark
 colorscheme solarized
 
+""" gitgutter settings
+let g:gitgutter_sign_added = '🔷'
+let g:gitgutter_sign_modified = '🔶'
+let g:gitgutter_sign_removed = '❌'
+let g:gitgutter_sign_modified_removed = '💥'
+nmap [h <Plug>GitGutterPrevHunk
+nmap ]h <Plug>GitGutterNextHunk
+nmap <Leader>hs <Plug>GitGutterStageHunk
+nmap <Leader>hu <Plug>GitGutterUndoHunk
+nmap <Leader>hp <Plug>GitGutterPreviewHunk
+
 """ csv.vim settings
 let g:csv_autocmd_arrange      = 1 " auto arrange when csv file opened
 let g:csv_autocmd_arrange_size = 1024*10240 " only auto arrange on files < 10 MB
