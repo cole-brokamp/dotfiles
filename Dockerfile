@@ -23,49 +23,40 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
         vim \
         wget
 
-# RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
-# RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
-# RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 
-# RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-#         libcurl4-openssl-dev \
-#         libssl-dev \
-#         libgdal-dev \
-#         libgeos-dev \
-#         libproj-dev \
-#         liblwgeom-dev \
-#         libudunits2-dev \
-#         r-base-dev \
-#         && apt-get clean \
-#         && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+        libcurl4-openssl-dev \
+        libssl-dev \
+        libgdal-dev \
+        libgeos-dev \
+        libproj-dev \
+        liblwgeom-dev \
+        libudunits2-dev \
+        r-base-dev \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# # set default CRAN repo and DL method
-# RUN echo 'options(repos=c(CRAN = "https://cran.rstudio.com/"), download.file.method="libcurl")' >> /etc/R/Rprofile.site
+# set default CRAN repo and DL method
+RUN echo 'options(repos=c(CRAN = "https://cran.rstudio.com/"), download.file.method="libcurl")' >> /etc/R/Rprofile.site
 
-# RUN R -e "install.packages('remotes')"
-# RUN R -e "remotes::install_github('cole-brokamp/CB')"
-# RUN R -e "remotes::install_github('cole-brokamp/automagic')"
-# RUN R -e "remotes::install_github('jalvesaq/colorout')"
-# RUN R -e "remotes::install_github('jimhester/lookup')"
+RUN R -e "install.packages('remotes')"
+RUN R -e "remotes::install_github('cole-brokamp/CB')"
+RUN R -e "remotes::install_github('cole-brokamp/automagic')"
+RUN R -e "remotes::install_github('jalvesaq/colorout')"
+RUN R -e "remotes::install_github('jimhester/lookup')"
 
-# RUN R -e "install.packages('tidyverse')"
-# RUN R -e "install.packages('sf')"
+RUN R -e "install.packages('tidyverse')"
+RUN R -e "install.packages('sf')"
 
-# # Add user
-# RUN useradd --create-home --shell /bin/bash cole
-# USER cole
-# WORKDIR /home/cole
+# make /users dir so singularity won't complain
+RUN mkdir /users
+
+
 COPY . /root/dotfiles
 RUN ./root/dotfiles/install.sh
 WORKDIR /root
 
-# CMD [ "/bin/bash" ]
 ENTRYPOINT [ "/bin/bash" ]
-
-# for singularity testing, make sure docker container runs with
-# docker run -it --rm --read-only --tmpfs /run --tmpfs /tmp waffle-sing:latest
-
-# installing docker inside docker
-# curl -fsSL get.docker.com -o get-docker.sh
-# sh get-docker.sh
-# service docker start
