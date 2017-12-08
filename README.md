@@ -38,12 +38,27 @@ The `install` folder contains other install scripts:
 A complete install of the dotfiles repo along with R and some of my frequently used packages are prepared as a Docker image using the `Dockerfile` in this repo. The container is called `cole-brokamp/waffle` and is hosted on Dockerhub. A shell alias `waffle` starts an interactive container based on this image, mapping the current working directory to the container.
 
 ```
-alias waffle='docker run --name waffle -it --rm -v $PWD:/home/cole/`basename $PWD` cole-brokamp/waffle:latest'
+alias waffle='docker run --name waffle -it --rm -v $PWD:/home/cole/`basename $PWD` colebrokamp/waffle:latest'
 ```
 
 Note the whale emoji 🐳 in the prompt if you are inside a docker container.
 
 Docker version tags will correspond with git version tags, e.g. `docker pull cole-brokamp/waffle:0.1`.
+
+## Singularity
+
+Singularity containers are also supported through conversion of the Docker images:
+
+```
+singularity pull docker://cole-brokmap/waffle:latest
+./waffle-latest.dmg    # equivalent to singularity run ...
+```
+
+This still needs some considerable work:
+
+- how to indicate the user is inside singularity container?
+- how to use isolated R library just for that container? (`.libPaths()`)
+- possible to override automatic volume bindings by singularity? how to tell what is bound?
 
 ## Mac Specific Installs
 
