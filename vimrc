@@ -76,9 +76,17 @@ Plugin 'airblade/vim-gitgutter' " stage hunks, etc
     " preview, stage, undo hunks with `<leader>hp`, `<leader>hs`, `<leader>hu`
 Plugin 'cole-brokamp/vim-todo'
 Plugin 'roxma/vim-paste-easy' " auto set paste option when pasting
+Plugin 'w0rp/ale'
 call vundle#end()
 
 filetype plugin indent on
+
+" ALE settings
+let g:syntastic_enable_r_lintr_checker = 1
+let g:syntastic_r_checkers = ['lintr']
+let g:syntastic_r_lintr_linters = "with_defaults(line_length_linter(120))"
+let g:airline#extensions#ale#enabled = 1
+let g:ale_sign_column_always = 1
 
 " vim-colors-solarized settings
 let g:solarized_termtrans=1

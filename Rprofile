@@ -37,7 +37,7 @@ suppressPackageStartupMessages({
     library(base)
 })
 
-pkgs = c('remotes', 'colorout', 'tidyverse', 'lookup', 'CB')
+pkgs = c('remotes', 'colorout', 'tidyverse', 'lookup', 'CB', 'lintr')
 for (pkg in pkgs) {
     if (suppressPackageStartupMessages(suppressWarnings(!require(pkg, character.only = TRUE, quietly = TRUE))))
         message(sprintf("Package '%s' not installed", pkg))
