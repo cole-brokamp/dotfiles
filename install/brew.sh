@@ -84,7 +84,11 @@ brew install proj
 brew install geos
 brew install udunits
 brew install postgis # takes care of liblwgeom issue
-brew install gdal2 --with-armadillo --with-complete --with-libkml --with-unsupported
+brew install homebrew/science/hdf4 # still need hdf4 support for MODIS
+brew link --overwrite hdf4
+brew install gdal --with-complete --with-unsupported
+brew unlink gdal # unlink before installing gdal2
+brew install gdal2 --with-armadillo --with-complete --with-unsupported
 brew link --force gdal2
 
 # node
