@@ -29,8 +29,10 @@ set wildmenu
 set completeopt=menuone,preview
 
 " support mouse for resizing splits
-set mouse=n
-set ttymouse=xterm2
+if !has('nvim')
+    set mouse=n
+    set ttymouse=xterm2
+endif
 
 " Optimize for fast terminal connections
 set ttyfast
@@ -76,6 +78,8 @@ Plugin 'airblade/vim-gitgutter' " stage hunks, etc
     " preview, stage, undo hunks with `<leader>hp`, `<leader>hs`, `<leader>hu`
 Plugin 'cole-brokamp/vim-todo'
 Plugin 'roxma/vim-paste-easy' " auto set paste option when pasting
+" Plugin 'roxma/nvim-completion-manager'
+" Plugin 'gaalcaras/ncm-R'
 Plugin 'w0rp/ale'
 call vundle#end()
 

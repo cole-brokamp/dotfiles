@@ -41,5 +41,12 @@ echo "=============================="
 # vim --not-a-term +PluginInstall +qall
 echo | echo | vim +PluginInstall +qall &>/dev/null # hacky workaround for no UI install of plugins
 
+# set nvim config to mirror vimrc
+echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after
+    let &packpath = &runtimepath
+    source ~/.vimrc" > ~/.config/nvim/init.vim
+
+
+
 echo "Done. Reload the shell."
 

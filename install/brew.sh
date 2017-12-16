@@ -71,6 +71,7 @@ brew install googler
 brew install tldr
 brew install awscli
 brew install vim --with-override-system-vi
+brew install nvim
 brew install socat
 
 # science
@@ -78,7 +79,6 @@ brew install pandoc
 brew install pandoc-citeproc
 brew install python
 brew tap osgeo/osgeo4mac
-# brew install gdal
 brew install libkml-dev
 brew install proj
 brew install geos
