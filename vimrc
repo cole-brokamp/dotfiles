@@ -96,10 +96,10 @@ set background=dark
 colorscheme solarized
 
 """ gitgutter settings
-let g:gitgutter_sign_added = '🔷'
-let g:gitgutter_sign_modified = '🔶'
-let g:gitgutter_sign_removed = '❌'
-let g:gitgutter_sign_modified_removed = '💥'
+" let g:gitgutter_sign_added = '🔷'
+" let g:gitgutter_sign_modified = '🔶'
+" let g:gitgutter_sign_removed = '❌'
+" let g:gitgutter_sign_modified_removed = '💥'
 nmap [h <Plug>GitGutterPrevHunk
 nmap ]h <Plug>GitGutterNextHunk
 nmap <Leader>hs <Plug>GitGutterStageHunk
@@ -134,7 +134,7 @@ let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
 let g:airline#extensions#tabline#tab_min_count = 0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#show_splits = 1
-let g:airline#extensions#tabline#buffers_label = '🗂 '
+let g:airline#extensions#tabline#buffers_label = ''
 
 
 " configure separators for the tabline only. >
