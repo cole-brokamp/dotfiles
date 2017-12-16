@@ -70,12 +70,10 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary' "use gcc or gc <target> to comment out lines
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rhubarb'
+Plugin 'tpope/vim-rhubarb' "add some hub to git
 Plugin 'ervandew/supertab' "completions with tab
 Plugin 'chrisbra/csv.vim'
 Plugin 'airblade/vim-gitgutter' " stage hunks, etc
-    " jump between hunks with `[c` and `]c`
-    " preview, stage, undo hunks with `<leader>hp`, `<leader>hs`, `<leader>hu`
 Plugin 'cole-brokamp/vim-todo'
 Plugin 'roxma/vim-paste-easy' " auto set paste option when pasting
 " Plugin 'roxma/nvim-completion-manager'
@@ -206,7 +204,7 @@ let R_applescript = 0                     " use tmux to send R code to REPL
 let R_tmux_split = 1                      " use a split in tmux when starting R session
 let R_editor_w = 64                       " desired width of R script buffer
 let R_help_w = 46                         " desired width of R documentation buffer
-let R_rconsole_width = 125                " number of columns of R Console
+let R_rconsole_width = 150                " number of columns of R Console
 let R_tmux_title = "automatic"            " don't rename tmux splits 'NvimR'
 
 """ Object Browser
@@ -224,6 +222,7 @@ let R_nvimpager = "horizontal"            " open R help in horizontal split
 let R_nvim_wd = 'yes'                     " start R in Vim's working directory
 " R_after_start                           " System command to execute after R startup
 let R_df_viewer = "CB::htable(%s)"        " Options for visualizing a data.frame or matrix
+let g:rout_follow_colorscheme = 1         " R output highlighted with current color scheme
 
 """ Function Arguments and Autocompletion
 let R_show_args = 1                       " show preview window with arguments during omnicompletion
