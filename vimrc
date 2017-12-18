@@ -81,6 +81,9 @@ Plugin 'roxma/vim-paste-easy' " auto set paste option when pasting
 Plugin 'w0rp/ale'
 call vundle#end()
 
+let mapleader = ","
+let maplocalleader = ","
+
 filetype plugin indent on
 
 " ALE settings
@@ -171,9 +174,6 @@ inoremap jk <esc>
 " switch between buffers with tab and shift+tab
 nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
-
-let mapleader = ","
-let maplocalleader = ","
 
 """ Supertab settings
 let g:SuperTabDefaultCompletionType = "context"
