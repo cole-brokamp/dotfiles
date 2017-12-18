@@ -47,18 +47,24 @@ Docker version tags will correspond with git version tags, e.g. `docker pull col
 
 ## Singularity
 
-Singularity containers are also supported through conversion of the Docker images:
+Singularity containers are also supported through conversion of the Docker images. To convert a docker image on the server side, use:
 
 ```
 singularity pull docker://cole-brokmap/waffle:latest
-./waffle-latest.dmg    # equivalent to singularity run ...
 ```
+
+This will create a container inside one file: `./waffle-latest.dmg`. Shell into this container with:
+
+```
+singularity shell --contain --bind $PWD waffle-latest.dmg
+```
+
+This will contain the image so that only uses files inside the container (e.g., R library folder), but will also mount `$PWD` to `$PWD` inside the container. Changes to `$PWD` will remain on host when exiting container shell.
 
 This still needs some considerable work:
 
 - how to indicate the user is inside singularity container?
-- how to use isolated R library just for that container? (`.libPaths()`)
-- possible to override automatic volume bindings by singularity? how to tell what is bound?
+- what happens if more than one shell is running on a given container?
 
 ## Mac Specific Installs
 
