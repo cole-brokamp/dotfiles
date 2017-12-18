@@ -38,10 +38,10 @@ fi
 
 echo -e "\n\ninstalling vim plugins"
 echo "=============================="
-# vim --not-a-term +PluginInstall +qall
 echo | echo | vim +PluginInstall +qall &>/dev/null # hacky workaround for no UI install of plugins
 
 # set nvim config to mirror vimrc
+mkdir -p ~/.config/nvim/
 echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after
     let &packpath = &runtimepath
     source ~/.vimrc" > ~/.config/nvim/init.vim

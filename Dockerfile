@@ -54,7 +54,6 @@ RUN R -e "install.packages('sf')"
 # make /users dir so singularity won't complain
 RUN mkdir /users
 
-
 COPY . /root/dotfiles
 RUN ./root/dotfiles/install.sh
 WORKDIR /root
