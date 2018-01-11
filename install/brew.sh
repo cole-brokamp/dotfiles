@@ -94,6 +94,8 @@ brew link --force gdal2
 
 # pip
 sudo -H pip3 install -U git+https://github.com/randy3k/rice
+sudo -H pip3 install neovim # neovim python3 client
+
 # node
 brew install node
 npm install -g how2

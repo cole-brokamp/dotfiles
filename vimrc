@@ -33,6 +33,9 @@ if !has('nvim')
     set mouse=n
     set ttymouse=xterm2
 endif
+if has('nvim')
+    set mouse=a
+endif
 
 " Optimize for fast terminal connections
 set ttyfast
@@ -53,12 +56,12 @@ nnoremap <CR> :noh<CR><CR>
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'cole-brokamp/vim-todo'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'jalvesaq/Nvim-R'
 Plugin 'scrooloose/nerdTree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-" Plugin 'yggdroot/indentline'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -74,10 +77,13 @@ Plugin 'tpope/vim-rhubarb' "add some hub to git
 Plugin 'ervandew/supertab' "completions with tab
 Plugin 'chrisbra/csv.vim'
 Plugin 'airblade/vim-gitgutter' " stage hunks, etc
-Plugin 'cole-brokamp/vim-todo'
 Plugin 'roxma/vim-paste-easy' " auto set paste option when pasting
-" Plugin 'roxma/nvim-completion-manager'
-" Plugin 'gaalcaras/ncm-R'
+" Vim 8 only
+if !has('nvim')
+    Plugin 'roxma/vim-hug-neovim-rpc'
+endif
+Plugin 'roxma/nvim-completion-manager'
+Plugin 'gaalcaras/ncm-R'
 Plugin 'w0rp/ale'
 call vundle#end()
 
@@ -177,6 +183,7 @@ nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 
 """ Supertab settings
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabClosePreviewOnPopupClose = 1
 let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 let g:SuperTabContextTextMemberPatterns = ['\.', '>\?::', '$'] " use $ for R omnicompletion
 let g:SuperTabCrMapping = 1
