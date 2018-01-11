@@ -191,7 +191,7 @@ let R_openhtml = 1                        " always open html file after `knit()`
 let R_rmd_environment = "new.env()"       " knit in a new env
 
 """ R Session Behavior
-let R_args = ['--no-save', '--quiet']     " start R with options
+" let R_args = ['--no-save', '--quiet']     " start R with options
 let R_wait_reply = 864000                 " set a long time to wait for R to reply
 let R_commented_lines = 1                 " include commented lines when sending to R
 let R_allnames = 1                        " show hidden names
@@ -233,6 +233,13 @@ autocmd FileType r setlocal formatoptions-=t formatoptions+=croql
 
 """ Access Packages in Omnicompletion without R running
 let R_start_libs = "base,stats,graphics,grDevices,utils,methods,tidyverse,CB,sp,rgeos,rgdal,sf"
+
+""" Rice options
+let R_app = "rice"
+let R_cmd = "R"
+let R_hl_term = 0
+let R_args = []  " if you had set any
+let R_bracketed_paste = 1
 
 """ Custom Mappings
 let R_assign = 0

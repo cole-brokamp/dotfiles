@@ -19,11 +19,11 @@ if (Sys.info()['user'] == 'broeg1') { # better way to determine this?
 
 # auto set R to max columns based on terminal size
 # make sure that $COLUMNS is available (exported in bash_profile)
-if (Sys.getenv("RSTUDIO") == "") {
-    .wideScreen <- function(howWide=Sys.getenv("COLUMNS")) {
-      options(width=as.integer(howWide))
-    }
-}
+# if (Sys.getenv("RSTUDIO") == "") {
+#     .wideScreen <- function(howWide=Sys.getenv("COLUMNS")) {
+#       options(width=as.integer(howWide))
+#     }
+# }
 
 # make sure that these packages are available
 
@@ -63,9 +63,36 @@ if ('colorout' %in% loadedNamespaces()){
                 zero.limit = NA)
 }
 
+## rice options
+options(
+    # color scheme see [here](https://help.farbox.com/pygments.html) for a list of supported color schemes, default is `"native"`
+    rice.color_scheme = "native",
+    # either  `"emacs"` (default) or `"vi"`.
+    rice.editing_mode = "vi",
+    # auto match brackets and quotes
+    rice.auto_match = FALSE,
+    # auto indentation for new line and curly braces
+    rice.auto_indentation = TRUE,
+    rice.tab_size = 4,
+    # pop up completion while typing
+    rice.complete_while_typing = FALSE,
+    # automatically adjust R buffer size based on terminal width
+    rice.auto_width = TRUE,
+    # insert new line between prompts
+    rice.insert_new_line = FALSE,
+    # when using history search (ctrl-r/ctrl-s in emacs mode), do not show duplicate results
+    rice.history_search_no_duplicates = FALSE,
+    # custom prompt for different modes
+    # rice.prompt = "\033[0;34mr$>\033[0m ",
+    rice.shell_prompt = "\033[0;31m#!>\033[0m ",
+    rice.browse_prompt = "\033[0;33mBrowse[{}]>\033[0m ",
+    # supress the loading message for reticulate
+    rice.suppress_reticulate_message = TRUE
+)
+
 # print time and wd on startup
 .First <- function(){
     library(utils)
     timestamp(,prefix=paste("##------ [",getwd(),"] ",sep=""))
-    if (Sys.getenv("RSTUDIO") == "") .wideScreen()
+    # if (Sys.getenv("RSTUDIO") == "") .wideScreen()
 }

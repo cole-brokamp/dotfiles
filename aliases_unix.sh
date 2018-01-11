@@ -25,8 +25,10 @@ alias nano='nano --tabstospaces --tabsize=4 --smooth --autoindent --nohelp --qui
 alias grep='grep --color=auto'
 
 # R
-alias R='R --quiet --no-save'
-alias r='R --quiet --no-save'
+# alias R='R --quiet --no-save'
+# alias r='R --quiet --no-save'
+alias r='rice --no-history'
+alias R='rice --no-history'
 
 # googler
 alias g='googler --colors bjdxxy -n 6'

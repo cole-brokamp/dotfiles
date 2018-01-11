@@ -78,6 +78,7 @@ brew install socat
 brew install pandoc
 brew install pandoc-citeproc
 brew install python
+brew install python3
 brew tap osgeo/osgeo4mac
 brew install libkml-dev
 brew install proj
@@ -91,6 +92,8 @@ brew unlink gdal # unlink before installing gdal2
 brew install gdal2 --with-armadillo --with-complete --with-unsupported
 brew link --force gdal2
 
+# pip
+sudo -H pip3 install -U git+https://github.com/randy3k/rice
 # node
 brew install node
 npm install -g how2
