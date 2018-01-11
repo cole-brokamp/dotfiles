@@ -59,6 +59,9 @@ Plugin 'cole-brokamp/vim-todo'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'jalvesaq/Nvim-R'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'scrooloose/nerdTree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'VundleVim/Vundle.vim'
@@ -94,7 +97,7 @@ filetype plugin indent on
 " ALE settings
 let g:syntastic_enable_r_lintr_checker = 1
 let g:syntastic_r_checkers = ['lintr']
-let g:syntastic_r_lintr_linters = "with_defaults(line_length_linter(120))"
+let g:syntastic_r_lintr_linters = "with_defaults(line_length_linter(120), single_quotes_linter=NULL)"
 let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_column_always = 1
 
@@ -115,6 +118,15 @@ nmap ]h <Plug>GitGutterNextHunk
 nmap <Leader>hs <Plug>GitGutterStageHunk
 nmap <Leader>hu <Plug>GitGutterUndoHunk
 nmap <Leader>hp <Plug>GitGutterPreviewHunk
+
+"config for vim-pandoc
+
+" configuration for vim-pandoc-syntax
+let g:pandoc#syntax#conceal#blacklist = ["codeblock_start", "codeblock_delim", "atx", "definition", "ellipses"]
+let g:pandoc#syntax#conceal#urls = 1
+let g:pandoc#syntax#codeblocks#embeds#use = 1
+
+set conceallevel=2
 
 """ csv.vim settings
 let g:csv_autocmd_arrange      = 1 " auto arrange when csv file opened
@@ -169,9 +181,6 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-
-" let g:markdown_folding=1 " markdown folding
-" set foldcolumn=2
 
 " remap for escape
 inoremap jk <esc>
