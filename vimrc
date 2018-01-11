@@ -20,10 +20,9 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" show commands as they are typed
-set showcmd
-" Enhance command-line completion
-set wildmenu
+set showcmd " show commands as they are typed
+set noshowmode "don't show mode in cmd line
+set wildmenu " enhance command-line completion
 
 "complete options
 set completeopt=menuone,preview
