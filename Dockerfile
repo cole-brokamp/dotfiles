@@ -21,6 +21,9 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
         git \
         tmux \
         vim \
+        python-neovim \
+        python3-neovim \
+        neovim \
         wget
 
 RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
