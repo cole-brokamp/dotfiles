@@ -14,6 +14,7 @@ ENV LANGUAGE en_US.UTF-8
 ENV LANG en_US.UTF-8
 RUN localedef -i en_US -f UTF-8 en_US.UTF-8 && /usr/sbin/update-locale LANG=$LANG
 
+RUN add-apt-repository ppa:neovim-ppa/stable
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
         autoconf \
         build-essential \
@@ -21,10 +22,15 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
         git \
         tmux \
         vim \
-        python-neovim \
-        python3-neovim \
+        python-dev \
+        python-pip \
+        python3-dev \
+        python3-pip \
         neovim \
         wget
+
+RUN pip install --no-cache-dir --upgrade neovim
+RUN pip3 install --no-cache-dir --upgrade neovim
 
 RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
