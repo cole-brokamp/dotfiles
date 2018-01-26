@@ -28,10 +28,12 @@ alias rstudio='open -na "rstudio"'
 alias s='open -a "Sublime Text"'
 
 # notes
-alias notes='vim ~/Documents/notes/'
+# alias notes='vim ~/Documents/notes/'
+alias notes='vim /Users/cole/Library/Mobile\ Documents/com\~apple\~CloudDocs/notes'
 
 # change to common directories
 alias 'biostat'='cd ~/Biostatistics'
 alias 'tmp'='cd ~/Biostatistics/_TMP'
 alias 'cb'='cd ~/Biostatistics/_CB'
-alias 'cv'='cd ~/Documents/CV_website_more/CV'
+alias 'cv'='cd /Users/cole/Library/Mobile\ Documents/com\~apple\~CloudDocs/CV_website_more/CV'
+alias 'icloud'='cd /Users/cole/Library/Mobile\ Documents/com\~apple\~CloudDocs'
