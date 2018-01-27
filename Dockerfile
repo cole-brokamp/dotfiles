@@ -59,6 +59,9 @@ RUN R -e "remotes::install_github('jimhester/lookup')"
 
 RUN R -e "install.packages('tidyverse')"
 RUN R -e "install.packages('sf')"
+RUN R -e "install.packages('mapview')"
+RUN R -e "install.packages('tigirs')"
+RUN R -e "install.packages('tidycensus')"
 
 # make /users dir so singularity won't complain
 RUN mkdir /users
