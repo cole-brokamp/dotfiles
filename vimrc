@@ -147,7 +147,7 @@ let g:nerdtree_tabs_open_on_console_startup=2 " open NT if vim opened with a dir
 let g:nerdtree_tabs_autofind=1 "auto find and select currently opened file in NT
 let NERDTreeStatusLine=-1
 let NERDTreeMinimalUI=1
-let NERDTreeIgnore = ['\.swp$','\.DS_Store$','\.git$']
+let NERDTreeIgnore = ['\.swp$','\.DS_Store$','\.git$','Icon']
 
 """ airline settings
 set laststatus=2
