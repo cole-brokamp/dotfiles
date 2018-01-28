@@ -55,14 +55,33 @@ RUN echo 'options(repos=c(CRAN = "https://cran.rstudio.com/"), download.file.met
 RUN R -e "install.packages('remotes')"
 RUN R -e "remotes::install_github('cole-brokamp/CB')"
 RUN R -e "remotes::install_github('cole-brokamp/automagic')"
+# RUN R -e "remotes::install_github('cole-brokamp/aiR')" # needs key
+RUN R -e "remotes::install_github('cole-brokamp/OfflineGeocodeR')"
+RUN pip install usaddress # needed for hamilton
+RUN R -e "remotes::install_github('cole-brokamp/hamilton')"
+RUN R -e "remotes::install_github('cole-brokamp/rize')"
+RUN R -e "remotes::install_github('cole-brokamp/aiRpollution')"
+
 RUN R -e "remotes::install_github('jalvesaq/colorout')"
 RUN R -e "remotes::install_github('jimhester/lookup')"
 
+RUN R -e "install.packages('lintr')"
 RUN R -e "install.packages('tidyverse')"
+
 RUN R -e "install.packages('sf')"
 RUN R -e "install.packages('mapview')"
-RUN R -e "install.packages('tigirs')"
+RUN R -e "install.packages('tigris')"
 RUN R -e "install.packages('tidycensus')"
+
+# install rice interpreter for R
+RUN pip install --no-cache-dir --upgrade rice
+
+# make non root user
+RUN useradd --create-home --shell /bin/bash cole
+USER cole
+WORKDIR /home/cole
+COPY . /home/cole/dotfiles
+RUN ./dotfiles/install.sh
 
 # make /users dir so singularity won't complain
 RUN mkdir /users
