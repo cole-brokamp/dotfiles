@@ -73,6 +73,8 @@ RUN R -e "install.packages('mapview')"
 RUN R -e "install.packages('tigris')"
 RUN R -e "install.packages('tidycensus')"
 
+RUN R -e "install.packages('ranger')"
+
 # install rice interpreter for R
 RUN pip install --no-cache-dir --upgrade rice
 
