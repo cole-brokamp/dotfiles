@@ -15,7 +15,7 @@ ENV LANG en_US.UTF-8
 RUN localedef -i en_US -f UTF-8 en_US.UTF-8 && /usr/sbin/update-locale LANG=$LANG
 
 RUN add-apt-repository ppa:neovim-ppa/stable
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+RUN apt-get update && apt-get install -yqq \
         autoconf \
         build-essential \
         curl \
@@ -27,7 +27,8 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
         python3-dev \
         python3-pip \
         neovim \
-        wget
+        wget \
+        && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir --upgrade neovim
 RUN pip3 install --no-cache-dir --upgrade neovim
@@ -36,7 +37,7 @@ RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+RUN apt-get update && apt-get install -y \
         libcurl4-openssl-dev \
         libssl-dev \
         libgdal-dev \
@@ -46,7 +47,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
         libudunits2-dev \
         r-base-dev \
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+        && rm -rf /var/lib/apt/lists/*
 
 # set default CRAN repo and DL method
 RUN echo 'options(repos=c(CRAN = "https://cran.rstudio.com/"), download.file.method="libcurl")' >> /etc/R/Rprofile.site
