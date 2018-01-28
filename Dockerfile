@@ -85,11 +85,12 @@ WORKDIR /home/cole
 COPY . /home/cole/dotfiles
 RUN ./dotfiles/install.sh
 
-# make /users dir so singularity won't complain
-RUN mkdir /users
+# make dirs so singularity won't warn on startup
+# RUN mkdir /users
+# RUN mkdir /scratch
 
-COPY . /root/dotfiles
-RUN ./root/dotfiles/install.sh
-WORKDIR /root
+# COPY . /root/dotfiles
+# RUN ./root/dotfiles/install.sh
+# WORKDIR /root
 
 ENTRYPOINT [ "/bin/bash" ]
