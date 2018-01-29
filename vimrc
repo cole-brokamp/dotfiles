@@ -251,7 +251,7 @@ let R_start_libs = "base,stats,graphics,grDevices,utils,methods,tidyverse,CB,sp,
 
 """ Rice options
 let R_app = "rice"
-let R_cmd = "R"
+let R_cmd = "r"
 let R_hl_term = 0
 let R_args = []  " if you had set any
 let R_bracketed_paste = 1
