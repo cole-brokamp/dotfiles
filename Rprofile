@@ -75,7 +75,7 @@ options(
     rice.auto_indentation = TRUE,
     rice.tab_size = 4,
     # pop up completion while typing
-    rice.complete_while_typing = FALSE,
+    rice.complete_while_typing = TRUE,
     # automatically adjust R buffer size based on terminal width
     rice.auto_width = TRUE,
     # insert new line between prompts
