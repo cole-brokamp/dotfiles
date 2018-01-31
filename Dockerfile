@@ -70,7 +70,8 @@ RUN R -e "install.packages('tidyverse')"
 
 RUN R -e "install.packages('sf')"
 RUN R -e "install.packages('mapview')"
-RUN R -e "install.packages('tmap')"
+RUN R -e "remotes::install_github('mtennekes/tmaptools')"
+RUN R -e "remotes::install_github('mtennekes/tmap')"
 RUN R -e "install.packages('tigris')"
 RUN R -e "install.packages('tidycensus')"
 
