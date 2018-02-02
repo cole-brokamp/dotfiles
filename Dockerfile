@@ -45,6 +45,7 @@ RUN apt-get update && apt-get install -y \
         libproj-dev \
         liblwgeom-dev \
         libudunits2-dev \
+        libcairo2-dev \
         r-base-dev \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
@@ -69,11 +70,12 @@ RUN R -e "install.packages('lintr')"
 RUN R -e "install.packages('tidyverse')"
 
 RUN R -e "install.packages('sf')"
-RUN R -e "install.packages('mapview')"
-RUN R -e "remotes::install_github('mtennekes/tmaptools')"
-RUN R -e "remotes::install_github('mtennekes/tmap')"
 RUN R -e "install.packages('tigris')"
 RUN R -e "install.packages('tidycensus')"
+
+RUN R -e "install.packages('mapview')"
+# RUN R -e "remotes::install_github('mtennekes/tmaptools')"
+# RUN R -e "remotes::install_github('mtennekes/tmap')"
 
 RUN R -e "install.packages('ranger')"
 
