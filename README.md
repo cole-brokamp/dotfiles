@@ -52,7 +52,9 @@ alias waffle='docker run --name waffle -it --rm -v $PWD:/home/cole/`basename $PW
 
 Note the whale emoji 🐳 in the prompt if you are inside a docker container.
 
-Docker version tags will correspond with git version tags, e.g. `docker pull cole-brokamp/waffle:0.1`.
+Dockerhub version tags will correspond with git version tags, e.g. `docker pull cole-brokamp/waffle:0.1`.
+
+To push static container to AWS ECR, use `./push_waffle.sh` which will tag `colebrokamp/waffle:latest` as `waffle:<sha1>` where `<sha1>` is the short identifier from the current commit and push it to my repo.
 
 ## Singularity
 
@@ -60,6 +62,8 @@ Singularity containers are also supported through conversion of the Docker image
 
 ```
 singularity pull docker://cole-brokmap/waffle:latest
+# or
+singularity pull 126952269818.dkr.ecr.us-east-1.amazonaws.com/waffle:latest
 ```
 
 This will create a container inside one file: `./waffle-latest.dmg`. Shell into this container with:
