@@ -27,11 +27,21 @@ Run `lunch` when you're about to leave for lunch and this script will:
 
 The `install` folder contains other install scripts:
 
-- Install R and geospatial dependencies on Ubuntu with `install/install_R_and_pckgs_for_linux.sh`
-- Install geospatial packages on Ubuntu from source with `install_geos_gdal_proj4_for_linux_from_source.sh`
+- `install/install_R_and_pckgs_for_linux.sh` to install R and geospatial packages
+- `install/node.sh` to install node, npm and packages
+- `install/pip.sh` to install neovim python3 client and rice
+- `install_geos_gdal_proj4_for_linux_from_source.sh`
 - Setup a dynamic DNS service on a server with `duckdns_setup.md`
 - Update the computer's hostname with `update_hostname.md`
 - Increase a computer's swap space with `increase_swapspace.sh`
+
+### macOS
+
+- `install/brew.sh` to install macOS command line applications
+- `install/cask.sh` to install macOS GUI applications
+- `install/macOS.sh` to set macOS options
+- Import `resources/CB_solarized.terminal` and set as default for Terminal's preferences
+- Import `applescripts/*` to Automator
 
 ## Docker
 
@@ -66,10 +76,3 @@ This still needs some considerable work:
 - how to indicate the user is inside singularity container?
 - what happens if more than one shell is running on a given container?
 
-## Mac Specific Installs
-
-- Run `install/brew.sh` to install macOS command line applications as well as NPM and its packages
-- Run `install/cask.sh` to install macOS GUI applications
-- Run `install/macOS.sh` to set macOS options
-- Import `resources/CB_solarized.terminal` and set as default for Terminal's preferences
-- Import `applescripts/*` to Automator

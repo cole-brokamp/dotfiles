@@ -92,17 +92,4 @@ brew unlink gdal # unlink before installing gdal2
 brew install gdal2 --with-armadillo --with-complete --with-unsupported
 brew link --force gdal2
 
-# pip
-sudo -H pip3 install -U git+https://github.com/randy3k/rice
-sudo -H pip3 install neovim # neovim python3 client
-
-# node
-brew install node
-npm install -g how2
-npm install -g fkill-cli
-npm install -g emoj
-npm install -g tmux-cpu
-npm install -g tmux-mem
-npm install -g ttystudio
-
 brew cleanup
