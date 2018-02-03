@@ -8,8 +8,6 @@ fi
 echo -e "\n\nInstalling node packages..."
 echo "=============================="
 
-
-brew install node
 npm install -g how2
 npm install -g fkill-cli
 npm install -g emoj

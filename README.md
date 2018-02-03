@@ -27,7 +27,6 @@ Run `lunch` when you're about to leave for lunch and this script will:
 
 The `install` folder contains other install scripts:
 
-- `install/install_R_and_pckgs_for_linux.sh` to install R and geospatial packages
 - `install/node.sh` to install node, npm and packages
 - `install/pip.sh` to install neovim python3 client and rice
 - `install_geos_gdal_proj4_for_linux_from_source.sh`
