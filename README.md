@@ -72,10 +72,5 @@ This will create a container inside one file: `./waffle-latest.dmg`. Shell into 
 singularity shell --contain --bind $PWD waffle-latest.dmg
 ```
 
-This will contain the image so that only uses files inside the container (e.g., R library folder), but will also mount `$PWD` to `$PWD` inside the container. Changes to `$PWD` will remain on host when exiting container shell.
-
-This still needs some considerable work:
-
-- how to indicate the user is inside singularity container?
-- what happens if more than one shell is running on a given container?
+This will contain the image so that it only uses files inside the container (e.g., R library folder), but will also mount `$PWD` to `$PWD` inside the container. Changes to `$PWD` will remain on host when exiting container shell.
 
