@@ -83,18 +83,18 @@ RUN R -e "install.packages('ranger')"
 RUN pip install --no-cache-dir --upgrade rice
 
 # make non root user
-RUN useradd --create-home --shell /bin/bash cole
-USER cole
-WORKDIR /home/cole
-COPY . /home/cole/dotfiles
-RUN ./dotfiles/install.sh
+# RUN useradd --create-home --shell /bin/bash cole
+# USER cole
+# WORKDIR /home/cole
+# COPY . /home/cole/dotfiles
+# RUN ./dotfiles/install.sh
 
 # make dirs so singularity won't warn on startup
-# RUN mkdir /users
-# RUN mkdir /scratch
+RUN mkdir /users
+RUN mkdir /scratch
 
-# COPY . /root/dotfiles
-# RUN ./root/dotfiles/install.sh
-# WORKDIR /root
+WORKDIR /root
+COPY . /root/dotfiles
+RUN ./dotfiles/install.sh
 
 ENTRYPOINT [ "/bin/bash" ]
