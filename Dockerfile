@@ -14,8 +14,9 @@ ENV LANGUAGE en_US.UTF-8
 ENV LANG en_US.UTF-8
 RUN localedef -i en_US -f UTF-8 en_US.UTF-8 && /usr/sbin/update-locale LANG=$LANG
 
-RUN add-apt-repository ppa:neovim-ppa/stable
-RUN apt-get update && apt-get install -yqq \
+RUN add-apt-repository -y ppa:neovim-ppa/stable
+RUN add-apt-repository -y ppa:opencpu/jq
+RUN apt-get update && apt-get install -yqq --no-install-recommends \
         autoconf \
         build-essential \
         curl \
@@ -37,7 +38,8 @@ RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update \
+        && apt-get install -yqq --no-install-recommends \
         libcurl4-openssl-dev \
         libssl-dev \
         libgdal-dev \
@@ -46,6 +48,10 @@ RUN apt-get update && apt-get install -y \
         liblwgeom-dev \
         libudunits2-dev \
         libcairo2-dev \
+        protobuf-compiler \
+        libprotobuf-dev \
+        libjq-dev \
+        libv8-3.14-dev \
         r-base-dev \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
@@ -74,8 +80,7 @@ RUN R -e "install.packages('tigris')"
 RUN R -e "install.packages('tidycensus')"
 
 RUN R -e "install.packages('mapview')"
-# RUN R -e "remotes::install_github('mtennekes/tmaptools')"
-# RUN R -e "remotes::install_github('mtennekes/tmap')"
+RUN R -e "install.packages('tmap')"
 
 RUN R -e "install.packages('ranger')"
 
