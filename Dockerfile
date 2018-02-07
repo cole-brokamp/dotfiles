@@ -31,7 +31,11 @@ RUN apt-get update && apt-get install -yqq --no-install-recommends \
         wget \
         && rm -rf /var/lib/apt/lists/*
 
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir --upgrade setuptools
 RUN pip install --no-cache-dir --upgrade neovim
+RUN pip3 install --no-cache-dir --upgrade pip
+RUN pip3 install --no-cache-dir --upgrade setuptools
 RUN pip3 install --no-cache-dir --upgrade neovim
 
 RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
