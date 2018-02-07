@@ -47,7 +47,7 @@ The `install` folder contains other install scripts:
 A complete install of the dotfiles repo along with R and some of my frequently used packages are prepared as a Docker image using the `Dockerfile` in this repo. The container is called `cole-brokamp/waffle` and is hosted on Dockerhub. A shell alias `waffle` starts an interactive container based on this image, mapping the current working directory to the container.
 
 ```
-alias waffle='docker run --name waffle -it --rm -v $PWD:/home/cole/`basename $PWD` colebrokamp/waffle:latest'
+alias waffle='docker run --name waffle -it --rm -v $PWD:/root/`basename $PWD` colebrokamp/waffle:latest'
 ```
 
 Note the whale emoji 🐳 in the prompt if you are inside a docker container.
