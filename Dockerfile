@@ -16,6 +16,9 @@ RUN localedef -i en_US -f UTF-8 en_US.UTF-8 && /usr/sbin/update-locale LANG=$LAN
 
 RUN ./install/apt-install-base.sh
 
+# set default CRAN repo and DL method
+echo 'options(repos=c(CRAN = "https://cran.rstudio.com/"), download.file.method="libcurl")' >> /etc/R/Rprofile.site
+
 RUN ./install/apt-install-rgeo.sh
 
 # make dirs so singularity won't warn on startup

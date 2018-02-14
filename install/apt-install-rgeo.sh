@@ -23,13 +23,10 @@ apt-get update \
         r-base-dev \
         && apt-get clean
 
-# set default CRAN repo and DL method
-echo 'options(repos=c(CRAN = "https://cran.rstudio.com/"), download.file.method="libcurl")' >> /etc/R/Rprofile.site
-
 R -e "install.packages('remotes')"
 R -e "remotes::install_github('cole-brokamp/CB')"
 R -e "remotes::install_github('cole-brokamp/automagic')"
-R -e "remotes::install_github('cole-brokamp/aiR')" # needs key
+# R -e "remotes::install_github('cole-brokamp/aiR')" # needs key
 R -e "remotes::install_github('cole-brokamp/OfflineGeocodeR')"
 pip install usaddress # needed for hamilton
 R -e "remotes::install_github('cole-brokamp/hamilton')"
