@@ -27,18 +27,16 @@ RUN apt-get update && apt-get install -yqq --no-install-recommends \
         python-pip \
         python3-dev \
         python3-pip \
+        python3-setuptools \
         neovim \
         wget
 
-RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir --upgrade setuptools
-RUN pip install --no-cache-dir --upgrade neovim
-RUN pip3 install --no-cache-dir --upgrade pip
-RUN pip3 install --no-cache-dir --upgrade setuptools
-RUN pip3 install --no-cache-dir --upgrade neovim
-
-# set default CRAN repo and DL method
-RUN echo 'options(repos=c(CRAN = "https://cran.rstudio.com/"), download.file.method="libcurl")' >> /etc/R/Rprofile.site
+# RUN pip install --no-cache-dir --upgrade pip
+# RUN pip install --no-cache-dir --upgrade setuptools
+# RUN pip install --no-cache-dir --upgrade neovim
+RUN pip3 install -U --no-cache-dir --upgrade pip
+RUN pip3 install -U --no-cache-dir --upgrade setuptools
+RUN pip3 install -U --no-cache-dir --upgrade neovim
 
 RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
@@ -60,6 +58,10 @@ RUN apt-get update \
         libv8-3.14-dev \
         r-base-dev \
         && apt-get clean
+
+# set default CRAN repo and DL method
+RUN echo 'options(repos=c(CRAN = "https://cran.rstudio.com/"), download.file.method="libcurl")' >> /etc/R/Rprofile.site
+
 
 RUN R -e "install.packages('remotes')"
 RUN R -e "remotes::install_github('cole-brokamp/CB')"
