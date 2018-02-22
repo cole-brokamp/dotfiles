@@ -44,32 +44,27 @@ The `install` folder contains other install scripts:
 
 ## Docker
 
-A complete install of the dotfiles repo along with R and some of my frequently used packages are prepared as a Docker image using the `Dockerfile` in this repo. The container is called `cole-brokamp/waffle` and is hosted on Dockerhub. A shell alias `waffle` starts an interactive container based on this image, mapping the current working directory to the container.
+A complete install of the dotfiles repo along with R and some of my frequently used packages are prepared as a Docker image using the `Dockerfile` in this repo. The container is called `cole-brokamp/waffle` and is hosted on quay.io. A shell alias `waffle` starts an interactive container based on this image, mapping the current working directory to the container.
 
 ```
-alias waffle='docker run --name waffle -it --rm -v $PWD:/root/`basename $PWD` colebrokamp/waffle:latest'
+alias waffle='docker run --name waffle -it --rm -v $PWD:/root/`basename $PWD` quay.io/colebrokamp/waffle:latest'
 ```
 
 Note the whale emoji 🐳 in the prompt if you are inside a docker container.
 
-Dockerhub version tags will correspond with git version tags, e.g. `docker pull cole-brokamp/waffle:0.1`.
-
-To push static container to AWS ECR, use `./push_waffle.sh` which will tag `colebrokamp/waffle:latest` as `waffle:<sha1>` where `<sha1>` is the short identifier from the current commit and push it to my repo.
+Latest will always be available based on a automated build of the Dockerfile within the context of this GitHub repository. [Tagged versions of waffle on quay.io](https://quay.io/repository/colebrokamp/waffle?tab=tags) will mirror [git tags on GitHub](https://github.com/cole-brokamp/dotfiles/releases). All versions will also always be maintained on [DockerHub](https://hub.docker.com/r/colebrokamp/waffle/) based on an automated build because Singularity only supports docker and shub URIs.
 
 ## Singularity
 
 Singularity containers are also supported through conversion of the Docker images. To convert a docker image on the server side, use:
 
 ```
-singularity pull docker://cole-brokmap/waffle:latest
-# or
-singularity pull 126952269818.dkr.ecr.us-east-1.amazonaws.com/waffle:latest
+singularity pull docker://colebrokamp/waffle:latest
 ```
-
 This will create a container inside one file: `./waffle-latest.dmg`. Shell into this container with:
 
 ```
-singularity shell --contain --bind $PWD waffle-latest.dmg
+singularity shell --contain --bind $PWD waffle-latest.img
 ```
 
 This will contain the image so that it only uses files inside the container (e.g., R library folder), but will also mount `$PWD` to `$PWD` inside the container. Changes to `$PWD` will remain on host when exiting container shell.
