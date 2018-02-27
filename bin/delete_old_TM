@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ -z "$1" ]
 then
     echo "must specify backup id: YYYY-MM-DD-HHMMSS"
