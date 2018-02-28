@@ -62,6 +62,7 @@ Plugin 'jalvesaq/Nvim-R'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'nelstrom/vim-markdown-folding'
+Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'scrooloose/nerdTree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'VundleVim/Vundle.vim'
@@ -118,6 +119,14 @@ nmap ]h <Plug>GitGutterNextHunk
 nmap <Leader>hs <Plug>GitGutterStageHunk
 nmap <Leader>hu <Plug>GitGutterUndoHunk
 nmap <Leader>hp <Plug>GitGutterPreviewHunk
+
+" configuration for vim-table-mode
+" use <leader>tm to toggle table mode on and off
+" type header row delimited by '|' and then,
+" without leaving insert mode <CR> to go to next line and
+" hit '|' twice in a row to make horizontal line
+" use :Tableize/, to convert selection into table based on comma delimiter
+let g:table_mode_corner='|'
 
 "config for vim-pandoc
 
