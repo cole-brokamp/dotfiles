@@ -1,0 +1,40 @@
+#!/bin/bash
+# set -e
+
+SESSION_NAME="home"
+
+cd ~/
+
+# if already running a home session, attach and exit early
+tmux has-session -t home > /dev/null 2>&1
+if [ $? != 0 ]; then
+    tmux -2 new-session -s ${SESSION_NAME} -n home -x 238 -y 62 -d
+
+    tmux split-window -h -p 50 -t ${SESSION_NAME}:1
+    tmux split-window -v -p 40 -t ${SESSION_NAME}:1.2
+    tmux send-keys -t ${SESSION_NAME}:1 'cd ~/' C-m # 1
+    tmux send-keys -t ${SESSION_NAME}:1.1 'icloud; cd notes; vim _todo.txt' C-m
+    tmux send-keys -t ${SESSION_NAME}:1.2 'clear' C-m
+    tmux send-keys -t ${SESSION_NAME}:1.3 'htop' C-m
+
+    tmux new-window -n dotfiles # 2
+    tmux send-keys -t ${SESSION_NAME}:2 'cd ~/dotfiles' C-m
+    tmux split-window -h -c ~/dotfiles -p 50 -t ${SESSION_NAME}:2
+    tmux split-window -v -c ~/dotfiles -p 50 -t ${SESSION_NAME}:2.2
+    tmux send-keys -t ${SESSION_NAME}:2.1 'vim .' C-m
+    tmux send-keys -t ${SESSION_NAME}:2.2 'git st' C-m
+
+    tmux new-window -n cv # 3
+    tmux send-keys -t ${SESSION_NAME}:3 'cv' C-m
+    tmux split-window -h -p 50 -t ${SESSION_NAME}:3
+    tmux send-keys -t ${SESSION_NAME}:3.2 'cv' C-m
+    tmux split-window -v -p 50 -t ${SESSION_NAME}:3.2
+    tmux send-keys -t ${SESSION_NAME}:3.3 'cv' C-m
+    tmux send-keys -t ${SESSION_NAME}:3.1 'vim .' C-m
+    tmux send-keys -t ${SESSION_NAME}:3.2 'git st' C-m
+
+    tmux select-window -t ${SESSION_NAME}:1
+    tmux select-pane -t ${SESSION_NAME}:1.1
+fi
+
+tmux -2 attach-session -t ${SESSION_NAME}
