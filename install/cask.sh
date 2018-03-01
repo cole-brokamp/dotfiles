@@ -32,6 +32,8 @@ brew cask install caprine #fb messenger
 brew cask install vlc
 brew cask install github-desktop
 brew cask install qgis
+# brew install --no-sandbox qgis/qgisdev/qgis3-dev
+# must: `brew edit qgis3-dev` and remove matplotlib dependency line and then rerun above
 brew cask install duet
 brew cask install kindle
 brew cask install microsoft-office
