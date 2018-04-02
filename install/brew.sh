@@ -38,6 +38,7 @@ brew cask install font-hack
 brew cask install font-roboto
 brew cask install font-roboto-condensed
 brew cask install font-computer-modern
+brew cask install font-source-code-pro
 
 # install gnu coreutils with a g prefixed
 brew install coreutils
@@ -73,6 +74,10 @@ brew install awscli
 brew install vim --with-override-system-vi
 brew install nvim
 brew install socat
+brew tap d12frosted/emacs-plus
+brew install emacs-plus
+brew linkapps emacs-plus
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 # science
 brew install pandoc
