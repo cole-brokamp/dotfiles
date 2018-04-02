@@ -7,6 +7,10 @@ options(download.file.method="libcurl")
 options(menu.graphics=FALSE)
 options(prompt='R > ')
 
+# package specific options
+options(tigris_use_cache = TRUE)
+options(tigris_class = "sf")
+
 # tab completion for library
 utils::rc.settings(ipck=TRUE)
 
