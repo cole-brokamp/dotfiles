@@ -64,7 +64,7 @@ singularity pull docker://colebrokamp/waffle:latest
 This will create a container inside one file: `./waffle-latest.dmg`. Shell into this container with:
 
 ```
-singularity shell -e --contain --bind $PWD waffle-latest.img
+singularity shell --containall --bind $PWD waffle-latest.img
 ```
 
-This will contain the image so that it only uses files inside the container (e.g., R library folder), but will also mount `$PWD` to `$PWD` inside the container. Changes to `$PWD` will remain on host when exiting container shell. Note that singularity will pass all environment variables from the host to the container; here, all environment variables are omitted by using `-e`.
+This will contain the image so that it only uses files inside the container (e.g., R library folder), but will also mount `$PWD` to `$PWD` inside the container. Changes to `$PWD` will remain on host when exiting container shell. The `--containall` option also provides the container with a clean environment and separate PID and IPC namespaces.
