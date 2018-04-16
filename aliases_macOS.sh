@@ -4,10 +4,6 @@
 alias pbcopy="reattach-to-user-namespace pbcopy"
 alias open="reattach-to-user-namespace open"
 
-# mount shared drives
-alias mount_cb="open -g 'smb://rds6.cchmc.org/DBE-64/CB'"
-alias mount_gis="open -g 'smb://rds6.cchmc.org/DBE-65/GIS'"
-
 # use gnu ls for better colors
 alias ls='gls -Fh --color'
 alias dircolors='gdircolors'
@@ -24,16 +20,10 @@ alias cwd="pwd | tr -d '\r\n' | pbcopy | echo '=> working directory copied to ke
 # open file in new R Studio instance
 alias rstudio='open -na "rstudio"'
 
-# open file in Sublime
-alias s='open -a "Sublime Text"'
-
 # notes
 # alias notes='vim ~/Documents/notes/'
 alias notes='vim /Users/cole/Library/Mobile\ Documents/com\~apple\~CloudDocs/notes'
 
 # change to common directories
-alias 'biostat'='cd ~/Biostatistics'
-alias 'tmp'='cd ~/Biostatistics/_TMP'
-alias 'cb'='cd ~/Biostatistics/_CB'
-alias 'cv'='cd /Users/cole/Library/Mobile\ Documents/com\~apple\~CloudDocs/CV_website_more/CV'
+alias 'onedrive'='cd ~/OneDrive\ -\ cchmc'
 alias 'icloud'='cd /Users/cole/Library/Mobile\ Documents/com\~apple\~CloudDocs'
