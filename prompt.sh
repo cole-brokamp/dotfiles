@@ -16,9 +16,9 @@ red=$(tput setaf 160)
 find_git_dirty() {
   local status=$(git status --porcelain 2> /dev/null)
   if [[ "$status" != "" ]]; then
-      git_dirty=" ${red}$white"
+      git_dirty="${red}*"
   else
-    git_dirty=" "
+    git_dirty=" "
   fi
 }
 
@@ -29,7 +29,7 @@ find_git_branch() {
     if [[ "$branch" == "HEAD" ]]; then
       branch='detached*'
     fi
-    git_branch="$git_dirty $branch"
+    git_branch="$grey ❯$purple $branch $git_dirty"
   else
     git_branch=""
   fi
@@ -48,10 +48,20 @@ PROMPT_COMMAND="find_docker; find_git_dirty; find_git_branch; $PROMPT_COMMAND"
 PROMPT_DIRTRIM=5
 
 PS1="
-$white$blueB \u $blue${greenB}\
-$white$greenB \${dock}\h $green${yellowB}\
-$white$yellowB \w $yellow${purpleB}\
-$white$purpleB\${git_branch} $(tput sgr0)${purple}\
+$blue \u\
+$grey ❯$green \${dock}\h\
+$grey ❯$yellow \w\
+\${git_branch}\
 $(tput sgr0)\n  > "
+
+# PS1="
+# $white$blueB \u $blue${greenB}\
+# $white$greenB \${dock}\h $green${yellowB}\
+# $white$yellowB \w $yellow${purpleB}\
+# $white$purpleB\${git_branch} $(tput sgr0)${purple}\
+# $(tput sgr0)\n  ❯ "
+
+# PS1="\u @ \h in \w ❯ "
+
 
 # unicode arrow: ❯
