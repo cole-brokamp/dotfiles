@@ -74,10 +74,14 @@ brew install awscli
 brew install vim --with-override-system-vi
 brew install nvim
 brew install socat
+
+# emacs stuffs
 brew tap d12frosted/emacs-plus
 brew install emacs-plus
 brew linkapps emacs-plus
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+brew install poppler
+brew install automake
 
 # science
 brew install pandoc
