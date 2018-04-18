@@ -82,6 +82,7 @@ brew linkapps emacs-plus
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 brew install poppler
 brew install automake
+brew install markdown
 
 # science
 brew install pandoc
