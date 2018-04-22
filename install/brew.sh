@@ -83,6 +83,7 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 brew install poppler
 brew install automake
 brew install markdown
+brew install ispell
 
 # science
 brew install pandoc
