@@ -57,6 +57,7 @@ brew install pv
 brew install ssh-copy-id
 brew install grep --with-default-names
 brew install openssh
+brew install mosh
 brew install screen
 brew install nano
 brew install htop-osx # mac only
