@@ -44,6 +44,7 @@ alias g='googler --colors bjdxxy -n 6'
 # sshuttle aliases
 alias sshuttle_viao="sshuttle --dns -r viao 0/0"
 alias sshuttle_hp="sshuttle --dns -r hp 0/0"
+alias sshuttle_bisquick="sshuttle --dns -r bisquick 0/0"
 
 
 
