@@ -19,11 +19,3 @@ alias cwd="pwd | tr -d '\r\n' | pbcopy | echo '=> working directory copied to ke
 
 # open file in new R Studio instance
 alias rstudio='open -na "rstudio"'
-
-# notes
-# alias notes='vim ~/Documents/notes/'
-alias notes='vim /Users/cole/Library/Mobile\ Documents/com\~apple\~CloudDocs/notes'
-
-# change to common directories
-alias 'onedrive'='cd ~/OneDrive\ -\ cchmc'
-alias 'icloud'='cd /Users/cole/Library/Mobile\ Documents/com\~apple\~CloudDocs'

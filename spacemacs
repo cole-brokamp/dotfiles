@@ -355,10 +355,10 @@ you should place your code here."
   (setq org-agenda-span 10
         org-agenda-start-on-weekday nil
         org-agenda-start-day "-3d")
-  (setq org-agenda-files '("~/icloud/notes/_todo.org"))
-  (setq org-ref-default-bibliography '("~/icloud/ITS_LIT_FAM/bib.bib")
-        org-ref-pdf-directory "~/icloud/ITS_LIT_FAM/bibdesked/"
-        org-ref-bibliography-notes "~/icloud/ITS_LIT_FAM/bib.org")
+  (setq org-agenda-files '("~/Dropbox/notes/_todo.org"))
+  (setq org-ref-default-bibliography '("~/Dropbox/ITS_LIT_FAM/bib.bib")
+        org-ref-pdf-directory "~/Dropbox/ITS_LIT_FAM/bibdesked/"
+        org-ref-bibliography-notes "~/Dropbox/ITS_LIT_FAM/bib.org")
   (add-hook 'ess-mode-hook
             (lambda ()
               (ess-toggle-underscore nil))) ;; don't replace underscore with assignment operator in ess
