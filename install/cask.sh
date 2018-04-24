@@ -50,6 +50,7 @@ brew cask install backblaze
 brew cask install bibdesk
 brew cask install screens-connect # install screens from app store
 brew cask install onedrive
+brew cask install dropbox
 
 brew cask cleanup
 
