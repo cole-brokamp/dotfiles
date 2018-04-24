@@ -30,7 +30,6 @@ brew cask install middleclick
 # brew cask install xtrafinder # unstable on sierra
 brew cask install caprine #fb messenger
 brew cask install vlc
-brew cask install github-desktop
 brew cask install qgis
 # brew install --no-sandbox qgis/qgisdev/qgis3-dev
 brew cask install duet
