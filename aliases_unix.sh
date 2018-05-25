@@ -40,7 +40,8 @@ alias g='googler --colors bjdxxy -n 6'
 ##  SSH tunnels
 # aliases to start rstudio server over ssh tunnel
 # make sure to add `www-address=127.0.0.1` to `/etc/rstudio/rserver.conf` so it listens only on localhost for connections
-# alias tunnel="echo -e '\n\nssh -fNL localhost:<local-port>:localhost:<remote-port> <ssh-client>"
+# alias tunnel="ssh -fNL localhost:<local-port>:localhost:<remote-port> <ssh-client>"
+alias bisquick_rstudio="ssh -NL localhost:8787:localhost:8787 bisquick"
 # sshuttle aliases
 alias sshuttle_viao="sshuttle --dns -r viao 0/0"
 alias sshuttle_hp="sshuttle --dns -r hp 0/0"
