@@ -75,6 +75,7 @@ brew install awscli
 brew install vim --with-override-system-vi
 brew install nvim
 brew install socat
+brew install homebrew/cask/xpra
 
 # emacs stuffs
 brew tap d12frosted/emacs-plus
