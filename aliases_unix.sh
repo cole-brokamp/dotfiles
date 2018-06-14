@@ -37,6 +37,9 @@ alias r='rice --no-history'
 # googler
 alias g='googler --colors bjdxxy -n 6'
 
+# emacs daemon/client
+alias e="emacsclient -ta \"\""
+
 ##  SSH tunnels
 # aliases to start rstudio server over ssh tunnel
 # make sure to add `www-address=127.0.0.1` to `/etc/rstudio/rserver.conf` so it listens only on localhost for connections
