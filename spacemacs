@@ -154,12 +154,12 @@
         '(("WAITING" . "systemYellowColor")
           ("TODO" . "systemRedColor")
           ("DONE" . "systemGreenColor")))
-  (setq org-agenda-files '("~/Dropbox/notes"))
+  (setq org-agenda-files '("~/dropbox/notes"))
   (setq org-startup-folded t)
-  (setq org-ref-default-bibliography "~/Dropbox/ITS_LIT_FAM/bib_test.bib"
-        org-ref-pdf-directory "~/Dropbox/ITS_LIT_FAM/bibtex_pdf/"
-        org-ref-bibliography-notes "~/Dropbox/ITS_LIT_FAM/bib_test.org")
-  (setq org-default-notes-file '"~/Dropbox/notes/refile-beorg.org")
+  (setq org-ref-default-bibliography "~/dropbox/ITS_LIT_FAM/bib_test.bib"
+        org-ref-pdf-directory "~/dropbox/ITS_LIT_FAM/bibtex_pdf/"
+        org-ref-bibliography-notes "~/dropbox/ITS_LIT_FAM/bib_test.org")
+  (setq org-default-notes-file '"~/dropbox/notes/refile-beorg.org")
 
 ;;;; ess ;;;;
 
