@@ -27,18 +27,15 @@ brew cask install transmit
 brew cask install transmission
 brew cask install texstudio
 brew cask install middleclick
-# brew cask install xtrafinder # unstable on sierra
-brew cask install caprine #fb messenger
 brew cask install vlc
-brew cask install qgis
-# brew install --no-sandbox qgis/qgisdev/qgis3-dev
+brew cask install qgis # use qgis 3.2 release from website
 brew cask install duet
 brew cask install kindle
 brew cask install microsoft-office
 brew cask install docker
+brew cask install r-app
 # brew cask install rstudio
 brew cask install caskroom/versions/rstudio-preview
-brew cask install r-app
 brew cask install the-unarchiver
 brew cask install sublime-text
 brew cask install macdown
@@ -46,7 +43,7 @@ brew cask install 1password
 brew cask install xquartz
 brew cask install kitematic
 brew cask install backblaze
-brew cask install bibdesk
+# brew cask install bibdesk
 brew cask install screens-connect # install screens from app store
 brew cask install onedrive
 brew cask install dropbox
