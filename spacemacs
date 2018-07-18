@@ -546,10 +546,15 @@ before packages are loaded."
   (setq ranger-parent-depth 3)
   (setq ranger-override-dired-mode t)
 
+;;;; spacemacs toggles ;;;;
+
+  (spacemacs/toggle-display-time-on)
+  (spacemacs/toggle-visual-line-navigation-on)
+  (spacemacs/toggle-smartparens-globally-off)
+
 ;;;; ??? ;;;
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode) ;; perform full-document previews in Latex major mode
-  (setq spaceline-org-clock-p t)
   (when (fboundp 'windmove-default-keybindings)
     (windmove-default-keybindings))
 
