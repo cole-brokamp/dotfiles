@@ -28,7 +28,8 @@ brew cask install transmission
 brew cask install texstudio
 brew cask install middleclick
 brew cask install vlc
-brew cask install qgis # use qgis 3.2 release from website
+# qgis 3.2 workaround for using brew installation
+brew cask install --no-sandbox https://raw.githubusercontent.com/fjperini/homebrew-qgisdev/matplotlib-fix%2Bpython/Formula/qgis3-dev.rb
 brew cask install duet
 brew cask install kindle
 brew cask install microsoft-office
