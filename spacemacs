@@ -58,7 +58,7 @@ This function should only modify configuration layer settings."
      github
      ess (ess :variables
               ess-ask-for-ess-directory nil
-              inferior-ess-r-program "r"
+              inferior-ess-r-program "R"
               ;; inferior-R-args '((sequence "--no-save" "--quiet"))
               ;; ess-enable-smart-equals t
               ;; ess-smart-S-assign t
