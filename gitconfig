@@ -30,3 +30,5 @@
 	whitespace = red reverse
 [fetch]
 	prune = true
+[github]
+	user = cole-brokamp

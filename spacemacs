@@ -58,18 +58,16 @@ This function should only modify configuration layer settings."
      github
      ess (ess :variables
               ess-ask-for-ess-directory nil
-              inferior-ess-r-program "r"
-              ;; inferior-R-args '((sequence "--no-save" "--quiet"))
-              ;; ess-enable-smart-equals t
-              ;; ess-smart-S-assign t
-              ;; ess-S-quit-kill-buffers-p t
+              inferior-R-args "--no-save --quiet"
+              ess-disable-underscore-assign t
+              ess-S-quit-kill-buffers-p "ask"
               ;; ess-indent-with-fancy-comments nil
               ;; ess-default-style 'Rstudio
               ess-eval-visibly 'nowait)
-              ; C-RET to send paragraph
-              ; C-SHIFT-RET to send link
+                                        ; C-RET to send paragraph
+                                        ; C-SHIFT-RET to send line
      markdown (markdown :variables
-               markdown-live-preview-engine 'vmd)
+                        markdown-live-preview-engine 'vmd)
      pdf
      latex
      docker
@@ -118,7 +116,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(smartparens)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -498,9 +496,9 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
-This function is called while dumping Spacemacs configuration. You can
-`require' or `load' the libraries of your choice that will be included
-in the dump."
+This function is called only while dumping Spacemacs configuration. You can
+`require' or `load' the libraries of your choice that will be included in the
+dump."
   )
 
 (defun dotspacemacs/user-config ()
@@ -519,44 +517,54 @@ before packages are loaded."
   (setq org-agenda-span 10
         org-agenda-start-on-weekday nil
         org-agenda-start-day "-3d")
+
   (setq org-todo-keywords
         '((sequence "TODO" "WAITING" "|" "DONE")))
+
   (setq org-todo-keyword-faces
         '(("WAITING" . "systemYellowColor")
           ("TODO" . "systemRedColor")
           ("DONE" . "systemGreenColor")))
+
   (setq org-agenda-files '("~/dropbox/notes"))
+
   (setq org-startup-folded t)
-  (setq org-ref-default-bibliography "~/dropbox/ITS_LIT_FAM/bib_test.bib"
-        org-ref-pdf-directory "~/dropbox/ITS_LIT_FAM/bibtex_pdf/"
-        org-ref-bibliography-notes "~/dropbox/ITS_LIT_FAM/bib_test.org")
+
+  (setq reftex-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib"))
+
+  (setq org-ref-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib")
+        org-ref-pdf-directory "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
+        org-ref-bibliography-notes "~/dropbox/ITS_LIT_FAM/papers.org")
+
   (setq org-default-notes-file '"~/dropbox/notes/refile-beorg.org")
 
-;;;; ess ;;;;
+  (setq bibtex-autokey-year-length 4
+        bibtex-autokey-name-year-separator "-"
+        bibtex-autokey-year-title-separator "-"
+        bibtex-autokey-titleword-separator "-"
+        bibtex-autokey-titlewords 0)
 
-  ;; don't replace underscore with assignment operator in ess
-  ;; (add-hook 'ess-mode-hook
-  ;;           (lambda ()
-  ;;             (ess-toggle-underscore nil)))
+  (setq bibtex-completion-bibliography "~/dropbox/ITS_LIT_FAM/papers.bib"
+        bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
+        bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
 
+  ;; open pdf with system pdf viewer (works on mac)
+  (setq bibtex-completion-pdf-open-function
+        (lambda (fpath)
+          (start-process "open" "*open*" "open" fpath)))
 
 ;;;; ranger ;;;;
-
   (setq ranger-cleanup-on-disable t)
   (setq ranger-parent-depth 3)
   (setq ranger-override-dired-mode t)
 
-;;;; spacemacs toggles ;;;;
-
-  (spacemacs/toggle-display-time-on)
-  (spacemacs/toggle-visual-line-navigation-on)
-  (spacemacs/toggle-smartparens-globally-off)
-
 ;;;; ??? ;;;
-
   (add-hook 'doc-view-mode-hook 'auto-revert-mode) ;; perform full-document previews in Latex major mode
   (when (fboundp 'windmove-default-keybindings)
     (windmove-default-keybindings))
+
+;;;; persistent spacemacs toggles ;;;;
+  (spacemacs/toggle-display-time-on)
 
   )
 
@@ -567,18 +575,12 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (gitignore-templates zenburn-theme zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum white-sand-theme which-key web-mode web-beautify volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme typit twittering-mode twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit symon sunny-day-theme sudoku sublime-themes subatomic256-theme subatomic-theme string-inflection spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme reveal-in-osx-finder restart-emacs rebecca-theme ranger rainbow-mode rainbow-identifiers rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme popwin planet-theme pippel pipenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el password-generator paradox pandoc-mode pacmacs ox-twbs ox-reveal ox-pandoc ox-gfm overseer osx-trash osx-dictionary orgit organic-green-theme org-ref org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme nameless mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magithub magit-svn magit-gitflow magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum live-py-mode link-hint light-soap-theme launchctl kaolin-themes jbeans-theme jazz-theme ir-black-theme insert-shebang inkpot-theme indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md gandalf-theme fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flycheck-bashate flx-ido flatui-theme flatland-theme fish-mode fill-column-indicator farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu ess-R-data-view espresso-theme eshell-z eshell-prompt-extras esh-help engine-mode emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-themes dockerfile-mode docker django-theme diminish diff-hl darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme csv-mode counsel-projectile company-web company-statistics company-shell company-emoji company-auctex company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-identifiers-mode clues-theme clean-aindent-mode cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-window ace-link ace-jump-helm-line ac-ispell 2048-game))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(package-selected-packages
+     (quote
+      (gitignore-templates zenburn-theme zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum white-sand-theme which-key web-mode web-beautify volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme typit twittering-mode twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit symon sunny-day-theme sudoku sublime-themes subatomic256-theme subatomic-theme string-inflection spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme reveal-in-osx-finder restart-emacs rebecca-theme ranger rainbow-mode rainbow-identifiers rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme popwin planet-theme pippel pipenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el password-generator paradox pandoc-mode pacmacs ox-twbs ox-reveal ox-pandoc ox-gfm overseer osx-trash osx-dictionary orgit organic-green-theme org-ref org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme nameless mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magithub magit-svn magit-gitflow magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum live-py-mode link-hint light-soap-theme launchctl kaolin-themes jbeans-theme jazz-theme ir-black-theme insert-shebang inkpot-theme indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md gandalf-theme fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flycheck-bashate flx-ido flatui-theme flatland-theme fish-mode fill-column-indicator farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu ess-R-data-view espresso-theme eshell-z eshell-prompt-extras esh-help engine-mode emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-themes dockerfile-mode docker django-theme diminish diff-hl darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme csv-mode counsel-projectile company-web company-statistics company-shell company-emoji company-auctex company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-identifiers-mode clues-theme clean-aindent-mode cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+   ))
