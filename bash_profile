@@ -1,3 +1,5 @@
+# -*- mode: sh; -*-
+
 export TERM=screen-256color
 
 source ~/dotfiles/prompt.sh
@@ -62,6 +64,4 @@ if [ -n "$MODULESHOME" ]; then
     # use newer version of git that was installed from source
     export PATH="$HOME/git-2.12.2:$PATH"
 fi
-
-
 
