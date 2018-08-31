@@ -27,11 +27,11 @@ R -e "install.packages('remotes')"
 R -e "remotes::install_github('cole-brokamp/CB')"
 R -e "remotes::install_github('cole-brokamp/automagic')"
 # R -e "remotes::install_github('cole-brokamp/aiR')" # needs key
-R -e "remotes::install_github('cole-brokamp/OfflineGeocodeR')"
-pip install usaddress # needed for hamilton
-R -e "remotes::install_github('cole-brokamp/hamilton')"
-R -e "remotes::install_github('cole-brokamp/rize')"
-R -e "remotes::install_github('cole-brokamp/aiRpollution')"
+# R -e "remotes::install_github('cole-brokamp/OfflineGeocodeR')"
+# pip install usaddress # needed for hamilton
+# R -e "remotes::install_github('cole-brokamp/hamilton')"
+# R -e "remotes::install_github('cole-brokamp/rize')"
+# R -e "remotes::install_github('cole-brokamp/aiRpollution')"
 
 R -e "remotes::install_github('jalvesaq/colorout')"
 R -e "remotes::install_github('jimhester/lookup')"
@@ -43,10 +43,7 @@ R -e "install.packages('sf')"
 R -e "install.packages('tigris')"
 R -e "install.packages('tidycensus')"
 
-R -e "install.packages('mapview')"
-R -e "install.packages('tmap')"
+# R -e "install.packages('mapview')"
+# R -e "install.packages('tmap')"
 
-R -e "install.packages('ranger')"
-
-# install rice interpreter for R
-pip install --no-cache-dir --upgrade rice
+# R -e "install.packages('ranger')"

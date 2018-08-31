@@ -1,9 +1,5 @@
 ### unix aliases
 
-if type nvim > /dev/null 2>&1; then
-  alias vim='nvim'
-fi
-
 alias ls='ls -Fh --color'
 alias ll='ls -l'
 alias la='ls -al'
@@ -30,12 +26,7 @@ alias grep='grep --color=auto'
 
 # R
 alias R='R --quiet --no-save'
-# alias r='R --quiet --no-save'
 alias r='rice --no-history'
-# alias R='rice --no-history'
-
-# googler
-alias g='googler --colors bjdxxy -n 6'
 
 # emacs daemon/client
 alias e="emacsclient -ta \"\""
@@ -49,9 +40,6 @@ alias bisquick_rstudio="ssh -NL localhost:8787:localhost:8787 bisquick"
 alias sshuttle_viao="sshuttle --dns -r viao 0/0"
 alias sshuttle_hp="sshuttle --dns -r hp 0/0"
 alias sshuttle_bisquick="sshuttle --dns -r bisquick 0/0"
-
-
-
 
 ## Docker
 alias di='docker images | less -SX'
