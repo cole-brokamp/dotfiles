@@ -4,7 +4,7 @@
 
 If on macOS, install the XCode CLI tools before starting: `xcode-select --install`
 
-Clone the repo and run the install script:
+Clone the repo and run the install script to symmlink the dotfiles:
 
 ```
 git clone https://github.com/cole-brokamp/dotfiles
@@ -12,27 +12,27 @@ cd ~/dotfiles
 ./install.sh
 ```
 
-In addition to symmlinking the dotfiles, this will also install the tmux plugin manager and Vundle (vim plugin manager) and then install any plugins found in `~/.tmux.conf` or `~/.vimrc`, respectively.
-
 ## Lunch
 
 Run `lunch` when you're about to leave for lunch and this script will:
 
 - Update brew packages if brew is available
 - Update Node packages
-- Update Vim plugins
-- Update Tmux plugins
 
 ## Optional Installations
 
 The `install` folder contains other install scripts:
 
 - `install/node.sh` to install node, npm and packages
-- `install/pip.sh` to install neovim python3 client and rice
 - `install_geos_gdal_proj4_for_linux_from_source.sh`
 - Setup a dynamic DNS service on a server with `duckdns_setup.md`
 - Update the computer's hostname with `update_hostname.md`
 - Increase a computer's swap space with `increase_swapspace.sh`
+
+### Ubuntu
+
+- `install/apt-install-base.sh` installs ubuntu applications
+- `install/apt-install-rgeo.sh` installs R and my usual geospatial environment
 
 ### macOS
 
