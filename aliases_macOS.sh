@@ -19,3 +19,6 @@ alias cwd="pwd | tr -d '\r\n' | pbcopy | echo '=> working directory copied to ke
 
 # open file in new R Studio instance
 alias rstudio='open -na "rstudio"'
+
+# a reminder on how to xpra
+alias xpra='echo "### xpra start ssh:bisquick_int --start=qgis"'
