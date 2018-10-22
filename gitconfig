@@ -32,3 +32,9 @@
 	prune = true
 [github]
 	user = cole-brokamp
+[magithub]
+	online = true
+[magithub "status"]
+	includeStatusHeader = true
+	includePullRequestsSection = true
+	includeIssuesSection = true
