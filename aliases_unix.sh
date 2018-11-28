@@ -26,7 +26,7 @@ alias grep='grep --color=auto'
 
 # R
 alias R='R --quiet --no-save'
-alias r='rice --no-history'
+alias r='R --quiet --no-save'
 
 # emacs daemon/client
 alias e="emacsclient -ta \"\""
