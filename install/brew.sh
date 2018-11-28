@@ -59,7 +59,6 @@ brew install grep --with-default-names
 brew install openssh
 brew install mosh
 brew install screen
-brew install nano
 brew install htop-osx # mac only
 brew install sshuttle
 brew install youtube-dl
