@@ -23,11 +23,11 @@ if (Sys.info()['user'] == 'broeg1') { # better way to determine this?
 
 # auto set R to max columns based on terminal size
 # make sure that $COLUMNS is available (exported in bash_profile)
-# if (Sys.getenv("RSTUDIO") == "") {
-#     .wideScreen <- function(howWide=Sys.getenv("COLUMNS")) {
-#       options(width=as.integer(howWide))
-#     }
-# }
+if (Sys.getenv("RSTUDIO") == "") {
+    .wideScreen <- function(howWide=Sys.getenv("COLUMNS")) {
+      options(width=as.integer(howWide))
+    }
+}
 
 # make sure that these packages are available
 
@@ -69,7 +69,7 @@ if ('colorout' %in% loadedNamespaces()){
 
 # print time and wd on startup
 .First <- function(){
-    library(utils)
-    timestamp(,prefix=paste("##------ [",getwd(),"] ",sep=""))
-    # if (Sys.getenv("RSTUDIO") == "") .wideScreen()
+    # library(utils)
+    # timestamp(,prefix=paste("##------ [",getwd(),"] ",sep=""))
+    if (Sys.getenv("RSTUDIO") == "") .wideScreen()
 }
