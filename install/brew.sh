@@ -78,7 +78,6 @@ brew install pandoc
 brew install pandoc-citeproc
 brew install python
 brew install python3
-brew tap osgeo/osgeo4mac
 brew install libkml-dev
 brew install proj
 brew install geos
@@ -90,5 +89,7 @@ brew install gdal --with-complete --with-unsupported
 brew unlink gdal # unlink before installing gdal2
 brew install gdal2 --with-armadillo --with-complete --with-unsupported
 brew link --force gdal2
+brew tap osgeo/osgeo4mac
+brew install qgis
 
 brew cleanup
