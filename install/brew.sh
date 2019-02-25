@@ -30,13 +30,6 @@ brew install docker-completion
 brew install brew-cask-completion
 brew install docker-compose-completion
 
-# fonts
-brew tap caskroom/fonts
-brew cask install font-hack
-brew cask install font-roboto
-brew cask install font-roboto-condensed
-brew cask install font-computer-modern
-brew cask install font-source-code-pro
 
 # install gnu coreutils with a g prefixed
 brew install coreutils
@@ -69,7 +62,6 @@ brew install lame
 brew install awscli
 brew install vim --with-override-system-vi
 brew install socat
-brew install homebrew/cask/xpra
 
 # emacs stuffs
 brew tap d12frosted/emacs-plus
