@@ -37,26 +37,20 @@ brew install coreutils
 # tools
 brew tap homebrew/dupes
 brew install less
-brew install tree
 brew install wget
 brew install git
 brew install tmux
 brew install reattach-to-user-namespace
 brew install highlight # mac only
 brew install diff-so-fancy
-brew install pv
-brew install ssh-copy-id
 brew install grep --with-default-names
 brew install openssh
 brew install mosh
-brew install screen
 brew install htop-osx # mac only
 brew install sshuttle
 brew install youtube-dl
 brew install asciinema
 brew install ffmpeg
-brew tap clangen/musikcube
-brew install musikcube
 brew install imagemagick
 brew install lame
 brew install awscli
@@ -82,7 +76,6 @@ brew install libkml-dev
 brew install proj
 brew install geos
 brew install udunits
-brew install postgis # takes care of liblwgeom issue
 brew install homebrew/science/hdf4 # still need hdf4 support for MODIS
 brew link --overwrite hdf4
 brew install gdal --with-complete --with-unsupported

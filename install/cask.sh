@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/h
 
 if test ! $(which brew); then
     echo "Installing homebrew"
@@ -12,6 +12,8 @@ brew cleanup
 echo -e "\n\nInstalling homebrew cask packages..."
 echo "=============================="
 
+brew tap caskroom/cask
+
 # quick look plugins for developers
 # mac only
 brew cask install qlcolorcode qlmarkdown \
@@ -22,14 +24,9 @@ brew cask install qlcolorcode qlmarkdown \
 # fonts
 brew tap caskroom/fonts
 brew cask install font-hack
-brew cask install font-roboto
-brew cask install font-roboto-condensed
-brew cask install font-computer-modern
 brew cask install font-source-code-pro
 
 ### install gui apps
-brew tap caskroom/cask
-brew cask install Caskroom/cask/mactex
 brew cask install 1password
 brew cask install backblaze
 brew cask install docker
@@ -37,22 +34,24 @@ brew cask install dropbox
 brew cask install firefox
 brew cask install kindle
 brew cask install kitematic
-brew cask install macdown
-brew cask install mactex
 brew cask install microsoft-office
 brew cask install middleclick
 brew cask install onedrive
 brew cask install r-app
-brew cask install rstudio
-# brew cask install caskroom/versions/rstudio-preview
-brew cask install screens-connect # install screens from app store
-brew cask install texstudio
-brew cask install the-unarchiver
+R -e "install.packages('tinytext'); tinytex::install_tinytex()"
+# brew cask install screens-connect
+# brew cask install the-unarchiver
 brew cask install transmit
 brew cask install vlc
 brew cask install xpra
 brew cask install xquartz
-brew cask install texstudio
+
+## from elsewhere:
+# PDF Expert
+# Bartender 3
+# Itsycal
+# SystemPal
+# Screens 4
 
 brew cask cleanup
 

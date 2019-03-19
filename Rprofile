@@ -6,7 +6,6 @@ options(repos=c(CRAN = "https://cran.rstudio.com/"))
 options(download.file.method="libcurl")
 options(menu.graphics=FALSE)
 options(prompt='R > ')
-
 options(error = rlang::entrace)
 
 # package specific options
