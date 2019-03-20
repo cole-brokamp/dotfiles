@@ -11,8 +11,6 @@ brew cleanup
 
 brew install gcc
 
-brew tap homebrew/versions
-
 echo -e "\n\nInstalling homebrew packages..."
 echo "=============================="
 
@@ -39,8 +37,7 @@ brew tap homebrew/dupes
 brew install less
 brew install wget
 brew install git
-brew install tmux
-brew install reattach-to-user-namespace
+# brew install tmux
 brew install highlight # mac only
 brew install diff-so-fancy
 brew install grep --with-default-names
@@ -53,7 +50,7 @@ brew install asciinema
 brew install ffmpeg
 brew install imagemagick
 brew install lame
-brew install awscli
+# brew install awscli
 brew install vim --with-override-system-vi
 brew install socat
 
@@ -72,17 +69,10 @@ brew install pandoc
 brew install pandoc-citeproc
 brew install python
 brew install python3
-brew install libkml-dev
-brew install proj
-brew install geos
-brew install udunits
-brew install homebrew/science/hdf4 # still need hdf4 support for MODIS
+# brew install homebrew/science/hdf4 # still need hdf4 support for MODIS
 brew link --overwrite hdf4
-brew install gdal --with-complete --with-unsupported
-brew unlink gdal # unlink before installing gdal2
-brew install gdal2 --with-armadillo --with-complete --with-unsupported
-brew link --force gdal2
-brew tap osgeo/osgeo4mac
-brew install qgis
+brew install gdal
+# brew tap osgeo/osgeo4mac
+# brew install qgis
 
 brew cleanup
