@@ -40,18 +40,16 @@ brew cask install onedrive
 brew cask install r-app
 R -e "install.packages('tinytext'); tinytex::install_tinytex()"
 # brew cask install screens-connect
+brew cask install screens
 # brew cask install the-unarchiver
 brew cask install transmit
 brew cask install vlc
 brew cask install xpra
 brew cask install xquartz
-
-## from elsewhere:
-# PDF Expert
-# Bartender 3
-# Itsycal
-# SystemPal
-# Screens 4
+brew cask install pdf-expert
+brew cask install bartender
+brew cask install itsycal
+# install SystemPal from the app store
 
 brew cask cleanup
 
