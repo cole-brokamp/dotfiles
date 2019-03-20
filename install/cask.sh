@@ -18,8 +18,8 @@ brew tap caskroom/cask
 # mac only
 brew cask install qlcolorcode qlmarkdown \
 	qlstephen qlvideo quicklook-json \
-	qlprettypatch quicklook-csn \
-	betterzipql qlimagesize webpquicklook
+	qlprettypatch quicklook-csv \
+	qlimagesize webpquicklook
 
 # fonts
 brew tap caskroom/fonts
