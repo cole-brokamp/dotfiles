@@ -63,6 +63,7 @@ brew install markdown
 brew install ispell
 
 # science
+brew install r
 brew install pandoc
 brew install pandoc-citeproc
 brew install python

@@ -1,8 +1,8 @@
 
 
 # when using tmux this is needed
-alias pbcopy="reattach-to-user-namespace pbcopy"
-alias open="reattach-to-user-namespace open"
+# alias pbcopy="reattach-to-user-namespace pbcopy"
+# alias open="reattach-to-user-namespace open"
 
 # use gnu ls for better colors
 alias ls='gls -Fh --color'
