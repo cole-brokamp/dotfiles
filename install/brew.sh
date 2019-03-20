@@ -9,8 +9,6 @@ brew update
 brew upgrade
 brew cleanup
 
-brew install gcc
-
 echo -e "\n\nInstalling homebrew packages..."
 echo "=============================="
 
@@ -40,7 +38,7 @@ brew install git
 # brew install tmux
 brew install highlight # mac only
 brew install diff-so-fancy
-brew install grep --with-default-names
+brew install grep
 brew install openssh
 brew install mosh
 brew install htop-osx # mac only
@@ -51,7 +49,7 @@ brew install ffmpeg
 brew install imagemagick
 brew install lame
 # brew install awscli
-brew install vim --with-override-system-vi
+brew install vim
 brew install socat
 
 # emacs stuffs
@@ -70,7 +68,7 @@ brew install pandoc-citeproc
 brew install python
 brew install python3
 # brew install homebrew/science/hdf4 # still need hdf4 support for MODIS
-brew link --overwrite hdf4
+# brew link --overwrite hdf4
 brew install gdal
 # brew tap osgeo/osgeo4mac
 # brew install qgis
