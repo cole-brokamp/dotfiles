@@ -49,6 +49,7 @@ brew cask install xquartz
 brew cask install pdf-expert
 brew cask install bartender
 brew cask install itsycal
+brew cask install macdown
 # install SystemPal from the app store
 
 brew cask cleanup
