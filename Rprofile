@@ -6,7 +6,7 @@ options(repos=c(CRAN = "https://cran.rstudio.com/"))
 options(download.file.method="libcurl")
 options(menu.graphics=FALSE)
 options(prompt='R > ')
-options(error = rlang::entrace)
+
 
 # package specific options
 options(tigris_use_cache = TRUE)
@@ -64,7 +64,8 @@ if ('colorout' %in% loadedNamespaces()){
                 zero.limit = NA)
 }
 
-# print time and wd on startup
+if ('rlang' %in% loadedNamespaces()) options(error = rlang::entrace)
+
 .First <- function(){
     if (Sys.getenv("RSTUDIO") == "") .set_width()
 }
