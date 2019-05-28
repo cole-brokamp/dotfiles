@@ -35,28 +35,47 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(html
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
-     ;; `M-m f e R' (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
+   '(
      helm
-     emacs-lisp
-     csv
-     (ranger :variables
+     html
+     ;; emacs-lisp
+     ;; csv
+     (ranger ranger :variables
              ranger-override-dired-mode t
+             ranger-show-hidden t
              ranger-listing-dir-first t
-             ranger-show-preview nil
-             ranger-cleanup-eagerly t
-             ranger-show-hidden nil)
-     bibtex
+             ranger-cleanup-on-disable t
+             ranger-cleanup-eagerly t)
+     bibtex (bibtex :variables
+             bibtex-autokey-year-length 4
+             bibtex-autokey-name-year-separator "-"
+             bibtex-autokey-year-title-separator "-"
+             bibtex-autokey-titleword-separator "-"
+             bibtex-autokey-titlewords 0
+             bibtex-completion-bibliography "~/dropbox/ITS_LIT_FAM/papers.bib"
+             bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
+             bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
      ;; colors
      emoji
      git
      ;; games
      github
      ess (ess :variables
+              ess-use-tracebug nil
+              ess-eval-visibly 'nowait
+              ess-R-font-lock-keywords
+              '((ess-R-fl-keyword:keywords   . t)
+                (ess-R-fl-keyword:constants  . t)
+                (ess-R-fl-keyword:modifiers  . t)
+                (ess-R-fl-keyword:fun-defs   . t)
+                (ess-R-fl-keyword:assign-ops . t)
+                (ess-R-fl-keyword:%op%       . t)
+                (ess-fl-keyword:fun-calls)
+                (ess-fl-keyword:numbers)
+                (ess-fl-keyword:operators . t)
+                (ess-fl-keyword:delimiters)
+                (ess-fl-keyword:=)
+                (ess-R-fl-keyword:F&T))
               ess-ask-for-ess-directory nil
               inferior-R-args "--no-save --quiet"
               ess-S-quit-kill-buffers-p "ask")
@@ -64,14 +83,37 @@ This function should only modify configuration layer settings."
      markdown (markdown :variables
                         markdown-command "pandoc"
                         markdown-live-preview-engine 'vmd)
-     pdf
-     (latex :variables latex-enable-folding t)
+     ;; pdf
+     latex (latex :variables
+            latex-enable-folding t)
      docker
      osx
-     pandoc
-     search-engine
+     ;; pandoc
+     ;; search-engine
      ;; twitter
      org (org :variables
+              org-agenda-span 10
+              org-agenda-start-on-weekday nil
+              org-agenda-start-day "-3d"
+              org-todo-keywords '("TODO" "WAITING" "WISHING" "|" "DONE")
+              org-todo-keyword-faces '(
+                ("WAITING" . "systemBlueColor")
+                ("WISHING" . "systemYellowColor")
+                ("TODO" . "systemRedColor")
+                ("DONE" . "systemGreenColor")
+              )
+              org-agenda-files '("~/dropbox/notes")
+              org-refile-targets '(
+                (org-agenda-files :maxlevel . 1)
+              )
+              org-capture-templates '(
+                ("t" "todo [_todo.org tasks]" entry
+                (file+headline "~/dropbox/notes/_todo.org" "Tasks")
+                "* TODO %?")
+              )
+              org-default-notes-file "~/dropbox/notes/refile-beorg.org"
+              org-startup-folded t
+              org-latex-pdf-process "latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"
               org-enable-github-support t
               org-enable-bootstrap-support t
               org-enable-reveal-js-support t)
@@ -503,78 +545,21 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
   (setq neo-theme 'classic)
-
-;;;; version control ;;;;
   (setq vc-follow-symlinks t)
-
-;;;; org ;;;;
-  (setq org-agenda-span 10
-        org-agenda-start-on-weekday nil
-        org-agenda-start-day "-3d")
-
-  (setq org-todo-keywords
-        '((sequence "TODO" "WAITING" "WISHING" "|" "DONE")))
-
-  (setq org-todo-keyword-faces
-        '(("WAITING" . "systemBlueColor")
-          ("WISHING" . "systemYellowColor")
-          ("TODO" . "systemRedColor")
-          ("DONE" . "systemGreenColor")))
-
-  (setq org-agenda-files '("~/dropbox/notes"))
-
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
-
-  (setq org-capture-templates '(("t" "todo [_todo.org tasks]" entry
-                                 (file+headline "~/dropbox/notes/_todo.org" "Tasks")
-                                 "* TODO %?")))
-
-  (setq org-default-notes-file '"~/dropbox/notes/refile-beorg.org")
-
-  (setq org-startup-folded t)
-
   (setq reftex-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib"))
-
   (setq org-ref-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib")
         org-ref-pdf-directory "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
         org-ref-bibliography-notes "~/dropbox/ITS_LIT_FAM/papers.org")
 
-  (setq bibtex-autokey-year-length 4
-        bibtex-autokey-name-year-separator "-"
-        bibtex-autokey-year-title-separator "-"
-        bibtex-autokey-titleword-separator "-"
-        bibtex-autokey-titlewords 0)
-
-  (setq bibtex-completion-bibliography "~/dropbox/ITS_LIT_FAM/papers.bib"
-        bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
-        bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
-  (setq org-latex-pdf-process
-        '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"))
-
-  ;; open pdf with system pdf viewer (works on mac)
-  (setq bibtex-completion-pdf-open-function
-        (lambda (fpath)
-          (start-process "open" "*open*" "open" fpath)))
-
-;;;; ranger ;;;;
-  (setq ranger-cleanup-on-disable t)
-  (setq ranger-show-dotfiles t)
-  (setq ranger-parent-depth 3)
-  (setq ranger-override-dired-mode t)
-
-;; toggle visual line nav for all text mode
-;; https://emacs.stackexchange.com/a/19364
+  ;; toggle visual line nav for all text mode
+  ;; https://emacs.stackexchange.com/a/19364
   (spacemacs/toggle-truncate-lines-on)
   (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
-
-;;;; ??? ;;;
-  (add-hook 'doc-view-mode-hook 'auto-revert-mode) ;; perform full-document previews in Latex major mode
-  (when (fboundp 'windmove-default-keybindings)
-    (windmove-default-keybindings))
 
 ;;;; modeline spacemacs toggles ;;;;
   (spacemacs/toggle-display-time-on)
   (spacemacs/toggle-mode-line-minor-modes-off)
+
   (spaceline-toggle-buffer-encoding-abbrev-off)
   (spaceline-toggle-buffer-size-off)
   (spaceline-toggle-process-off)
@@ -594,7 +579,8 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(auctex-latexmk zenburn-theme zen-and-art-theme yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum white-sand-theme which-key web-mode web-beautify volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit symon sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme reveal-in-osx-finder restart-emacs rebecca-theme ranger rainbow-delimiters railscasts-theme purple-haze-theme pug-mode professional-theme prettier-js popwin poly-R planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el password-generator paradox pandoc-mode ox-twbs ox-reveal ox-pandoc ox-gfm overseer osx-trash osx-dictionary orgit organic-green-theme org-ref org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme nameless mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magithub magit-svn magit-gitflow magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum link-hint light-soap-theme launchctl kaolin-themes jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md gandalf-theme fuzzy forge font-lock+ flyspell-correct-helm flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu ess-R-data-view espresso-theme eshell-z eshell-prompt-extras esh-help engine-mode emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-themes doom-modeline dockerfile-mode docker django-theme diminish diff-hl darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme csv-mode counsel-projectile company-web company-statistics company-emoji company-auctex column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-window ace-link ace-jump-helm-line ac-ispell)))
+   (quote
+    (poly-R poly-noweb poly-markdown polymode zenburn-theme zen-and-art-theme yaml-mode xterm-color ws-butler winum white-sand-theme which-key web-mode volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline powerline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme reveal-in-osx-finder restart-emacs rebecca-theme ranger rainbow-delimiters railscasts-theme purple-haze-theme pug-mode professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pbcopy paradox spinner pandoc-mode ox-twbs ox-reveal ox-pandoc ox-gfm osx-trash osx-dictionary orgit organic-green-theme org-ref pdf-tools key-chord ivy org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-gitflow magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme launchctl jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hydra hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-bibtex parsebib helm-ag hc-zenburn-theme haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh marshal logito pcache ht gh-md gandalf-theme fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck pkg-info epl flx-ido flx flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu ess-smart-equals ess-R-data-view ctable ess julia-mode espresso-theme eshell-z eshell-prompt-extras esh-help engine-mode emoji-cheat-sheet-plus emmet-mode elisp-slime-nav dumb-jump f dracula-theme dockerfile-mode docker json-mode tablist s magit-popup docker-tramp json-snatcher json-reformat django-theme diminish darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme csv-mode company-web web-completion-data company-statistics company-emoji company-auctex company column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme bind-map bind-key biblio biblio-core dash badwolf-theme auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed auctex apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
