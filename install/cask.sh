@@ -51,6 +51,7 @@ brew cask install bartender
 brew cask install itsycal
 brew cask install macdown
 # install SystemPal from the app store
+brew cask install spotmenu
 
 brew cask cleanup
 
