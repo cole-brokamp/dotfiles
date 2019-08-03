@@ -35,7 +35,7 @@ brew install node
 brew install less
 brew install wget
 brew install git
-# brew install tmux
+brew install tmux
 brew install highlight # mac only
 brew install diff-so-fancy
 brew install grep

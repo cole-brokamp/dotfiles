@@ -36,13 +36,14 @@ brew cask install kindle
 brew cask install kitematic
 brew cask install microsoft-office
 brew cask install middleclick
-brew cask install onedrive
+# brew cask install onedrive
 brew cask install r-app
 R -e "install.packages('tinytext'); tinytex::install_tinytex()"
 # brew cask install screens-connect
 brew cask install screens
-# brew cask install the-unarchiver
-brew cask install transmit
+brew cask install the-unarchiver
+# brew cask install transmit
+brew cask install expandrive
 brew cask install vlc
 brew cask install xpra
 brew cask install xquartz
