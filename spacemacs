@@ -42,7 +42,7 @@ This function should only modify configuration layer settings."
      ;; csv
      (ranger ranger :variables
              ranger-override-dired-mode t
-             ranger-show-hidden t
+             ranger-show-hidden nil
              ranger-listing-dir-first t
              ranger-cleanup-on-disable t
              ranger-cleanup-eagerly t)
@@ -63,6 +63,9 @@ This function should only modify configuration layer settings."
      ess (ess :variables
               ess-use-tracebug nil
               ess-eval-visibly 'nowait
+              ess-help-own-frame nil
+              ess-help-reuse-window t
+              ess-auto-width 'frame
               ess-R-font-lock-keywords
               '((ess-R-fl-keyword:keywords   . t)
                 (ess-R-fl-keyword:constants  . t)
@@ -196,7 +199,7 @@ It should only modify the values of Spacemacs settings."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
@@ -553,12 +556,19 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  (setq menu-bar-mode -1)
+
   (setq neo-theme 'classic)
   (setq vc-follow-symlinks t)
   (setq reftex-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib"))
   (setq org-ref-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib")
         org-ref-pdf-directory "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
         org-ref-bibliography-notes "~/dropbox/ITS_LIT_FAM/papers.org")
+
+  ;; open dired after selecting project in projectile
+  (setq projectile-switch-project-action #'projectile-dired)
+  ;; set paths for projects (search by restarting emacs)
+  (setq projectile-project-search-path '("~/code" "~/works" "~/dotfiles"))
 
   ;; toggle visual line nav for all text mode
   ;; https://emacs.stackexchange.com/a/19364
@@ -568,6 +578,8 @@ before packages are loaded."
 ;;;; modeline spacemacs toggles ;;;;
   (spacemacs/toggle-display-time-on)
   (spacemacs/toggle-mode-line-minor-modes-off)
+  (spacemacs/toggle-tool-bar-off)
+  (spacemacs/toggle-menu-bar-off)
 
   (spaceline-toggle-buffer-encoding-abbrev-off)
   (spaceline-toggle-buffer-size-off)
