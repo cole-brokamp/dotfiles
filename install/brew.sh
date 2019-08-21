@@ -60,6 +60,7 @@ brew install poppler
 brew install automake
 brew install markdown
 brew install ispell
+brew install ripgrep
 
 # science
 brew install r
