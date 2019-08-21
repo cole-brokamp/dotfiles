@@ -8,6 +8,7 @@ fi
 brew update
 brew upgrade
 brew cleanup
+brew tap caskroom/cask
 
 echo -e "\n\nInstalling homebrew packages..."
 echo "=============================="
@@ -53,9 +54,7 @@ brew install vim
 brew install socat
 
 # emacs stuffs
-brew tap d12frosted/emacs-plus
-brew install emacs-plus
-brew linkapps emacs-plus
+brew cask install emacs
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 brew install poppler
 brew install automake
@@ -73,5 +72,52 @@ brew install python3
 brew install gdal
 # brew tap osgeo/osgeo4mac
 # brew install qgis
+
+echo -e "\n\nInstalling homebrew cask packages..."
+echo "=============================="
+
+# quick look plugins for developers
+# mac only
+brew cask install qlcolorcode qlmarkdown \
+	qlstephen qlvideo quicklook-json \
+	qlprettypatch quicklook-csv \
+	qlimagesize webpquicklook
+
+# fonts
+brew tap caskroom/fonts
+brew cask install font-hack
+brew cask install font-source-code-pro
+
+### install gui apps
+brew cask install 1password
+brew cask install backblaze
+brew cask install docker
+brew cask install dropbox
+brew cask install firefox
+brew cask install kindle
+brew cask install kitematic
+brew cask install microsoft-office
+brew cask install middleclick
+# brew cask install onedrive
+brew cask install r-app
+R -e "install.packages('tinytext'); tinytex::install_tinytex()"
+# brew cask install screens-connect
+brew cask install screens
+brew cask install the-unarchiver
+# brew cask install transmit
+brew cask install expandrive
+brew cask install vlc
+brew cask install xpra
+brew cask install xquartz
+brew cask install pdf-expert
+brew cask install bartender
+brew cask install itsycal
+brew cask install macdown
+# install SystemPal from the app store
+brew cask install spotmenu
+
+brew cask cleanup
+
+echo -e "/n/nDone!\n\n"
 
 brew cleanup
