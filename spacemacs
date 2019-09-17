@@ -595,6 +595,7 @@ before packages are loaded."
 
   ;; use all-the-icons for dired
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  (setq ranger-override-dired-mode t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
