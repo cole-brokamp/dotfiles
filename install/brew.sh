@@ -36,6 +36,7 @@ brew install node
 brew install less
 brew install wget
 brew install git
+brew install gpg # for signing gh releases
 brew install tmux
 brew install highlight # mac only
 brew install diff-so-fancy
