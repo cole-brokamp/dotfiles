@@ -585,6 +585,7 @@ before packages are loaded."
   ;; (spacemacs/toggle-mode-line-battery-on)
   (spacemacs/toggle-tool-bar-off)
   (spacemacs/toggle-menu-bar-off)
+  (spacemacs/toggle-yasnippet-off)
 
   ;; (spaceline-toggle-buffer-encoding-abbrev-off)
   ;; (spaceline-toggle-buffer-size-off)
