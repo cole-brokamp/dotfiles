@@ -32,6 +32,7 @@ brew install docker-compose-completion
 brew install coreutils
 
 # tools
+brew install cmake
 brew install node
 brew install less
 brew install wget
