@@ -28,7 +28,6 @@ This function should only modify configuration layer settings."
    ;; a layer lazily. (default t)
    dotspacemacs-ask-for-lazy-installation t
 
-   ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
@@ -55,10 +54,9 @@ This function should only modify configuration layer settings."
              bibtex-completion-bibliography "~/dropbox/ITS_LIT_FAM/papers.bib"
              bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
              bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
-     ;; colors
      emoji
      git
-     ;; games
+     treemacs
      github
      ess (ess :variables
               ess-use-tracebug nil
@@ -86,14 +84,10 @@ This function should only modify configuration layer settings."
      markdown (markdown :variables
                         markdown-command "pandoc"
                         markdown-live-preview-engine 'vmd)
-     ;; pdf
      latex (latex :variables
             latex-enable-folding t)
      docker
      osx
-     ;; pandoc
-     ;; search-engine
-     ;; twitter
      org (org :variables
               org-agenda-span 10
               org-agenda-start-on-weekday nil
@@ -199,7 +193,7 @@ It should only modify the values of Spacemacs settings."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https nil
+   dotspacemacs-elpa-https t
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
@@ -217,7 +211,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-use-spacelpa nil
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
-   ;; (default nil)
+   ;; (default t)
    dotspacemacs-verify-spacelpa-archives t
 
    ;; If non-nil then spacemacs will check for updates at startup
@@ -238,9 +232,6 @@ It should only modify the values of Spacemacs settings."
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
    dotspacemacs-editing-style 'vim
-
-   ;; If non-nil output loading progress in `*Messages*' buffer. (default nil)
-   dotspacemacs-verbose-loading nil
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
