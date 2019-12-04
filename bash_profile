@@ -1,5 +1,7 @@
 # -*- mode: sh; -*-
 
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 export TERM=screen-256color
 
 source ~/dotfiles/prompt.sh
