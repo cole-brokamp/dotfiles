@@ -73,6 +73,7 @@ brew install python3
 # brew install homebrew/science/hdf4 # still need hdf4 support for MODIS
 # brew link --overwrite hdf4
 brew install gdal
+brew install udunits
 # brew tap osgeo/osgeo4mac
 # brew install qgis
 
@@ -102,7 +103,6 @@ brew cask install kitematic
 brew cask install microsoft-office
 brew cask install middleclick
 # brew cask install onedrive
-brew cask install r-app
 R -e "install.packages('tinytext'); tinytex::install_tinytex()"
 # brew cask install screens-connect
 brew cask install screens
@@ -110,7 +110,7 @@ brew cask install the-unarchiver
 # brew cask install transmit
 brew cask install expandrive
 brew cask install vlc
-brew cask install xpra
+# brew cask install xpra
 brew cask install xquartz
 brew cask install pdf-expert
 brew cask install bartender
