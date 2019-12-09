@@ -12,7 +12,8 @@ if test $(which brew); then
     echo -e "\n\nupdating homebrew cask..."
     brew cask upgrade
     echo -e "\n\ncleaning up..."
-    brew cleanup
+    brew cleanup -s
+    brew cask cleanup
 fi
 
 echo -e "\n\n updating Node packages"
