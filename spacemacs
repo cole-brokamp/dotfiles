@@ -59,6 +59,7 @@ This function should only modify configuration layer settings."
      treemacs
      github
      ess (ess :variables
+              ess-assign-key nil
               ess-use-tracebug nil
               ess-eval-visibly 'nowait
               ess-help-own-frame nil
@@ -79,7 +80,26 @@ This function should only modify configuration layer settings."
                 (ess-R-fl-keyword:F&T))
               ess-ask-for-ess-directory nil
               inferior-R-args "--no-save --quiet"
-              ess-S-quit-kill-buffers-p "ask")
+              ess-S-quit-kill-buffers-p "ask"
+              display-buffer-alist
+              `(("*R Dired"
+                 (display-buffer-reuse-window display-buffer-in-side-window)
+                 (side . right)
+                 (slot . -1)
+                 (window-width . 0.33)
+                 (reusable-frames . nil))
+                ("*R"
+                 (display-buffer-reuse-window display-buffer-at-bottom)
+                 (window-width . 0.5)
+                 (dedicated . t)
+                 (reusable-frames . nil))
+                ("*Help"
+                 (display-buffer-reuse-window display-buffer-in-side-window)
+                 (side . right)
+                 (slot . 1)
+                 (window-width . 0.33)
+                 (reusable-frames . nil)))
+              )
      polymode
      markdown (markdown :variables
                         markdown-command "pandoc"
