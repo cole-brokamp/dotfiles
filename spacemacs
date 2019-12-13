@@ -116,7 +116,7 @@ This function should only modify configuration layer settings."
               org-enable-reveal-js-support t)
      shell (shell :variables
                   shell-default-full-span nil
-                  shell-default-shell 'multi-term
+                  shell-default-shell 'vterm
                   shell-default-height 30
                   shell-default-position 'bottom)
      spell-checking (spell-checking :variables
