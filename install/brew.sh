@@ -107,7 +107,7 @@ R -e "install.packages('tinytext'); tinytex::install_tinytex()"
 # brew cask install screens-connect
 brew cask install screens
 brew cask install the-unarchiver
-# brew cask install transmit
+brew cask install transmit
 brew cask install expandrive
 brew cask install vlc
 # brew cask install xpra
