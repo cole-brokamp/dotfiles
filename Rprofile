@@ -5,7 +5,7 @@ options(editor="vim")
 options(repos=c(CRAN = "https://cran.rstudio.com/"))
 options(download.file.method="libcurl")
 options(menu.graphics=FALSE)
-options(prompt='R > ')
+#options(prompt='R > ') # does changing the prompt mess up ess??
 
 
 # package specific options
