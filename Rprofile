@@ -38,18 +38,15 @@ suppressPackageStartupMessages({
     library(base)
 })
 
-pkgs = c('colorout', 'lookup', 'lintr', 'tidyverse', 'CB')
+# pkgs = c('colorout', 'lookup', 'lintr', 'tidyverse', 'CB')
+# jalvesaq/colorout # but this messes up cool progress messages in packages like `pak` (and ess doesn't use it)
+# jimhester/lookup
+pkgs = c('lookup', 'lintr')
 for (pkg in pkgs) {
     if (suppressPackageStartupMessages(suppressWarnings(!require(pkg, character.only = TRUE, quietly = TRUE))))
         message(sprintf("Package '%s' not installed", pkg))
 }
 rm(pkgs, pkg)
-
-
-# install these packages from github:
-# jalvesaq/colorout
-# jimhester/lookup
-# cole-brokamp/CB
 
 # use colorout, if available
 if ('colorout' %in% loadedNamespaces()){
