@@ -35,10 +35,10 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(csv
-     helm
+     (helm :variables helm-no-header t)
      html
-     ;; emacs-lisp
-     ;; csv
+     colors
+     csv
      (ranger ranger :variables
              ranger-override-dired-mode t
              ranger-show-hidden nil
@@ -56,7 +56,9 @@ This function should only modify configuration layer settings."
              bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
      emoji
      git
-     treemacs
+     (treemacs :variables
+               treemacs-use-follow-mode t
+               treemacs-use-filewatch-mode t)
      github
      ess (ess :variables
               ess-assign-key nil
@@ -106,6 +108,9 @@ This function should only modify configuration layer settings."
                         markdown-live-preview-engine 'vmd)
      latex (latex :variables
             latex-enable-folding t)
+     (ibuffer :variables
+              ibuffer-group-buffers-by 'projects)
+     pdf
      docker
      osx
      org (org :variables
@@ -132,7 +137,9 @@ This function should only modify configuration layer settings."
               org-startup-folded t
               org-latex-pdf-process "latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"
               org-enable-github-support t
+              org-enable-epub-support t
               org-enable-bootstrap-support t
+              org-enable-sticky-header t
               org-enable-reveal-js-support t)
      shell (shell :variables
                   shell-default-full-span nil
@@ -140,16 +147,18 @@ This function should only modify configuration layer settings."
                   shell-default-height 30
                   shell-default-position 'bottom)
      spell-checking (spell-checking :variables
-                                    spell-checking-enable-auto-dictionary nil
+                                    spell-checking-enable-auto-dictionary t
                                     enable-flyspell-auto-completion nil
                                     spell-checking-enable-by-default nil)
-     ;; shell-scripts
      auto-completion (auto-completion :variables
                                       auto-completion-return-key-behavior 'complete
                                       auto-completion-tab-key-behavior 'cycle
                                       auto-completion-complete-with-key-sequence nil
                                       auto-completion-complete-with-key-sequence-delay 0.1
-                                      auto-completion-private-snippets-directory nil)
+                                      auto-completion-private-snippets-directory nil
+                                      :disabled-for
+                                      org
+                                      git)
      syntax-checking (syntax-checking :variables
                                       syntax-checking-enable-tooltips t)
      themes-megapack
@@ -575,10 +584,10 @@ before packages are loaded."
 
   (setq neo-theme 'classic)
   (setq vc-follow-symlinks t)
-  (setq reftex-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib"))
-  (setq org-ref-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib")
-        org-ref-pdf-directory "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
-        org-ref-bibliography-notes "~/dropbox/ITS_LIT_FAM/papers.org")
+  ;; (setq reftex-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib"))
+  ;; (setq org-ref-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib")
+  ;;       org-ref-pdf-directory "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
+  ;;       org-ref-bibliography-notes "~/dropbox/ITS_LIT_FAM/papers.org")
 
   ;; open dired after selecting project in projectile
   (setq projectile-switch-project-action #'projectile-dired)
@@ -624,7 +633,12 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (all-the-icons-dired lv zenburn-theme zen-and-art-theme yaml-mode xterm-color ws-butler winum white-sand-theme which-key web-mode volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline powerline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme reveal-in-osx-finder restart-emacs rebecca-theme ranger rainbow-delimiters railscasts-theme purple-haze-theme pug-mode professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pbcopy paradox spinner pandoc-mode ox-twbs ox-reveal ox-pandoc ox-gfm osx-trash osx-dictionary orgit organic-green-theme org-ref pdf-tools key-chord ivy org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-gitflow magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme launchctl jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hydra hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-bibtex parsebib helm-ag hc-zenburn-theme haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh marshal logito pcache ht gh-md gandalf-theme fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck pkg-info epl flx-ido flx flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu ess-smart-equals ess-R-data-view ctable ess julia-mode espresso-theme eshell-z eshell-prompt-extras esh-help engine-mode emoji-cheat-sheet-plus emmet-mode elisp-slime-nav dumb-jump f dracula-theme dockerfile-mode docker json-mode tablist s magit-popup docker-tramp json-snatcher json-reformat django-theme diminish darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme csv-mode company-web web-completion-data company-statistics company-emoji company-auctex company column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme bind-map bind-key biblio biblio-core dash badwolf-theme auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed auctex apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))))
+    (rainbow-mode rainbow-identifiers ox-epub org-sticky-header ibuffer-projectile color-identifiers-mode all-the-icons-dired lv zenburn-theme zen-and-art-theme yaml-mode xterm-color ws-butler winum white-sand-theme which-key web-mode volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline powerline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme reveal-in-osx-finder restart-emacs rebecca-theme ranger rainbow-delimiters railscasts-theme purple-haze-theme pug-mode professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pbcopy paradox spinner pandoc-mode ox-twbs ox-reveal ox-pandoc ox-gfm osx-trash osx-dictionary orgit organic-green-theme org-ref pdf-tools key-chord ivy org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-gitflow magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme launchctl jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hydra hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-bibtex parsebib helm-ag hc-zenburn-theme haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh marshal logito pcache ht gh-md gandalf-theme fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck pkg-info epl flx-ido flx flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu ess-smart-equals ess-R-data-view ctable ess julia-mode espresso-theme eshell-z eshell-prompt-extras esh-help engine-mode emoji-cheat-sheet-plus emmet-mode elisp-slime-nav dumb-jump f dracula-theme dockerfile-mode docker json-mode tablist s magit-popup docker-tramp json-snatcher json-reformat django-theme diminish darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme csv-mode company-web web-completion-data company-statistics company-emoji company-auctex company column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme bind-map bind-key biblio biblio-core dash badwolf-theme auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed auctex apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup)))
+ '(safe-local-variable-values
+   (quote
+    ((org-ref-pdf-directory . "./pm_psych_pdfs/")
+     (org-ref-default-bibliography . "pm_psych_refs_notes.org")
+     (org-ref-bibliography-notes . "pm_psych_refs_notes.org")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
