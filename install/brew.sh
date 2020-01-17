@@ -103,7 +103,7 @@ brew cask install kitematic
 brew cask install microsoft-office
 brew cask install middleclick
 # brew cask install onedrive
-R -e "install.packages('tinytext'); tinytex::install_tinytex()"
+R -e "install.packages('tinytex'); tinytex::install_tinytex()"
 # brew cask install screens-connect
 brew cask install screens
 brew cask install the-unarchiver
@@ -117,7 +117,6 @@ brew cask install bartender
 brew cask install itsycal
 brew cask install macdown
 # install SystemPal from the app store
-brew cask install spotmenu
 
 brew cask cleanup
 
