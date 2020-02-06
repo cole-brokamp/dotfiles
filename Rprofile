@@ -15,13 +15,6 @@ options(tigris_class = "sf")
 # tab completion for library
 utils::rc.settings(ipck=TRUE)
 
-# if on CCHMC HPC, use custom tempdir for installing packages
-if (Sys.info()['user'] == 'broeg1') { # better way to determine this?
-    # install unixtools with `mkdir rtmp; TMPDIR=$PWD/rtmp R -e "install.packages('unixtools',repos='http://www.rforge.net/')"; rm -rf rtmp` from the shell
-    unixtools::set.tempdir('~/myRinstalls/')
-    Sys.setenv(TMP='~/myRinstalls/')
-}
-
 # auto set R to max columns based on terminal size
 # make sure that $COLUMNS is available (exported in bash_profile)
 .set_width <- function(col_width = Sys.getenv("COLUMNS")) options(width=as.integer(col_width))
