@@ -62,6 +62,7 @@ This function should only modify configuration layer settings."
      github
      ess (ess :variables
               ess-assign-key nil
+              ess-indent-with-fancy-comments nil
               ess-use-tracebug nil
               ess-eval-visibly 'nowait
               ess-help-own-frame nil
@@ -82,7 +83,7 @@ This function should only modify configuration layer settings."
                 (ess-R-fl-keyword:F&T))
               ess-ask-for-ess-directory nil
               inferior-R-args "--no-save --quiet"
-              ess-S-quit-kill-buffers-p "ask"
+              ess-S-quit-kill-buffers-p "t"
               display-buffer-alist
               `(("*R Dired"
                  (display-buffer-reuse-window display-buffer-in-side-window)
@@ -276,8 +277,7 @@ It should only modify the values of Spacemacs settings."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'.
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists '((recents . 5))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
