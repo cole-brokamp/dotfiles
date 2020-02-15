@@ -52,13 +52,21 @@ find_docker() {
     fi
 }
 
-PROMPT_COMMAND="find_docker; find_git_dirty; find_git_branch; $PROMPT_COMMAND"
+find_singularity() {
+    if [ -n "$SINGULARITY_CONTAINER" ]; then
+        sing=" 〽️ "
+    else
+        sing=""
+fi
+}
+
+PROMPT_COMMAND="find_singularity; find_docker; find_git_dirty; find_git_branch; $PROMPT_COMMAND"
 
 PROMPT_DIRTRIM=5
 
 PS1="
 $blue \u\
-$grey ❯$green \${dock}\h\
+$grey ❯$green \h$grey\${dock}\${sing}\
 $grey ❯$yellow \w\
 \${git_branch}\
 $(tput sgr0)\n  > "
