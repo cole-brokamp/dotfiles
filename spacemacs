@@ -34,31 +34,41 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(csv
+   '(
      (helm :variables helm-no-header t)
-     html
-     colors
-     csv
-     (ranger ranger :variables
+     ;; html
+     ;; colors
+     ;; emoji
+     ;; pdf
+     docker
+     yaml
+     ;; csv
+     (treemacs :variables
+               treemacs-use-follow-mode t
+               treemacs-use-filewatch-mode t)
+     ;; polymode
+     ;; syntax-checking (syntax-checking :variables
+     ;;                                  syntax-checking-enable-tooltips t)
+     osx
+     lsp
+     ;; lsp (lsp :variables
+     ;;          lsp-clients-r-server-command ("R" "--no-save" "--no-restore" "--no-environ" "--no-site-file" "--slave" "-e" "languageserver::run()"))
+     ranger (ranger :variables
              ranger-override-dired-mode t
              ranger-show-hidden nil
              ranger-listing-dir-first t
              ranger-cleanup-on-disable t
              ranger-cleanup-eagerly t)
      bibtex (bibtex :variables
-             bibtex-autokey-year-length 4
-             bibtex-autokey-name-year-separator "-"
-             bibtex-autokey-year-title-separator "-"
-             bibtex-autokey-titleword-separator "-"
-             bibtex-autokey-titlewords 0
-             bibtex-completion-bibliography "~/dropbox/ITS_LIT_FAM/papers.bib"
-             bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
-             bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
-     emoji
+                    bibtex-autokey-year-length 4
+                    bibtex-autokey-name-year-separator "-"
+                    bibtex-autokey-year-title-separator "-"
+                    bibtex-autokey-titleword-separator "-"
+                    bibtex-autokey-titlewords 0
+                    bibtex-completion-bibliography "~/dropbox/ITS_LIT_FAM/papers.bib"
+                    bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
+                    bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
      git
-     (treemacs :variables
-               treemacs-use-follow-mode t
-               treemacs-use-filewatch-mode t)
      github
      ess (ess :variables
               ess-assign-key nil
@@ -78,6 +88,21 @@ This function should only modify configuration layer settings."
                 (ess-fl-keyword:fun-calls)
                 (ess-fl-keyword:numbers)
                 (ess-fl-keyword:operators . t)
+                (ess-fl-keyword:delimiters)
+                (ess-fl-keyword:=)
+                (ess-R-fl-keyword:F&T))
+              inferior-ess-r-font-lock-keywords
+              '((ess-S-fl-keyword:prompt . t)
+                (ess-R-fl-keyword:messages . t)
+                (ess-R-fl-keyword:modifiers . t)
+                (ess-R-fl-keyword:fun-defs . t)
+                (ess-R-fl-keyword:keywords . t)
+                (ess-R-fl-keyword:assign-ops)
+                (ess-R-fl-keyword:constants . t)
+                (ess-fl-keyword:matrix-labels)
+                (ess-fl-keyword:fun-calls)
+                (ess-fl-keyword:numbers)
+                (ess-fl-keyword:operators)
                 (ess-fl-keyword:delimiters)
                 (ess-fl-keyword:=)
                 (ess-R-fl-keyword:F&T))
@@ -103,37 +128,33 @@ This function should only modify configuration layer settings."
                  (window-width . 0.33)
                  (reusable-frames . nil)))
               )
-     polymode
      markdown (markdown :variables
                         markdown-command "pandoc"
                         markdown-live-preview-engine 'vmd)
      latex (latex :variables
-            latex-enable-folding t)
+                  latex-enable-folding t)
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
-     pdf
-     docker
-     osx
      org (org :variables
               org-agenda-span 10
               org-agenda-start-on-weekday nil
               org-agenda-start-day "-3d"
               org-todo-keywords '("TODO" "WAITING" "WISHING" "|" "DONE")
               org-todo-keyword-faces '(
-                ("WAITING" . "systemBlueColor")
-                ("WISHING" . "systemYellowColor")
-                ("TODO" . "systemRedColor")
-                ("DONE" . "systemGreenColor")
-              )
+                                       ("WAITING" . "systemBlueColor")
+                                       ("WISHING" . "systemYellowColor")
+                                       ("TODO" . "systemRedColor")
+                                       ("DONE" . "systemGreenColor")
+                                       )
               org-agenda-files '("~/dropbox/notes")
               org-refile-targets '(
-                (org-agenda-files :maxlevel . 1)
-              )
+                                   (org-agenda-files :maxlevel . 1)
+                                   )
               org-capture-templates '(
-                ("t" "todo [_todo.org tasks]" entry
-                (file+headline "~/dropbox/notes/_todo.org" "Tasks")
-                "* TODO %?")
-              )
+                                      ("t" "todo [_todo.org tasks]" entry
+                                       (file+headline "~/dropbox/notes/_todo.org" "Tasks")
+                                       "* TODO %?")
+                                      )
               org-default-notes-file "~/dropbox/notes/refile-beorg.org"
               org-startup-folded t
               org-latex-pdf-process "latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"
@@ -160,10 +181,7 @@ This function should only modify configuration layer settings."
                                       :disabled-for
                                       org
                                       git)
-     syntax-checking (syntax-checking :variables
-                                      syntax-checking-enable-tooltips t)
      themes-megapack
-     yaml
      )
 
    ;; List of additional packages that will be installed without being
@@ -616,6 +634,91 @@ before packages are loaded."
 
   ;; use all-the-icons for dired
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+
+  ;; more ess settings
+
+  (add-hook 'ess-mode-hook 'prettify-symbols-mode)
+
+  (defun insert-pipe ()
+    "Insert a %>%"
+    (interactive)
+    (just-one-space 1)
+    (insert "%>%")
+    (reindent-then-newline-and-indent))
+  (define-key ess-mode-map (kbd "C-'") 'insert-pipe)
+
+  (defun ess-edit-word-at-point ()
+    (save-excursion
+      (buffer-substring
+       (+ (point) (skip-chars-backward "a-zA-Z0-9._"))
+       (+ (point) (skip-chars-forward "a-zA-Z0-9._")))))
+
+  (defun ess-eval-word ()
+    (interactive)
+    (let ((x (ess-edit-word-at-point)))
+      (ess-eval-linewise (concat x)))
+    )
+
+  (defun ess-glimpse-word ()
+    (interactive)
+    (let ((x (ess-edit-word-at-point)))
+      (ess-eval-linewise (concat "glimpse(" x ")"))))
+
+  (spacemacs/declare-prefix-for-mode 'ess-r-mode "mT" "toggle")
+  (spacemacs/declare-prefix-for-mode 'ess-r-mode "m=" "format")
+  (spacemacs/declare-prefix-for-mode 'ess-r-mode "mx" "text")
+  (spacemacs/declare-prefix-for-mode 'ess-r-mode "mb" "lsp/backend")
+  (spacemacs/declare-prefix-for-mode 'ess-r-mode "ma" "activate")
+  (spacemacs/declare-prefix-for-mode 'ess-r-mode "mF" "folder")
+  (spacemacs/declare-prefix-for-mode 'ess-r-mode "mg" "goto")
+  (spacemacs/declare-prefix-for-mode 'ess-r-mode "mG" "peek")
+  (spacemacs/declare-prefix-for-mode 'ess-r-mode "mr" "refactor")
+  (spacemacs/declare-prefix-for-mode 'ess-r-mode "mc" "chunks")
+
+  (spacemacs/set-leader-keys-for-major-mode 'ess-r-mode
+    "," 'ess-eval-line-and-step
+    "e" 'ess-eval-paragraph-and-step
+    "o" 'ess-eval-word
+    ;; "og" 'ess-glimpse-word
+    "R" 'ess-eval-region
+    "cc" 'ess-eval-chunk
+    "cd" 'ess-eval-chunk-and-step
+    "ci" 'ess-insert-r-code-chunk
+    "cr" 'ess-render-rmarkdown
+    ;; TODO render from beginning up to current chunk
+    "si" 'ess-interrupt
+    "sr" 'inferior-ess-reload
+    "ss" 'ess-switch-process
+    )
+
+  (defun ess-insert-r-code-chunk ()
+    "Insert R Markdown code chunk."
+    (interactive)
+    (insert "```{r}\n")
+    (save-excursion
+      (insert "\n")
+      (insert "```\n")))
+
+  (defun ess-render-rmarkdown ()
+    "Compile R markdown (.Rmd). Should work for any output type."
+    (interactive)
+    ;; Check if attached R-session
+    (condition-case nil
+        (ess-get-process)
+      (error
+       (ess-switch-process)))
+    (let* ((rmd-buf (current-buffer)))
+      (save-excursion
+        (let* ((sprocess (ess-get-process ess-current-process-name))
+               (sbuffer (process-buffer sprocess))
+               (buf-coding (symbol-name buffer-file-coding-system))
+               (R-cmd
+                (format "rmarkdown::render(\"%s\")"
+                        buffer-file-name)))
+          (message "Running rmarkdown on %s" buffer-file-name)
+          (ess-execute R-cmd 'buffer nil nil)
+          (switch-to-buffer rmd-buf)
+          (ess-show-buffer (buffer-name sbuffer) nil)))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
