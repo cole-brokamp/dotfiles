@@ -45,14 +45,17 @@ This function should only modify configuration layer settings."
      ;; csv
      (treemacs :variables
                treemacs-use-follow-mode t
+               treemacs-use-git-mode 'simple
                treemacs-use-filewatch-mode t)
      ;; polymode
      ;; syntax-checking (syntax-checking :variables
      ;;                                  syntax-checking-enable-tooltips t)
      osx
-     lsp
-     ;; lsp (lsp :variables
-     ;;          lsp-clients-r-server-command ("R" "--no-save" "--no-restore" "--no-environ" "--no-site-file" "--slave" "-e" "languageserver::run()"))
+     lsp (lsp :variables
+              lsp-clients-r-server-command ("R" "--no-save" "--no-restore" "--no-environ" "--no-site-file" "--slave" "-e" "languageserver::run()")
+              lsp-ui-doc-enable nil
+              lsp-ui-sideline-enable nil
+              )
      ranger (ranger :variables
              ranger-override-dired-mode t
              ranger-show-hidden nil
@@ -616,6 +619,7 @@ before packages are loaded."
   ;; https://emacs.stackexchange.com/a/19364
   (spacemacs/toggle-truncate-lines-on)
   (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
+  (add-hook 'ess-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
 
   ;;;; modeline spacemacs toggles ;;;;
   (spacemacs/toggle-display-time-on)
@@ -645,7 +649,7 @@ before packages are loaded."
     (just-one-space 1)
     (insert "%>%")
     (reindent-then-newline-and-indent))
-  (define-key ess-mode-map (kbd "C-'") 'insert-pipe)
+  ;; (define-key ess-mode-map (kbd "C-'") 'insert-pipe)
 
   (defun ess-edit-word-at-point ()
     (save-excursion
