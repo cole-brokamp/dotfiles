@@ -86,6 +86,8 @@ brew cask install qlcolorcode qlmarkdown \
 	qlstephen qlvideo quicklook-json \
 	qlprettypatch quicklook-csv \
 	qlimagesize webpquicklook
+# get these working in catalina with:
+# xattr -d -r com.apple.quarantine ~/Library/QuickLook
 
 # fonts
 brew tap caskroom/fonts
