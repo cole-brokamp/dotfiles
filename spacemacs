@@ -717,7 +717,7 @@ before packages are loaded."
                (sbuffer (process-buffer sprocess))
                (buf-coding (symbol-name buffer-file-coding-system))
                (R-cmd
-                (format "rmarkdown::render(\"%s\")"
+                (format "rmarkdown::render(\"%s\", envir = new.env())"
                         buffer-file-name)))
           (message "Running rmarkdown on %s" buffer-file-name)
           (ess-execute R-cmd 'buffer nil nil)
