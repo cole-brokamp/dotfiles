@@ -52,7 +52,7 @@ This function should only modify configuration layer settings."
      ;;                                  syntax-checking-enable-tooltips t)
      osx
      lsp (lsp :variables
-              lsp-clients-r-server-command ("R" "--no-save" "--no-restore" "--no-environ" "--no-site-file" "--slave" "-e" "languageserver::run()")
+              ;; lsp-clients-r-server-command ("R" "--no-save" "--no-restore" "--no-environ" "--no-site-file" "--slave" "-e" "languageserver::run()")
               lsp-ui-doc-enable nil
               lsp-ui-sideline-enable nil
               )
@@ -603,6 +603,9 @@ before packages are loaded."
 
   (setq menu-bar-mode -1)
 
+  ;; increase the amount of data emacs reads from the process to speed up lsp packages
+  (setq read-process-output-max (* 1024 1024))
+
   (setq neo-theme 'classic)
   (setq vc-follow-symlinks t)
   ;; (setq reftex-default-bibliography '("~/dropbox/ITS_LIT_FAM/papers.bib"))
@@ -649,7 +652,7 @@ before packages are loaded."
     (just-one-space 1)
     (insert "%>%")
     (reindent-then-newline-and-indent))
-  ;; (define-key ess-mode-map (kbd "C-'") 'insert-pipe)
+  (define-key ess-mode-map (kbd "C-'") 'insert-pipe)
 
   (defun ess-edit-word-at-point ()
     (save-excursion
