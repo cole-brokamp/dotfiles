@@ -38,3 +38,5 @@
 	includeStatusHeader = true
 	includePullRequestsSection = true
 	includeIssuesSection = true
+[credential]
+	helper = cache --timeout=1209600
