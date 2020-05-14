@@ -8,7 +8,6 @@ fi
 brew update
 brew upgrade
 brew cleanup
-brew tap caskroom/cask
 
 echo -e "\n\nInstalling homebrew packages..."
 echo "=============================="
@@ -51,7 +50,7 @@ brew install asciinema
 brew install ffmpeg
 brew install imagemagick
 brew install lame
-# brew install awscli
+brew install awscli
 brew install vim
 brew install socat
 
@@ -90,7 +89,7 @@ brew cask install qlcolorcode qlmarkdown \
 # xattr -d -r com.apple.quarantine ~/Library/QuickLook
 
 # fonts
-brew tap caskroom/fonts
+brew tap homebrew/cask-fonts
 brew cask install font-hack
 brew cask install font-source-code-pro
 
@@ -110,7 +109,7 @@ R -e "install.packages('tinytex'); tinytex::install_tinytex()"
 brew cask install screens
 brew cask install the-unarchiver
 brew cask install transmit
-brew cask install expandrive
+# brew cask install expandrive
 brew cask install vlc
 # brew cask install xpra
 brew cask install xquartz
