@@ -71,6 +71,7 @@ brew install python
 brew install python3
 # brew install homebrew/science/hdf4 # still need hdf4 support for MODIS
 # brew link --overwrite hdf4
+brew install pkg-config
 brew install gdal
 brew install udunits
 # brew tap osgeo/osgeo4mac
@@ -105,6 +106,7 @@ brew cask install microsoft-office
 brew cask install middleclick
 # brew cask install onedrive
 R -e "install.packages('tinytex'); tinytex::install_tinytex()"
+# *OR* brew cask install mactex-no-gui
 # brew cask install screens-connect
 brew cask install screens
 brew cask install the-unarchiver
