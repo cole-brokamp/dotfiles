@@ -194,7 +194,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(org-tree-slide all-the-icons-dired)
+   dotspacemacs-additional-packages '(org-tree-slide)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -654,7 +654,7 @@ before packages are loaded."
   (setq org-tree-slide-slide-in-effect nil)
 
   ;; use all-the-icons for dired
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
   ;; more ess settings
 
