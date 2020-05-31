@@ -35,10 +35,8 @@ alias e="emacsclient -ta \"\""
 # aliases to start rstudio server over ssh tunnel
 # make sure to add `www-address=127.0.0.1` to `/etc/rstudio/rserver.conf` so it listens only on localhost for connections
 # alias tunnel="ssh -fNL localhost:<local-port>:localhost:<remote-port> <ssh-client>"
-alias bisquick_rstudio="ssh -NL localhost:8787:localhost:8787 bisquick"
+alias rstudio_bisquick="ssh -NL localhost:8787:localhost:8787 bisquick"
 # sshuttle aliases
-alias sshuttle_viao="sshuttle --dns -r viao 0/0"
-alias sshuttle_hp="sshuttle --dns -r hp 0/0"
 alias sshuttle_bisquick="sshuttle --dns -r bisquick 0/0"
 
 ## Docker
@@ -48,7 +46,6 @@ alias dc='docker_clean'
 alias de='docker exec -ti $( docker ps -a -q -l) /bin/bash'
 alias dt='docker run -ti --name ctop --rm -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
 alias docker_update_all='docker images | grep -v REPOSITORY | awk '\''{print $1 ":" $2}'\'' | xargs -L1 docker pull' # updates all local images
-alias waffle='docker run --name waffle -it --rm -v $PWD:/root/`basename $PWD` quay.io/colebrokamp/waffle:latest'
 
 # CCHMC HPC LSF commands
 alias bsub_singr='bsub -Is -M 200000 -n 8 -W 24:00 -R "span[ptile=8]" "module load singularity; ~/singr_latest.sif"'
