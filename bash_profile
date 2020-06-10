@@ -13,15 +13,7 @@ source ~/dotfiles/secrets.sh 2> /dev/null
 if [ "$(uname)" == "Darwin" ]; then
     source ~/dotfiles/aliases_unix.sh
     source ~/dotfiles/aliases_macOS.sh
-    # brew completion
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-        . $(brew --prefix)/etc/bash_completion
-    fi
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-   # set path for linux brew
-    export PATH="$HOME/.linuxbrew/bin:$PATH"
-    export MANPATH="HOME/.linuxbrew/share/man:$MANPATH"
-    export INFOPATH="HOME/.linuxbrew/share/info:$INFOPATH"
     source ~/dotfiles/aliases_unix.sh
 fi
 
@@ -40,6 +32,9 @@ eval `dircolors --sh ~/dotfiles/dircolors-solarized`
 
 # setting path for my own scripts
 export PATH=$PATH:~/dotfiles/bin
+
+# add go path
+export PATH=$PATH:/usr/local/go/bin
 
 # export COLUMNS variable for proper setting of R's width on resize
 export COLUMNS
