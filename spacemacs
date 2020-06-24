@@ -166,7 +166,7 @@ This function should only modify configuration layer settings."
               org-enable-github-support t
               org-enable-epub-support t
               org-enable-bootstrap-support t
-              org-enable-sticky-header t
+              org-enable-sticky-header nil
               org-enable-reveal-js-support t)
      shell (shell :variables
                   shell-default-full-span nil
