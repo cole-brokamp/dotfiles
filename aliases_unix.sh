@@ -34,7 +34,7 @@ alias e="emacsclient -ta \"\""
 ##  SSH tunnels
 # aliases to start rstudio server over ssh tunnel
 # make sure to add `www-address=127.0.0.1` to `/etc/rstudio/rserver.conf` so it listens only on localhost for connections
-# alias tunnel="ssh -fNL localhost:<local-port>:localhost:<remote-port> <ssh-client>"
+alias tunnel="echo 'ssh -fNL localhost:<local-port>:localhost:<remote-port> <ssh-client>'"
 alias rstudio_bisquick="ssh -NL localhost:8787:localhost:8787 bisquick"
 # tunnel for httpgd server (R graphics)
 alias httpgd_bisquick="ssh -NL localhost:55555:localhost:55555 bisquick"
