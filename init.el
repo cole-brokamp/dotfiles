@@ -1,821 +1,623 @@
-;;; init.el --- Initialization file for Emacs  -*- lexical-binding: t; -*-
-;;; Commentary:
-;;; Emacs Startup File --- initialization for Emacs
-;;; Package --- Summary
-;;; Code:
-(eval-and-compile
-  (setq gc-cons-threshold 402653184
-      gc-cons-percentage 0.6))
+;; did you know?
+; use M-n in any ivy window to automatically insert the word under the cursor as the search term
 
-(defvar temp--file-name-handler-alist file-name-handler-alist)
-(setq file-name-handler-alist nil)
+;; basic ==========================================================
 
-(setq backup-directory-alist `(("." . "~/.emacs.d/backups")) ; which directory to put backups file
-      auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)) ;transform backups file name
-      fill-column 80   ; toggle wrapping text at the 80th character
-      scroll-conservatively 101         ;
-      ispell-program-name "aspell")
-
-;; (with-eval-after-load 'tramp
-;;   (setq tramp-default-method "ssh"))
-
-;; (with-eval-after-load 'display-line-numbers
-;;   (setq display-line-numbers-type 'relative
-;;         display-line-numbers-width-start t))
-
-(set-language-environment "UTF-8")
-(set-default-coding-systems 'utf-8)
-(setq-default indent-tabs-mode nil)
-(global-hl-line-mode 1)
-(menu-bar-mode -1)
+(setq inhibit-startup-message t)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
-(blink-cursor-mode 0)
-(winner-mode 1)
-(put 'narrow-to-region 'disabled nil)
+(tooltip-mode -1)
+(set-fringe-mode 10)
+(menu-bar-mode -1)
+(setq make-backup-files nil)
+(setq delete-by-moving-to-trash t)
+(setq initial-scratch-message nil)
+(setq initial-major-mode 'org-mode)
+(setq confirm-kill-emacs 'y-or-n-p)
+(global-hl-line-mode 1)
+;; (setq-default frame-title-format "%b (%f)")
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq help-window-select t)
+(global-auto-revert-mode 1)
 
-;;;We’re going to set the load-path ourselves and avoid calling (package-initilize) (for performance reasons) so we need to set package--init-file-ensured to true to tell package.el to not automatically call it on our behalf. Additionally we’re setting package-enable-at-startup to nil so that packages will not automatically be loaded for us since use-package will be handling that.
-(eval-and-compile
-  (setq load-prefer-newer t
-        package-user-dir "~/.emacs.d/elpa"
-        package--init-file-ensured t
-        package-enable-at-startup nil)
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
 
-  (unless (file-directory-p package-user-dir)
-    (make-directory package-user-dir t))
+(setq display-time-load-average-threshold 5
+      display-time-day-and-date t)
+(display-time)
 
-  (setq load-path (append load-path (directory-files package-user-dir t "^[^.]" t))))
+(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; {light, dark}
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+
+(run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
+
+; disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; line numbers
+(column-number-mode)
+(global-display-line-numbers-mode t)
+(setq display-line-numbers 'relative)
+
+; fonts
+(set-face-attribute 'default nil :font "Source Code Pro" :height 130)
+(set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 130)
+
+;; package manager ======================================================
+
+; Initialize package sources
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; my functions =======================================================
+(defun cole/find-user-init-file ()
+  "Edit the `user-init-file', in the current window."
+  (interactive)
+  (find-file-existing user-init-file))
+
+(defun cole/switch-to-messages-buffer ()
+  (interactive)
+  (switch-to-buffer (get-buffer "*Messages*")))
+
+(defun cole/switch-to-scratch-buffer ()
+  (interactive)
+  (switch-to-buffer (get-buffer "*scratch*")))
+
+;; packages ================================================================
+
+;; key bindings ===============================================
+
+; make ESC quit prompts too
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+; auto-indent on RET
+(define-key global-map (kbd "RET") 'newline-and-indent)
+
+(defun cole/buffer-file-name ()
+  "Copy current buffer's file name to clipboard, and display it."
+  (interactive)
+  (kill-new (buffer-file-name))
+  (message (buffer-file-name)))
+
+(defun cole/split-window-below-and-focus ()
+  "Split the window vertically and focus the new window."
+  (interactive)
+  (split-window-below)
+  (windmove-down))
+
+(defun cole/split-window-right-and-focus ()
+  "Split the window horizontally and focus the new window."
+  (interactive)
+  (split-window-right)
+  (windmove-right))
+
+(defun cole/toggle-maximize-buffer ()
+  "Maximize buffer"
+  (interactive)
+  (save-excursion
+    (if (and (= 1 (length (window-list)))
+	     (assoc ?_ register-alist))
+	(jump-to-register ?_)
+      (progn
+	(window-configuration-to-register ?_)
+	(delete-other-windows)))))
+  
+(use-package general
+  :config
+  (general-create-definer cole/leader-keys
+    :keymaps '(normal insert visual emacs)
+    :prefix "SPC"
+    :non-normal-prefix "C-SPC")
+
+  (cole/leader-keys
+    "SPC" '(counsel-M-x :which-key "M-x")
+    "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
+    "'" '(term :which-key "shell")
+    ";" '(evilnc-comment-or-uncomment-lines :which-key "comment operator")
+    ;; "/" '(:which-key "search project")
+    "a" '(:ignore t :which-key "applications")
+    ;; "ad" docker
+    "ac" '(calendar :which-key "calendar")
+    ;; "ab" '(ivy-bibtex :which-key "bibtex")
+    "ab" '(ivy-bibtex-with-local-bibliography :which-key "bibtex (local bib)") ; auto uses bib file from \bibliography in files!
+    "aB" '(ivy-bibtex :which-key "bibtex (global bib)") ; auto uses bib file from \bibliography in files!
+    "ao" '(:ignore :which-key "org")
+    "aoc" '(org-capture :which-key "org capture")
+    "aoa" '(org-agenda :which-key "org agenda")
+    ":" '(shell-command :which-key "shell command")
+    "q" '(:ignore t :which-key "quit")
+    "qq" '(save-buffers-kill-emacs :which-key "quit")
+    "qr" '(restart-emacs :which-key "restart")
+    "f" '(:ignore t :which-key "files")
+    "fs" '(save-buffer :which-key "save")
+    "fS" '(evil-write-all :which-key "save all")
+    "ff" '(counsel-find-file :which-key "find file")
+    "fD" '(delete-file :which-key "delete file")
+    "fr" '(revert-buffer :which-key "reload file from disk")
+    "b" '(:ignore t :which-key "buffers")
+    "bb" '(ivy-switch-buffer :which-key "switch to buffer")
+    "bf" '(reveal-in-osx-finder :which-key "show buffer in finder")
+    "bd" '(kill-current-buffer :which-key "delete buffer")
+    "bm" '(cole/switch-to-messages-buffer :which-key "messages buffer")
+    "bs" '(cole/switch-to-scratch-buffer :which-key "scratch buffer")
+    "bn" '(cole/buffer-file-name :which-key "copy buffer filename")
+    "c" '(:ignore t :which-key "compile")
+    "cc" '(compile :which-key "compile")
+    "ck" '(kill-compilation :which-key "kill compilation")
+    "i" '(:ignore t :which-key "insert")
+    "ie" '(emojify-insert-emoji :which-key "insert emoji")
+    "io" '(newline-and-indent :which-key "open line")
+    ;; "ij" insert empty line below
+    ;; "ik" insert empty line above
+    "j" '(:ignore t :which-key "jump")
+    "jd" '(dired-jump :which-key "dired-jump")
+    "n" '(:ignore t :which-key "notes")
+    "nn" '((lambda () (interactive) (dired "~/dropbox/notes")) :which-key "notes")
+    "nt" '((lambda () (interactive) (find-file "~/dropbox/notes/_todo.org")) :which-key "_todo.org")
+    "nw" '((lambda () (interactive) (find-file "~/dropbox/notes/wiki.org")) :which-key "wiki.org")
+    "ns" '((lambda () (interactive) (find-file "~/dropbox/notes/students.org")) :which-key "students.org")
+    "nr" '((lambda () (interactive) (find-file "~/dropbox/notes/refile-beorg.org")) :which-key "refile-beorg.org")
+    "t"  '(:ignore t :which-key "toggles")
+    "tt" '(counsel-load-theme :which-key "choose theme")
+    "tf" '(toggle-frame-fullscreen :which-key "full screen")
+    "tL" '(toggle-truncate-lines :which-key "truncate lines")
+    "tm" '(toggle-frame-maximized :which-key "maximize screen")
+    "w" '(:ignore t :which-key "windows")
+    "wd" '(evil-window-delete :which-key "delete window")
+    "w/" '(cole/split-window-right-and-focus :which-key "split right")
+    "w-" '(cole/split-window-below-and-focus :which-key "split down")
+    "wh" '(evil-window-left :which-key "move left")
+    "wl" '(evil-window-right :which-key "move right")
+    "wj" '(evil-window-down :which-key "move down")
+    "wk" '(evil-window-up :which-key "move up")
+    "wf" '(make-frame :which-key "make into frame")
+    "wm" '(cole/toggle-maximize-buffer :which-key "maximize window")
+    "w=" '(balance-windows-area :which-key "equal window areas")
+    "e" '(:ignore t :which-key "emacs")
+    "ed" '(cole/find-user-init-file :which-key "open emacs dotfile")
+    "s" '(:ignore t :which-key "search")
+    "ss" '(swiper :which-key "swiper")
+    ))
+
+(use-package reveal-in-osx-finder)
 
 
-(eval-when-compile
-  (require 'package)
-  ;; tells emacs not to load any packages before starting up
-  ;; the following lines tell emacs where on the internet to look up
-  ;; for new packages.
-  (setq package-archives '(("melpa"     . "https://melpa.org/packages/")
-                           ("elpa"      . "https://elpa.gnu.org/packages/")
-                           ("repo-org"  . "https://orgmode.org/elpa/")))
-  ;; (package-initialize)
-  (unless package--initialized (package-initialize t))
+;; do a transient state for window sizing and rotating
+;; evil-window-{increase,decrease}-{width,height}
 
-  ;; Bootstrap `use-package'
-  (unless (package-installed-p 'use-package) ; unless it is already installed
-    (package-refresh-contents) ; update packages archive
-    (package-install 'use-package)) ; and install the most recent version of use-package
+;; shell ----------------------------------
 
-  (require 'use-package)
-  (setq use-package-always-ensure t))
+(with-eval-after-load 'shell
+  (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
+  (evil-define-key 'insert comint-mode-map [down] 'comint-next-input))
+
+(use-package restart-emacs)
+
+
+(use-package ivy
+  :diminish
+  :bind (
+	 :map ivy-minibuffer-map
+	 ("TAB" . ivy-alt-done)
+	 ("C-l" . ivy-alt-done)
+	 ("C-j" . ivy-next-line)
+	 ("C-k" . ivy-previous-line)
+	 ("C-o" . ivy-dispatching-done) ;; C-o for more options in ivy minibuffers
+	 :map ivy-switch-buffer-map
+	 ("C-k" . ivy-previous-line)
+	 ("C-l" . ivy-done)
+	 ("C-d" . ivy-switch-buffer-kill)
+	 :map ivy-reverse-i-search-map
+	 ("C-k" . ivy-previous-line)
+
+	 ("C-d" . ivy-reverse-i-search-kill))
+  :custom
+  (ivy-initial-inputs-alist nil)
+  :config
+  (ivy-mode 1))
+
+(use-package ivy-rich
+  :init (ivy-rich-mode 1))
+
+
+(use-package all-the-icons-ivy
+  :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
+  :custom (all-the-icons-ivy-file-commands '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
+
+(use-package osx-trash
+  :custom (delete-by-moving-to-trash t)
+  :config (osx-trash-setup))
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history)))
+
+(use-package helpful
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
+(use-package all-the-icons)
+
+(use-package doom-modeline
+             :init (doom-modeline-mode 1)
+             :custom ((doom-modeline-height 15)))
+
+(use-package doom-themes
+             :init (load-theme 'doom-dracula t))
+
+(use-package rainbow-delimiters
+             :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package which-key
-  :config (which-key-mode 1))
-
-(use-package general
-  :after which-key
-  :config
-  (general-override-mode 1)
-
-  (defun find-user-init-file ()
-    "Edit the `user-init-file', in same window."
-    (interactive)
-    (find-file user-init-file))
-  (defun load-user-init-file ()
-    "Load the `user-init-file', in same window."
-    (interactive)
-    (load-file user-init-file))
-
-  ;; ;;Taken from http://emacsredux.com/blog/2013/05/04/rename-file-and-buffer/
-  ;; (defun rename-file-and-buffer ()
-  ;;   "Rename the current buffer and file it is visiting."
-  ;;   (interactive)
-  ;;   (let ((filename (buffer-file-name)))
-  ;;     (if (not (and filename (file-exists-p filename)))
-  ;;         (message "Buffer is not visiting a file!")
-  ;;       (let ((new-name (read-file-name "New name: " filename)))
-  ;;         (cond
-  ;;          ((vc-backend filename) (vc-rename-file filename new-name))
-  ;;          (t
-  ;;           (rename-file filename new-name t)
-  ;;           (set-visited-file-name new-name t t)))))))
-
-
-  ;; (defun disable-all-themes ()
-  ;;   "disable all active themes."
-  ;;   (dolist (i custom-enabled-themes)
-  ;;     (disable-theme i)))
-
-  ;; (defadvice load-theme (before disable-themes-first activate)
-  ;;   (disable-all-themes))
-
-  ;; ;; Following lines to cycle through themes adapted from ivan's answer on
-  ;; ;; https://emacs.stackexchange.com/questions/24088/make-a-function-to-toggle-themes
-  ;; (setq my/themes (custom-available-themes))
-  ;; (setq my/themes-index 0)
-
-  ;; (defun my/cycle-theme ()
-  ;;   "Cycles through my themes."
-  ;;   (interactive)
-  ;;   (setq my/themes-index (% (1+ my/themes-index) (length my/themes)))
-  ;;   (my/load-indexed-theme))
-
-  ;; (defun my/load-indexed-theme ()
-  ;;   (load-theme (nth my/themes-index my/themes)))
-
-  ;; (defun load-leuven-theme ()
-  ;;   "Loads `leuven' theme"
-  ;;   (interactive)
-  ;;   (load-theme 'leuven))
-
-  ;; (defun load-dichromacy-theme ()
-  ;;   "Loads `dichromacy' theme"
-  ;;   (interactive)
-  ;;   (load-theme 'dichromacy))
-
-  (general-create-definer tyrant-def
-    :states '(normal visual insert motion emacs)
-    :prefix "SPC"
-    :non-normal-prefix "C-SPC")
-
-  (general-create-definer despot-def
-    :states '(normal insert)
-    :prefix "SPC"
-    :non-normal-prefix "C-SPC")
-
-  (general-define-key
-    :keymaps 'key-translation-map
-    "ESC" (kbd "C-g"))
-
-  (general-def
-    "C-x x" 'eval-defun)
-
-  (tyrant-def
-
-    ""     nil
-    "c"   (general-simulate-key "C-c")
-    "h"   (general-simulate-key "C-h")
-    "u"   (general-simulate-key "C-u")
-    "x"   (general-simulate-key "C-x")
-
-    ;; Package manager
-    "lp"  'list-packages
-
-    ;; ;; Theme operations
-    ;; "t"   '(:ignore t :which-key "themes")
-    ;; "tn"  'my/cycle-theme
-    ;; "tt"  'load-theme
-    ;; "tl"  'load-leuven-theme
-    ;; "td"  'load-dichromacy-theme
-
-    ;; Quit operations
-    "q"	  '(:ignore t :which-key "quit emacs")
-    "qq"  'kill-emacs
-    "qz"  'delete-frame
-
-    ;; Buffer operations
-    "b"   '(:ignore t :which-key "buffer")
-    "bb"  'mode-line-other-buffer
-    "bd"  'kill-this-buffer
-    "b]"  'next-buffer
-    "b["  'previous-buffer
-    "bq"  'kill-buffer-and-window
-    "bR"  'rename-file-and-buffer
-    "br"  'revert-buffer
-
-    ;; Window operations
-    "w"   '(:ignore t :which-key "window")
-    "wm"  'maximize-window
-    "w/"  'split-window-horizontally
-    "wv"  'split-window-vertically
-    "wm"  'maximize-window
-    "wu"  'winner-undo
-    "ww"  'other-window
-    "wd"  'delete-window
-    "wD"  'delete-other-windows
-
-    ;; File operations
-    "f"   '(:ignore t :which-key "files")
-    "fc"  'write-file
-    "fe"  '(:ignore t :which-key "emacs")
-    "fed" 'find-user-init-file
-    "feR" 'load-user-init-file
-    "fj"  'dired-jump
-    "fl"  'find-file-literally
-    "fR"  'rename-file-and-buffer
-    "fs"  'save-buffer
-
-    ;; Applications
-    "a"   '(:ignore t :which-key "Applications")
-    "ad"  'dired
-    ":"   'shell-command
-    ";"   'eval-expression
-    "ac"  'calendar
-    "oa"  'org-agenda)
-
-  (general-def 'normal doc-view-mode-map
-    "j"   'doc-view-next-line-or-next-page
-    "k"   'doc-view-previous-line-or-previous-page
-    "gg"  'doc-view-first-page
-    "G"   'doc-view-last-page
-    "C-d" 'doc-view-scroll-up-or-next-page
-    "C-f" 'doc-view-scroll-up-or-next-page
-    "C-b" 'doc-view-scroll-down-or-previous-page)
-
-  (general-def '(normal visual) outline-minor-mode-map
-    "zn"  'outline-next-visible-heading
-    "zp"  'outline-previous-visible-heading
-    "zf"  'outline-forward-same-level
-    "zB"  'outline-backward-same-level)
-
-  (general-def 'normal package-menu-mode-map
-    "i"   'package-menu-mark-install
-    "U"   'package-menu-mark-upgrades
-    "d"   'package-menu-mark-delete
-    "u"   'package-menu-mark-unmark
-    "x"   'package-menu-execute
-    "q"   'quit-window)
-
-  (general-def 'normal calendar-mode-map
-    "h"   'calendar-backward-day
-    "j"   'calendar-forward-week
-    "k"   'calendar-backward-week
-    "l"   'calendar-forward-day
-    "0"   'calendar-beginning-of-week
-    "^"   'calendar-beginning-of-week
-    "$"   'calendar-end-of-week
-    "["   'calendar-backward-year
-    "]"   'calendar-forward-year
-    "("   'calendar-beginning-of-month
-    ")"   'calendar-end-of-month
-    "SPC" 'scroll-other-window
-    "S-SPC" 'scroll-other-window-down
-    "<delete>" 'scroll-other-window-down
-    "<"   'calendar-scroll-right
-    ">"   'calendar-scroll-left
-    "C-b" 'calendar-scroll-right-three-months
-    "C-f" 'calendar-scroll-left-three-months
-    "{"   'calendar-backward-month
-    "}"   'calendar-forward-month
-    "C-k" 'calendar-backward-month
-    "C-j" 'calendar-forward-month
-    "gk"  'calendar-backward-month
-    "gj"  'calendar-forward-month
-    "v"   'calendar-set-mark
-    "."   'calendar-goto-today
-    "q"   'calendar-exit))
-
-;; (use-package suggest
-;;   :general (tyrant-def "as" 'suggest))
-
-;; (use-package ranger
-;;   :hook (after-init . ranger-override-dired-mode)
-;;   :general (tyrant-def "ar" 'ranger))
-
-;; (use-package solarized-theme
-;;   :init
-;;   (setq solarized-scale-org-headlines nil)
-;;   (custom-set-faces '(mode-line ((t (:background "gray10"
-;;                                      :foreground "dark gray"
-;;                                      :box nil
-;;                                      :weight normal
-;;                                      :height 1.0
-;;                                      :width normal
-;;                                      :underline nil
-;;                                      :overline nil))))
-;;                     '(mode-line-inactive ((t (:background "gray10"
-;;                                               :foreground "dark gray"
-;;                                               :box nil
-;;                                               :weight normal
-;;                                               :height 1.0
-;;                                               :width normal
-;;                                               :underline nil
-;;                                               :overline nil)))))
-;;   :hook (after-init . load-solarized-dark)
-;;   :config
-;;   (defun load-solarized-dark ()
-;;       "Load the `solarized-dark' theme."
-;;       (interactive)
-;;       (load-theme 'solarized-dark))
-;;   (defun load-solarized-light ()
-;;       "Load the `solarized-light' theme."
-;;       (interactive)
-;;       (load-theme 'solarized-light))
-;;   :general
-;;   (tyrant-def "ts"  '(:ignore t :which-key "solarized")
-;;               "tsl" 'load-solarized-light
-;;               "tsd" 'load-solarized-dark))
+             :init (which-key-mode)
+             :diminish which-key-mode
+             :config
+             (setq which-key-idle-delay 1))
 
 (use-package evil
-  :hook (after-init . evil-mode)
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
   :config
-  (evil-set-initial-state 'shell-mode 'normal)
-  (evil-set-initial-state 'doc-view-mode 'normal)
-  (evil-set-initial-state 'package-menu-mode 'normal)
-  (evil-set-initial-state 'biblio-selection-mode 'motion)
-  (setq doc-view-continuous t)
-  :general
-  (tyrant-def
-    "wh"  'evil-window-left
-    "wl"  'evil-window-right
-    "wj"  'evil-window-down
-    "wk"  'evil-window-up
-    "bN"  'evil-buffer-new
-    "fd"  'evil-save-and-close)
-  ('motion override-global-map
-    "]b"  'evil-next-buffer
-    "[b"  'evil-prev-buffer))
+  (evil-mode 1)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  ;; Use visual line motions even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal)
+  :custom
+  (evil-undo-system 'undo-fu))
 
-;; (use-package evil-numbers
-;;   :after evil
-;;   :general
-;;   ('normal "C-=" 'evil-numbers/inc-at-pt
-;;            "C--" 'evil-numbers/dec-at-pt))
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
-;; (use-package evil-surround
-;;   :after evil
-;;   :config (global-evil-surround-mode 1))
+(use-package undo-fu
+  :after evil
+  :custom
+  (undo-fu-ignore-keyboard-quit 1))
 
-;; (use-package evil-easymotion
-;;   :after evil
-;;   :config (evilem-default-keybindings "gs"))
-
-;; (use-package evil-commentary
-;;   :after evil
-;;   :config (evil-commentary-mode 1)
-;;   :general
-;;   ('normal override-global-map
-;;     "gc"  'evil-commentary
-;;     "gC" 'evil-commentary-line))
-
-;; (use-package evil-visualstar
-;;   :after evil
-;;   :config
-;;   (setq evilmi-always-simple-jump t)
-;;   (global-evil-visualstar-mode 1))
-
-;; (use-package company
-;;   :hook (after-init . global-company-mode)
-;;   :config
-;;   (define-key company-active-map (kbd "M-n") nil)
-;;   (define-key company-active-map (kbd "M-p") nil)
-;;   (define-key company-active-map (kbd "C-n") #'company-select-next-or-abort)
-;;   (define-key company-active-map (kbd "C-p") #'company-select-previous-or-abort)
-;;   (setq company-frontends '(company-echo-metadata-frontend
-;;                             company-pseudo-tooltip-unless-just-one-frontend
-;;                             company-preview-frontend))
-;;   (setq company-backends '((company-capf
-;;                             company-files)
-;;                            (company-dabbrev-code company-keywords)
-;;                             company-dabbrev company-yasnippet)))
-
-;; (use-package company-quickhelp
-;;   :defer 5
-;;   :config (company-quickhelp-mode))
-
-;; (use-package company-statistics
-;;   :defer 5
-;;   :config (company-statistics-mode))
-
-;; (use-package projectile)
-
-;; (defvar narrowing-system "ivy"
-;;   "Sets the narrowing system to use - helm or ivy")
-
-;; (use-package ivy
-;;     :if (equal narrowing-system "ivy")
-;;     :hook (after-init . ivy-mode)
-;;     :config (setq ivy-use-virtual-buffers t
-;;                 ivy-count-format "(%d/%d) "
-;;                 ivy-initial-inputs-alist nil
-;;                 ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
-;;     :commands (ivy-switch-buffer)
-;;     :general
-;;     (tyrant-def "bm"  'ivy-switch-buffer))
-
-;; (use-package smex
-;;   :if (equal narrowing-system "ivy"))
-
-;; (use-package counsel
-;;   :after (ivy)
-;;   :general
-;;   (tyrant-def
-;;     "SPC" 'counsel-M-x
-;;     "ff"  'counsel-find-file
-;;     "fr"  'counsel-recentf
-;;     "fL"  'counsel-locate))
-
-;; (use-package flyspell-correct-ivy
-;;   :if (equal narrowing-system "ivy")
-;;   :commands (flyspell-correct-word-generic)
-;;   :general
-;;    (:keymaps '(flyspell-mode-map)
-;;     :states '(normal visual)
-;;     "zs" 'flyspell-correct-word-generic
-;;     "z=" 'flyspell-buffer))
-
-;; (use-package counsel-projectile
-;;   :after (projectile ivy)
-;;   :general
-;;   (tyrant-def
-;;    "p"   '(:ignore t :which-key "projectile")
-;;    "pd"  'counsel-projectile-dired-find-dir
-;;    "po"  'counsel-projectile-find-other-file
-;;    "pf"  'counsel-projectile-find-file
-;;    "fp"  'counsel-projectile-find-file
-;;    "pb"  'counsel-projectile-switch-to-buffer
-;;    "bp"  'counsel-projectile-switch-to-buffer))
+(use-package evil-escape
+  :init
+  (setq-default evil-escape-key-sequence "jk")
+  (setq-default evil-escape-delay 0.1)
+  :config
+  (evil-escape-mode 1))
 
 
-;; (use-package helm
-;;   :if (equal narrowing-system "helm")
-;;   :hook (after-init . helm-mode)
-;;   :config (require 'helm-config)
-;;   :commands (helm-mini
-;;              helm-find-files
-;;              helm-recentf
-;;              helm-locate
-;;              helm-M-x
-;;              helm-flyspell-correct)
-;;   :general
-;;   (tyrant-def
-;;    "SPC" 'helm-M-x
-;;    "bm"  'helm-mini
-;;    "ff"  'helm-find-files
-;;    "fr"  'helm-recentf
-;;    "fL"  'helm-locate))
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
 
-;; (use-package helm-flyspell
-;;   :if (equal narrowing-system "helm")
-;;   :commands (helm-flyspell-correct)
-;;   :general
-;;    (:keymaps '(flyspell-mode-map)
-;;     :states '(normal visual)
-;;     "zs" 'helm-flyspell-correct
-;;     "z=" 'flyspell-buffer))
+(use-package smooth-scrolling
+  :config
+  (smooth-scrolling-mode 1)
+  :custom
+  (smooth-scroll-margin 4)
+  )
 
-;; (use-package helm-projectile
-;;   :after (projectile helm)
-;;   :general
-;;   (tyrant-def
-;;    "p"   '(:ignore t :which-key "projectile")
-;;    "pd"  'helm-projectile-dired-find-dir
-;;    "po"  'helm-projectile-find-other-file
-;;    "pf"  'helm-projectile-find-file
-;;    "fp"  'helm-projectile-find-file
-;;    "pb"  'helm-projectile-switch-to-buffer
-;;    "bp"  'helm-projectile-switch-to-buffer))
+;; ensure full $PATH makes it into emacs
+(use-package exec-path-from-shell
+  :init
+  (exec-path-from-shell-initialize))
+
+;; TODO set default shell so it doesn't prompt me everytime
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :custom
+  (dired-listing-switches "-go --all --classify --group-directories-first --dired --human-readable")
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer)
+  (define-key evil-normal-state-map (kbd "-") 'dired-jump)
+  ;; use gls instead of ls when on mac to support listing switches
+  (when (string= system-type "darwin")
+    (setq insert-directory-program "gls")))
+
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "H" 'dired-hide-dotfiles-mode))
+
+;; TODO use macOS emoji font for emoticons
+;; (when (fboundp 'set-fontset-font)
+;;   (set-fontset-font "fontset-default"
+;;                     '(#x1F600 . #x1F64F)
+;;                     (font-spec :name "Apple Color Emoji") nil 'prepend))
+
+;; TODO SPC doesn't work in dired mode (have to use Ctl-SPC), fix this!
+
+(use-package dired-single)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "H" 'dired-hide-dotfiles-mode))
+
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'ivy))
+  :init
+  (when (file-directory-p "~/code")
+    (setq projectile-project-search-path '("~/code" "~/icloud/works")))
+  (when (file-directory-p "~/icloud/works")
+    (setq projectile-project-search-path '("~/icloud/works")))
+  (setq projectile-switch-project-action #'projectile-dired)
+  (cole/leader-keys
+    "p" '(projectile-command-map :which-key "projects")
+  ))
+
+(use-package counsel-projectile
+  :config (counsel-projectile-mode))
+
+(use-package magit
+  :custom
+  ((vc-follow-symlinks t))
+  :config
+  (cole/leader-keys
+    "g" '(:ignore t :which-key "git")
+    "gs" '(magit-status :which-key "git status")
+  ))
+
+(use-package evil-magit
+  :after magit)
+
+;; NOTE: Make sure to configure a GitHub token before using this package!
+;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
+;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
+(use-package forge)
+
+;; Org Mode Configuration ------------------------------------------------------
+
+(defun cole/org-mode-setup ()
+  (org-indent-mode)
+  (visual-line-mode 1))
+
+(defun cole/org-font-setup ()
+  ;; Set faces for heading levels
+  (dolist (face '((org-level-1 . 1.2)
+                  (org-level-2 . 1.1)
+                  (org-level-3 . 1.05)
+                  (org-level-4 . 1.0)))
+    (set-face-attribute (car face) nil :font "Source Code Pro" :weight 'regular :height (cdr face)))
+
+  (setq org-todo-keyword-faces '(("WAITING" . "systemBlueColor")
+                                 ("WISHING" . "systemYellowColor")
+                                 ("TODO" . "systemRedColor")
+                                 ("DONE" . "systemGreenColor")))
+)
+
+(use-package org
+  :hook (org-mode . cole/org-mode-setup)
+  :custom
+  (org-ellipsis "▾")
+  (org-agenda-files '("~/dropbox/notes"))
+  (org-default-notes-file '("~/dropbox/notes/refile-beorg.org"))
+  (org-todo-keywords '("TODO" "WAITING" "WISHING" "|" "DONE"))
+  (org-agenda-span 10)
+  (org-agenda-start-day "-3d")
+  (org-agenda-start-on-weekday nil)
+  (org-refile-targets '((org-agenda-files :maxlevel . 1)))
+  (org-startup-folded t)
+  (org-capture-templates '(
+                   ("t" "todo [_todo.org tasks]" entry
+                   (file+headline "~/dropbox/notes/_todo.org" "Tasks")
+                    "* TODO %?")
+                   ))
+  :config
+  (advice-add 'org-refile :after 'org-save-all-org-buffers) ; save org buffers after refiling
+  (cole/org-font-setup)
+  )
+
+;org-latex-pdf-process "latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"
+;org-enable-github-support t
+;org-enable-epub-support t
+;org-enable-bootstrap-support t
+;org-enable-sticky-header nil
+;org-enable-reveal-js-support t
 
 
-;; (use-package flycheck
-;;   :commands (flycheck-mode)
-;;   :general
-;;   (tyrant-def
-;;    "e"   '(:ignore t :which-key "Errors")
-;;    "en"  'flycheck-next-error
-;;    "ep"  'flycheck-previous-error))
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-;; (use-package magit
-;;   :commands (magit-status)
-;;   :general
-;;   (tyrant-def
-;;    "g"   '(:ignore t :which-key "git")
-;;    "gs"  'magit-status))
+(defun cole/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
 
-;; (use-package evil-magit
-;;   :hook (magit-mode . evil-magit-init))
-
-;; (use-package company-jedi
-;;   :hook (python-mode . my-python-mode-hook)
-;;   :config
-;;   (defun my-python-mode-hook ()
-;;     (setq-local company-backends '(company-jedi)))
-;;   (if (eq system-type 'darwin)
-;;     (setq python-shell-exec-path "/usr/local/miniconda3/bin"
-;;           python-shell-interpreter "/usr/local/miniconda3/bin/python")
-;;     (setq python-shell-interpreter "python3"))
-;;   :general
-;;    ('(normal visual) python-mode-map
-;;     "]]"  'python-nav-forward-defun
-;;     "[["  'python-nav-backward-defun
-;;     "gj"  'python-nav-forward-block
-;;     "gk"  'python-nav-backward-block)
-;;   (despot-def python-mode-map
-;;    ""      nil
-;;    "mg"   'jedi:goto-definition
-;;    "mb"   'jedi:goto-definition-pop-marker))
-
-;; (use-package yapfify
-;;   :hook (python-mode . yapf-mode))
-
-;; (use-package sphinx-doc
-;;   :hook (python-mode . sphinx-doc-mode)
-;;   :general
-;;   (despot-def python-mode-map
-;;    "ms"   'sphinx-doc))
-
-;; (use-package yasnippet
-;;   :hook ((prog-mode org-mode) . yas-minor-mode)
-;;   :general
-;;   (tyrant-def
-;;    "y"   '(:ignore t :which-key "yasnippet")
-;;    "yi"  'yas-insert-snippet
-;;    "yv"  'yas-visit-snippet-file
-;;    "yn"  'yas-new-snippet))
-
-;; (use-package yasnippet-snippets
-;;   :after yasnippet)
-
-;; (use-package org
-;;   :defer t
-;;   :mode ("\\.org\\'" . org-mode)
-;;   :ensure org-plus-contrib
-;;   :init
-;;   (defun my-org-mode-hooks ()
-;;     (visual-line-mode)
-;;     (display-line-numbers-mode t)
-;;     (flyspell-mode)
-;;     (outline-minor-mode)
-;;     (electric-pair-mode))
-;;   (add-hook 'org-mode-hook 'my-org-mode-hooks)
-;;   :general
-;;   (despot-def org-mode-map
-;;     "me"   'org-export-dispatch
-;;     "mt"   'org-hide-block-toggle
-;;     "mx"   'org-babel-execute-src-block
-;;     "mX"   'org-babel-execute-and-next
-;;     "md"   'org-babel-remove-result)
-;;   :config
-;;   (if (not (featurep 'ox-bibtex))
-;;       (require 'ox-bibtex))
-;;   (defun org-babel-execute-and-next ()
-;;     (interactive)
-;;     (progn (org-babel-execute-src-block)
-;;            (org-babel-next-src-block)))
-;;   (setq org-highlight-latex-and-related '(entities script latex)
-;;         org-tags-column 90)
-;;   (add-to-list 'org-structure-template-alist
-;;                '("<ip" "#+BEGIN_SRC ipython :session ? :results raw
-;;   drawer\n\n#+END_SRC"
-;;                  "<src lang=\"?\">\n\n</src>")))
-
-;; (use-package ob-ipython
-;;   :hook (org-mode . my-ob-ipython-hook)
-;;   :config
-;;   (defun my-ob-ipython-hook ()
-;;     (with-eval-after-load 'org-babel
-;;       (progn
-;;         (require 'ob-ipython)
-;;         (setq ob-ipython-suppress-execution-count t)
-;;         (add-to-list 'company-backends 'company-ob-ipython))))
-
-;;   (org-babel-do-load-languages
-;;    'org-babel-load-languages
-;;    (append org-babel-load-languages
-;;            '((python  . t)
-;;              (ipython . t))))
-;;   (setq org-confirm-babel-evaluate nil
-;;         org-src-fontify-natively t
-;;         ob-ipython-suppress-execution-count t)
-  
-;;   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images
-;;             'append)
-;;   :general
-;;   (tyrant-def org-mode-map
-;;     "mb"   (general-simulate-key "C-c C-v")))
-
-;; ;; (use-package org-ref
-;; ;;   :hook (org-mode . load-org-ref)
-;; ;;   :config
-;; ;;   (defun load-org-ref ()
-;; ;;     (require 'org-ref))
-;; ;;   (setq org-ref-default-bibliography '("~/Zotero/papers.bib")
-;; ;;         org-ref-pdf-directory "~/gdrve2/pdfs2/"
-;; ;;         org-ref-bibliography-notes "~/Zotero/pdfs/notes.org"
-;; ;;         org-ref-default-citation-link "citet")
-;; ;;   :general
-;; ;;   (despot-def org-mode-map
-;; ;;     "mc"   'org-ref-helm-insert-cite-link
-;; ;;     "mr"   'org-ref-helm-insert-ref-link
-;; ;;     "ml"   'org-ref-helm-insert-label-link))
-
-;; (use-package org-bullets
-;;   :hook (org-mode . org-bullets-mode))
-
-;; (use-package org-pomodoro
-;;   :general
-;;   (despot-def org-mode-map
-;;    "mps"  'org-pomodoro))
-
-;; (use-package ox-reveal
-;;   :hook (org-mode . load-org-reveal)
-;;   :config
-;;   (defun load-org-reveal ()
-;;     (if (not (featurep 'ox-reveal))
-;;         (require 'ox-reveal))))
-
-;; (use-package tex
-;;   :defer t
-;;   :mode ("\\.tex\\'" . TeX-latex-mode)
-;;   :ensure auctex
-;;   :init
-;;   (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hooks)
-;;   (defun my-LaTeX-mode-hooks ()
-;;     (whitespace-mode)
-;;     (show-paren-mode)
-;;     (visual-line-mode)
-;;     (flyspell-mode)
-;;     (outline-minor-mode)
-;;     (display-line-numbers-mode t)
-;;     (TeX-source-correlate-mode t))
-;;   :config
-;;   (setq TeX-auto-save t
-;;         TeX-source-correlate-start-server 'synctex)
-;;   (defun insert-file-name-base (file)
-;;     "Read file name and insert it at point.
-;;     With a prefix argument, insert only the non-directory part."
-;;     (interactive "FFile:")
-;;     (insert (file-name-base file)))
-;;   :general
-;;   (despot-def TeX-mode-map
-;;     "mb"   'TeX-command-master
-;;     "ma"   'TeX-command-run-all
-;;     "mv"   'TeX-view
-;;     "mc"   'reftex-citation
-;;     "mr"   'reftex-reference
-;;     "mf"   'insert-file-name-base))
-
-;; (use-package reftex
-;;   :hook (LaTeX-mode . turn-on-reftex)
-;;   :config
-;;   (setq reftex-plug-into-AUCTeX t))
-
-;; (use-package cdlatex
-;;   :hook
-;;   (LaTeX-mode . turn-on-cdlatex)
-;;   (org-mode   . turn-on-org-cdlatex)
-;;   :config
-;;   (setq cdlatex-command-alist
-;;         '(("ct" "Insert \\citet" "\\citet{?}" cdlatex-position-cursor nil t nil)
-;;           ("cp" "Insert \\citep" "\\citep{?}" cdlatex-position-cursor nil t nil)
-;;           ("eref" "Insert \\eqref" "\\eqref{eq?}" cdlatex-position-cursor nil t nil)
-;;           ("fref" "Insert \\ref" "\\ref{fig?}" cdlatex-position-cursor nil t nil)
-;;           ("sref" "Insert \\ref" "\\ref{sec?}" cdlatex-position-cursor nil t nil))))
-
-;; (use-package auctex-latexmk
-;;   :hook (LaTeX-mode . auctex-latexmk-setup)
-;;   :config
-;;   (setq auctex-latexmk-inherit-TeX-PDF-mode t))
-
-;; (use-package company-reftex
-;;   :after company
-;;   :hook (reftex-mode . load-company-reftex)
-;;   :config
-;;   (defun load-company-reftex ()
-;;     (add-to-list 'company-backends
-;;                  '(company-reftex-citations
-;;                    company-reftex-labels))))
-
-;; (use-package company-bibtex
-;;   :after company
-;;   :hook (org-mode . load-company-bibtex)
-;;   :config
-;;   (defun load-company-bibtex ()
-;;     (add-to-list 'company-backends 'company-bibtex))
-
-;;   (if (eq system-type 'darwin)
-;;     (setq company-bibtex-bibliography
-;;           '("~/Documents/bib_file/papers.bib"
-;;             "~/Documents/bib_file/selfpapers.bib"))
-;;     (setq company-bibtex-bibliography
-;;           '("~/bibtex/papers.bib"
-;;             "~/bibtex/selfpapers.bib")))
-;;   (setq company-bibtex-org-citation-regex (regexp-opt '("cite:" "\\cite{"))))
+(use-package visual-fill-column
+  :hook (org-mode . cole/org-mode-visual-fill))
 
 ;; (use-package ivy-bibtex
-;;   :after (ivy)
-;;   :defines bibtex-completion-bibliography
-;;   :config
-;;   (set-bibtex-config)
-;;   :general
-;;   (tyrant-def "ab" 'ivy-bibtex))
+;;   :after ivy
+;;   :custom
+;;   (bibtex-completion-bibliography '("~/dropbox/its_lit_fam/bib.bib"
+;; 				    "~/dropbox/its_lit_fam/papers.org"
+;; 				    ("~/dropbox/grants/pm_psych_refs_notes.org" . "~/dropbox/grants/pm_psych_refs.bib")
+;; 				    "~/dropbox/grants/r01_nlm_degauss/r01_nlm_degauss.org")))
+;; (setq bibtex-completion-library-path '("/path1/to/pdfs" "/path2/to/pdfs"))
+;; (setq bibtex-completion-notes-path "/path/to/notes.org")
+;; bibtex-completion-cite-default-command ... set this to ivy?
+;; By default, helm-bibtex and ivy-bibtex prompt for pre- and postnotes for the citation. This can be switched off by setting the variable bibtex-completion-cite-prompt-for-optional-arguments to nil.
+  
 
-;; (use-package helm-bibtex
-;;   :after (helm)
-;;   :defines bibtex-completion-bibliography
-;;   :config
-;;   (set-bibtex-config)
-;;   :general
-;;   (tyrant-def "ab" 'helm-bibtex))
+;; packages todo ============================================
+;; TODO
+ ;;   bibtex (bibtex :variables
+ ;;                    bibtex-autokey-year-length 4
+ ;;                    bibtex-autokey-name-year-separator "-"
+ ;;                    bibtex-autokey-year-title-separator "-"
+ ;;                    bibtex-autokey-titleword-separator "-"
+ ;;                    bibtex-autokey-titlewords 0
+ ;;                    bibtex-completion-bibliography "~/dropbox/ITS_LIT_FAM/papers.bib"
+ ;;                    bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
+ ;;                    bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
 
-;; (defun set-bibtex-config ()
-;;   (setq bibtex-completion-bibliography
-;;         '("~/bibtex/papers.bib"
-;;           "~/bibtex/selfpapers.bib")
-;;         bibtex-completion-library-path '("~/gdrive2/bibtex/pdfs/")
-;;         bibtex-completion-notes-path "~/bibtex/notes.org"
-;;         bibtex-completion-additional-search-fields '(keywords)
-;;         bibtex-completion-pdf-symbol "⌘"
-;;         bibtex-completion-notes-symbol "✎"
-;;         bibtex-autokey-titlewords 2
-;;         bibtex-autokey-titlewords-stretch 0
-;;         bibtex-autokey-names-stretch 1)
-;;   (tyrant-def bibtex-mode-map
-;;     "mi" 'doi-insert-bibtex
-;;     "mc" 'bibtex-clean-entry)
-;;   (general-def 'normal biblio-selection-mode-map
-;;     "j" 'biblio--selection-next
-;;     "k" 'biblio--selection-previous))
+;; https://github.com/jrblevin/markdown-mode
+ ;; latex
+ ;; something for make?
+ ;; spell checking
+ ;; auto-completion
 
 
-;; (use-package shell-pop
-;;   :commands (shell-pop)
-;;   :config (setq shell-pop-shell-type '("shell"
-;;                                        "*shell*"
-;;                                        (lambda nil (shell))))
-;;   :general
-;;   (tyrant-def "'" 'shell-pop))
+;; polymode --------------------------------------------------------------------
+;; (use-package polymode
+;;              :ensure t
+;;              :init
+;;              (require 'poly-R)
+;;              (require 'poly-markdown)
+;;              :config
+;;              (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
+;;              (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+;;              (add-to-list 'auto-mode-alist '("\\.Rhtml" . poly-html+r-mode))
+;;              (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
+;;              (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
+;;              )
 
-;; (setq whitespace-style '(face trailing))
+;; ESS -------------------------------------------------------------------------
+;; (use-package ess
+;;              :ensure t
+;;              :commands R
+;;              :config
+;;              (setq ess-eval-visibly t)
+;; 
+;;              ;; R process in its own buffer
+;;              (setq inferior-ess-same-window nil)
+;; 
+;;              ;; ESS style
+;;              (setq ess-default-style 'RStudio)
+;; 
+;;              ;; All help buffers are shown in one dedicated frame
+;;              (setq ess-help-own-frame 'one)
+;; 
+;;              ;; Rd mode
+;;              (add-to-list 'auto-mode-alist '("\\.rd\\'" . Rd-mode))
+;;              (add-hook 'Rd-mode-hook
+;;                        (lambda ()
+;;                          (abbrev-mode 1)
+;;                          (font-lock-mode 1)))
+;;              ;; Cursor always at the end of eval (from ESS-help 20110911)
+;;              (setq comint-scroll-to-bottom-on-input t)
+;;              (setq comint-scroll-to-bottom-on-output t)
+;;              (setq comint-move-point-for-output t)
+;;              (setq comint-scroll-show-maximum-output t)
+;; 
+;;              ;; redefine previous/commands
+;;              (define-key comint-mode-map [(meta ?p)] 'comint-previous-matching-input-from-input)
+;;              (define-key comint-mode-map [(meta ?n)] 'comint-next-matching-input-from-input)
+;;              )
 
-;; (defun my-prog-mode-hook ()
-;;   (auto-fill-mode)
-;;   (show-paren-mode)
-;;   (whitespace-mode)
-;;   (electric-pair-mode)
-;;   (flycheck-mode)
-;;   (display-line-numbers-mode))
+;; (defun R-docker ()
+;;   (interactive)
+;;   (let ((ess-r-customize-alist
+;;           (append ess-r-customize-alist
+;;                   '((inferior-ess-program . "/home/francois/start-r-docker.sh"))))
+;;         (ess-R-readline t))
+;;     (R)))
 
-;; (add-hook 'prog-mode-hook 'my-prog-mode-hook)
-;; (setq before-save-hook 'nil)
-;; ;(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; Color keywords
+(add-hook 'prog-common-hook
+          (lambda ()
+            (font-lock-add-keywords nil
+                                    '(("\\<\\(FIX\\|FIXME\\|TODO\\|BUG\\|HACK\\|\\WARNING):" 1 font-lock-warning-face t)))))
 
-;; ;(use-package pdf-tools
-;; ;  :defer 5
-;; ;  :config
-;; ;  (pdf-tools-install)
-;; ;  :general
-;; ;  (general-def 'normal pdf-view-mode-map
-;; ;    "j"   'pdf-tools-next-line-or-next-page
-;; ;    "k"   'pdf-tools-previous-line-or-previous-page
-;; ;    "gg"  'pdf-tools-first-page
-;; ;    "G"   'pdf-tools-last-page
-;; ;    "C-d" 'pdf-tools-scroll-up-or-next-page
-;; ;    "C-f" 'pdf-tools-scroll-up-or-next-page
-;; ;    "C-b" 'pdf-tools-scroll-down-or-previous-page))
-
-;; (use-package telephone-line
-;;   :config
-;;   ; (setq telephone-line-primary-left-separator 'telephone-line-abs-left
-;;   ; telephone-line-primary-right-separator 'telephone-line-abs-right)
-
-;;   (telephone-line-defsegment my-vc-info ()
-;;   (when vc-mode
-;;   (cond
-;;   ((string-match "Git[:-]" vc-mode)
-;;   (let ((branch (mapconcat 'concat (cdr (split-string vc-mode "[:-]")) "-")))
-;;   (concat "" (format " %s" branch))))
-;;   ((string-match "SVN-" vc-mode)
-;;   (let ((revision (cadr (split-string vc-mode "-"))))
-;;   (concat "" (format "SVN-%s" revision))))
-;;   (t (format "%s" vc-mode)))))
-
-;;   (telephone-line-defsegment* my-airline-position-segment (&optional lines columns)
-;;     (let* ((l (number-to-string (if lines lines 1)))
-;;            (c (number-to-string (if columns columns 2))))
-;;       (if (eq major-mode 'paradox-menu-mode)
-;;           (telephone-line-raw mode-line-front-space t)
-;;           (concat " " "%" l "l:%" c "c"))))
-
-;;   (setq telephone-line-lhs
-;;         '((evil   . (telephone-line-evil-tag-segment))
-;;           (accent . (my-vc-info
-;;                      telephone-line-process-segment))
-;;           (nil    . (telephone-line-buffer-segment
-;;                      telephone-line-projectile-segment))))
-;;   (setq telephone-line-rhs
-;;         '((nil    . (telephone-line-flycheck-segment
-;;                      telephone-line-misc-info-segment))
-;;           (accent . (telephone-line-major-mode-segment))
-;;           (nil    . (telephone-line-hud-segment
-;;                      my-airline-position-segment))))
-
-;;   (setq display-time-format "%b %d %a %R")
-;;   (setq display-time-default-load-average nil)
-;;   (setq display-time-use-mail-icon t)
-;;   (setq display-time-mail-file t)
-;;   (display-time-mode t)
-
-;;   (telephone-line-mode 1))
+(use-package org-tree-slide
+  :custom
+  (org-tree-slide-slide-in-effect nil))
 
 
-(eval-when-compile
-(setq-default custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-(load custom-file)))
+(use-package emojify
+  :custom
+  (emojify-display-style 'image)
+  :hook (after-init . global-emojify-mode))
 
-(eval-and-compile
-(add-hook 'emacs-startup-hook '(lambda ()
-                (setq gc-cons-threshold 16777216
-                        gc-cons-percentage 0.1
-                        file-name-handler-alist temp--file-name-handler-alist))))
-(setq initial-scratch-message (concat "Startup time: " (emacs-init-time)))
-(provide 'init)
-;;; init ends here
+
+
+(use-package yaml-mode
+    :mode (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
+           ("Procfile\\'" . yaml-mode)))
+
+;; hydras ====================================================
+
+(use-package hydra)
+
+(defhydra cole/present ()
+  "presentation"
+  ("t" org-tree-slide-mode "toggle slide mode")
+  ("n" org-tree-slide-move-next-tree "next")
+  ("p" org-tree-slide-move-previous-tree "previous")
+  ("q" nil "quit" :exit t))
+
+(defhydra cole/scale-text (:timeout 4)
+  "scale text"
+  ("j" text-scale-increase "in")
+  ("k" text-scale-decrease "out")
+  ("q" nil "quit" :exit t))
+
+(cole/leader-keys
+  "ts" '(hydra-text-scale/body :which-key "scale text"))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("e6ff132edb1bfa0645e2ba032c44ce94a3bd3c15e3929cdf6c049802cf059a2a" "5d09b4ad5649fea40249dd937eaaa8f8a229db1cec9a1a0ef0de3ccf63523014" default))
+ '(org-agenda-files
+   '("~/dropbox/notes/wiki.org" "~/dropbox/notes/refile-beorg.org"))
+ '(package-selected-packages
+   '(osx-trash evil-org ivy-bibtex restart-emacs all-the-icons-ivy org-tree-slide emojify ivy-hydra yaml-mode undo-fu reveal-in-osx-finder all-the-icons-dired dired-single exec-path-from-shell smooth-scrolling evil-nerd-commenter evil-escape forge evil-magit projectile helpful ivy-rich counsel which-key rainbow-delimiters use-package ivy doom-themes doom-modeline command-log-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(put 'narrow-to-region 'disabled nil)
