@@ -5,7 +5,7 @@
 # alias open="reattach-to-user-namespace open"
 
 # use gnu ls for better colors
-alias ls='gls -Fh --color'
+alias ls='gls -Fhgo --color --group-directories-first'
 alias dircolors='gdircolors'
 
 # lock

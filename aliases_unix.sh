@@ -1,6 +1,6 @@
 ### unix aliases
 
-alias ls='ls -Fh --color'
+alias ls='ls -Fhgo --color --group-directories-first'
 alias ll='ls -l'
 alias la='ls -al'
 
