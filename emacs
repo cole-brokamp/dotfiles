@@ -382,9 +382,9 @@
   :custom ((projectile-completion-system 'ivy))
   :init
   (when (file-directory-p "~/code")
-    (setq projectile-project-search-path '("~/code" "~/icloud/works")))
+    (setq projectile-project-search-path '("~/code")))
   (when (file-directory-p "~/icloud/works")
-    (setq projectile-project-search-path '("~/icloud/works")))
+      (setq projectile-project-search-path '("~/icloud/works")))
   (setq projectile-switch-project-action #'projectile-dired)
   (cole/leader-keys
     "p" '(projectile-command-map :which-key "projects")
