@@ -13,3 +13,4 @@ npm install -g fkill-cli
 npm install -g emoj
 npm install -g ttystudio
 npm install -g vmd # for github flavored markdown
+npm install -g terminalizer
