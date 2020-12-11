@@ -6,6 +6,7 @@ echo -e "\n\n updating brew packages"
 echo "=================="
 if test $(which brew); then
     echo -e  "\n\nupdating homebrew..."
+    git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask" fetch --unshallow
     brew update
     echo -e "\n\nupgrading formulas..."
     brew upgrade
