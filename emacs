@@ -1,5 +1,9 @@
+; -*- mode: emacs-lisp; -*-
+
 ;; did you know?
 ; use M-n in any ivy window to automatically insert the word under the cursor as the search term
+
+;; TODO make M-x show recent commands up top
 
 ;; basic ==========================================================
 
@@ -34,6 +38,7 @@
 
 ; disable line numbers for some modes
 (dolist (mode '(org-mode-hook
+		org-agenda-mode-hook
                 term-mode-hook
                 shell-mode-hook
                 eshell-mode-hook))
@@ -47,6 +52,9 @@
 ; fonts
 (set-face-attribute 'default nil :font "Source Code Pro" :height 130)
 (set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 130)
+
+;; increase the amount of data emacs reads from the process to speed up lsp packages
+(setq read-process-output-max (* 1024 1024))
 
 ;; package manager ======================================================
 
@@ -91,6 +99,21 @@
 ; auto-indent on RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
+(defun cole/switch-to-compilation-buffer ()
+  "Go to last compilation buffer."
+  (interactive)
+  (if compilation-last-buffer
+      (pop-to-buffer compilation-last-buffer)
+    (user-error "There is no compilation buffer?")))
+
+(defun cole/show-hide-compilation-window ()
+  "Show/Hide the window containing the compilation buffer."
+  (interactive)
+  (when-let ((buffer compilation-last-buffer))
+    (if (get-buffer-window buffer 'visible)
+        (delete-windows-on buffer)
+      (cole/switch-to-compilation-buffer))))
+
 (defun cole/buffer-file-name ()
   "Copy current buffer's file name to clipboard, and display it."
   (interactive)
@@ -120,28 +143,35 @@
 	(window-configuration-to-register ?_)
 	(delete-other-windows)))))
   
+; TODO make SPC leader key work in motion state
 (use-package general
   :config
   (general-create-definer cole/leader-keys
     :keymaps '(normal insert visual emacs)
     :prefix "SPC"
     :non-normal-prefix "C-SPC")
+  (general-create-definer cole/local-leader-keys
+    :keymaps '(normal insert visual emacs)
+    :prefix ","
+    :non-normal-prefix "C-,")
+
 
   (cole/leader-keys
     "SPC" '(counsel-M-x :which-key "M-x")
     "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
+    "/" 'swiper-all
     "'" '(term :which-key "shell")
     ";" '(evilnc-comment-or-uncomment-lines :which-key "comment operator")
     ;; "/" '(:which-key "search project")
     "a" '(:ignore t :which-key "applications")
     ;; "ad" docker
-    "ac" '(calendar :which-key "calendar")
+    "ac" 'calendar
     ;; "ab" '(ivy-bibtex :which-key "bibtex")
     "ab" '(ivy-bibtex-with-local-bibliography :which-key "bibtex (local bib)") ; auto uses bib file from \bibliography in files!
     "aB" '(ivy-bibtex :which-key "bibtex (global bib)") ; auto uses bib file from \bibliography in files!
-    "ao" '(:ignore :which-key "org")
-    "aoc" '(org-capture :which-key "org capture")
-    "aoa" '(org-agenda :which-key "org agenda")
+    "o" '(:ignore t :which-key "org")
+    "oc" '(counsel-org-capture "org capture")
+    "oa" 'org-agenda
     ":" '(shell-command :which-key "shell command")
     "q" '(:ignore t :which-key "quit")
     "qq" '(save-buffers-kill-emacs :which-key "quit")
@@ -154,19 +184,29 @@
     "fr" '(revert-buffer :which-key "reload file from disk")
     "b" '(:ignore t :which-key "buffers")
     "bb" '(ivy-switch-buffer :which-key "switch to buffer")
+    "bB" '(counsel-switch-buffer :which-key "switch buffer with preview")
     "bf" '(reveal-in-osx-finder :which-key "show buffer in finder")
     "bd" '(kill-current-buffer :which-key "delete buffer")
     "bm" '(cole/switch-to-messages-buffer :which-key "messages buffer")
     "bs" '(cole/switch-to-scratch-buffer :which-key "scratch buffer")
     "bn" '(cole/buffer-file-name :which-key "copy buffer filename")
     "c" '(:ignore t :which-key "compile")
-    "cc" '(compile :which-key "compile")
+    "cc" '(counsel-compile :which-key "compile")
     "ck" '(kill-compilation :which-key "kill compilation")
+    "cd" '(cole/show-hide-compilation-window :which-key "show/hide compilation window")
     "i" '(:ignore t :which-key "insert")
     "ie" '(emojify-insert-emoji :which-key "insert emoji")
     "io" '(newline-and-indent :which-key "open line")
-    ;; "ij" insert empty line below
-    ;; "ik" insert empty line above
+    "ij" '(evil-collection-unimpaired-insert-newline-below :which-key "insert line below")
+    "ik" '(evil-collection-unimpaired-insert-newline-above :which-key "insert line above")
+    "h" '(:ignore t :which-key "help")
+    "hf" 'describe-function
+    "hv" 'describe-variable
+    "hk" 'describe-key
+    "hm" 'describe-mode
+    "hb" '(general-describe-keybindings :which-key "key bindings")
+    "hp" 'describe-package
+    "h." 'display-local-help
     "j" '(:ignore t :which-key "jump")
     "jd" '(dired-jump :which-key "dired-jump")
     "n" '(:ignore t :which-key "notes")
@@ -178,7 +218,8 @@
     "t"  '(:ignore t :which-key "toggles")
     "tt" '(counsel-load-theme :which-key "choose theme")
     "tf" '(toggle-frame-fullscreen :which-key "full screen")
-    "tL" '(toggle-truncate-lines :which-key "truncate lines")
+    "tl" '(toggle-truncate-lines :which-key "truncate lines")
+    "tL" '(visual-line-mode :which-key "visual line mode")
     "tm" '(toggle-frame-maximized :which-key "maximize screen")
     "w" '(:ignore t :which-key "windows")
     "wd" '(evil-window-delete :which-key "delete window")
@@ -195,9 +236,12 @@
     "ed" '(cole/find-user-init-file :which-key "open emacs dotfile")
     "s" '(:ignore t :which-key "search")
     "ss" '(swiper :which-key "swiper")
+    "sr" '(query-replace :which-key "search and replace")
+    "sR" '(query-replace-regexp :which-key "search and replace (regex)")
     ))
 
 (use-package reveal-in-osx-finder)
+
 
 
 ;; do a transient state for window sizing and rotating
@@ -227,7 +271,6 @@
 	 ("C-d" . ivy-switch-buffer-kill)
 	 :map ivy-reverse-i-search-map
 	 ("C-k" . ivy-previous-line)
-
 	 ("C-d" . ivy-reverse-i-search-kill))
   :custom
   (ivy-initial-inputs-alist nil)
@@ -265,7 +308,10 @@
 
 (use-package doom-modeline
              :init (doom-modeline-mode 1)
-             :custom ((doom-modeline-height 15)))
+             :custom
+	     (doom-modeline-height 15)
+	     (doom-modeline-lsp t)
+	     (doom-modeline-enable-word-count t))
 
 (use-package doom-themes
              :init (load-theme 'doom-dracula t))
@@ -277,7 +323,7 @@
              :init (which-key-mode)
              :diminish which-key-mode
              :config
-             (setq which-key-idle-delay 1))
+             (setq which-key-idle-delay 0.1))
 
 (use-package evil
   :init
@@ -300,10 +346,30 @@
   :config
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'evil-org-mode-hook
-            (lambda ()
-              (evil-org-set-key-theme)))
+	    (lambda ()
+	      (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+  (evil-org-agenda-set-keys)
+  ;; TODO make local leader only work in desired modes
+  (cole/local-leader-keys
+   "a" '(org-agenda :which-key "agenda")
+   "c" '(counsel-org-capture :which-key "capture")
+   "," 'org-ctrl-c-ctrl-c
+   "*" 'org-ctrl-c-star
+   "-" 'org-ctrl-c-minus
+   "RET" 'org-ctrl-c-ret
+   "TAB" 'org-ctrl-c-tab
+   "i" '(:ignore t :which-key "insert")
+   "il" '(org-insert-link :which-key "insert link")
+   "it" '(counsel-org-tag :which-key "insert tag")
+   "d" '(:ignore t :which-key "date")
+   "ds" '(org-schedule :which-key "schedule")
+   "dd" '(org-deadline :which-key "deadline")
+   "dt" '(org-time-stamp-inactive :which-key "timestamp (inactive)")
+   "s" '(:ignore t :which-key "subtree")
+   "sa" '(org-archive-subtree :which-key "archive subtree")
+   "sr" '(org-refile :which-key "refile")
+   ))
 
 (use-package undo-fu
   :after evil
@@ -387,11 +453,31 @@
       (setq projectile-project-search-path '("~/icloud/works")))
   (setq projectile-switch-project-action #'projectile-dired)
   (cole/leader-keys
-    "p" '(projectile-command-map :which-key "projects")
+    "p" '(:ignore t :which-key "projects")
+    "pp" '(projectile-switch-project :which-key "switch project")
+    "pk" '(projectile-kill-buffers :which-key "kill project buffers")
+    "pl" '(:ignore t :which-key "TODO - open project in new layout")
   ))
 
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
+
+(use-package eyebrowse
+  :config
+  (eyebrowse-mode t)
+  :custom
+  (eyebrowse-new-workspace t)
+  :init
+  (cole/leader-keys
+    "l" '(:ignore t :which-key "layouts")
+    "l TAB" '(eyebrowse-last-window-config :which-key "last layout")
+    "lc" '(eyebrowse-create-named-window-config :which-key "create layout")
+    "ld" '(eyebrowse-close-window-config :which-key "close layout")
+    "lR" '(eyebrowse-rename-window-config :which-key "rename layout")
+    "ll" '(eyebrowse-switch-to-window-config :which-key "switch to layout")
+    "l C-h" '(eyebrowse-prev-window-config :which-key "previous layout")
+    "l C-l" '(eyebrowse-next-window-config :which-key "next layout")
+    ))
 
 (use-package magit
   :custom
@@ -449,6 +535,7 @@
                    ))
   :config
   (advice-add 'org-refile :after 'org-save-all-org-buffers) ; save org buffers after refiling
+  (advice-add 'org-archive-subtree :after 'org-save-all-org-buffers) ; save org buffers after archiving
   (cole/org-font-setup)
   )
 
@@ -467,7 +554,7 @@
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 (defun cole/org-mode-visual-fill ()
-  (setq visual-fill-column-width 100
+  (setq visual-fill-column-width 200
         visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
@@ -502,9 +589,121 @@
 ;; https://github.com/jrblevin/markdown-mode
  ;; latex
  ;; something for make?
- ;; spell checking
  ;; auto-completion
 
+(use-package dockerfile-mode)
+
+;; spell checking
+(use-package flyspell-correct
+  :after flyspell)
+
+(use-package flyspell-correct-ivy
+  :after flyspell-correct
+  :config
+  (cole/leader-keys
+    "S" '(:ignore t :which-key "spelling")
+    "Ss" '(flyspell-mode :which-key "toggle spelling mode")
+    "Sp" '(flyspell-prog-mode :which-key "enable spelling prog mode")
+    "Sb" '(flyspell-buffer :which-key "spell check buffer")
+    "Sc" '(flyspell-correct-wrapper :which-key "correct word"))
+  (add-hook 'flyspell-prog-mode-hook (lambda () (message "Flyspell prog-mode enabled in current buffer"))))
+
+;; lsp ----------------------------------------------------------------------
+(defun cole/lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (lsp-headerline-breadcrumb-mode))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :hook (lsp-mode . cole/lsp-mode-setup)
+  :init
+  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  :config
+  (lsp-enable-which-key-integration t))
+
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-position 'bottom))
+
+(use-package lsp-ivy)
+
+;; (use-package lsp-treemacs
+;;   :after lsp)
+
+;; ess ------------------------------------------------------------------------
+
+;; (use-package ess
+;;   :custom
+;;   (ess-eval-visibly 'nowait)
+;;   (ess-use-tracebug nil)
+;;   (ess-indent-with-fancy-comments nil)
+;;   (ess-default-style 'RStudio)
+;;   (ess-help-own-frame 'one)
+;;   (ess-ask-for-ess-directory nil)
+;;   (inferior-R-args "--no-save --quiet")
+;;   (ess-S-quit-kill-buffers-p "t")
+;;   (ess-auto-width 'frame)
+;;   (comint-scroll-to-bottom-on-input t)
+;;   (comint-scroll-to-bottom-on-output t)
+;;   (comint-move-point-for-output t)
+;;   (comint-scroll-show-maximum-output t)
+;;   (ess-R-font-lock-keywords
+;;    '((ess-R-fl-keyword:keywords   . t)
+;;      (ess-R-fl-keyword:constants  . t)
+;;      (ess-R-fl-keyword:modifiers  . t)
+;;      (ess-R-fl-keyword:fun-defs   . t)
+;;      (ess-R-fl-keyword:assign-ops . t)
+;;      (ess-R-fl-keyword:%op%       . t)
+;;      (ess-fl-keyword:fun-calls)
+;;      (ess-fl-keyword:numbers)
+;;      (ess-fl-keyword:operators . t)
+;;      (ess-fl-keyword:delimiters)
+;;      (ess-fl-keyword:=)
+;;      (ess-R-fl-keyword:F&T)))
+;;   (inferior-ess-r-font-lock-keywords
+;;    '((ess-S-fl-keyword:prompt . t)
+;;      (ess-R-fl-keyword:messages . t)
+;;      (ess-R-fl-keyword:modifiers . t)
+;;      (ess-R-fl-keyword:fun-defs . t)
+;;      (ess-R-fl-keyword:keywords . t)
+;;      (ess-R-fl-keyword:assign-ops)
+;;      (ess-R-fl-keyword:constants . t)
+;;      (ess-fl-keyword:matrix-labels)
+;;      (ess-fl-keyword:fun-calls)
+;;      (ess-fl-keyword:numbers)
+;;      (ess-fl-keyword:operators)
+;;      (ess-fl-keyword:delimiters)
+;;      (ess-fl-keyword:=)
+;;      (ess-R-fl-keyword:F&T)))
+;;   :config
+;;   (add-hook 'ess-mode-hook 'prettify-symbols-mode)
+;;   )
+
+;; (defun cole/insert-pipe ()
+;;   "Insert a %>%"
+;;   (interactive)
+;;   (just-one-space 1)
+;;   (insert "%>%")
+;;   (reindent-then-newline-and-indent))
+;; (define-key ess-mode-map (kbd "C-'") 'insert-pipe)
+
+;; (defun cole/ess-edit-word-at-point ()
+;;   (save-excursion
+;;     (buffer-substring
+;;      (+ (point) (skip-chars-backward "a-zA-Z0-9._"))
+;;      (+ (point) (skip-chars-forward "a-zA-Z0-9._")))))
+
+;; (defun cole/ess-eval-word ()
+;;   (interactive)
+;;   (let ((x (cole/ess-edit-word-at-point)))
+;;     (ess-eval-linewise (concat x)))
+;;   )
+
+;; (defun cole/ess-glimpse-word ()
+;;   (interactive)
+;;   (let ((x (cole/ess-edit-word-at-point)))
+;;     (ess-eval-linewise (concat "glimpse(" x ")"))))
 
 ;; polymode --------------------------------------------------------------------
 ;; (use-package polymode
@@ -520,39 +719,6 @@
 ;;              (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
 ;;              )
 
-;; ESS -------------------------------------------------------------------------
-;; (use-package ess
-;;              :ensure t
-;;              :commands R
-;;              :config
-;;              (setq ess-eval-visibly t)
-;; 
-;;              ;; R process in its own buffer
-;;              (setq inferior-ess-same-window nil)
-;; 
-;;              ;; ESS style
-;;              (setq ess-default-style 'RStudio)
-;; 
-;;              ;; All help buffers are shown in one dedicated frame
-;;              (setq ess-help-own-frame 'one)
-;; 
-;;              ;; Rd mode
-;;              (add-to-list 'auto-mode-alist '("\\.rd\\'" . Rd-mode))
-;;              (add-hook 'Rd-mode-hook
-;;                        (lambda ()
-;;                          (abbrev-mode 1)
-;;                          (font-lock-mode 1)))
-;;              ;; Cursor always at the end of eval (from ESS-help 20110911)
-;;              (setq comint-scroll-to-bottom-on-input t)
-;;              (setq comint-scroll-to-bottom-on-output t)
-;;              (setq comint-move-point-for-output t)
-;;              (setq comint-scroll-show-maximum-output t)
-;; 
-;;              ;; redefine previous/commands
-;;              (define-key comint-mode-map [(meta ?p)] 'comint-previous-matching-input-from-input)
-;;              (define-key comint-mode-map [(meta ?n)] 'comint-next-matching-input-from-input)
-;;              )
-
 ;; (defun R-docker ()
 ;;   (interactive)
 ;;   (let ((ess-r-customize-alist
@@ -561,11 +727,11 @@
 ;;         (ess-R-readline t))
 ;;     (R)))
 
-;; Color keywords
-(add-hook 'prog-common-hook
-          (lambda ()
-            (font-lock-add-keywords nil
-                                    '(("\\<\\(FIX\\|FIXME\\|TODO\\|BUG\\|HACK\\|\\WARNING):" 1 font-lock-warning-face t)))))
+(use-package hl-todo
+  :custom
+  (hl-todo-color-background t)
+  :init
+  (global-hl-todo-mode 1))
 
 (use-package org-tree-slide
   :custom
@@ -602,22 +768,16 @@
 
 (cole/leader-keys
   "ts" '(hydra-text-scale/body :which-key "scale text"))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("e6ff132edb1bfa0645e2ba032c44ce94a3bd3c15e3929cdf6c049802cf059a2a" "5d09b4ad5649fea40249dd937eaaa8f8a229db1cec9a1a0ef0de3ccf63523014" default))
- '(org-agenda-files
-   '("~/dropbox/notes/wiki.org" "~/dropbox/notes/refile-beorg.org"))
  '(package-selected-packages
-   '(osx-trash evil-org ivy-bibtex restart-emacs all-the-icons-ivy org-tree-slide emojify ivy-hydra yaml-mode undo-fu reveal-in-osx-finder all-the-icons-dired dired-single exec-path-from-shell smooth-scrolling evil-nerd-commenter evil-escape forge evil-magit projectile helpful ivy-rich counsel which-key rainbow-delimiters use-package ivy doom-themes doom-modeline command-log-mode)))
+   '(lsp-ivy lsp-ui lsp-mode ess dockerfile-mode flyspell-correct-ivy flyspell-correct yaml-mode which-key visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-bullets ivy-rich ivy-hydra ivy-bibtex helpful general forge exec-path-from-shell evil-org evil-nerd-commenter evil-magit evil-escape evil-collection emojify doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile command-log-mode all-the-icons-ivy all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(put 'narrow-to-region 'disabled nil)
