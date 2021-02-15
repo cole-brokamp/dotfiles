@@ -2,6 +2,9 @@
 
 ;; did you know?
 ; use M-n in any ivy window to automatically insert the word under the cursor as the search term
+; evil-mode jump list: Ctrl-O to go back and TAB to go forward
+
+; TODO: exempt dired buffers from "toggle last buffer" (SPC TAB)
 
 ;; basic ==========================================================
 
@@ -53,9 +56,6 @@
 ; fonts
 (set-face-attribute 'default nil :font "Source Code Pro" :height 130)
 (set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 130)
-
-;; increase the amount of data emacs reads from the process to speed up lsp packages
-(setq read-process-output-max (* 1024 1024))
 
 ;; keep extra files created by emacs in /tmp
 (setq backup-directory-alist `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
@@ -167,7 +167,6 @@
     :non-normal-prefix "C-,")
   )
 
-;; TODO make local leader only work in desired modes
 (cole/local-leader-keys org-mode-map
   "a" '(org-agenda :which-key "agenda")
   "c" '(counsel-org-capture :which-key "capture")
@@ -199,7 +198,6 @@
   "a" '(:ignore t :which-key "applications")
   ;; "ad" docker
   "ac" 'calendar
-  ;; "ab" '(ivy-bibtex :which-key "bibtex")
   "as" '(vterm :which-key "new vterm shell")
   "ab" '(ivy-bibtex-with-local-bibliography :which-key "bibtex (local bib)") ; auto uses bib file from \bibliography in files!
   "aB" '(ivy-bibtex :which-key "bibtex (global bib)") ; auto uses bib file from \bibliography in files!
@@ -215,13 +213,13 @@
   "fS" '(evil-write-all :which-key "save all")
   "ff" '(counsel-find-file :which-key "find file")
   "fD" '(delete-file :which-key "delete file")
-  "fr" '(revert-buffer :which-key "reload file from disk")
   "b" '(:ignore t :which-key "buffers")
   "bb" '(ivy-switch-buffer :which-key "switch to buffer")
   "bB" '(counsel-switch-buffer :which-key "switch buffer with preview")
   "bf" '(reveal-in-osx-finder :which-key "show buffer in finder")
   "bd" '(kill-current-buffer :which-key "delete buffer")
   "bm" '(cole/switch-to-messages-buffer :which-key "messages buffer")
+  "br" '(revert-buffer :which-key "reload from disk")
   "bM" '(buf-move :which-key "move buffer")
   "bs" '(cole/switch-to-scratch-buffer :which-key "scratch buffer")
   "bn" '(cole/buffer-file-name :which-key "copy buffer filename")
@@ -495,7 +493,7 @@
   (cole/leader-keys
     "p" '(:ignore t :which-key "projects")
     "pp" '(projectile-switch-project :which-key "switch project")
-    "pk" '(projectile-kill-buffers :which-key "kill project buffers")
+    "pd" '(projectile-kill-buffers :which-key "close project buffers")
     "pl" '(:ignore t :which-key "TODO - open project in new layout")
   ))
 
@@ -512,8 +510,8 @@
     "l" '(:ignore t :which-key "layouts")
     "l TAB" '(eyebrowse-last-window-config :which-key "last layout")
     "lc" '(eyebrowse-create-named-window-config :which-key "create layout")
-    "ld" '(eyebrowse-close-window-config :which-key "close layout")
-    "lR" '(eyebrowse-rename-window-config :which-key "rename layout")
+    "lx" '(eyebrowse-close-window-config :which-key "close layout")
+    "lr" '(eyebrowse-rename-window-config :which-key "rename layout")
     "ll" '(eyebrowse-switch-to-window-config :which-key "switch to layout")
     "l C-h" '(eyebrowse-prev-window-config :which-key "previous layout")
     "l C-l" '(eyebrowse-next-window-config :which-key "next layout")
@@ -649,27 +647,48 @@
   (add-hook 'flyspell-prog-mode-hook (lambda () (message "Flyspell prog-mode enabled in current buffer"))))
 
 ;; lsp ----------------------------------------------------------------------
-(defun cole/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (lsp-headerline-breadcrumb-mode))
+
+;; performance tweaks
+(setq read-process-output-max (* 1024 1024))
+(setq gc-cons-threshold 100000000)
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook (lsp-mode . cole/lsp-mode-setup)
+  :hook
+  ((ess-mode . lsp-deferred))
   :init
-  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  (setq lsp-keymap-prefix "C-c l")
+  :custom
+  (lsp-enable-snippet nil)
+  (lsp-clients-r-server-command '("R" "--quiet" "--no-save" "-e" "languageserver::run()"))
+  (lsp-idle-delay 0.500)
+  (lsp-completion-provider :capf)
   :config
+  (lsp-headerline-breadcrumb-mode 0)
   (lsp-enable-which-key-integration t))
 
 (use-package lsp-ui
+  :commands (lsp-ui-mode)
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-position 'bottom))
 
-(use-package lsp-ivy)
+(use-package lsp-ivy
+  :commands (lsp-ivy-workspace-symbol))
 
-;; (use-package lsp-treemacs
-;;   :after lsp)
+(use-package company
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :bind (:map company-active-map
+         ("<tab>" . company-complete-selection))
+        (:map lsp-mode-map
+         ("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0))
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 ;; ess ------------------------------------------------------------------------
 
@@ -678,7 +697,7 @@
   (ess-eval-visibly 'nowait)
   (ess-use-tracebug nil)
   (ess-indent-with-fancy-comments nil)
-  (ess-default-style 'RStudio)
+  (ess-style 'RStudio)
   (ess-help-own-frame nil)
   (ess-help-reuse-window t)
   (ess-ask-for-ess-directory nil)
@@ -731,28 +750,52 @@
       (window-width . 0.33)
       (reusable-frames . nil))))
   :config
-  (add-hook 'ess-mode-hook 'prettify-symbols-mode)
   ;; (define-key ess-mode-map (kbd "C-;") 'ess-switch-to-inferior-or-script-buffer)
+  (add-hook 'ess-mode-hook 'prettify-symbols-mode)
+  ;; (add-hook 'ess-mode-hook 'lsp-deferred)
   )
 
 
 (cole/local-leader-keys ess-mode-map
-  "," 'ess-eval-line-and-step
-  "e" 'ess-eval-region-or-function-or-paragraph-and-step
-  "o" 'cole/ess-eval-word
-  "g" 'cole/ess-glimpse-word
+  "," '(ess-eval-line-and-step :which-key "eval line and step")
+  "e" '(ess-eval-region-or-function-or-paragraph-and-step :which-key "eval R/F/P and step")
+  "o" '(cole/ess-eval-word :which-key "print object")
+  "g" '(cole/ess-glimpse-word :which-key "glimpse object")
+  "=" '(:ignore t :which-key "format")
+  "=b" '(:ignore t :which-key "buffer")
+  "=r" '(:ignore t :which-key "region")
+  "d" '(:ignore t :which-key "devtools")
+  "dl" '(cole/ess-devtools-load-all :which-key "load_all")
+  "dt" '(:ignore t :which-key "test")
+  "r" '(:ignore t :which-key "renv")
+  "rS" '(:ignore t :which-key "status")
+  "rs" '(:ignore t :which-key "snapshot")
+  "ri" '(:ignore t :which-key "install")
+  "rI" '(:ignore t :which-key "init")
+  "rr" '(:ignore t :which-key "restore")
+  "ra" '(:ignore t :which-key "activate")
   "s" '(:ignore t :which-key "session")
   "si" '(ess-interrupt :which-key "interrupt")
   "sr" '(inferior-ess-reload :which-key "reload")
   "ss" '(ess-switch-process :which-key "switch")
   "sq" '(ess-quit :which-key "quit")
-  "c" '(:ignore t :whick-key "chunks")
-  "h" 'ess-display-help-on-object
+  "t" '(:ignore t :which-key "toggle")
+  "th" '(lsp-toggle-symbol-highlight :which-key "symbol highlighting")
+  "td" '(lsp-toggle-symbol-highlight :which-key "documentation popups")
+  "tD" '(lsp-modeline-diagnostics-mode :which-key "modeline diagnostics")
+  "tS" '(lsp-ui-sideline-mode :which-key "sideline")
+  "tb" '(lsp-headerline-breadcrumb-mode :which-key "breadcrumbs")
+  "c" '(:ignore t :which-key "chunks")
+  "h" '(describe-symbol :which-key "help")
   ;; "w" 'ess-execute-screen-options
   )
 
 ;; just add pipe globally b/c I can't get it to work only for ess-mode-map
 (global-set-key (kbd "C-'") 'cole/insert-pipe)
+(global-set-key (kbd "TAB") 'evil-complete-previous)
+
+(defun cole/ess-devtools-load-all ()
+  (ess-eval-linewise ("devtools::load_all()")))
 
 (defun cole/insert-pipe ()
   "Insert a %>%"
@@ -846,7 +889,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(vterm-toggle vterm buffer-move ivy-prescient lsp-ivy lsp-ui lsp-mode ess dockerfile-mode flyspell-correct-ivy flyspell-correct yaml-mode which-key visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-bullets ivy-rich ivy-hydra ivy-bibtex helpful general forge exec-path-from-shell evil-org evil-nerd-commenter evil-magit evil-escape evil-collection emojify doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile command-log-mode all-the-icons-ivy all-the-icons-dired)))
+   '(vterm-toggle vterm buffer-move ivy-prescient lsp-ivy lsp-ui lsp-mode dockerfile-mode flyspell-correct-ivy flyspell-correct yaml-mode which-key visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-bullets ivy-rich ivy-hydra ivy-bibtex helpful general forge exec-path-from-shell evil-org evil-nerd-commenter evil-magit evil-escape evil-collection emojify doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile command-log-mode all-the-icons-ivy all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
