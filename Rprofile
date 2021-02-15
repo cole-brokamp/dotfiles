@@ -23,6 +23,6 @@ if ('rlang' %in% loadedNamespaces()) options(error = rlang::entrace)
 # make sure that $COLUMNS is available (exported in bash_profile)
 .set_width <- function(col_width = Sys.getenv("COLUMNS")) options(width=as.integer(col_width))
 
-.First <- function(){
-    if (Sys.getenv("RSTUDIO") == "") .set_width()
-}
+# .First <- function(){
+#     if (Sys.getenv("RSTUDIO") == "") .set_width()
+# }
