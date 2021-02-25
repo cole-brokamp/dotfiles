@@ -87,6 +87,16 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; update packages automatically
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe)
+  (auto-package-update-at-time "09:00"))
+
 ;; my functions =======================================================
 (defun cole/find-user-init-file ()
   "Edit the `user-init-file', in the current window."
@@ -660,18 +670,21 @@
   (setq lsp-keymap-prefix "C-c l")
   :custom
   (lsp-enable-snippet nil)
+  (lsp-headerline-breadcrumb-enable nil)
   (lsp-clients-r-server-command '("R" "--quiet" "--no-save" "-e" "languageserver::run()"))
   (lsp-idle-delay 0.500)
   (lsp-completion-provider :capf)
   :config
-  (lsp-headerline-breadcrumb-mode 0)
   (lsp-enable-which-key-integration t))
 
 (use-package lsp-ui
   :commands (lsp-ui-mode)
   :hook (lsp-mode . lsp-ui-mode)
   :custom
-  (lsp-ui-doc-position 'bottom))
+  (lsp-ui-doc-position 'top)
+  (lsp-ui-doc-delay 0.5)
+  (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-show-with-mouse nil))
 
 (use-package lsp-ivy
   :commands (lsp-ivy-workspace-symbol))
@@ -696,18 +709,20 @@
   :custom
   (ess-eval-visibly 'nowait)
   (ess-use-tracebug nil)
-  (ess-indent-with-fancy-comments nil)
   (ess-style 'RStudio)
+  (ess-indent-with-fancy-comments nil)
+  (ess-indent-offset 4)
   (ess-help-own-frame nil)
   (ess-help-reuse-window t)
   (ess-ask-for-ess-directory nil)
   (inferior-R-args "--no-save --quiet")
   (ess-S-quit-kill-buffers-p "t")
-  (ess-auto-width 'frame)
+  (ess-auto-width 'window)
   (comint-scroll-to-bottom-on-input t)
   (comint-scroll-to-bottom-on-output t)
   (comint-move-point-for-output t)
   (comint-scroll-show-maximum-output t)
+  (ess-use-flymake nil)
   (ess-R-font-lock-keywords
    '((ess-R-fl-keyword:keywords   . t)
      (ess-R-fl-keyword:constants  . t)
@@ -766,14 +781,21 @@
   "=r" '(:ignore t :which-key "region")
   "d" '(:ignore t :which-key "devtools")
   "dl" '(cole/ess-devtools-load-all :which-key "load_all")
-  "dt" '(:ignore t :which-key "test")
+  "dt" '(cole/ess-devtools-test :which-key "test")
+  "l" '(:ignore t :which-key "language server")
+  "ls" '(:ignore t :which-key "session")
+  "lr" '(lsp-workspace-restart :which-key "restart")
+  "lr" '(lsp-rename :which-key "rename everywhere")
+  "l=" '(lsp-format-buffer :which-key "format document")
+  "h" '(lsp-ui-doc-glance :which-key "help glance")
+  "H" '(lsp-describe-thing-at-point :which-key "help window")
+;; lsp-ui-doc-focus-frame
+;; lsp-ui-doc-unfocus-frame
+  ;; use Ctrl-g to quit doc frame
   "r" '(:ignore t :which-key "renv")
-  "rS" '(:ignore t :which-key "status")
-  "rs" '(:ignore t :which-key "snapshot")
-  "ri" '(:ignore t :which-key "install")
-  "rI" '(:ignore t :which-key "init")
-  "rr" '(:ignore t :which-key "restore")
-  "ra" '(:ignore t :which-key "activate")
+  "rS" '(cole/ess-renv-status :which-key "status")
+  "rs" '(cole/ess-renv-snapshot :which-key "snapshot")
+  "rr" '(cole/ess-renv-restore :which-key "restore")
   "s" '(:ignore t :which-key "session")
   "si" '(ess-interrupt :which-key "interrupt")
   "sr" '(inferior-ess-reload :which-key "reload")
@@ -781,12 +803,12 @@
   "sq" '(ess-quit :which-key "quit")
   "t" '(:ignore t :which-key "toggle")
   "th" '(lsp-toggle-symbol-highlight :which-key "symbol highlighting")
-  "td" '(lsp-toggle-symbol-highlight :which-key "documentation popups")
+  "td" '(lsp-ui-doc-mode :which-key "documentation popups")
+  "tf" '(lsp-toggle-on-type-formatting :which-key "on type formatting")
   "tD" '(lsp-modeline-diagnostics-mode :which-key "modeline diagnostics")
   "tS" '(lsp-ui-sideline-mode :which-key "sideline")
   "tb" '(lsp-headerline-breadcrumb-mode :which-key "breadcrumbs")
   "c" '(:ignore t :which-key "chunks")
-  "h" '(describe-symbol :which-key "help")
   ;; "w" 'ess-execute-screen-options
   )
 
@@ -795,7 +817,24 @@
 (global-set-key (kbd "TAB") 'evil-complete-previous)
 
 (defun cole/ess-devtools-load-all ()
-  (ess-eval-linewise ("devtools::load_all()")))
+  (interactive)
+  (ess-r-package-eval-linewise "devtools::load_all()"))
+
+(defun cole/ess-devtools-test ()
+  (interactive)
+  (ess-r-package-eval-linewise "devtools::test()"))
+
+(defun cole/ess-renv-status ()
+  (interactive)
+  (ess-r-package-eval-linewise "renv::status()"))
+
+(defun cole/ess-renv-snapshot ()
+  (interactive)
+  (ess-r-package-eval-linewise "renv::snapshot()"))
+
+(defun cole/ess-renv-restore ()
+  (interactive)
+  (ess-r-package-eval-linewise "renv::restore()"))
 
 (defun cole/insert-pipe ()
   "Insert a %>%"
@@ -889,7 +928,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(vterm-toggle vterm buffer-move ivy-prescient lsp-ivy lsp-ui lsp-mode dockerfile-mode flyspell-correct-ivy flyspell-correct yaml-mode which-key visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-bullets ivy-rich ivy-hydra ivy-bibtex helpful general forge exec-path-from-shell evil-org evil-nerd-commenter evil-magit evil-escape evil-collection emojify doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile command-log-mode all-the-icons-ivy all-the-icons-dired)))
+   '(auto-package-update vterm-toggle vterm buffer-move ivy-prescient lsp-ivy lsp-ui lsp-mode dockerfile-mode flyspell-correct-ivy flyspell-correct yaml-mode which-key visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-bullets ivy-rich ivy-hydra ivy-bibtex helpful general forge exec-path-from-shell evil-org evil-nerd-commenter evil-magit evil-escape evil-collection emojify doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile command-log-mode all-the-icons-ivy all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
