@@ -52,6 +52,9 @@
 (column-number-mode)
 (global-display-line-numbers-mode t)
 (setq display-line-numbers 'relative)
+(setq display-line-numbers-type 'relative)
+
+(setq default-directory (concat (getenv "HOME") "/"))
 
 ; fonts
 (set-face-attribute 'default nil :font "Source Code Pro" :height 130)
@@ -281,6 +284,7 @@
   "ss" '(swiper :which-key "swiper")
   "sr" '(query-replace :which-key "search and replace")
   "sR" '(query-replace-regexp :which-key "search and replace (regex)")
+  ;;TODO "sw" search the web using selected text?
   )
 
 (use-package reveal-in-osx-finder)
@@ -433,6 +437,9 @@
   :config
   (evil-escape-mode 1))
 
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1))
 
 (use-package evil-collection
   :after evil
@@ -504,6 +511,7 @@
     "p" '(:ignore t :which-key "projects")
     "pp" '(projectile-switch-project :which-key "switch project")
     "pd" '(projectile-kill-buffers :which-key "close project buffers")
+    "ps" '(projectile-ag :which-key "search in project files")
     "pl" '(:ignore t :which-key "TODO - open project in new layout")
   ))
 
@@ -543,6 +551,21 @@
 ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge)
+
+(use-package git-timemachine
+  :config
+  (cole/leader-keys
+    "gt" '(cole/git-timemachine/body :which-key "time machine")
+    ))
+
+(use-package github-browse-file
+  :config
+  (cole/leader-keys
+    "gh" '(github-browse-file :which-key "browse on github")
+    ))
+
+;; TODO add in git-link: https://github.com/sshaw/git-link
+;; TODO try out the time machine integration (add to hydra: open version of file being visited)
 
 ;; Org Mode Configuration ------------------------------------------------------
 
@@ -703,6 +726,13 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(use-package avy
+  :config
+  (setq avy-background t))
+
+(cole/leader-keys
+  "sa" '(avy-goto-char-timer :which-key "avy"))
+
 ;; ess ------------------------------------------------------------------------
 
 (use-package ess
@@ -711,7 +741,7 @@
   (ess-use-tracebug nil)
   (ess-style 'RStudio)
   (ess-indent-with-fancy-comments nil)
-  (ess-indent-offset 4)
+  (ess-indent-offset 2)
   (ess-help-own-frame nil)
   (ess-help-reuse-window t)
   (ess-ask-for-ess-directory nil)
@@ -782,10 +812,11 @@
   "d" '(:ignore t :which-key "devtools")
   "dl" '(cole/ess-devtools-load-all :which-key "load_all")
   "dt" '(cole/ess-devtools-test :which-key "test")
+  "dc" '(cole/ess-devtools-check :which-key "check")
   "l" '(:ignore t :which-key "language server")
   "ls" '(:ignore t :which-key "session")
   "lr" '(lsp-workspace-restart :which-key "restart")
-  "lr" '(lsp-rename :which-key "rename everywhere")
+  ;; "lr" '(lsp-rename :which-key "rename everywhere")
   "l=" '(lsp-format-buffer :which-key "format document")
   "h" '(lsp-ui-doc-glance :which-key "help glance")
   "H" '(lsp-describe-thing-at-point :which-key "help window")
@@ -818,19 +849,23 @@
 
 (defun cole/ess-devtools-load-all ()
   (interactive)
-  (ess-r-package-eval-linewise "devtools::load_all()"))
+  (ess-eval-linewise "devtools::load_all()"))
 
 (defun cole/ess-devtools-test ()
   (interactive)
-  (ess-r-package-eval-linewise "devtools::test()"))
+  (ess-eval-linewise "devtools::test()"))
+
+(defun cole/ess-devtools-check ()
+  (interactive)
+  (ess-eval-linewise "devtools::check()"))
 
 (defun cole/ess-renv-status ()
   (interactive)
-  (ess-r-package-eval-linewise "renv::status()"))
+  (ess-eval-linewise "renv::status()"))
 
 (defun cole/ess-renv-snapshot ()
   (interactive)
-  (ess-r-package-eval-linewise "renv::snapshot()"))
+  (ess-eval-linewise "renv::snapshot()"))
 
 (defun cole/ess-renv-restore ()
   (interactive)
@@ -914,21 +949,32 @@
   ("p" org-tree-slide-move-previous-tree "previous")
   ("q" nil "quit" :exit t))
 
+(defhydra cole/git-timemachine ()
+  "git-timemachine"
+  ("j" git-timemachine-show-next-revision "next revision")
+  ("k" git-timemachine-show-previous-revision "previous revision")
+  ("c" git-timemachine-show-commit "show commit")
+  ("y" git-timemachine-kill-abbreviated-revision "yank short hash")
+  ("q" git-timemachine-quit "quit" :exit t))
+
 (defhydra cole/scale-text (:timeout 4)
   "scale text"
   ("j" text-scale-increase "in")
   ("k" text-scale-decrease "out")
   ("q" nil "quit" :exit t))
 
+;; TODO hydra for resizing windows (SPC w r)
+
 (cole/leader-keys
-  "ts" '(hydra-text-scale/body :which-key "scale text"))
+  "ts" '(cole/scale-text/body :which-key "scale text"))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(auto-package-update vterm-toggle vterm buffer-move ivy-prescient lsp-ivy lsp-ui lsp-mode dockerfile-mode flyspell-correct-ivy flyspell-correct yaml-mode which-key visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-bullets ivy-rich ivy-hydra ivy-bibtex helpful general forge exec-path-from-shell evil-org evil-nerd-commenter evil-magit evil-escape evil-collection emojify doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile command-log-mode all-the-icons-ivy all-the-icons-dired)))
+   '(github-browse-file evil-surround avy git-timemachine auto-package-update vterm-toggle vterm buffer-move ivy-prescient lsp-ivy lsp-ui lsp-mode dockerfile-mode flyspell-correct-ivy flyspell-correct yaml-mode which-key visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-bullets ivy-rich ivy-hydra ivy-bibtex helpful general forge exec-path-from-shell evil-org evil-nerd-commenter evil-magit evil-escape evil-collection emojify doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile command-log-mode all-the-icons-ivy all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
