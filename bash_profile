@@ -70,18 +70,13 @@ vterm_prompt_end(){
 PS1=$PS1'\[$(vterm_prompt_end)\]'
 
 # do the following only if on the HPC
-if [ -n "$MODULESHOME" ]; then
+if ! command -v COMMAND &> /dev/null
 # load modules
     module load tmux/2.4
     module load vim
-    # module load R/3.6.2
-    # module load proj.4/4.9.1
-    # module load gdal/2.1.2
-    # module load geos/3.5.1
-    # module load gcc/4.9.0
-    # module load rstudio/0.98
 
     # use newer version of git that was installed from source
     export PATH="$HOME/git-2.12.2:$PATH"
 fi
+
 
