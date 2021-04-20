@@ -70,7 +70,7 @@ vterm_prompt_end(){
 PS1=$PS1'\[$(vterm_prompt_end)\]'
 
 # do the following only if on the HPC
-if command -v COMMAND &> /dev/null
+if command -v COMMAND &> /dev/null; then
 # load modules
     module load tmux/2.4
     module load vim
