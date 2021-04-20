@@ -70,13 +70,10 @@ vterm_prompt_end(){
 PS1=$PS1'\[$(vterm_prompt_end)\]'
 
 # do the following only if on the HPC
-if ! command -v COMMAND &> /dev/null
+if command -v COMMAND &> /dev/null
 # load modules
     module load tmux/2.4
     module load vim
-
-    # use newer version of git that was installed from source
-    export PATH="$HOME/git-2.12.2:$PATH"
 fi
 
 
