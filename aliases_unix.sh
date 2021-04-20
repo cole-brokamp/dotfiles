@@ -50,5 +50,6 @@ alias dt='docker run -ti --name ctop --rm -v /var/run/docker.sock:/var/run/docke
 alias docker_update_all='docker images | grep -v REPOSITORY | awk '\''{print $1 ":" $2}'\'' | xargs -L1 docker pull' # updates all local images
 
 # CCHMC HPC LSF commands
-alias bsub_singr='bsub -Is -M 200000 -n 8 -W 24:00 -R "span[ptile=8]" "module load singularity; ~/singr_latest.sif"'
+alias bsub_singr='bsub -Is -M 200000 -n 8 -W 24:00 -R "span[ptile=8]" "module load singularity; singularity shell ~/singr_latest.sif"'
+alias bsub_jr='bsub -Is -n 4 -W 24:00 -R "span[ptile=8]" "module load singularity; singularity shell ~/singr_latest.sif"'
 
