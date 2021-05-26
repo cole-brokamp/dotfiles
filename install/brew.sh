@@ -55,8 +55,9 @@ brew install vim
 brew install socat
 
 # emacs stuffs
-brew cask install emacs
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+brew tap railwaycat/emacsmacport
+brew install emacs-mac --with-modules
+ln -s /usr/local/opt/emacs-mac/Emacs.app /Applications/Emacs.app
 brew install poppler
 brew install automake
 brew install markdown
