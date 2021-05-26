@@ -12,7 +12,7 @@ alias path='echo -e ${PATH//:/\\n}'
 
 # python quick server alias
     # will make current directory available on local network, port 8000
-alias quick_serve="python -m SimpleHTTPServer"
+alias quick_serve="python3 -m http.server"
 
 # ip addresses
 alias ip_public='wget http://ipinfo.io/ip -qO -'
