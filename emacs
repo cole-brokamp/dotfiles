@@ -221,6 +221,7 @@
   "q" '(:ignore t :which-key "quit")
   "qq" '(save-buffers-kill-emacs :which-key "quit")
   "qr" '(restart-emacs :which-key "restart")
+  "qf" '(delete-frame :which-key "kill frame")
   "f" '(:ignore t :which-key "files")
   "fs" '(save-buffer :which-key "save")
   "fS" '(evil-write-all :which-key "save all")
@@ -285,7 +286,17 @@
   "sr" '(query-replace :which-key "search and replace")
   "sR" '(query-replace-regexp :which-key "search and replace (regex)")
   ;;TODO "sw" search the web using selected text?
+  "r" '(:ignore t :which-key "register")
+  "rd" '(view-register :which-key "view")
+  "ri" '(insert-register :which-key "insert text")
+  "ry" '(copy-to-register :which-key "yank text")
+  "rw" '(window-configuration-to-register :which-key "windows save")
+  "rf" '(frameset-to-register :which-key "frames save")
+  "rj" '(jump-to-register :which-key "jump to")
+  "rv" '(view-register :which-key "view")
   )
+
+;; TODO save registers for layouts and commonly used text
 
 (use-package reveal-in-osx-finder)
 
@@ -542,6 +553,7 @@
   (cole/leader-keys
     "g" '(:ignore t :which-key "git")
     "gs" '(magit-status :which-key "git status")
+    "gc" '(magit-clone :which-key "git clone")
   ))
 
 (use-package evil-magit
@@ -632,30 +644,6 @@
 (use-package visual-fill-column
   :hook (org-mode . cole/org-mode-visual-fill))
 
-;; (use-package ivy-bibtex
-;;   :after ivy
-;;   :custom
-;;   (bibtex-completion-bibliography '("~/dropbox/its_lit_fam/bib.bib"
-;; 				    "~/dropbox/its_lit_fam/papers.org"
-;; 				    ("~/dropbox/grants/pm_psych_refs_notes.org" . "~/dropbox/grants/pm_psych_refs.bib")
-;; 				    "~/dropbox/grants/r01_nlm_degauss/r01_nlm_degauss.org")))
-;; (setq bibtex-completion-library-path '("/path1/to/pdfs" "/path2/to/pdfs"))
-;; (setq bibtex-completion-notes-path "/path/to/notes.org")
-;; bibtex-completion-cite-default-command ... set this to ivy?
-;; By default, helm-bibtex and ivy-bibtex prompt for pre- and postnotes for the citation. This can be switched off by setting the variable bibtex-completion-cite-prompt-for-optional-arguments to nil.
-  
-
-;; packages todo ============================================
-;; TODO
- ;;   bibtex (bibtex :variables
- ;;                    bibtex-autokey-year-length 4
- ;;                    bibtex-autokey-name-year-separator "-"
- ;;                    bibtex-autokey-year-title-separator "-"
- ;;                    bibtex-autokey-titleword-separator "-"
- ;;                    bibtex-autokey-titlewords 0
- ;;                    bibtex-completion-bibliography "~/dropbox/ITS_LIT_FAM/papers.bib"
- ;;                    bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/"
- ;;                    bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
 
 ;; https://github.com/jrblevin/markdown-mode
  ;; latex
@@ -732,6 +720,34 @@
 
 (cole/leader-keys
   "sa" '(avy-goto-char-timer :which-key "avy"))
+
+;; latex things
+(use-package ivy-bibtex
+  :after ivy
+  :custom
+  ;; (bibtex-completion-bibliography "~/dropbox/ITS_LIT_FAM/papers.bib")
+  ;; (bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/")
+  ;; (bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
+  ;; (bibtex-completion-notes-path "/path/to/notes.org")
+  (bibtex-autokey-year-length 4
+  (bibtex-autokey-name-year-separator "-")
+  (bibtex-autokey-year-title-separator "-")
+  (bibtex-autokey-titleword-separator "-")
+  (bibtex-autokey-titlewords 0)
+  ;; (bibtex-completion-library-path '("/path1/to/pdfs" "/path2/to/pdfs"))
+  (bibtex-completion-cite-prompt-for-optional-arguments nil)))
+
+(use-package org-ref)
+  
+(cole/local-leader-keys bibtex-mode-map
+  "c" '(bibtex-clean-entry :which-key "clean entry")
+  "h" '(org-ref-bibtex-hydra/body :which-key "bibtex hydra")
+  "p" '(org-ref-open-bibtex-pdf :which-key "open pdf")
+  "o" '(org-ref-open-in-browser :which-key "open in browser")
+  "i" '(:ignore t "insert entry")
+  "ip" '(pubmed-insert-bibtex-from-pmid "PMID")
+  "id" '(doi-utils-add-bibtex-entry-from-doi "DOI")
+  )
 
 ;; ess ------------------------------------------------------------------------
 
@@ -926,13 +942,10 @@
   :custom
   (org-tree-slide-slide-in-effect nil))
 
-
 (use-package emojify
   :custom
   (emojify-display-style 'image)
   :hook (after-init . global-emojify-mode))
-
-
 
 (use-package yaml-mode
     :mode (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
@@ -974,7 +987,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(github-browse-file evil-surround avy git-timemachine auto-package-update vterm-toggle vterm buffer-move ivy-prescient lsp-ivy lsp-ui lsp-mode dockerfile-mode flyspell-correct-ivy flyspell-correct yaml-mode which-key visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-bullets ivy-rich ivy-hydra ivy-bibtex helpful general forge exec-path-from-shell evil-org evil-nerd-commenter evil-magit evil-escape evil-collection emojify doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile command-log-mode all-the-icons-ivy all-the-icons-dired)))
+   '(org-ref github-browse-file evil-surround avy git-timemachine auto-package-update vterm-toggle vterm buffer-move ivy-prescient lsp-ivy lsp-ui lsp-mode dockerfile-mode flyspell-correct-ivy flyspell-correct yaml-mode which-key visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-bullets ivy-rich ivy-hydra ivy-bibtex helpful general forge exec-path-from-shell evil-org evil-nerd-commenter evil-magit evil-escape evil-collection emojify doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile command-log-mode all-the-icons-ivy all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
