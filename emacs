@@ -238,7 +238,7 @@
   "bs" '(cole/switch-to-scratch-buffer :which-key "scratch buffer")
   "bn" '(cole/buffer-file-name :which-key "copy buffer filename")
   "c" '(:ignore t :which-key "compile")
-  "cc" '(counsel-compile :which-key "compile")
+  "cc" '(projectile-compile-project :which-key "compile")
   "ck" '(kill-compilation :which-key "kill compilation")
   "cd" '(cole/show-hide-compilation-window :which-key "show/hide compilation window")
   "i" '(:ignore t :which-key "insert")
@@ -296,7 +296,7 @@
   "rv" '(view-register :which-key "view")
   )
 
-;; TODO save registers for layouts and commonly used text
+;; TODO save registers for layouts and commonly used text; use snippets?
 
 (use-package reveal-in-osx-finder)
 
