@@ -230,6 +230,8 @@
   "b" '(:ignore t :which-key "buffers")
   "bb" '(ivy-switch-buffer :which-key "switch to buffer")
   "bB" '(counsel-switch-buffer :which-key "switch buffer with preview")
+  "bi" '(ibuffer :which-key "ibuffer")
+  "bI" '(projectile-ibuffer :which-key "ibuffer in project")
   "bf" '(reveal-in-osx-finder :which-key "show buffer in finder")
   "bd" '(kill-current-buffer :which-key "delete buffer")
   "bm" '(cole/switch-to-messages-buffer :which-key "messages buffer")
