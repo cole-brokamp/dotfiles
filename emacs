@@ -593,10 +593,10 @@
                   (org-level-4 . 1.0)))
     (set-face-attribute (car face) nil :font "Source Code Pro" :weight 'regular :height (cdr face)))
 
-  (setq org-todo-keyword-faces '(("WAITING" . "systemBlueColor")
-                                 ("WISHING" . "systemYellowColor")
-                                 ("TODO" . "systemRedColor")
-                                 ("DONE" . "systemGreenColor")))
+  (setq org-todo-keyword-faces '(("WAITING" . "dodger blue")
+                                 ("WISHING" . "yellow3")
+                                 ("TODO" . "OrangeRed1")
+                                 ("DONE" . "green4")))
 )
 
 (use-package org
