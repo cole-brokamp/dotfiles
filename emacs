@@ -236,6 +236,7 @@
   "bd" '(kill-current-buffer :which-key "delete buffer")
   "bm" '(cole/switch-to-messages-buffer :which-key "messages buffer")
   "br" '(revert-buffer :which-key "reload from disk")
+  "bR" '(font-lock-update :which-key "reload font locks")
   "bM" '(buf-move :which-key "move buffer")
   "bs" '(cole/switch-to-scratch-buffer :which-key "scratch buffer")
   "bn" '(cole/buffer-file-name :which-key "copy buffer filename")
@@ -250,10 +251,12 @@
   "ik" '(evil-collection-unimpaired-insert-newline-above :which-key "insert line above")
   "h" '(:ignore t :which-key "help")
   "hf" 'describe-function
+  "hh" 'help-for-help
   "hv" 'describe-variable
   "hk" 'describe-key
   "hm" 'describe-mode
   "hb" '(general-describe-keybindings :which-key "key bindings")
+  "hc" 'describe-command
   "hp" 'describe-package
   "h." 'display-local-help
   "j" '(:ignore t :which-key "jump")

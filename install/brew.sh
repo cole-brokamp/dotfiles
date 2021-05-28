@@ -55,9 +55,9 @@ brew install vim
 brew install socat
 
 # emacs stuffs
-brew tap railwaycat/emacsmacport
-brew install emacs-mac --with-modules
-ln -s /usr/local/opt/emacs-mac/Emacs.app /Applications/Emacs.app
+brew tap d12frosted/emacs-plus
+brew install emacs-plus@28 --with-no-titlebar --with-xwidgets --with-modern-icon
+ln -s /usr/local/opt/emacs-plus@28/Emacs.app /Applications
 brew install poppler
 brew install automake
 brew install markdown
