@@ -4,8 +4,6 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 export TERM=screen-256color
 
-source ~/dotfiles/prompt.sh
-
 # export secrets if it exists
 source ~/dotfiles/secrets.sh 2> /dev/null
 
@@ -76,4 +74,4 @@ if command -v module &> /dev/null; then
     module load vim
 fi
 
-
+source ~/dotfiles/prompt.sh

@@ -68,7 +68,7 @@ PS1="
 $blue \u\
 $grey ❯$green \h$grey\${dock}\${sing}\
 $grey ❯$yellow \w\
-\${git_branch}\
+\${git_branch}${git_dirty}\
 $(tput sgr0)\n  > "
 
 # PS1="
