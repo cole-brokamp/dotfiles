@@ -1,9 +1,5 @@
 ; -*- mode: emacs-lisp; -*-
 
-;; did you know?
-; use M-n in any ivy window to automatically insert the word under the cursor as the search term
-; evil-mode jump list: Ctrl-O to go back and TAB to go forward
-
 ; TODO: exempt dired buffers from "toggle last buffer" (SPC TAB)
 
 ;; basic ==========================================================
@@ -43,10 +39,15 @@
                 term-mode-hook
 		vterm-mode-hook
 		inferior-ess-mode
-		ess-mode
+		ess-mode-hook
                 shell-mode-hook
+		xwidget-webkit-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; use xwidget support built in on macOS and emacs 28
+;; (setq browse-url-browser-function 'xwidget-webkit-browse-url)
+
 
 ;; line numbers
 (column-number-mode)
@@ -67,8 +68,8 @@
       auto-save-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
 
 ;; default to vertical splits for “other windows”
-;; (setq split-height-threshold nil)
-;; (setq split-width-threshold 0)
+(setq split-height-threshold nil)
+(setq split-width-threshold 0)
 
 ;; package manager ======================================================
 
@@ -198,6 +199,10 @@
   "s" '(:ignore t :which-key "subtree")
   "sa" '(org-archive-subtree :which-key "archive subtree")
   "sr" '(org-refile :which-key "refile")
+  "n" '(:ignore t :which-key "narrow")
+  "nn" '(org-narrow-to-subtree :which-key "narrow")
+  "nw" '(widen :which-key "widen")
+  "p" '(cole/present/body :which-key "present") ;; but how to only act on narrowed subtree?
   ) 
 
 
@@ -425,6 +430,8 @@
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (evil-global-set-key 'motion (kbd "C-j") 'evil-scroll-line-down)
+  (evil-global-set-key 'motion (kbd "C-k") 'evil-scroll-line-up)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
   :custom
@@ -479,6 +486,7 @@
   :commands (dired dired-jump)
   :custom
   (dired-listing-switches "-go --all --classify --group-directories-first --dired --human-readable")
+  (dired-clean-confirm-killing-deleted-buffers nil)
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-single-up-directory
@@ -649,11 +657,26 @@
 (use-package visual-fill-column
   :hook (org-mode . cole/org-mode-visual-fill))
 
+(use-package markdown-mode)
+(use-package grip-mode)
 
-;; https://github.com/jrblevin/markdown-mode
- ;; latex
- ;; something for make?
- ;; auto-completion
+(cole/local-leader-keys markdown-mode-map
+  "p" '(grip-mode :which-key "preview mode")
+  "o" '(markdown-follow-thing-at-point :which-key "open thing at point")
+  "i" '(:ignore t :which-key "insert")
+  "il" '(markdown-insert-link :which-key "link")
+  "if" '(markdown-insert-foldable-block :which-key "foldable block")
+  "ic" '(markdown-insert-code :which-key "code")
+  "it" '(markdown-insert-table :which-key "table")
+  "ii" '(markdown-insert-image :which-key "image")
+  "t" '(:ignore t :which-key "toggle")
+  "tm" '(markdown-toggle-math :which-key "math")
+  "tf" '(markdown-toggle-fontify-code-blocks-natively :which-key "fontify code blocks") ;; TODO make this on by default
+  "ti" '(markdown-toggle-inline-images :which-key "inline images")
+  "tu" '(markdown-toggle-url-hiding :which-key "url hiding")
+  "tm" '(markdown-toggle-markup-hiding :which-key "markup hiding")
+  "x" '(:ignore t :which-key "text")
+  )
 
 (use-package dockerfile-mode)
 
@@ -734,13 +757,13 @@
   ;; (bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/")
   ;; (bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
   ;; (bibtex-completion-notes-path "/path/to/notes.org")
-  (bibtex-autokey-year-length 4
+  (bibtex-autokey-year-length 4)
   (bibtex-autokey-name-year-separator "-")
   (bibtex-autokey-year-title-separator "-")
   (bibtex-autokey-titleword-separator "-")
   (bibtex-autokey-titlewords 0)
   ;; (bibtex-completion-library-path '("/path1/to/pdfs" "/path2/to/pdfs"))
-  (bibtex-completion-cite-prompt-for-optional-arguments nil)))
+  (bibtex-completion-cite-prompt-for-optional-arguments nil))
 
 (use-package org-ref)
   
@@ -965,7 +988,7 @@
   ("t" org-tree-slide-mode "toggle slide mode")
   ("n" org-tree-slide-move-next-tree "next")
   ("p" org-tree-slide-move-previous-tree "previous")
-  ("q" nil "quit" :exit t))
+  ("q" nil "quit" :exit t)) ;; how to add another "org-tree-slide-mode 0" to turn it off when quitting the hydra
 
 (defhydra cole/git-timemachine ()
   "git-timemachine"
@@ -991,8 +1014,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(org-ref github-browse-file evil-surround avy git-timemachine auto-package-update vterm-toggle vterm buffer-move ivy-prescient lsp-ivy lsp-ui lsp-mode dockerfile-mode flyspell-correct-ivy flyspell-correct yaml-mode which-key visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-bullets ivy-rich ivy-hydra ivy-bibtex helpful general forge exec-path-from-shell evil-org evil-nerd-commenter evil-magit evil-escape evil-collection emojify doom-themes doom-modeline dired-single dired-hide-dotfiles counsel-projectile command-log-mode all-the-icons-ivy all-the-icons-dired)))
+ '(helm-minibuffer-history-key "M-p")
+ '(warning-suppress-types '((use-package) (:warning))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
