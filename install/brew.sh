@@ -56,7 +56,7 @@ brew install socat
 
 # emacs stuffs
 brew tap d12frosted/emacs-plus
-brew install emacs-plus@28 --with-no-titlebar --with-xwidgets --with-modern-icon
+brew install emacs-plus@28 --with-modern-icon
 ln -s /usr/local/opt/emacs-plus@28/Emacs.app /Applications
 brew install poppler
 brew install automake

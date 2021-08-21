@@ -16,10 +16,16 @@
 (setq initial-major-mode 'org-mode)
 (setq confirm-kill-emacs 'y-or-n-p)
 (global-hl-line-mode 1)
+(setq scroll-margin 6) ; to match smooth scrolling margin
 ;; (setq-default frame-title-format "%b (%f)")
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq help-window-select t)
 (global-auto-revert-mode 1)
+(setq cursor-in-non-selected-windows nil)
+(setq warning-minimum-level :error)
+(setq window-combination-resize t)
+(setq x-stretch-cursor t)
+(delete-selection-mode 1)
 
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
@@ -192,6 +198,8 @@
   "i" '(:ignore t :which-key "insert")
   "il" '(org-insert-link :which-key "insert link")
   "it" '(counsel-org-tag :which-key "insert tag")
+  "iH" '(org-insert-heading-after-current :which-key "insert new heading")
+  "ih" '(org-insert-subheading :which-key "insert subheading")
   "d" '(:ignore t :which-key "date")
   "ds" '(org-schedule :which-key "schedule")
   "dd" '(org-deadline :which-key "deadline")
@@ -277,6 +285,7 @@
   "tf" '(toggle-frame-fullscreen :which-key "full screen")
   "tl" '(toggle-truncate-lines :which-key "truncate lines")
   "tL" '(visual-line-mode :which-key "visual line mode")
+  "tn" '(display-line-numbers-mode :which-key "numbers for lines")
   "tm" '(toggle-frame-maximized :which-key "maximize screen")
   "w" '(:ignore t :which-key "windows")
   "wd" '(evil-window-delete :which-key "delete window")
@@ -304,6 +313,12 @@
   "rf" '(frameset-to-register :which-key "frames save")
   "rj" '(jump-to-register :which-key "jump to")
   "rv" '(view-register :which-key "view")
+  "z" '(:ignore t :which-key "fold")
+  "zz" '(evil-toggle-fold :which-key "toggle fold")
+  "zo" '(evil-open-fold-rec :which-key "open fold")
+  "zO" '(evil-open-folds :which-key "open all folds")
+  "zc" '(evil-close-fold :which-key "close fold")
+  "zC" '(evil-close-folds :which-key "close all folds")
   )
 
 ;; TODO save registers for layouts and commonly used text; use snippets?
@@ -424,6 +439,7 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-want-C-i-jump nil) ; make TAB work in terminal again
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
@@ -473,7 +489,7 @@
   :config
   (smooth-scrolling-mode 1)
   :custom
-  (smooth-scroll-margin 4)
+  (smooth-scroll-margin 6)
   )
 
 ;; ensure full $PATH makes it into emacs
@@ -509,6 +525,12 @@
 ;;                     (font-spec :name "Apple Color Emoji") nil 'prepend))
 
 ;; TODO SPC doesn't work in dired mode (have to use Ctl-SPC), fix this!
+
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "H" 'dired-hide-dotfiles-mode))
 
 (use-package dired-single)
 
@@ -558,6 +580,9 @@
     "l C-h" '(eyebrowse-prev-window-config :which-key "previous layout")
     "l C-l" '(eyebrowse-next-window-config :which-key "next layout")
     ))
+;; TODO add hydra for changing layouts like in spacemacs
+;; TODO how to combine layout and projects into one command?
+;; TODO combine project kill buffers and layout close into one command
 
 (use-package magit
   :custom
@@ -777,7 +802,7 @@
   "id" '(doi-utils-add-bibtex-entry-from-doi "DOI")
   )
 
-;; ess ------------------------------------------------------------------------
+;; rstats ess ------------------------------------------------------------------------
 
 (use-package ess
   :custom
@@ -1015,6 +1040,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(helm-minibuffer-history-key "M-p")
+ '(package-selected-packages
+   '(yaml-mode which-key vterm-toggle visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-ref org-bullets lsp-ui lsp-ivy ivy-rich ivy-prescient ivy-hydra ivy-bibtex hl-todo helpful grip-mode github-browse-file git-timemachine general forge flyspell-correct-ivy eyebrowse exec-path-from-shell evil-surround evil-org evil-nerd-commenter evil-magit evil-escape evil-collection ess emojify doom-themes doom-modeline dockerfile-mode dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode buffer-move avy auto-package-update all-the-icons-ivy all-the-icons-dired))
+ '(safe-local-variable-values
+   '((org-ref-pdf-directory . "./pm_psych_pdfs/")
+     (org-ref-default-bibliography . "pm_psych_refs.bib")
+     (org-ref-bibliography-notes . "pm_psych_refs_notes.org")))
  '(warning-suppress-types '((use-package) (:warning))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

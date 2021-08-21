@@ -36,8 +36,7 @@ The `install` folder contains other install scripts:
 
 ### macOS
 
-- `install/brew.sh` to install macOS command line applications
-- `install/cask.sh` to install macOS GUI applications
+- `install/brew.sh` to install macOS command line and GUI applications
 - `install/macOS.sh` to set macOS options
 - Import `resources/CB_solarized.terminal` and set as default for Terminal's preferences
 - Import `applescripts/*` to Automator
