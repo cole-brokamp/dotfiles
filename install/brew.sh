@@ -2,7 +2,9 @@
 
 if test ! $(which brew); then
     echo "Installing homebrew"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/broeg1/.bash_profile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 brew update
@@ -14,28 +16,23 @@ echo "=============================="
 
 brew install bash
 # Switch to using brew-installed bash as default shell
-if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
-  echo '/usr/local/bin/bash' | sudo tee -a /etc/shells;
-  chsh -s /usr/local/bin/bash;
+if ! fgrep -q '/bin/bash' /etc/shells; then
+  echo '/bin/bash' | sudo tee -a /etc/shells;
+  chsh -s /bin/bash;
 fi;
 
 # completion
 brew install bash-completion
-brew link --overwrite bash-completion
-brew install docker-completion
-brew install brew-cask-completion
-brew install docker-compose-completion
-
-
-# install gnu coreutils with a g prefixed
-brew install coreutils
 
 # tools
+brew install coreutils
 brew install cmake
 brew install node
 brew install less
 brew install wget
 brew install git
+brew tap microsoft/git
+brew install --cask git-credential-manager-core
 brew install gpg # for signing gh releases
 brew install tmux
 brew install highlight # mac only
@@ -45,19 +42,21 @@ brew install openssh
 brew install mosh
 brew install htop-osx # mac only
 brew install sshuttle
-brew install youtube-dl
+brew install awscli
+brew install vim
+# brew install socat
+
+# a/v
 brew install asciinema
 brew install ffmpeg
 brew install imagemagick
 brew install lame
-brew install awscli
-brew install vim
-brew install socat
+brew install youtube-dl
 
 # emacs stuffs
 brew tap d12frosted/emacs-plus
 brew install emacs-plus@28 --with-modern-icon
-ln -s /usr/local/opt/emacs-plus@28/Emacs.app /Applications
+# do symmlink too!
 brew install poppler
 brew install automake
 brew install markdown
@@ -67,23 +66,17 @@ brew install ripgrep
 # science
 brew install r
 brew install pandoc
-brew install pandoc-citeproc
-brew install python
 brew install python3
-# brew install homebrew/science/hdf4 # still need hdf4 support for MODIS
-# brew link --overwrite hdf4
 brew install pkg-config
 brew install gdal
 brew install udunits
-# brew tap osgeo/osgeo4mac
-# brew install qgis
 
 echo -e "\n\nInstalling homebrew cask packages..."
 echo "=============================="
 
 # quick look plugins for developers
 # mac only
-brew cask install qlcolorcode qlmarkdown \
+brew install qlcolorcode qlmarkdown \
 	qlstephen qlvideo quicklook-json \
 	qlprettypatch quicklook-csv \
 	qlimagesize webpquicklook
@@ -91,37 +84,36 @@ brew cask install qlcolorcode qlmarkdown \
 # xattr -d -r com.apple.quarantine ~/Library/QuickLook
 
 # fonts
-brew tap homebrew/cask-fonts
-brew cask install font-hack
-brew cask install font-source-code-pro
+brew install homebrew/cask-fonts/font-hack
+brew install homebrew/cask-fonts/font-source-code-pro
 
 ### install gui apps
-brew cask install 1password
-brew cask install backblaze
-brew cask install docker
-brew cask install dropbox
-brew cask install firefox
-brew cask install kindle
-brew cask install kitematic
-brew cask install microsoft-office
-brew cask install middleclick
-# brew cask install onedrive
+brew install 1password
+brew install homebrew/cask/docker
+brew install dropbox
+brew install firefox
+brew install kindle
+brew install middleclick
 R -e "install.packages('tinytex'); tinytex::install_tinytex()"
 # *OR* brew cask install mactex-no-gui
-# brew cask install screens-connect
-brew cask install screens
-brew cask install the-unarchiver
-brew cask install transmit
-# brew cask install expandrive
-brew cask install vlc
-# brew cask install xpra
-brew cask install xquartz
-brew cask install pdf-expert
-brew cask install bartender
-brew cask install itsycal
-brew cask install macdown
-brew cask install alt-tab
+brew install the-unarchiver
+brew install transmit
+# install pdf-expert from the app store
+brew install bartender
+brew install alt-tab
 # install SystemPal from the app store
+brew install zoom
+brew install microsoft-teams
+
+## optional
+brew install backblaze
+brew install microsoft-office
+# brew install screens-connect
+brew install screens
+# brew install expandrive
+brew install vlc
+# brew install xpra
+brew install xquartz
 
 brew cask cleanup
 
