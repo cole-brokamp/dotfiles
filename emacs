@@ -275,11 +275,11 @@
   "j" '(:ignore t :which-key "jump")
   "jd" '(dired-jump :which-key "dired-jump")
   "n" '(:ignore t :which-key "notes")
-  "nn" '((lambda () (interactive) (dired "~/dropbox/notes")) :which-key "notes")
-  "nt" '((lambda () (interactive) (find-file "~/dropbox/notes/_todo.org")) :which-key "_todo.org")
-  "nw" '((lambda () (interactive) (find-file "~/dropbox/notes/wiki.org")) :which-key "wiki.org")
-  "ns" '((lambda () (interactive) (find-file "~/dropbox/notes/students.org")) :which-key "students.org")
-  "nr" '((lambda () (interactive) (find-file "~/dropbox/notes/refile-beorg.org")) :which-key "refile-beorg.org")
+  "nn" '((lambda () (interactive) (dired "~/icloud/notes")) :which-key "notes")
+  "nt" '((lambda () (interactive) (find-file "~/icloud/notes/_todo.org")) :which-key "_todo.org")
+  "nw" '((lambda () (interactive) (find-file "~/icloud/notes/wiki.org")) :which-key "wiki.org")
+  "ns" '((lambda () (interactive) (find-file "~/icloud/notes/students.org")) :which-key "students.org")
+  "nr" '((lambda () (interactive) (find-file "~/icloud/notes/refile-beorg.org")) :which-key "refile-beorg.org")
   "t"  '(:ignore t :which-key "toggles")
   "tt" '(counsel-load-theme :which-key "choose theme")
   "tf" '(toggle-frame-fullscreen :which-key "full screen")
@@ -641,8 +641,8 @@
   :hook (org-mode . cole/org-mode-setup)
   :custom
   (org-ellipsis "▾")
-  (org-agenda-files '("~/dropbox/notes"))
-  (org-default-notes-file '("~/dropbox/notes/refile-beorg.org"))
+  (org-agenda-files '("~/icloud/notes"))
+  (org-default-notes-file '("~/icloud/notes/refile-beorg.org"))
   (org-todo-keywords '("TODO" "WAITING" "WISHING" "|" "DONE"))
   (org-agenda-span 10)
   (org-agenda-start-day "-3d")
@@ -651,7 +651,7 @@
   (org-startup-folded t)
   (org-capture-templates '(
                    ("t" "todo [_todo.org tasks]" entry
-                   (file+headline "~/dropbox/notes/_todo.org" "Tasks")
+                   (file+headline "~/icloud/notes/_todo.org" "Tasks")
                     "* TODO %?")
                    ))
   :config
@@ -778,9 +778,9 @@
 (use-package ivy-bibtex
   :after ivy
   :custom
-  ;; (bibtex-completion-bibliography "~/dropbox/ITS_LIT_FAM/papers.bib")
-  ;; (bibtex-completion-library-path "~/dropbox/ITS_LIT_FAM/bibtex_pdfs/")
-  ;; (bibtex-completion-notes-path "~/dropbox/ITS_LIT_FAM/papers.org")
+  ;; (bibtex-completion-bibliography "~/icloud/its_lit_fam/papers.bib")
+  ;; (bibtex-completion-library-path "~/icloud/its_lit_fam/bibtex_pdfs/")
+  ;; (bibtex-completion-notes-path "~/icloud/its_lit_fam/papers.org")
   ;; (bibtex-completion-notes-path "/path/to/notes.org")
   (bibtex-autokey-year-length 4)
   (bibtex-autokey-name-year-separator "-")
