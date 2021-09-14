@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+if [[ $# < 2 ]]; then
+ 	echo "submits an interactive batch job on CCHMC cluster"
+ 	echo "usage bsub_singr ncores ram walltime"
+else
+    echo "requesting interactive job with $1 cores with $2 units of RAM for walltime of $3"
+    bsub -Is -n $1 -M $2 -W $3 -R "span[ptile=$1]" "module load singularity; singularity shell ~/singr_latest.sif"
+fi
