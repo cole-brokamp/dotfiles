@@ -1,7 +1,5 @@
 ; -*- mode: emacs-lisp; -*-
 
-; TODO: exempt dired buffers from "toggle last buffer" (SPC TAB)
-
 ;; basic ==========================================================
 
 (setq inhibit-startup-message t)
@@ -10,13 +8,13 @@
 (tooltip-mode -1)
 (set-fringe-mode 10)
 (menu-bar-mode -1)
+(desktop-save-mode 1)
 (setq make-backup-files nil)
 (setq delete-by-moving-to-trash t)
 (setq initial-scratch-message nil)
 (setq initial-major-mode 'org-mode)
 (setq confirm-kill-emacs 'y-or-n-p)
 (global-hl-line-mode 1)
-(setq scroll-margin 6) ; to match smooth scrolling margin
 ;; (setq-default frame-title-format "%b (%f)")
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq help-window-select t)
@@ -29,6 +27,7 @@
 
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
+(global-prettify-symbols-mode 1)
 
 (setq display-time-load-average-threshold 5
       display-time-day-and-date t)
@@ -39,27 +38,23 @@
 
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
 
-; disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-		org-agenda-mode-hook
-                term-mode-hook
-		vterm-mode-hook
-		inferior-ess-mode
-		ess-mode-hook
-                shell-mode-hook
-		xwidget-webkit-mode-hook
-                eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
 ;; use xwidget support built in on macOS and emacs 28
-;; (setq browse-url-browser-function 'xwidget-webkit-browse-url)
+;(setq browse-url-browser-function 'xwidget-webkit-browse-url)
 
 
 ;; line numbers
 (column-number-mode)
-(global-display-line-numbers-mode t)
+; (global-display-line-numbers-mode t)
+(global-visual-line-mode 1)
 (setq display-line-numbers 'relative)
 (setq display-line-numbers-type 'relative)
+
+; enable line numbers for some modes
+(dolist (mode '(
+		ess-mode-hook
+		ess-r-mode-hook
+		))
+  (add-hook mode (lambda () (display-line-numbers-mode 1))))
 
 (setq default-directory (concat (getenv "HOME") "/"))
 
@@ -73,9 +68,9 @@
 (setq auto-save-list-file-prefix (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory)
       auto-save-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
 
-;; default to vertical splits for “other windows”
-(setq split-height-threshold nil)
-(setq split-width-threshold 0)
+;; thresholds for "other" windows
+(setq split-height-threshold 60)
+(setq split-width-threshold 100)
 
 ;; package manager ======================================================
 
@@ -97,7 +92,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-;; update packages automatically
+;; update packages automatically on startup if they haven't been updated in the past 7 days
 (use-package auto-package-update
   :custom
   (auto-package-update-interval 7)
@@ -105,7 +100,7 @@
   (auto-package-update-hide-results t)
   :config
   (auto-package-update-maybe)
-  (auto-package-update-at-time "09:00"))
+  )
 
 ;; my functions =======================================================
 (defun cole/find-user-init-file ()
@@ -174,7 +169,6 @@
 	(window-configuration-to-register ?_)
 	(delete-other-windows)))))
   
-;; TODO make SPC leader key work in motion state
 (use-package general
   :config
   (general-create-definer cole/leader-keys
@@ -219,17 +213,17 @@
   "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
   "/" 'swiper-all
   "'" '(vterm-toggle-cd :which-key "shell")
-  "\"" '(vterm :which-key "new shell")
+  "\"" '(vterm-toggle-show :which-key "new shell")
   ";" '(evilnc-comment-or-uncomment-lines :which-key "comment operator")
   "a" '(:ignore t :which-key "applications")
   ;; "ad" docker
   "ac" 'calendar
   "as" '(vterm :which-key "new vterm shell")
   "ab" '(ivy-bibtex-with-local-bibliography :which-key "bibtex (local bib)") ; auto uses bib file from \bibliography in files!
-  "aB" '(ivy-bibtex :which-key "bibtex (global bib)") ; auto uses bib file from \bibliography in files!
+  "aB" '(ivy-bibtex :which-key "bibtex (global bib)")
   "o" '(:ignore t :which-key "org")
   "oc" '(counsel-org-capture "org capture")
-  "oa" 'org-agenda
+  "oa" '(org-agenda "org agenda")
   ":" '(shell-command :which-key "shell command")
   "q" '(:ignore t :which-key "quit")
   "qq" '(save-buffers-kill-emacs :which-key "quit")
@@ -272,6 +266,7 @@
   "hc" 'describe-command
   "hp" 'describe-package
   "h." 'display-local-help
+  "hr" '(repeat-complex-command :which-key "repeat complex command")
   "j" '(:ignore t :which-key "jump")
   "jd" '(dired-jump :which-key "dired-jump")
   "n" '(:ignore t :which-key "notes")
@@ -280,6 +275,7 @@
   "nw" '((lambda () (interactive) (find-file "~/icloud/notes/wiki.org")) :which-key "wiki.org")
   "ns" '((lambda () (interactive) (find-file "~/icloud/notes/students.org")) :which-key "students.org")
   "nr" '((lambda () (interactive) (find-file "~/icloud/notes/refile-beorg.org")) :which-key "refile-beorg.org")
+  "nb" '((lambda () (interactive) (find-file "~/icloud/its_lit_fam/bib.bib")) :which-key "bib.bib")
   "t"  '(:ignore t :which-key "toggles")
   "tt" '(counsel-load-theme :which-key "choose theme")
   "tf" '(toggle-frame-fullscreen :which-key "full screen")
@@ -291,10 +287,14 @@
   "wd" '(evil-window-delete :which-key "delete window")
   "w/" '(cole/split-window-right-and-focus :which-key "split right")
   "w-" '(cole/split-window-below-and-focus :which-key "split down")
-  "wh" '(evil-window-left :which-key "move left")
-  "wl" '(evil-window-right :which-key "move right")
-  "wj" '(evil-window-down :which-key "move down")
-  "wk" '(evil-window-up :which-key "move up")
+  "wh" '(evil-window-left :which-key "focus left")
+  "wl" '(evil-window-right :which-key "focus right")
+  "wj" '(evil-window-down :which-key "focus down")
+  "wk" '(evil-window-up :which-key "focus up")
+  "wH" '(evil-window-move-far-left :which-key "move left")
+  "wK" '(evil-window-move-very-top :which-key "move up")
+  "wL" '(evil-window-move-far-right :which-key "move right")
+  "wJ" '(evil-window-move-very-bottom :which-key "move down")
   "wf" '(make-frame :which-key "make into frame")
   "wm" '(cole/toggle-maximize-buffer :which-key "maximize window")
   "w=" '(balance-windows-area :which-key "equal window areas")
@@ -304,7 +304,6 @@
   "ss" '(swiper :which-key "swiper")
   "sr" '(query-replace :which-key "search and replace")
   "sR" '(query-replace-regexp :which-key "search and replace (regex)")
-  ;;TODO "sw" search the web using selected text?
   "r" '(:ignore t :which-key "register")
   "rd" '(view-register :which-key "view")
   "ri" '(insert-register :which-key "insert text")
@@ -321,17 +320,13 @@
   "zC" '(evil-close-folds :which-key "close all folds")
   )
 
-;; TODO save registers for layouts and commonly used text; use snippets?
+(use-package format-all)
 
 (use-package reveal-in-osx-finder)
 
 (use-package buffer-move)
 
-;; TODO do a transient state for window sizing and rotating
-;; evil-window-{increase,decrease}-{width,height}
-
 (use-package restart-emacs)
-
 
 (use-package ivy
   :diminish
@@ -356,11 +351,6 @@
 
 (use-package ivy-rich
   :init (ivy-rich-mode 1))
-
-
-(use-package all-the-icons-ivy
-  :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
-  :custom (all-the-icons-ivy-file-commands '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
 
 (use-package osx-trash
   :custom (delete-by-moving-to-trash t)
@@ -388,8 +378,6 @@
   :config
   (ivy-prescient-mode 1)
   (prescient-persist-mode 1))
-
-(use-package all-the-icons)
 
 (use-package doom-modeline
              :init (doom-modeline-mode 1)
@@ -460,12 +448,18 @@
   :config
   (evil-collection-init))
 
+(use-package evil-nerd-commenter)
+
 (use-package smooth-scrolling
   :config
   (smooth-scrolling-mode 1)
   :custom
-  (smooth-scroll-margin 6)
+  (smooth-scroll-margin 12)
   )
+
+(setq scroll-margin 12) ; to match smooth scrolling margin
+(setq scroll-preserve-screen-position 't)
+(setq next-screen-context-lines 12)
 
 ;; ensure full $PATH makes it into emacs
 (use-package exec-path-from-shell
@@ -493,12 +487,6 @@
   (evil-collection-define-key 'normal 'dired-mode-map
     "H" 'dired-hide-dotfiles-mode))
 
-;; TODO use macOS emoji font for emoticons
-;; (when (fboundp 'set-fontset-font)
-;;   (set-fontset-font "fontset-default"
-;;                     '(#x1F600 . #x1F64F)
-;;                     (font-spec :name "Apple Color Emoji") nil 'prepend))
-
 ;; TODO SPC doesn't work in dired mode (have to use Ctl-SPC), fix this!
 
 (use-package dired-hide-dotfiles
@@ -508,9 +496,6 @@
     "H" 'dired-hide-dotfiles-mode))
 
 (use-package dired-single)
-
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
@@ -555,9 +540,6 @@
     "l C-h" '(eyebrowse-prev-window-config :which-key "previous layout")
     "l C-l" '(eyebrowse-next-window-config :which-key "next layout")
     ))
-;; TODO add hydra for changing layouts like in spacemacs
-;; TODO how to combine layout and projects into one command?
-;; TODO combine project kill buffers and layout close into one command
 
 (use-package magit
   :custom
@@ -567,6 +549,7 @@
     "g" '(:ignore t :which-key "git")
     "gs" '(magit-status :which-key "git status")
     "gc" '(magit-clone :which-key "git clone")
+    "gf" '(magit-find-file :which-key "find file")
   ))
 
 (use-package evil-magit
@@ -588,9 +571,6 @@
   (cole/leader-keys
     "gh" '(github-browse-file :which-key "browse on github")
     ))
-
-;; TODO add in git-link: https://github.com/sshaw/git-link
-;; TODO try out the time machine integration (add to hydra: open version of file being visited)
 
 ;; Org Mode Configuration ------------------------------------------------------
 
@@ -630,8 +610,9 @@
                     "* TODO %?")
                    ))
   :config
-  (advice-add 'org-refile :after 'org-save-all-org-buffers) ; save org buffers after refiling
-  (advice-add 'org-archive-subtree :after 'org-save-all-org-buffers) ; save org buffers after archiving
+  ;; don't auto save after refile or archive b/c org collapses the buffer automatically on save?
+  ;; (advice-add 'org-refile :after 'org-save-all-org-buffers) ; save org buffers after refiling
+  ;; (advice-add 'org-archive-subtree :after 'org-save-all-org-buffers) ; save org buffers after archiving
   (cole/org-font-setup)
   )
 
@@ -687,7 +668,8 @@
 (use-package grip-mode)
 
 (cole/local-leader-keys markdown-mode-map
-  "p" '(grip-mode :which-key "preview mode")
+  "p" '(grip-mode :which-key "preview mode (grip)")
+  "P" '(markdown-live-preview-mode :which-key "preview mode (native)")
   "o" '(markdown-follow-thing-at-point :which-key "open thing at point")
   "i" '(:ignore t :which-key "insert")
   "il" '(markdown-insert-link :which-key "link")
@@ -779,26 +761,40 @@
 (use-package ivy-bibtex
   :after ivy
   :custom
-  ;; (bibtex-completion-bibliography "~/icloud/its_lit_fam/papers.bib")
-  ;; (bibtex-completion-library-path "~/icloud/its_lit_fam/bibtex_pdfs/")
-  ;; (bibtex-completion-notes-path "~/icloud/its_lit_fam/papers.org")
-  ;; (bibtex-completion-notes-path "/path/to/notes.org")
+  (bibtex-completion-bibliography "~/icloud/its_lit_fam/bib.bib")
+  (bibtex-completion-library-path "~/icloud/its_lit_fam/bibtex_pdfs/")
+  ;; (bibtex-completion-library-path '("/path1/to/pdfs" "/path2/to/pdfs"))
+  ;; (bibtex-completion-notes-path "~/icloud/its_lit_fam/bib.org")
   (bibtex-autokey-year-length 4)
   (bibtex-autokey-name-year-separator "-")
   (bibtex-autokey-year-title-separator "-")
-  (bibtex-autokey-titleword-separator "-")
-  (bibtex-autokey-titlewords 0)
-  ;; (bibtex-completion-library-path '("/path1/to/pdfs" "/path2/to/pdfs"))
+  (bibtex-autokey-titleword-separator "_")
+  (bibtex-autokey-titlewords 1)
+  (bibtex-autokey-titleword-stretch 1)
+  (bibtex-autokey-titleword-length 6)
   (bibtex-completion-cite-prompt-for-optional-arguments nil))
 
-(use-package org-ref)
+(use-package org-ref
+  :custom
+  (org-ref-default-bibliography '("~/icloud/its_lit_fam/bib.bib"))
+  (org-ref-bibliography-notes "~/icloud/its_lit_fam/bib.org")
+  (org-ref-pdf-directory "~/icloud/its_lit_fam/bibtex_pdfs/")
+  )
   
 (cole/local-leader-keys bibtex-mode-map
-  "c" '(bibtex-clean-entry :which-key "clean entry")
-  "h" '(org-ref-bibtex-hydra/body :which-key "bibtex hydra")
-  "p" '(org-ref-open-bibtex-pdf :which-key "open pdf")
-  "o" '(org-ref-open-in-browser :which-key "open in browser")
+  "b" '(org-ref-bibtex-hydra/body :which-key "ivy-bibtex")
+  "o" '(:ignore t "open")
+  "ob" '(org-ref-open-in-browser :which-key "open in browser")
+  "op" '(org-ref-open-bibtex-pdf :which-key "open associated pdf")
+  "oP" '(org-ref-bibtex-pubmed :which-key "open in pubmed")
+  "og" '(org-ref-bibtex-google-scholar :which-key "open in google scholar")
+  "A" '(org-ref-assoc-pdf-with-entry :which-key "associate pdf")
+  "C" '(bibtex-clean-entry :which-key "clean entry")
+  "H" '(org-ref-bibtex-hydra/body :which-key "bibtex hydra")
+  "n" '(org-ref-open-bibtex-notes :which-key "open notes")
+  "t" '(helm-tag-bibtex-entry :which-key "tag")
   "i" '(:ignore t "insert entry")
+  "ii" '(doi-utils-add-entry-from-crossref-query "crossref")
   "ip" '(pubmed-insert-bibtex-from-pmid "PMID")
   "id" '(doi-utils-add-bibtex-entry-from-doi "DOI")
   )
@@ -808,6 +804,8 @@
 (use-package ess
   :custom
   (ess-eval-visibly 'nowait)
+  (ess-auto-width 'window)
+  (ess-auto-width-visible nil)
   (ess-use-tracebug nil)
   (ess-style 'RStudio)
   (ess-indent-with-fancy-comments nil)
@@ -817,7 +815,6 @@
   (ess-ask-for-ess-directory nil)
   (inferior-R-args "--no-save --quiet")
   (ess-S-quit-kill-buffers-p "t")
-  (ess-auto-width 'window)
   (comint-scroll-to-bottom-on-input t)
   (comint-scroll-to-bottom-on-output t)
   (comint-move-point-for-output t)
@@ -876,13 +873,13 @@
   "e" '(ess-eval-region-or-function-or-paragraph-and-step :which-key "eval R/F/P and step")
   "o" '(cole/ess-eval-word :which-key "print object")
   "g" '(cole/ess-glimpse-word :which-key "glimpse object")
-  "=" '(:ignore t :which-key "format")
-  "=b" '(:ignore t :which-key "buffer")
-  "=r" '(:ignore t :which-key "region")
+  "=" '(format-all-buffer t :which-key "format buffer")
   "d" '(:ignore t :which-key "devtools")
   "dl" '(cole/ess-devtools-load-all :which-key "load_all")
   "dt" '(cole/ess-devtools-test :which-key "test")
+  "dd" '(cole/ess-devtools-document :which-key "document")
   "dc" '(cole/ess-devtools-check :which-key "check")
+  "dr" '(cole/ess-devtools-build-readme :which-key "build readme from Rmd")
   "l" '(:ignore t :which-key "language server")
   "ls" '(:ignore t :which-key "session")
   "lr" '(lsp-workspace-restart :which-key "restart")
@@ -909,6 +906,7 @@
   "tD" '(lsp-modeline-diagnostics-mode :which-key "modeline diagnostics")
   "tS" '(lsp-ui-sideline-mode :which-key "sideline")
   "tb" '(lsp-headerline-breadcrumb-mode :which-key "breadcrumbs")
+  "t=" '(format-all-mode :which-key "format on save")
   "c" '(:ignore t :which-key "chunks")
   ;; "w" 'ess-execute-screen-options
   )
@@ -920,6 +918,14 @@
 (defun cole/ess-devtools-load-all ()
   (interactive)
   (ess-eval-linewise "devtools::load_all()"))
+
+(defun cole/ess-devtools-build-readme ()
+  (interactive)
+  (ess-eval-linewise "devtools::build_readme()"))
+
+(defun cole/ess-devtools-document ()
+  (interactive)
+  (ess-eval-linewise "devtools::document()"))
 
 (defun cole/ess-devtools-test ()
   (interactive)
@@ -942,10 +948,10 @@
   (ess-r-package-eval-linewise "renv::restore()"))
 
 (defun cole/insert-pipe ()
-  "Insert a %>%"
+  "Insert a |>"
   (interactive)
   (just-one-space 1)
-  (insert "%>%")
+  (insert "|>")
   (reindent-then-newline-and-indent))
 
 (defun cole/ess-edit-word-at-point ()
@@ -964,19 +970,21 @@
   (let ((x (cole/ess-edit-word-at-point)))
     (ess-eval-linewise (concat "glimpse(" x ")"))))
 
+;; TODO add graphics functions to start httpgd server - hgd() - and to open it - hgd_browse() ... (do I always need to hgd_close() ??)
+
 ;; polymode --------------------------------------------------------------------
-;; (use-package polymode
-;;              :ensure t
-;;              :init
-;;              (require 'poly-R)
-;;              (require 'poly-markdown)
-;;              :config
-;;              (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
-;;              (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
-;;              (add-to-list 'auto-mode-alist '("\\.Rhtml" . poly-html+r-mode))
-;;              (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
-;;              (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
-;;              )
+(use-package polymode
+  :ensure t
+  :init
+  (require 'poly-R)
+  (require 'poly-markdown)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+  (add-to-list 'auto-mode-alist '("\\.Rhtml" . poly-html+r-mode))
+  (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
+  (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
+  )
 
 ;; (defun R-docker ()
 ;;   (interactive)
@@ -1005,6 +1013,22 @@
     :mode (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
            ("Procfile\\'" . yaml-mode)))
 
+(use-package all-the-icons)
+;; don't forget to run all-the-icons-install-fonts
+
+(use-package all-the-icons-ivy
+  :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
+  :custom (all-the-icons-ivy-file-commands '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
+
+;; TODO use macOS emoji font for emoticons
+;; (when (fboundp 'set-fontset-font)
+;;   (set-fontset-font "fontset-default"
+;;                     '(#x1F600 . #x1F64F)
+;;                     (font-spec :name "Apple Color Emoji") nil 'prepend))
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
 ;; hydras ====================================================
 
 (use-package hydra)
@@ -1031,9 +1055,18 @@
   ("q" nil "quit" :exit t))
 
 ;; TODO hydra for resizing windows (SPC w r)
+(defhydra cole/resize-window ()
+  "resize windows"
+  ("j" evil-window-increase-height "increase height")
+  ("k" evil-window-decrease-height "decrease height")
+  ("l" evil-window-increase-width "increase width")
+  ("h" evil-window-decrease-width "decrease width")
+  ("q" nil "quit" :exit t))
+  
 
 (cole/leader-keys
-  "ts" '(cole/scale-text/body :which-key "scale text"))
+  "ts" '(cole/scale-text/body :which-key "scale text")
+  "wr" '(cole/resize-window/body :which-key "resize window"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -1042,7 +1075,7 @@
  ;; If there is more than one, they won't work right.
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(yaml-mode which-key vterm-toggle visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-ref org-bullets lsp-ui lsp-ivy ivy-rich ivy-prescient ivy-hydra ivy-bibtex hl-todo helpful grip-mode github-browse-file git-timemachine general forge flyspell-correct-ivy eyebrowse exec-path-from-shell evil-surround evil-org evil-nerd-commenter evil-magit evil-escape evil-collection ess emojify doom-themes doom-modeline dockerfile-mode dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode buffer-move avy auto-package-update all-the-icons-ivy all-the-icons-dired))
+   '(poly-R polymode yaml-mode which-key vterm-toggle visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-ref org-bullets lsp-ui lsp-ivy ivy-rich ivy-prescient ivy-hydra ivy-bibtex hl-todo helpful grip-mode github-browse-file git-timemachine general forge flyspell-correct-ivy eyebrowse exec-path-from-shell evil-surround evil-org evil-nerd-commenter evil-magit evil-escape evil-collection ess emojify doom-themes doom-modeline dockerfile-mode dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode buffer-move avy auto-package-update all-the-icons-ivy all-the-icons-dired))
  '(safe-local-variable-values
    '((org-ref-pdf-directory . "./pm_psych_pdfs/")
      (org-ref-default-bibliography . "pm_psych_refs.bib")
