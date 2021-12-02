@@ -86,6 +86,7 @@ brew install qlcolorcode qlmarkdown \
 # fonts
 brew install homebrew/cask-fonts/font-hack
 brew install homebrew/cask-fonts/font-source-code-pro
+brew install homebrew/cask-fonts/font-raleway
 
 ### install gui apps
 brew install 1password
