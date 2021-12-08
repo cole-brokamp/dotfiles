@@ -602,13 +602,16 @@
   (org-agenda-span 10)
   (org-agenda-start-day "-3d")
   (org-agenda-start-on-weekday nil)
+  (org-agenda-custom-commands '(("n" "agenda + unscheduled tasks"
+				 ((agenda "") (tags "-SCHEDULED={.+}-DEADLINE={.+}/+TODO|+WISHING|+WAITING"))
+				 )))
   (org-refile-targets '((org-agenda-files :maxlevel . 1)))
   (org-startup-folded t)
   (org-capture-templates '(
-                   ("t" "todo [_todo.org tasks]" entry
-                   (file+headline "~/icloud/notes/_todo.org" "Tasks")
-                    "* TODO %?")
-                   ))
+			   ("t" "todo [_todo.org tasks]" entry
+			    (file+headline "~/icloud/notes/_todo.org" "Tasks")
+			    "* TODO %?")
+			   ))
   :config
   ;; don't auto save after refile or archive b/c org collapses the buffer automatically on save?
   ;; (advice-add 'org-refile :after 'org-save-all-org-buffers) ; save org buffers after refiling
@@ -880,6 +883,7 @@
   "dd" '(cole/ess-devtools-document :which-key "document")
   "dc" '(cole/ess-devtools-check :which-key "check")
   "dr" '(cole/ess-devtools-build-readme :which-key "build readme from Rmd")
+  "ds" '(cole/ess-devtools-build-site :which-key "build pkgdown site")
   "l" '(:ignore t :which-key "language server")
   "ls" '(:ignore t :which-key "session")
   "lr" '(lsp-workspace-restart :which-key "restart")
@@ -922,6 +926,10 @@
 (defun cole/ess-devtools-build-readme ()
   (interactive)
   (ess-eval-linewise "devtools::build_readme()"))
+
+(defun cole/ess-devtools-build-site ()
+  (interactive)
+  (ess-eval-linewise "pkgdown::build_site()"))
 
 (defun cole/ess-devtools-document ()
   (interactive)
