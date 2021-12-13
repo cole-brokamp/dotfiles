@@ -875,7 +875,11 @@
   "," '(ess-eval-line-and-step :which-key "eval line and step")
   "e" '(ess-eval-region-or-function-or-paragraph-and-step :which-key "eval R/F/P and step")
   "o" '(cole/ess-eval-word :which-key "print object")
-  "g" '(cole/ess-glimpse-word :which-key "glimpse object")
+  "O" '(cole/ess-glimpse-word :which-key "glimpse object")
+  "g" '(:ignore t :which-key "graphics")
+  "gg" '(cole/ess-graphics-view :which-key "open graphics server")
+  "gs" '(cole/ess-graphics-start :which-key "start graphics server")
+  "gx" '(cole/ess-graphics-stop :which-key "stop graphics server")
   "=" '(format-all-buffer t :which-key "format buffer")
   "d" '(:ignore t :which-key "devtools")
   "dl" '(cole/ess-devtools-load-all :which-key "load_all")
@@ -955,6 +959,19 @@
   (interactive)
   (ess-r-package-eval-linewise "renv::restore()"))
 
+(defun cole/ess-graphics-stop ()
+  (interactive)
+  (ess-r-package-eval-linewise "httpgd::hgd_stop()"))
+
+(defun cole/ess-graphics-start ()
+  (interactive)
+  (ess-r-package-eval-linewise "httpgd::hgd()"))
+
+(defun cole/ess-graphics-view ()
+  (interactive)
+  (ess-r-package-eval-linewise "httpgd::hgd_browse()"))
+
+
 (defun cole/insert-pipe ()
   "Insert a |>"
   (interactive)
@@ -976,9 +993,7 @@
 (defun cole/ess-glimpse-word ()
   (interactive)
   (let ((x (cole/ess-edit-word-at-point)))
-    (ess-eval-linewise (concat "glimpse(" x ")"))))
-
-;; TODO add graphics functions to start httpgd server - hgd() - and to open it - hgd_browse() ... (do I always need to hgd_close() ??)
+    (ess-eval-linewise (concat "pillar::glimpse(" x ")"))))
 
 ;; polymode --------------------------------------------------------------------
 (use-package polymode

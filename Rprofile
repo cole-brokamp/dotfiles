@@ -18,7 +18,22 @@ options(
    )
  )
 
-if ('rlang' %in% loadedNamespaces()) options(error = rlang::entrace)
+
+if (identical(
+  find.package("rlang", quiet = TRUE),
+  character(0)
+)) {
+  message("no rlang")
+} else {
+  options(error = rlang::entrace)
+}
+
+if (interactive() && identical(find.package("rlang", quiet = TRUE), character(0))) {
+  message("no rlang")
+} else {
+  httpgd::hgd()
+}
+
 
 # make sure that $COLUMNS is available (exported in bash_profile)
 .set_width <- function(col_width = Sys.getenv("COLUMNS")) options(width=as.integer(col_width))
