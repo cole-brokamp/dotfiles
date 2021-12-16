@@ -303,6 +303,7 @@
   "s" '(:ignore t :which-key "search")
   "ss" '(swiper :which-key "swiper")
   "sr" '(query-replace :which-key "search and replace")
+  "sp" '(projectile-ag :which-key "search in project files")
   "sR" '(query-replace-regexp :which-key "search and replace (regex)")
   "r" '(:ignore t :which-key "register")
   "rd" '(view-register :which-key "view")
