@@ -251,7 +251,8 @@
   "cc" '(projectile-compile-project :which-key "compile")
   "ck" '(kill-compilation :which-key "kill compilation")
   "cd" '(cole/show-hide-compilation-window :which-key "show/hide compilation window")
-  "i" '(:ignore t :which-key "insert")
+  "d" '((lambda () (interactive) (dired-single-magic-buffer )) :which-key "dired")
+  "i" '(:ignore t :which-key :which-key "insert")
   "ie" '(emojify-insert-emoji :which-key "insert emoji")
   "io" '(newline-and-indent :which-key "open line")
   "ij" '(evil-collection-unimpaired-insert-newline-below :which-key "insert line below")
@@ -267,10 +268,10 @@
   "hp" 'describe-package
   "h." 'display-local-help
   "hr" '(repeat-complex-command :which-key "repeat complex command")
-  "j" '(:ignore t :which-key "jump")
-  "jd" '(dired-jump :which-key "dired-jump")
+  ;; "j" '(:ignore t :which-key "jump")
+  ;; "jd" '(dired-jump :which-key "dired-jump")
   "n" '(:ignore t :which-key "notes")
-  "nn" '((lambda () (interactive) (dired "~/icloud/notes")) :which-key "notes")
+  "nn" '((lambda () (interactive) (dired-single-magic-buffer "~/icloud/notes")) :which-key "notes")
   "nt" '((lambda () (interactive) (find-file "~/icloud/notes/_todo.org")) :which-key "_todo.org")
   "nw" '((lambda () (interactive) (find-file "~/icloud/notes/wiki.org")) :which-key "wiki.org")
   "ns" '((lambda () (interactive) (find-file "~/icloud/notes/students.org")) :which-key "students.org")
@@ -469,15 +470,16 @@
 
 (use-package dired
   :ensure nil
-  :commands (dired dired-jump)
+  :commands (dired)
   :custom
   (dired-listing-switches "-go --all --classify --group-directories-first --dired --human-readable")
   (dired-clean-confirm-killing-deleted-buffers nil)
+  (dired-kill-when-opening-new-dired-buffer t)
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
+    "c" 'counsel-find-file
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer)
-  (define-key evil-normal-state-map (kbd "-") 'dired-jump)
   ;; use gls instead of ls when on mac to support listing switches
   (when (string= system-type "darwin")
     (setq insert-directory-program "gls")))
@@ -490,19 +492,9 @@
 
 ;; TODO SPC doesn't work in dired mode (have to use Ctl-SPC), fix this!
 
-(use-package dired-hide-dotfiles
-  :hook (dired-mode . dired-hide-dotfiles-mode)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "H" 'dired-hide-dotfiles-mode))
-
-(use-package dired-single)
-
-(use-package dired-hide-dotfiles
-  :hook (dired-mode . dired-hide-dotfiles-mode)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "H" 'dired-hide-dotfiles-mode))
+(use-package dired-single
+  :custom
+(dired-single-use-magic-buffer t))
 
 (use-package projectile
   :diminish projectile-mode
@@ -553,12 +545,6 @@
     "gf" '(magit-find-file :which-key "find file")
   ))
 
-(use-package evil-magit
-  :after magit)
-
-;; NOTE: Make sure to configure a GitHub token before using this package!
-;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
-;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge)
 
 (use-package git-timemachine
@@ -786,7 +772,7 @@
   )
   
 (cole/local-leader-keys bibtex-mode-map
-  "b" '(org-ref-bibtex-hydra/body :which-key "ivy-bibtex")
+  "b" '(ivy-bibtex :which-key "ivy-bibtex")
   "o" '(:ignore t "open")
   "ob" '(org-ref-open-in-browser :which-key "open in browser")
   "op" '(org-ref-open-bibtex-pdf :which-key "open associated pdf")
@@ -798,9 +784,9 @@
   "n" '(org-ref-open-bibtex-notes :which-key "open notes")
   "t" '(helm-tag-bibtex-entry :which-key "tag")
   "i" '(:ignore t "insert entry")
-  "ii" '(doi-utils-add-entry-from-crossref-query "crossref")
-  "ip" '(pubmed-insert-bibtex-from-pmid "PMID")
-  "id" '(doi-utils-add-bibtex-entry-from-doi "DOI")
+  "ii" '(doi-utils-add-entry-from-crossref-query :which-key "crossref")
+  "ip" '(pubmed-insert-bibtex-from-pmid :which-key "PMID")
+  "id" '(doi-utils-add-bibtex-entry-from-doi :which-key "DOI")
   )
 
 ;; rstats ess ------------------------------------------------------------------------
