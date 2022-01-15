@@ -13,3 +13,7 @@ Icon
 secrets.sh
 todo.md
 /.Rhistory
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
