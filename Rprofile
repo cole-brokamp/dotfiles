@@ -34,6 +34,12 @@ if (interactive() && identical(find.package("httpgd", quiet = TRUE), character(0
   httpgd::hgd()
 }
 
+options(
+  languageserver.rich_documentation = FALSE,
+  languageserver.snippet_support = FALSE,
+  languageserver.lint_cache = TRUE
+)
+
 
 # make sure that $COLUMNS is available (exported in bash_profile)
 .set_width <- function(col_width = Sys.getenv("COLUMNS")) options(width=as.integer(col_width))
