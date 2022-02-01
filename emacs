@@ -221,9 +221,10 @@
   "as" '(vterm :which-key "new vterm shell")
   "ab" '(ivy-bibtex-with-local-bibliography :which-key "bibtex (local bib)") ; auto uses bib file from \bibliography in files!
   "aB" '(ivy-bibtex :which-key "bibtex (global bib)")
-  "o" '(:ignore t :which-key "org")
-  "oc" '(counsel-org-capture "org capture")
-  "oa" '(org-agenda "org agenda")
+  "ao" '(:ignore t :which-key "org")
+  "aoc" '(counsel-org-capture :which-key "org capture")
+  "aoa" '(org-agenda :which-key "org agenda")
+  "o" '(org-open-at-point-global :which-key "open at point")
   ":" '(shell-command :which-key "shell command")
   "q" '(:ignore t :which-key "quit")
   "qq" '(save-buffers-kill-emacs :which-key "quit")
@@ -233,6 +234,8 @@
   "fs" '(save-buffer :which-key "save")
   "fS" '(evil-write-all :which-key "save all")
   "ff" '(counsel-find-file :which-key "find file")
+  "ft" '(treemacs-display-current-project-exclusively :which-key "treemacs")
+  ;; TODO make a whole sub menus for treemacs? and a good shortcut for showing/jumping to/hiding the tree window
   "fD" '(delete-file :which-key "delete file")
   "b" '(:ignore t :which-key "buffers")
   "bb" '(ivy-switch-buffer :which-key "switch to buffer")
@@ -251,7 +254,8 @@
   "cc" '(projectile-compile-project :which-key "compile")
   "ck" '(kill-compilation :which-key "kill compilation")
   "cd" '(cole/show-hide-compilation-window :which-key "show/hide compilation window")
-  "d" '((lambda () (interactive) (dired-single-magic-buffer )) :which-key "dired")
+  ;; "d" '((lambda () (interactive) (dired-single-magic-buffer )) :which-key "dired")
+  "d" '(dired-jump :which-key "dired")
   "i" '(:ignore t :which-key :which-key "insert")
   "ie" '(emojify-insert-emoji :which-key "insert emoji")
   "io" '(newline-and-indent :which-key "open line")
@@ -419,7 +423,6 @@
   (evil-undo-system 'undo-fu))
 
 (use-package evil-org
-  :ensure t
   :after org
   :config
   (add-hook 'org-mode-hook 'evil-org-mode)
@@ -469,7 +472,6 @@
   (exec-path-from-shell-initialize))
 
 (use-package dired
-  :ensure nil
   :commands (dired)
   :custom
   (dired-listing-switches "-go --all --classify --group-directories-first --dired --human-readable")
@@ -789,6 +791,33 @@
   "id" '(doi-utils-add-bibtex-entry-from-doi :which-key "DOI")
   )
 
+;; treemacs --------------------------------------------------------------------------
+(use-package treemacs
+  :defer t
+  :custom
+  (treemacs-resize-icons 44)
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  ;; (treemacs-fringe-indicator-mode t)
+  (treemacs-hide-gitignored-files-mode nil))
+
+;; TODO (why) does this wreck using ? to summon hydra ...?
+;; (use-package treemacs-evil
+;;   :after (treemacs evil))
+
+(use-package treemacs-projectile
+  :after (treemacs projectile))
+
+(use-package treemacs-icons-dired
+  :hook (dired-mode . treemacs-icons-dired-enable-once))
+
+(use-package treemacs-magit
+  :after (treemacs magit))
+
+;; (use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
+;;   :after (treemacs persp-mode) ;;or perspective vs. persp-mode
+;;   :config (treemacs-set-scope-type 'Perspectives))
+
 ;; rstats ess ------------------------------------------------------------------------
 
 (use-package ess
@@ -805,10 +834,10 @@
   (ess-ask-for-ess-directory nil)
   (inferior-R-args "--no-save --quiet")
   (ess-S-quit-kill-buffers-p "t")
-  (comint-scroll-to-bottom-on-input t)
-  (comint-scroll-to-bottom-on-output t)
-  (comint-move-point-for-output t)
-  (comint-scroll-show-maximum-output t)
+  (comint-scroll-to-bottom-on-input nil)
+  (comint-scroll-to-bottom-on-output nil)
+  (comint-move-point-for-output nil)
+  (comint-scroll-show-maximum-output nil)
   (ess-use-flymake nil)
   (ess-R-font-lock-keywords
    '((ess-R-fl-keyword:keywords   . t)
@@ -856,6 +885,9 @@
   (add-hook 'ess-mode-hook 'prettify-symbols-mode)
   ;; (add-hook 'ess-mode-hook 'lsp-deferred)
   )
+
+(cole/local-leader-keys emacs-lisp-mode-map
+  "e" '(eval-defun :which-key "eval defun"))
 
 
 (cole/local-leader-keys ess-mode-map
@@ -984,7 +1016,6 @@
 
 ;; polymode --------------------------------------------------------------------
 (use-package polymode
-  :ensure t
   :init
   (require 'poly-R)
   (require 'poly-markdown)
@@ -1085,7 +1116,7 @@
  ;; If there is more than one, they won't work right.
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(poly-R polymode yaml-mode which-key vterm-toggle visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-ref org-bullets lsp-ui lsp-ivy ivy-rich ivy-prescient ivy-hydra ivy-bibtex hl-todo helpful grip-mode github-browse-file git-timemachine general forge flyspell-correct-ivy eyebrowse exec-path-from-shell evil-surround evil-org evil-nerd-commenter evil-magit evil-escape evil-collection ess emojify doom-themes doom-modeline dockerfile-mode dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode buffer-move avy auto-package-update all-the-icons-ivy all-the-icons-dired))
+   '(treemacs-icons-dired treemacs-all-the-icons treemacs-magit treemacs-projectile treemacs-evil treemacs poly-R polymode yaml-mode which-key vterm-toggle visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-ref org-bullets lsp-ui lsp-ivy ivy-rich ivy-prescient ivy-hydra ivy-bibtex hl-todo helpful grip-mode github-browse-file git-timemachine general forge flyspell-correct-ivy eyebrowse exec-path-from-shell evil-surround evil-org evil-nerd-commenter evil-magit evil-escape evil-collection ess emojify doom-themes doom-modeline dockerfile-mode dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode buffer-move avy auto-package-update all-the-icons-ivy all-the-icons-dired))
  '(safe-local-variable-values
    '((org-ref-pdf-directory . "./pm_psych_pdfs/")
      (org-ref-default-bibliography . "pm_psych_refs.bib")
