@@ -80,4 +80,7 @@ if command -v module &> /dev/null; then
 fi
 
 source ~/dotfiles/prompt.sh
-eval "$(/opt/homebrew/bin/brew shellenv)"
+
+if [ "$(uname)" == "Darwin" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
