@@ -662,7 +662,26 @@
 ;  (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
 ;  (evil-define-key 'insert comint-mode-map [down] 'comint-next-input))
 
-(use-package markdown-mode)
+(use-package markdown-mode
+  :custom
+  (markdown-command "pandoc --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --self-contained --css /Users/broeg1/dotfiles/github-pandoc.css")
+  (markdown-header-scaling t)
+  (markdown-header-scaling-values (1.2 1.15 1.1 1.05 1 1))
+  (markdown-list-item-bullets ("►" "●" "•" "○" "◆" "◇" "-"))
+  (markdown-list-indent-width 2)
+  :config
+  (set-face-attribute 'markdown-header-face-1 nil :foreground "#fff0bd")
+  (set-face-attribute 'markdown-header-face-2 nil :foreground "#5c7ae0")
+  (set-face-attribute 'markdown-header-face-3 nil :foreground "#23a39a")
+  (set-face-attribute 'markdown-header-face-4 nil :foreground "#81c87c")
+  (set-face-attribute 'markdown-header-delimiter-face nil :foreground "#474747")
+  (set-face-attribute 'markdown-italic-face nil :foreground "#fff0bd")
+  (set-face-attribute 'markdown-html-attr-name-face nil :foreground "#9f7161")
+  (set-face-attribute 'markdown-html-attr-value-face nil :foreground "#c08b4c")
+  (set-face-attribute 'markdown-list-face nil :foreground "#6a6a6a")
+  )
+
+
 (use-package grip-mode)
 
 (cole/local-leader-keys markdown-mode-map
@@ -671,7 +690,8 @@
   "o" '(markdown-follow-thing-at-point :which-key "open thing at point")
   "i" '(:ignore t :which-key "insert")
   "il" '(markdown-insert-link :which-key "link")
-  "if" '(markdown-insert-foldable-block :which-key "foldable block")
+  "if" '(markdown-insert-footnote :which-key "footnote")
+  "iF" '(markdown-insert-foldable-block :which-key "foldable block")
   "ic" '(markdown-insert-code :which-key "code")
   "it" '(markdown-insert-table :which-key "table")
   "ii" '(markdown-insert-image :which-key "image")
@@ -681,7 +701,10 @@
   "ti" '(markdown-toggle-inline-images :which-key "inline images")
   "tu" '(markdown-toggle-url-hiding :which-key "url hiding")
   "tm" '(markdown-toggle-markup-hiding :which-key "markup hiding")
+  "r" '(markdown-export :which-key "render")
   "x" '(:ignore t :which-key "text")
+  "xi" '(markdown-insert-italic :which-key "italic")
+  "xb" '(markdown-insert-bold :which-key "bold")
   )
 
 (use-package mermaid-mode
