@@ -25,6 +25,11 @@
 (setq x-stretch-cursor t)
 (delete-selection-mode 1)
 
+; keep custom variables in a different file
+(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+(load custom-file 'noerror 'nomessage)
+
+(setq use-dialog-box nil)
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 (global-prettify-symbols-mode 1)
@@ -263,6 +268,7 @@
   "ik" '(evil-collection-unimpaired-insert-newline-above :which-key "insert line above")
   "h" '(:ignore t :which-key "help")
   "hf" 'describe-function
+  "hF" 'counsel-faces
   "hh" 'help-for-help
   "hv" 'describe-variable
   "hk" 'describe-key
@@ -677,6 +683,16 @@
   "tm" '(markdown-toggle-markup-hiding :which-key "markup hiding")
   "x" '(:ignore t :which-key "text")
   )
+
+(use-package mermaid-mode
+  :custom
+  (mermaid-output-format ".png")
+  (mermaid-flags "--scale 4 --theme forest --pdfFit"))
+
+(cole/local-leader-keys mermaid-mode-map
+  "r" '(mermaid-compile :which-key "render file to image")
+  "h" '(mermaid-open-doc :which-key "help open doc")
+  "o" '(mermaid-open-browser :which-key "edit in online editor"))
 
 (use-package dockerfile-mode)
 
@@ -1109,22 +1125,3 @@
   "ts" '(cole/scale-text/body :which-key "scale text")
   "wr" '(cole/resize-window/body :which-key "resize window"))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-minibuffer-history-key "M-p")
- '(package-selected-packages
-   '(treemacs-icons-dired treemacs-all-the-icons treemacs-magit treemacs-projectile treemacs-evil treemacs poly-R polymode yaml-mode which-key vterm-toggle visual-fill-column use-package undo-fu smooth-scrolling reveal-in-osx-finder restart-emacs rainbow-delimiters osx-trash org-tree-slide org-ref org-bullets lsp-ui lsp-ivy ivy-rich ivy-prescient ivy-hydra ivy-bibtex hl-todo helpful grip-mode github-browse-file git-timemachine general forge flyspell-correct-ivy eyebrowse exec-path-from-shell evil-surround evil-org evil-nerd-commenter evil-magit evil-escape evil-collection ess emojify doom-themes doom-modeline dockerfile-mode dired-single dired-hide-dotfiles counsel-projectile company-box command-log-mode buffer-move avy auto-package-update all-the-icons-ivy all-the-icons-dired))
- '(safe-local-variable-values
-   '((org-ref-pdf-directory . "./pm_psych_pdfs/")
-     (org-ref-default-bibliography . "pm_psych_refs.bib")
-     (org-ref-bibliography-notes . "pm_psych_refs_notes.org")))
- '(warning-suppress-types '((use-package) (:warning))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
