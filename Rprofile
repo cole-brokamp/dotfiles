@@ -28,11 +28,11 @@ if (identical(
   options(error = rlang::entrace)
 }
 
-if (interactive() && identical(find.package("httpgd", quiet = TRUE), character(0))) {
-  message("no httpgd")
-} else {
-  httpgd::hgd()
-}
+## if (interactive() && identical(find.package("httpgd", quiet = TRUE), character(0))) {
+##   message("no httpgd")
+## } else {
+##   httpgd::hgd()
+## }
 
 options(
   languageserver.rich_documentation = FALSE,
