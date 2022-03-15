@@ -115,6 +115,7 @@ brew install screens
 brew install vlc
 # brew install xpra
 brew install xquartz
+brew install --cask amethyst
 
 brew cask cleanup
 
