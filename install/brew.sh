@@ -91,31 +91,28 @@ brew install homebrew/cask-fonts/font-raleway
 ### install gui apps
 brew install 1password
 brew install homebrew/cask/docker
-brew install dropbox
 brew install firefox
 brew install kindle
-brew install middleclick
 R -e "install.packages('tinytex'); tinytex::install_tinytex()"
 # *OR* brew cask install mactex-no-gui
 brew install the-unarchiver
 brew install transmit
 # install pdf-expert from the app store
 brew install bartender
-brew install alt-tab
 # install SystemPal from the app store
 brew install zoom
 brew install microsoft-teams
+# install Multitouch app from https://multitouch.app
+brew install --cask rectangle
 
 ## optional
 brew install backblaze
 brew install microsoft-office
 # brew install screens-connect
 brew install screens
-# brew install expandrive
 brew install vlc
 # brew install xpra
 brew install xquartz
-brew install --cask amethyst
 
 brew cask cleanup
 
