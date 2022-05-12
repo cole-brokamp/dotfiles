@@ -74,8 +74,8 @@
       auto-save-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
 
 ;; thresholds for "other" windows
-(setq split-height-threshold 60)
-(setq split-width-threshold 100)
+(setq split-height-threshold 80)
+(setq split-width-threshold 160)
 
 ;; package manager ======================================================
 
@@ -331,6 +331,8 @@
   "zc" '(evil-close-fold :which-key "close fold")
   "zC" '(evil-close-folds :which-key "close all folds")
   )
+
+(use-package origami)
 
 (use-package format-all)
 
@@ -613,14 +615,6 @@
   ;; (advice-add 'org-archive-subtree :after 'org-save-all-org-buffers) ; save org buffers after archiving
   (cole/org-font-setup)
   )
-
-;org-latex-pdf-process "latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"
-;org-enable-github-support t
-;org-enable-epub-support t
-;org-enable-bootstrap-support t
-;org-enable-sticky-header nil
-;org-enable-reveal-js-support t
-
 
 (use-package org-bullets
   :after org
@@ -1015,20 +1009,19 @@
 
 (defun cole/ess-renv-restore ()
   (interactive)
-  (ess-r-package-eval-linewise "renv::restore()"))
+  (ess-eval-linewise "renv::restore()"))
 
 (defun cole/ess-graphics-stop ()
   (interactive)
-  (ess-r-package-eval-linewise "httpgd::hgd_stop()"))
+  (ess-eval-linewise "httpgd::hgd_close()"))
 
 (defun cole/ess-graphics-start ()
   (interactive)
-  (ess-r-package-eval-linewise "httpgd::hgd()"))
+  (ess-eval-linewise "httpgd::hgd()"))
 
 (defun cole/ess-graphics-view ()
   (interactive)
-  (ess-r-package-eval-linewise "httpgd::hgd_browse()"))
-
+  (ess-eval-linewise "httpgd::hgd_browse()"))
 
 (defun cole/insert-pipe ()
   "Insert a |>"
