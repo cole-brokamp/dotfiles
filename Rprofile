@@ -45,5 +45,5 @@ options(
 .set_width <- function(col_width = Sys.getenv("COLUMNS")) options(width=as.integer(col_width))
 
  .First <- function(){
-     if (Sys.getenv("RSTUDIO") == "") .set_width()
+     if (interactive() && Sys.getenv("RSTUDIO") == "") .set_width()
  }

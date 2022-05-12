@@ -94,7 +94,7 @@ brew install homebrew/cask/docker
 brew install firefox
 brew install kindle
 R -e "install.packages('tinytex'); tinytex::install_tinytex()"
-# *OR* brew cask install mactex-no-gui
+# *OR* brew install --cask mactex-no-gui
 brew install the-unarchiver
 brew install transmit
 # install pdf-expert from the app store
