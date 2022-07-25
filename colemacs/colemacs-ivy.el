@@ -20,6 +20,7 @@
   (ivy-mode 1))
 
 (use-package ivy-rich
+  :after ivy
   :init (ivy-rich-mode 1))
 
 (use-package counsel
@@ -28,6 +29,7 @@
          ("C-r" . 'counsel-minibuffer-history)))
 
 (use-package helpful
+  :after counsel
   :custom
   (counsel-describe-function-function #'helpful-callable)
   (counsel-describe-variable-function #'helpful-variable)
@@ -44,5 +46,10 @@
   :config
   (ivy-prescient-mode 1)
   (prescient-persist-mode 1))
+
+(use-package all-the-icons-ivy
+  :after ivy
+  :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
+  :custom (all-the-icons-ivy-file-commands '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
 
 (provide 'colemacs-ivy)

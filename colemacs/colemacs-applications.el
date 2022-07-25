@@ -18,53 +18,11 @@
   (emojify-display-style 'image)
   :hook (after-init . global-emojify-mode))
 
-;; treemacs --------------------------------------------------------------------------
-(use-package treemacs
-  :defer t
-  :custom
-  (treemacs-resize-icons 44)
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
-  ;; (treemacs-fringe-indicator-mode t)
-  (treemacs-hide-gitignored-files-mode nil))
-
-;; TODO (why) does this wreck using ? to summon hydra ...?
-;; (use-package treemacs-evil
-;;   :after (treemacs evil))
-
-(use-package treemacs-projectile
-  :after (treemacs projectile))
-
-(use-package treemacs-icons-dired
-  :hook (dired-mode . treemacs-icons-dired-enable-once))
-
-(use-package treemacs-magit
-  :after (treemacs magit))
-
-;; (use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
-;;   :after (treemacs persp-mode) ;;or perspective vs. persp-mode
-;;   :config (treemacs-set-scope-type 'Perspectives))
-
 (use-package avy
   :config
   (setq avy-background t))
 (cole/leader-keys
   "sa" '(evil-avy-goto-char-timer :which-key "avy"))
-
-;; spell checking
-(use-package flyspell-correct
-  :after flyspell)
-
-(use-package flyspell-correct-ivy
-  :after flyspell-correct
-  :config
-  (cole/leader-keys
-    "S" '(:ignore t :which-key "spelling")
-    "Ss" '(flyspell-mode :which-key "toggle spelling mode")
-    "Sp" '(flyspell-prog-mode :which-key "enable spelling prog mode")
-    "Sb" '(flyspell-buffer :which-key "spell check buffer")
-    "Sc" '(flyspell-correct-wrapper :which-key "correct word"))
-  (add-hook 'flyspell-prog-mode-hook (lambda () (message "Flyspell prog-mode enabled in current buffer"))))
 
 ;; hydras ====================================================
 

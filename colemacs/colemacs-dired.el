@@ -32,10 +32,6 @@
 (use-package all-the-icons)
 ;; don't forget to run all-the-icons-install-fonts
 
-(use-package all-the-icons-ivy
-  :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
-  :custom (all-the-icons-ivy-file-commands '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
-
 ;; TODO use macOS emoji font for emoticons
 ;; (when (fboundp 'set-fontset-font)
 ;;   (set-fontset-font "fontset-default"

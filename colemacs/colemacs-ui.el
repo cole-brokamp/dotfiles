@@ -38,10 +38,6 @@
 ;; use xwidget support built in on macOS and emacs 28
 ;(setq browse-url-browser-function 'xwidget-webkit-browse-url)
 
-;; thresholds for "other" windows
-(setq split-height-threshold 80)
-(setq split-width-threshold 160)
-
 ; fonts
 (set-face-attribute 'default nil :font "Source Code Pro" :height 130)
 (set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 130)

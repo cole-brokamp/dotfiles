@@ -2,8 +2,8 @@
   :custom
   (markdown-command "pandoc --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --self-contained --css /Users/broeg1/dotfiles/github-pandoc.css")
   (markdown-header-scaling t)
-  (markdown-header-scaling-values (1.2 1.15 1.1 1.05 1 1))
-  (markdown-list-item-bullets ("►" "●" "•" "○" "◆" "◇" "-"))
+  (markdown-header-scaling-values '(1.2 1.15 1.1 1.05 1 1))
+  (markdown-list-item-bullets '("►" "●" "•" "○" "◆" "◇" "-"))
   (markdown-list-indent-width 2)
   :config
   (set-face-attribute 'markdown-header-face-1 nil :foreground "#fff0bd")

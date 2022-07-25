@@ -84,4 +84,4 @@
 (use-package visual-fill-column
   :hook (org-mode . cole/org-mode-visual-fill))
 
-(provide colemacs-org)
+(provide 'colemacs-org)

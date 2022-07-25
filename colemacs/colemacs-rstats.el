@@ -42,7 +42,6 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-
 (use-package ess
   :custom
   (ess-eval-visibly 'nowait)
@@ -55,6 +54,9 @@
   (ess-help-own-frame nil)
   (ess-help-reuse-window t)
   (ess-ask-for-ess-directory nil)
+  (inferior-R-program "R")
+  (inferior-ess-R-program "R")
+  (ess-R-readline t)
   (inferior-R-args "--no-save --quiet")
   (ess-S-quit-kill-buffers-p "t")
   (comint-scroll-to-bottom-on-input nil)
@@ -108,9 +110,6 @@
   (add-hook 'ess-mode-hook 'prettify-symbols-mode)
   ;; (add-hook 'ess-mode-hook 'lsp-deferred)
   )
-
-(cole/local-leader-keys emacs-lisp-mode-map
-  "e" '(eval-defun :which-key "eval defun"))
 
 
 (cole/local-leader-keys ess-mode-map
@@ -236,6 +235,7 @@
   (let ((x (cole/ess-edit-word-at-point)))
     (ess-eval-linewise (concat "pillar::glimpse(" x ")"))))
 
+(use-package poly-R)
 ;; polymode --------------------------------------------------------------------
 ;; (use-package polymode
 ;;   :init
@@ -248,7 +248,6 @@
 ;;   (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
 ;;   )
 
-(use-package poly-R)
 
 ;; (defun R-docker ()
 ;;   (interactive)

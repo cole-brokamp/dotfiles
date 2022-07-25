@@ -38,5 +38,9 @@
 ; auto-indent on RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
+;; thresholds for "other" windows
+(setq split-height-threshold 80)
+(setq split-width-threshold 160)
+
 
 (provide 'colemacs-basic)
