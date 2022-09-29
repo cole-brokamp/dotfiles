@@ -35,6 +35,9 @@
   ("p" org-tree-slide-move-previous-tree "previous")
   ("q" nil "quit" :exit t)) ;; how to add another "org-tree-slide-mode 0" to turn it off when quitting the hydra
 
+(cole/leader-keys
+  "gt" '(cole/git-timemachine "time machine"))
+
 (defhydra cole/git-timemachine ()
   "git-timemachine"
   ("j" git-timemachine-show-next-revision "next revision")
@@ -43,11 +46,17 @@
   ("y" git-timemachine-kill-abbreviated-revision "yank short hash")
   ("q" git-timemachine-quit "quit" :exit t))
 
+(cole/leader-keys
+  "ts" '(cole/scale-text :which-key "scale text"))
+
 (defhydra cole/scale-text (:timeout 4)
   "scale text"
   ("j" text-scale-increase "in")
   ("k" text-scale-decrease "out")
   ("q" nil "quit" :exit t))
+
+(cole/leader-keys
+  "wr" '(cole/resize-window :which-key "resize window"))
 
 (defhydra cole/resize-window ()
   "resize windows"
@@ -56,10 +65,5 @@
   ("l" evil-window-increase-width "increase width")
   ("h" evil-window-decrease-width "decrease width")
   ("q" nil "quit" :exit t))
-  
-
-(cole/leader-keys
-  "ts" '(cole/scale-text/body :which-key "scale text")
-  "wr" '(cole/resize-window/body :which-key "resize window"))
 
 (provide 'colemacs-applications)

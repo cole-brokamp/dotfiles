@@ -1,26 +1,11 @@
-(use-package company
-  :bind (:map company-active-map
-         ("<tab>" . company-complete-selection))
-  :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
-
-(use-package company-box
-  :hook (company-mode . company-box-mode))
-
-(defun my-inferior-ess-init ()
-  (setq-local ansi-color-for-comint-mode 'filter))
-
 (use-package ess
   :custom
   (ess-eval-visibly 'nowait)
   (ess-auto-width 'window)
-  (ess-auto-width-visible nil)
-  (ess-use-tracebug nil)
+  ;; (ess-auto-width-visible nil)
   (ess-style 'RStudio)
   (tab-always-indent 'complete)
   (ess-indent-with-fancy-comments nil)
-  ;; (ess-indent-offset 2)
   (ess-help-own-frame nil)
   (ess-help-reuse-window t)
   (ess-ask-for-ess-directory nil)
@@ -28,15 +13,31 @@
   (ess-R-readline t)
   (inferior-R-args "--no-save --quiet")
   (ess-S-quit-kill-buffers-p nil)
-  (comint-scroll-to-bottom-on-input nil)
-  (comint-scroll-to-bottom-on-output nil)
-  (comint-move-point-for-output nil)
-  (comint-scroll-show-maximum-output nil)
-  (ess-use-flymake nil)
+  (comint-scroll-show-maximum-output t)
+  (comint-move-point-for-output all)
+  (comint-scroll-to-bottom-on-input t)
+  (comint-scroll-to-bottom-on-output t)
+  (ess-use-tracebug nil)
+  (ess-use-flymake t)
   :config
   (add-hook 'inferior-ess-mode-hook 'my-inferior-ess-init)
+  (define-key ess-r-mode-map (kbd "C-'") 'cole/insert-pipe)
+  (define-key inferior-ess-r-mode-map (kbd "C-'") 'cole/insert-pipe)
   )
 
+(defun my-inferior-ess-init ()
+  (setq-local ansi-color-for-comint-mode 'filter))
+
+;; ess-display-help-apropos
+;; ess-rutils-rm-all
+;; ess-rdired
+;; ` ess-show-traceback
+;; ~ ess-show-call-stack
+;; = ess-cycle-assign
+;; C-c C-z ess-switch-to-inferior-or-script-buffer
+;; ess-eval-buffer-from-beg-to-here
+;; ess-eval-buffer-from-here-to-end
+;; ess-resynch
 
 (cole/local-leader-keys ess-mode-map
   "," '(ess-eval-line-and-step :which-key "eval line and step")
@@ -68,10 +69,6 @@
   "c" '(:ignore t :which-key "chunks")
   ;; "w" 'ess-execute-screen-options
   )
-
-;; just add pipe globally b/c I can't get it to work only for ess-mode-map
-(global-set-key (kbd "C-'") 'cole/insert-pipe)
-(global-set-key (kbd "TAB") 'evil-complete-previous)
 
 (defun cole/ess-devtools-load-all ()
   (interactive)
@@ -144,21 +141,13 @@
   (let ((x (cole/ess-edit-word-at-point)))
     (ess-eval-linewise (concat "pillar::glimpse(" x ")"))))
 
-;; polymode --------------------------------------------------------------------
 (use-package polymode
   :init
   (require 'poly-R)
   (require 'poly-markdown)
-  :config
-  (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
-  (add-to-list 'auto-mode-alist '("\\.Rhtml" . poly-html+r-mode))
-  (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
-  (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
+  :mode (("\\.Rmd" . poly-markdown+r-mode))
   )
 
-(use-package quarto-mode
-  :mode (("\\.qmd" . poly-quarto-mode))
-  )
 
 ;; (defun R-docker ()
 ;;   (interactive)

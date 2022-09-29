@@ -11,6 +11,7 @@
 (require 'colemacs-ui)
 (require 'colemacs-evil)
 (require 'colemacs-ivy)
+(require 'colemacs-autocomplete)
 
 (require 'colemacs-functions)
 

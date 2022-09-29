@@ -19,10 +19,12 @@
 
 
 (use-package grip-mode)
+(use-package quarto-mode)
 
 (cole/local-leader-keys markdown-mode-map
-  "p" '(grip-mode :which-key "preview mode (grip)")
-  "P" '(markdown-live-preview-mode :which-key "preview mode (native)")
+  "P" '(grip-mode :which-key "preview (grip)")
+  "q" '((lambda () (interactive) (quarto-preview)):which-key "quarto preview")
+  "r" '(markdown-export :which-key "render")
   "o" '(markdown-follow-thing-at-point :which-key "open thing at point")
   "i" '(:ignore t :which-key "insert")
   "il" '(markdown-insert-link :which-key "link")
@@ -37,7 +39,6 @@
   "ti" '(markdown-toggle-inline-images :which-key "inline images")
   "tu" '(markdown-toggle-url-hiding :which-key "url hiding")
   "tm" '(markdown-toggle-markup-hiding :which-key "markup hiding")
-  "r" '(markdown-export :which-key "render")
   "x" '(:ignore t :which-key "text")
   "xi" '(markdown-insert-italic :which-key "italic")
   "xb" '(markdown-insert-bold :which-key "bold")

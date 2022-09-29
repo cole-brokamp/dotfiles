@@ -68,4 +68,9 @@
 
 (use-package origami)
 
+(use-package hl-todo
+  :init (global-hl-todo-mode)
+  :custom-face
+  (hl-todo ((t (:inherit hl-todo :italic t)))))
+
 (provide 'colemacs-ui)

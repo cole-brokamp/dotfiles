@@ -1,10 +1,10 @@
 options(max.print = 100)
 options(sci.pen = 10)
-options(editor = "emacs")
+# options(editor = "emacs")
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
 options(download.file.method = "libcurl")
-options(menu.graphics = FALSE)
-options(prompt='R > ')
+## options(menu.graphics = FALSE)
+## options(prompt='R > ')
 
 options(tigris_use_cache = TRUE)
 ## options(tigris_class = "sf")
@@ -19,14 +19,14 @@ options(
  )
 
 
-if (identical(
-  find.package("rlang", quiet = TRUE),
-  character(0)
-)) {
-  message("no rlang")
-} else {
-  options(error = rlang::entrace)
-}
+## if (identical(
+##   find.package("rlang", quiet = TRUE),
+##   character(0)
+## )) {
+##   message("no rlang")
+## } else {
+##   options(error = rlang::entrace)
+## }
 
 ## if (interactive() && identical(find.package("httpgd", quiet = TRUE), character(0))) {
 ##   message("no httpgd")
@@ -41,9 +41,9 @@ options(
 )
 
 
-# make sure that $COLUMNS is available (exported in bash_profile)
-.set_width <- function(col_width = Sys.getenv("COLUMNS")) options(width=as.integer(col_width))
+## # make sure that $COLUMNS is available (exported in bash_profile)
+## .set_width <- function(col_width = Sys.getenv("COLUMNS")) options(width = as.integer(col_width))
 
- .First <- function(){
-     if (interactive() && Sys.getenv("RSTUDIO") == "") .set_width()
- }
+##  .First <- function(){
+##      if (interactive() && Sys.getenv("RSTUDIO") == "") .set_width()
+##  }

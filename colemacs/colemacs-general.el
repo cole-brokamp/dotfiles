@@ -92,6 +92,7 @@
   "ti" '(highlight-indent-guides-mode :which-key "indent highlights")
   "tn" '(display-line-numbers-mode :which-key "numbers for lines")
   "tm" '(toggle-frame-maximized :which-key "maximize screen")
+  "tc" '(flymake-mode :which-key "checking code")
   "w" '(:ignore t :which-key "windows")
   "wd" '(evil-window-delete :which-key "delete window")
   "w/" '(cole/split-window-right-and-focus :which-key "split right")
