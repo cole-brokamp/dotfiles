@@ -29,6 +29,7 @@
 (require 'colemacs-latex)
 (require 'colemacs-lang)
 (require 'colemacs-applications)
+(require 'colemacs-pdf)
 
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
 (setq gc-cons-threshold (* 5 1000 1000))

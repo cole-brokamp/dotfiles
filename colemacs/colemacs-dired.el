@@ -21,9 +21,9 @@
 
 ;; TODO SPC doesn't work in dired mode (have to use Ctl-SPC), fix this!
 
-(use-package dired-single
-  :custom
-(dired-single-use-magic-buffer t))
+;; (use-package dired-single
+;;   :custom
+;; (dired-single-use-magic-buffer t))
 
 (use-package osx-trash
   :custom (delete-by-moving-to-trash t)

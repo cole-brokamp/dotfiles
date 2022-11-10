@@ -14,6 +14,7 @@
   "SPC" '(counsel-M-x :which-key "M-x")
   "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
   "/" 'swiper-all
+  "|" 'shell-command-on-region
   "'" '(vterm-toggle-cd :which-key "shell")
   "\"" '(vterm-toggle-show :which-key "new shell")
   ";" '(evilnc-comment-or-uncomment-lines :which-key "comment operator")
@@ -28,8 +29,10 @@
   "aoa" '(org-agenda :which-key "org agenda")
   "o" '(org-open-at-point-global :which-key "open at point")
   ":" '(shell-command :which-key "shell command")
+  "&" '(async-shell-command :which-key "async shell command")
   "q" '(:ignore t :which-key "quit")
   "qq" '(save-buffers-kill-emacs :which-key "quit")
+  ;; "qQ" '(restart-emacs :which-key "restart without saving desktop file")
   "qr" '(restart-emacs :which-key "restart")
   "qf" '(delete-frame :which-key "kill frame")
   "f" '(:ignore t :which-key "files")
@@ -67,6 +70,7 @@
   "hf" 'describe-function
   "hF" 'counsel-faces
   "hh" 'help-for-help
+  "hi" 'info
   "hv" 'describe-variable
   "hk" 'describe-key
   "hm" 'describe-mode
@@ -75,8 +79,10 @@
   "hp" 'describe-package
   "h." 'display-local-help
   "hr" '(repeat-complex-command :which-key "repeat complex command")
-  ;; "j" '(:ignore t :which-key "jump")
-  ;; "jd" '(dired-jump :which-key "dired-jump")
+  "j" '(:ignore t :which-key "jump")
+  "jj" '(evil-avy-goto-char-timer :which-key "to char")
+  "jl" '(evil-avy-goto-line :which-key "to line")
+  "jb" '(evil-jump-backward-swap :which-key "back")
   "n" '(:ignore t :which-key "notes")
   "nn" '((lambda () (interactive) (dired-single-magic-buffer "~/icloud/notes")) :which-key "notes")
   "nt" '((lambda () (interactive) (find-file "~/icloud/notes/_todo.org")) :which-key "_todo.org")

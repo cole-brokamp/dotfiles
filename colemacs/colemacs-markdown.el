@@ -1,6 +1,7 @@
 (use-package markdown-mode
   :custom
   (markdown-command "pandoc --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --self-contained --css /Users/broeg1/dotfiles/github-pandoc.css")
+  (markdown-command "pandoc --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --self-contained --css /Users/broeg1/dotfiles/github-pandoc.css")
   (markdown-header-scaling t)
   (markdown-header-scaling-values '(1.2 1.15 1.1 1.05 1 1))
   (markdown-list-item-bullets '("►" "●" "•" "○" "◆" "◇" "-"))
@@ -17,13 +18,13 @@
   (set-face-attribute 'markdown-list-face nil :foreground "#6a6a6a")
   )
 
-
 (use-package grip-mode)
-(use-package quarto-mode)
+;; (use-package quarto-mode
+;;   :custom quarto-force-preview nil)
 
 (cole/local-leader-keys markdown-mode-map
   "P" '(grip-mode :which-key "preview (grip)")
-  "q" '((lambda () (interactive) (quarto-preview)):which-key "quarto preview")
+  ;; "q" '((lambda () (interactive) (async-shell-command '(quarto preview))) :which-key "quarto preview")
   "r" '(markdown-export :which-key "render")
   "o" '(markdown-follow-thing-at-point :which-key "open thing at point")
   "i" '(:ignore t :which-key "insert")
@@ -45,6 +46,8 @@
   )
 
 (use-package mermaid-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.mmd" . mermaid-mode))
   :custom
   (mermaid-output-format ".png")
   (mermaid-flags "--scale 4 --theme forest --pdfFit"))

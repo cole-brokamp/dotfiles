@@ -4,4 +4,6 @@
 
 (use-package dockerfile-mode)
 
+(use-package csv-mode)
+
 (provide 'colemacs-lang)

@@ -21,8 +21,6 @@
 (use-package avy
   :config
   (setq avy-background t))
-(cole/leader-keys
-  "sa" '(evil-avy-goto-char-timer :which-key "avy"))
 
 ;; hydras ====================================================
 

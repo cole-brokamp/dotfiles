@@ -57,6 +57,8 @@
   "dr" '(cole/ess-devtools-build-readme :which-key "build readme from Rmd")
   "ds" '(cole/ess-devtools-build-site :which-key "build pkgdown site")
   "h" '(ess-help :which-key "help")
+  "i" '(:ignore t :which-key "insert")
+  "ic" '(cole/ess-insert-r-code-chunk :which-key "chunk")
   "r" '(:ignore t :which-key "renv")
   "rS" '(cole/ess-renv-status :which-key "status")
   "rs" '(cole/ess-renv-snapshot :which-key "snapshot")
@@ -118,6 +120,14 @@
   (interactive)
   (ess-eval-linewise "httpgd::hgd_browse()"))
 
+(defun cole/ess-insert-r-code-chunk ()
+  "Insert an R Markdown code chunk."
+  (interactive)
+  (insert "```{r}\n")
+  (save-excursion
+    (insert "\n")
+    (insert "```\n")))
+
 (defun cole/insert-pipe ()
   "Insert a |>"
   (interactive)
@@ -145,7 +155,9 @@
   :init
   (require 'poly-R)
   (require 'poly-markdown)
-  :mode (("\\.Rmd" . poly-markdown+r-mode))
+  :config
+  (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+  (add-to-list 'auto-mode-alist '("\\.qmd" . poly-markdown+r-mode))
   )
 
 
