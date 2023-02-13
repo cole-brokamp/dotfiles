@@ -77,10 +77,11 @@ echo "=============================="
 # quick look plugins for developers
 # mac only
 brew install qlcolorcode qlmarkdown \
+     quicklookase
 	qlstephen qlvideo quicklook-json \
 	qlprettypatch quicklook-csv \
 	qlimagesize webpquicklook
-# get these working in catalina with:
+# get these working in later macOS versions with:
 # xattr -d -r com.apple.quarantine ~/Library/QuickLook
 
 # fonts
@@ -92,7 +93,6 @@ brew install homebrew/cask-fonts/font-raleway
 brew install 1password
 brew install homebrew/cask/docker
 brew install firefox
-brew install kindle
 R -e "install.packages('tinytex'); tinytex::install_tinytex()"
 # *OR* brew install --cask mactex-no-gui
 brew install the-unarchiver
