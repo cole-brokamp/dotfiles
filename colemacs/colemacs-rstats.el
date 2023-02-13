@@ -14,7 +14,7 @@
   (inferior-R-args "--no-save --quiet")
   (ess-S-quit-kill-buffers-p nil)
   (comint-scroll-show-maximum-output t)
-  (comint-move-point-for-output all)
+  (comint-move-point-for-output t)
   (comint-scroll-to-bottom-on-input t)
   (comint-scroll-to-bottom-on-output t)
   (ess-use-tracebug nil)
