@@ -36,11 +36,23 @@
   (add-hook mode (lambda () (display-line-numbers-mode 1))))
 
 ;; use xwidget support built in on macOS and emacs 28
-;(setq browse-url-browser-function 'xwidget-webkit-browse-url)
+;; (setq browse-url-browser-function 'xwidget-webkit-browse-url)
 
 ; fonts
 (set-face-attribute 'default nil :font "Source Code Pro" :height 130)
 (set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 130)
+
+(use-package all-the-icons)
+;; don't forget to run all-the-icons-install-fonts
+
+(use-package all-the-icons-ivy-rich)
+;; (use-package all-the-icons-dired)
+(use-package all-the-icons-ibuffer)
+
+
+; to show emojis
+(when (>= emacs-major-version 27)
+  (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
 
 (use-package highlight-indent-guides
   :custom
@@ -50,8 +62,6 @@
 (use-package doom-modeline
              :init (doom-modeline-mode 1)
              :custom
-	     (doom-modeline-height 15)
-	     (doom-modeline-lsp t)
 	     (doom-modeline-enable-word-count t))
 
 (use-package doom-themes
@@ -66,7 +76,8 @@
              :config
              (setq which-key-idle-delay 0.1))
 
-(use-package origami)
+(use-package origami
+             :init (global-origami-mode))
 
 (use-package hl-todo
   :init (global-hl-todo-mode)

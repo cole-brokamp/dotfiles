@@ -1,4 +1,3 @@
-
 ;; spell checking
 (use-package flyspell-correct
   :after flyspell)
@@ -14,4 +13,4 @@
     "Sc" '(flyspell-correct-wrapper :which-key "correct word"))
   (add-hook 'flyspell-prog-mode-hook (lambda () (message "Flyspell prog-mode enabled in current buffer"))))
 
-(provide colemacs-spelling)
+(provide 'colemacs-spelling)

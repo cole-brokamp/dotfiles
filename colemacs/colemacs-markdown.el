@@ -49,8 +49,8 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.mmd" . mermaid-mode))
   :custom
-  (mermaid-output-format ".png")
-  (mermaid-flags "--scale 4 --theme forest --pdfFit"))
+  (mermaid-output-format ".svg")
+  (mermaid-flags "--scale 4 --pdfFit"))
 
 (cole/local-leader-keys mermaid-mode-map
   "r" '(mermaid-compile :which-key "render file to image")

@@ -15,7 +15,7 @@
 
 (use-package emojify
   :custom
-  (emojify-display-style 'image)
+  (emojify-display-style 'unicode)
   :hook (after-init . global-emojify-mode))
 
 (use-package avy

@@ -1,5 +1,6 @@
 (use-package dired
   :commands (dired)
+  :ensure nil
   :custom
   (dired-listing-switches "-go --all --classify --group-directories-first --dired --human-readable")
   (dired-clean-confirm-killing-deleted-buffers nil)
@@ -7,11 +8,13 @@
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "c" 'counsel-find-file
+    ;; (kbd "SPC") 'counsel-M-x
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer)
   ;; use gls instead of ls when on mac to support listing switches
   (when (string= system-type "darwin")
-    (setq insert-directory-program "gls")))
+    (setq insert-directory-program "gls"))
+  (dired-async-mode))
 
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
@@ -28,17 +31,5 @@
 (use-package osx-trash
   :custom (delete-by-moving-to-trash t)
   :config (osx-trash-setup))
-
-(use-package all-the-icons)
-;; don't forget to run all-the-icons-install-fonts
-
-;; TODO use macOS emoji font for emoticons
-;; (when (fboundp 'set-fontset-font)
-;;   (set-fontset-font "fontset-default"
-;;                     '(#x1F600 . #x1F64F)
-;;                     (font-spec :name "Apple Color Emoji") nil 'prepend))
-
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
 
 (provide 'colemacs-dired)

@@ -59,9 +59,12 @@
   (org-refile-targets '((org-agenda-files :maxlevel . 1)))
   (org-startup-folded t)
   (org-capture-templates '(
-			   ("t" "todo [_todo.org tasks]" entry
-			    (file+headline "~/icloud/notes/_todo.org" "Tasks")
-			    "* TODO %?")
+			   ("t" "task" entry
+			    (file+headline "~/icloud/notes/_todo.org" "tasks")
+			    "* TODO %?" :prepend t)
+			   ("p" "post-it" entry
+			    (file+headline "~/icloud/notes/_todo.org" "post-it")
+			    "* %^{description} %u\n %?" :prepend t)
 			   ))
   :config
   ;; don't auto save after refile or archive b/c org collapses the buffer automatically on save?

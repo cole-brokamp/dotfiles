@@ -9,3 +9,5 @@
 ;; doc-view-reset-slice
 ;; doc-view-search
   ;; )
+
+(provide 'colemacs-pdf)

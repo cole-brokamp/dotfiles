@@ -28,17 +28,6 @@
 (defun my-inferior-ess-init ()
   (setq-local ansi-color-for-comint-mode 'filter))
 
-;; ess-display-help-apropos
-;; ess-rutils-rm-all
-;; ess-rdired
-;; ` ess-show-traceback
-;; ~ ess-show-call-stack
-;; = ess-cycle-assign
-;; C-c C-z ess-switch-to-inferior-or-script-buffer
-;; ess-eval-buffer-from-beg-to-here
-;; ess-eval-buffer-from-here-to-end
-;; ess-resynch
-
 (cole/local-leader-keys ess-mode-map
   "," '(ess-eval-line-and-step :which-key "eval line and step")
   "e" '(ess-eval-paragraph-and-step :which-key "eval R/F/P and step")
@@ -57,6 +46,7 @@
   "dr" '(cole/ess-devtools-build-readme :which-key "build readme from Rmd")
   "ds" '(cole/ess-devtools-build-site :which-key "build pkgdown site")
   "h" '(ess-help :which-key "help")
+  ;; "H" '(ess-display-help-in-browser :which-key "help in browser")
   "i" '(:ignore t :which-key "insert")
   "ic" '(cole/ess-insert-r-code-chunk :which-key "chunk")
   "r" '(:ignore t :which-key "renv")
@@ -69,7 +59,6 @@
   "ss" '(ess-switch-process :which-key "switch")
   "sq" '(ess-quit :which-key "quit")
   "c" '(:ignore t :which-key "chunks")
-  ;; "w" 'ess-execute-screen-options
   )
 
 (defun cole/ess-devtools-load-all ()
@@ -118,7 +107,7 @@
 
 (defun cole/ess-graphics-view ()
   (interactive)
-  (ess-eval-linewise "httpgd::hgd_browse()"))
+  (ess-eval-linewise "if (!names(dev.cur()) == 'httpgd') httpgd::hgd(silent = TRUE); httpgd::hgd_browse()"))
 
 (defun cole/ess-insert-r-code-chunk ()
   "Insert an R Markdown code chunk."

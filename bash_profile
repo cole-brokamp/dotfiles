@@ -47,7 +47,7 @@ export EDITOR="$VISUAL"
 # source ~/.bash_profile
 
 # bash completion
-[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+# [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
 # function for vterm in emacs to get proper escape sequences
 vterm_printf(){
