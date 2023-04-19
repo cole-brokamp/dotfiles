@@ -42,5 +42,3 @@
                              (float-time
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
-
-(put 'dired-find-alternate-file 'disabled nil)

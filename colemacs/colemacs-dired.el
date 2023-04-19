@@ -5,6 +5,13 @@
   (dired-listing-switches "-go --all --classify --group-directories-first --dired --human-readable")
   (dired-clean-confirm-killing-deleted-buffers nil)
   (dired-kill-when-opening-new-dired-buffer t)
+  (dired-dwim-target t)
+  (dired-auto-revert-buffer t)
+  (dired-omit-files "^\\..*$\\|^\\.\\.$")
+  :hook
+  (dired-mode . dired-hide-details-mode)
+  (dired-mode . all-the-icons-dired-mode)
+  (dired-mode . dired-omit-mode)
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "n" 'counsel-find-file
@@ -20,6 +27,19 @@
     (setq insert-directory-program "gls"))
   (dired-async-mode))
 
+(use-package diredfl
+  :hook
+  (dired-mode . diredfl-mode))
+
+;; use TAB to toggle open subtrees in dired
+(use-package dired-subtree
+  :custom
+  (dired-subtree-line-prefix "     ")
+  (dired-subtree-use-backgrounds nil))
+
+
+(use-package all-the-icons-dired)
+
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
@@ -28,8 +48,14 @@
 
 ;; TODO SPC doesn't work in dired mode (have to use Ctl-SPC), fix this!
 
+;; Flaten display of nested directories with no other content.
+(use-package dired-collapse
+  :hook (dired-mode . dired-collapse-mode))
+
 (use-package osx-trash
   :custom (delete-by-moving-to-trash t)
   :config (osx-trash-setup))
+
+(put 'dired-find-alternate-file 'disabled nil)
 
 (provide 'colemacs-dired)

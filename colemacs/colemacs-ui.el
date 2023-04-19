@@ -46,7 +46,6 @@
 ;; don't forget to run all-the-icons-install-fonts
 
 (use-package all-the-icons-ivy-rich)
-;; (use-package all-the-icons-dired)
 (use-package all-the-icons-ibuffer)
 
 
