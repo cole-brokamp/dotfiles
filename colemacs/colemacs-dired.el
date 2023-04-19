@@ -7,10 +7,14 @@
   (dired-kill-when-opening-new-dired-buffer t)
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
-    "c" 'counsel-find-file
-    ;; (kbd "SPC") 'counsel-M-x
-    "h" 'dired-single-up-directory
-    "l" 'dired-single-buffer)
+    "n" 'counsel-find-file
+    "c" 'dired-do-copy
+    "i" 'dired-hide-details-mode
+    "s" 'dired-sort-toggle-or-edit
+    (kbd "SPC") 'dired-mark
+    (kbd "RET") 'dired-find-alternate-file
+    "l" 'dired-find-alternate-file
+    "h" 'dired-single-up-directory)
   ;; use gls instead of ls when on mac to support listing switches
   (when (string= system-type "darwin")
     (setq insert-directory-program "gls"))
@@ -23,10 +27,6 @@
     "H" 'dired-hide-dotfiles-mode))
 
 ;; TODO SPC doesn't work in dired mode (have to use Ctl-SPC), fix this!
-
-;; (use-package dired-single
-;;   :custom
-;; (dired-single-use-magic-buffer t))
 
 (use-package osx-trash
   :custom (delete-by-moving-to-trash t)
