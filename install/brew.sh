@@ -88,8 +88,7 @@ brew install homebrew/cask-fonts/font-source-code-pro
 brew install homebrew/cask-fonts/font-raleway
 
 ### gui apps
-# install Multitouch app from https://multitouch.app
-brew install --cask rectangle
+# install Multitouch app from https://multitouch.app (includes rectangle)
 brew install transmit
 brew install zoom
 brew install microsoft-teams
