@@ -33,7 +33,6 @@ brew install wget
 brew install git
 brew tap microsoft/git
 brew install --cask git-credential-manager-core
-brew install gpg # for signing gh releases
 brew install tmux
 brew install highlight # mac only
 brew install diff-so-fancy
@@ -44,14 +43,12 @@ brew install htop-osx # mac only
 brew install sshuttle
 brew install awscli
 brew install vim
-# brew install socat
 
 # a/v
 brew install asciinema
 brew install ffmpeg
 brew install imagemagick
 brew install lame
-brew install youtube-dl
 
 # emacs stuffs
 brew tap d12frosted/emacs-plus
@@ -71,11 +68,11 @@ brew install python3
 brew install pkg-config
 brew install gdal
 brew install udunits
+brew install homebrew/cask/docker
+R -e "install.packages('tinytex'); tinytex::install_tinytex()"
+# *OR* brew install --cask mactex-no-gui
 
-echo -e "\n\nInstalling homebrew cask packages..."
-echo "=============================="
-
-# quick look plugins for developers
+# quick look plugins
 # mac only
 brew install qlcolorcode qlmarkdown \
      quicklookase
@@ -90,29 +87,15 @@ brew install homebrew/cask-fonts/font-hack
 brew install homebrew/cask-fonts/font-source-code-pro
 brew install homebrew/cask-fonts/font-raleway
 
-### install gui apps
-brew install 1password
-brew install homebrew/cask/docker
-brew install firefox
-R -e "install.packages('tinytex'); tinytex::install_tinytex()"
-# *OR* brew install --cask mactex-no-gui
-brew install the-unarchiver
-brew install transmit
-# install pdf-expert from the app store
-brew install bartender
-# install SystemPal from the app store
-brew install zoom
-brew install microsoft-teams
+### gui apps
 # install Multitouch app from https://multitouch.app
 brew install --cask rectangle
-
-## optional
+brew install transmit
+brew install zoom
+brew install microsoft-teams
 brew install backblaze
-brew install microsoft-office
-# brew install screens-connect
+brew install screens-connect
 brew install screens
-brew install vlc
-# brew install xpra
 brew install xquartz
 
 brew cask cleanup
