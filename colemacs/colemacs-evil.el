@@ -2,6 +2,7 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-want-minibuffer nil)
   (setq evil-want-C-i-jump nil) ; make TAB work in terminal again
   :config
   (evil-mode 1)

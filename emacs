@@ -1,7 +1,7 @@
 ; -*- mode: emacs-lisp; -*-
 
-(setq gc-cons-threshold (* 50 1000 1000))
-(setq gc-cons-percentage 0.6)
+(setq gc-cons-threshold (* 80 1000 1000))
+;; (setq gc-cons-percentage 0.6)
 
 (add-to-list 'load-path "~/dotfiles/colemacs")
 
@@ -26,13 +26,13 @@
 (require 'colemacs-treemacs)
 (require 'colemacs-rstats)
 (require 'colemacs-spelling)
-(require 'colemacs-latex)
+;; (require 'colemacs-latex)
 (require 'colemacs-lang)
 (require 'colemacs-applications)
 (require 'colemacs-pdf)
 
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
-(setq gc-cons-threshold (* 5 1000 1000))
+(setq gc-cons-threshold (* 1 1000 1000))
 
 ; track startup time
 (add-hook 'emacs-startup-hook

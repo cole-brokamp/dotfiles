@@ -17,15 +17,15 @@
     "n" 'counsel-find-file
     "c" 'dired-do-copy
     "i" 'dired-hide-details-mode
+    "I" 'dired-toggle-read-only
     "s" 'dired-sort-toggle-or-edit
     (kbd "SPC") 'dired-mark
     (kbd "RET") 'dired-find-alternate-file
     "l" 'dired-find-alternate-file
-    "h" 'dired-single-up-directory)
+    "h" 'dired-up-directory)
   ;; use gls instead of ls when on mac to support listing switches
   (when (string= system-type "darwin")
-    (setq insert-directory-program "gls"))
-  (dired-async-mode))
+    (setq insert-directory-program "gls")))
 
 (use-package diredfl
   :hook

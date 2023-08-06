@@ -50,3 +50,5 @@
 	provider = github
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+[credential "https://bitbucket.research.cchmc.org"]
+	provider = bitbucket

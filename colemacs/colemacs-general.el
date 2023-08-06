@@ -29,11 +29,10 @@
   "aoc" '(counsel-org-capture :which-key "org capture")
   "as" '(vterm :which-key "new vterm shell")
   "b" '(:ignore t :which-key "buffers")
-  "bB" '(counsel-switch-buffer :which-key "switch buffer with preview")
-  "bI" '(projectile-ibuffer :which-key "ibuffer in project")
   "bM" '(buf-move :which-key "move buffer")
   "bR" '(font-lock-update :which-key "reload font locks")
-  "bb" '(ivy-switch-buffer :which-key "switch to buffer")
+  "bb" '(counsel-switch-buffer :which-key "switch to buffer")
+  "bB" '(projectile-ibuffer :which-key "ibuffer in project")
   "bd" '(kill-current-buffer :which-key "delete buffer")
   "bf" '(reveal-in-osx-finder :which-key "show buffer in finder")
   "bi" '(ibuffer :which-key "ibuffer")
@@ -90,6 +89,8 @@
   "qf" '(delete-frame :which-key "kill frame")
   "qq" '(save-buffers-kill-emacs :which-key "quit")
   "qr" '(restart-emacs :which-key "restart")
+  "qQ" '(restart-emacs '("no-desktop") :which-key "restart without saving desktop file")
+  "qN" '(restart-emacs-start-new-emacs :which-key "start new emacs")
   "r" '(:ignore t :which-key "registers")
   "rf" '(frameset-to-register :which-key "frames save")
   "ri" '(insert-register :which-key "insert text")
@@ -134,7 +135,6 @@
   "zz" '(evil-toggle-fold :which-key "toggle fold")
   ;; "ad" docker
   ;; "d" '((lambda () (interactive) (dired-single-magic-buffer )) :which-key "dired")
-  ;; "qQ" '(restart-emacs :which-key "restart without saving desktop file")
   ;; TODO make a whole sub menus for treemacs? and a good shortcut for showing/jumping to/hiding the tree window
   )
 

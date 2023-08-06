@@ -23,7 +23,10 @@
   (add-hook 'inferior-ess-mode-hook 'my-inferior-ess-init)
   (define-key ess-r-mode-map (kbd "C-'") 'cole/insert-pipe)
   (define-key inferior-ess-r-mode-map (kbd "C-'") 'cole/insert-pipe)
+  ;; (evil-collection-define-key 'ess-r-mode-map 'inferior-ess-r-mode-map
+  ;;   (kbd "C-'") 'cole/insert-pipe)
   )
+
 
 (defun my-inferior-ess-init ()
   (setq-local ansi-color-for-comint-mode 'filter))
@@ -140,6 +143,8 @@
   (let ((x (cole/ess-edit-word-at-point)))
     (ess-eval-linewise (concat "pillar::glimpse(" x ")"))))
 
+(use-package poly-R)
+
 (use-package polymode
   :init
   (require 'poly-R)
@@ -148,6 +153,7 @@
   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
   (add-to-list 'auto-mode-alist '("\\.qmd" . poly-markdown+r-mode))
   )
+
 
 
 ;; (defun R-docker ()

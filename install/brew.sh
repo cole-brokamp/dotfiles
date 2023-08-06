@@ -55,7 +55,8 @@ brew install youtube-dl
 
 # emacs stuffs
 brew tap d12frosted/emacs-plus
-brew install emacs-plus@28 --with-modern-icon
+# brew install emacs-plus@28 --with-modern-icon --with-imagemagick --with-xwidgets
+brew install emacs-plus@29 --with-xwidgets --with-no-frame-refocus --with-modern-icon --with-imagemagick
 # do symmlink too!
 brew install poppler
 brew install automake

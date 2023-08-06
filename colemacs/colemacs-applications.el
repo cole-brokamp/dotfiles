@@ -13,10 +13,10 @@
   :custom
   (org-tree-slide-slide-in-effect nil))
 
-(use-package emojify
-  :custom
-  (emojify-display-style 'unicode)
-  :hook (after-init . global-emojify-mode))
+;; (use-package emojify
+;;   :custom
+;;   (emojify-display-style 'unicode)
+;;   :hook (after-init . global-emojify-mode))
 
 (use-package avy
   :config
