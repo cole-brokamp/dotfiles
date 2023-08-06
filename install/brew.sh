@@ -94,6 +94,7 @@ brew install transmit
 brew install zoom
 brew install microsoft-teams
 brew install backblaze
+brew install kindle
 brew install screens-connect
 brew install screens
 brew install xquartz
