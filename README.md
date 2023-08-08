@@ -12,22 +12,9 @@ cd ~/dotfiles
 ./install/link.sh
 ```
 
-## Lunch
+Run `install/macOS.sh` to set macOS options
 
-Run `lunch` when you're about to leave for lunch and this script will:
+Run `install/brew.sh` to install macOS command line and GUI applications.
 
-- Update brew packages if brew is available
-- Update Node packages
+Import `resources/CB_solarized.terminal` and set as default for Terminal's preferences
 
-## Optional Installations
-
-The `install` folder contains other install scripts:
-
-- `install/node.sh` to install node, npm and packages
-
-### macOS
-
-- `install/brew.sh` to install macOS command line and GUI applications
-- `install/macOS.sh` to set macOS options
-- Import `resources/CB_solarized.terminal` and set as default for Terminal's preferences
-- Import `applescripts/*` to Automator
