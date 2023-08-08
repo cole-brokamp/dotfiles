@@ -94,6 +94,4 @@ brew install kindle
 # brew install screens-connect
 # brew install screens
 
-brew cask cleanup
-
 brew cleanup
