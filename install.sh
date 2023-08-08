@@ -5,7 +5,7 @@ echo "Installing dotfiles"
 # exit on error
 set -e
 
-dir=~/dotfiles
+dir=~/dotfiles/linkables
 cd $dir
 
 echo -e "\nCreating symlinks"
