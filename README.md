@@ -24,15 +24,6 @@ Run `lunch` when you're about to leave for lunch and this script will:
 The `install` folder contains other install scripts:
 
 - `install/node.sh` to install node, npm and packages
-- `install_geos_gdal_proj4_for_linux_from_source.sh`
-- Setup a dynamic DNS service on a server with `duckdns_setup.md`
-- Update the computer's hostname with `update_hostname.md`
-- Increase a computer's swap space with `increase_swapspace.sh`
-
-### Ubuntu
-
-- `install/apt-install-base.sh` installs ubuntu applications
-- `install/apt-install-rgeo.sh` installs R and my usual geospatial environment
 
 ### macOS
 
