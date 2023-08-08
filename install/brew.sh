@@ -41,9 +41,6 @@ brew install imagemagick
 # brew install lame
 
 # emacs stuffs
-brew tap d12frosted/emacs-plus
-brew install emacs-plus@29 --with-xwidgets --with-no-frame-refocus --with-modern-icon --with-imagemagick
-# do symmlink too!
 brew install poppler
 brew install automake
 brew install markdown
@@ -52,6 +49,9 @@ brew install ripgrep
 brew install hellothisisflo/the-tap/vmd # vmd on mac
 brew install node
 npm install -g @mermaid-js/mermaid-cli
+brew tap d12frosted/emacs-plus
+brew install emacs-plus@29 --with-xwidgets --with-no-frame-refocus --with-modern-icon --with-imagemagick
+# do symmlink too!
 
 # science
 brew install r
@@ -60,7 +60,8 @@ brew install python3
 brew install pkg-config
 brew install gdal
 brew install udunits
-brew install docker
+brew pin r gdal geos proj udunits
+brew install homebrew/cask/docker
 R -e "install.packages('tinytex'); tinytex::install_tinytex()"
 # *OR* brew install --cask mactex-no-gui
 
