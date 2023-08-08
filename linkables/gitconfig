@@ -43,12 +43,4 @@
 [init]
 	defaultBranch = main
 [credential]
-	helper = cache --timeout=10000000
-	helper = 
-	helper = /usr/local/share/gcm-core/git-credential-manager-core
-[credential "https://uploads.github.com"]
-	provider = github
-[credential "https://dev.azure.com"]
-	useHttpPath = true
-[credential "https://bitbucket.research.cchmc.org"]
-	provider = bitbucket
+	helper = /usr/local/share/gcm-core/git-credential-manager
