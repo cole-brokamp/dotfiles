@@ -4,12 +4,12 @@
 
 If on macOS, install the XCode CLI tools before starting: `xcode-select --install`
 
-Clone the repo and run the install script to symmlink the dotfiles:
+Clone the repo and run the `link` script to symmlink the dotfiles:
 
 ```
 git clone https://github.com/cole-brokamp/dotfiles
 cd ~/dotfiles
-./install.sh
+./install/link.sh
 ```
 
 ## Lunch
