@@ -9,14 +9,7 @@ export TERM=screen-256color
 # export secrets if it exists
 source ~/dotfiles/secrets.sh 2> /dev/null
 
-## pick between macOS and unix
-if [ "$(uname)" == "Darwin" ]; then
-    source ~/dotfiles/aliases_unix.sh
-    source ~/dotfiles/aliases_macOS.sh
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    source ~/dotfiles/aliases_unix.sh
-fi
-
+source ~/dotfiles/resources/aliases.sh
 
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend;
@@ -79,7 +72,7 @@ if command -v module &> /dev/null; then
     module load vim
 fi
 
-source ~/dotfiles/prompt.sh
+source ~/dotfiles/resources/prompt.sh
 
 if [ "$(uname)" == "Darwin" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
