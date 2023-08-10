@@ -7,8 +7,8 @@ brew upgrade
 brew cleanup
 
 brew install bash
-echo '/bin/bash' | sudo tee -a /etc/shells
-chsh -s /bin/bash
+echo '/opt/homebrew/bin/bash' | sudo tee -a /etc/shells
+chsh -s /opt/homebrew/bin/bash
 
 # tools
 brew install coreutils
@@ -46,7 +46,9 @@ brew install automake
 brew install markdown
 brew install ispell
 brew install ripgrep
+brew install ag
 brew install hellothisisflo/the-tap/vmd # vmd on mac
+brew install grip
 brew install node
 npm install -g @mermaid-js/mermaid-cli
 brew tap d12frosted/emacs-plus
@@ -62,7 +64,8 @@ brew install gdal
 brew install udunits
 brew pin r gdal geos proj udunits
 brew install homebrew/cask/docker
-R -e "install.packages('tinytex'); tinytex::install_tinytex()"
+brew install libgit2
+# R -e "install.packages('tinytex'); tinytex::install_tinytex()"
 # *OR* brew install --cask mactex-no-gui
 
 # quick look plugins
@@ -89,7 +92,10 @@ brew install backblaze
 brew install transmit
 brew install zoom
 brew install microsoft-teams
-brew install kindle
+brew install --cask microsoft-word
+brew install --cask microsoft-excel
+brew install --cask microsoft-powerpoint
+brew install --cask kindle
 # brew install xquartz
 # brew install screens-connect
 # brew install screens

@@ -35,8 +35,12 @@
 		))
   (add-hook mode (lambda () (display-line-numbers-mode 1))))
 
-;; use xwidget support built in on macOS and emacs 28
-;; (setq browse-url-browser-function 'xwidget-webkit-browse-url)
+;; use xwidget support built in on macOS and emacs 29, but only for certain URLs
+(setq browse-url-browser-function 'xwidget-webkit-browse-url)
+(setq browse-url-default-scheme "https")
+(setq browse-url-handlers
+      '(("https://docs.google.com/\.*" . xwidget-webkit-browse-url)
+	("." . browse-url-default-browser)))
 
 ; fonts
 (set-face-attribute 'default nil :font "Source Code Pro" :height 130)
