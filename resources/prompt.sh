@@ -13,7 +13,7 @@ purple=$(tput setaf 61)
 purpleB=$(tput setab 61)
 red=$(tput setaf 160)
 
-# change prompt colors for emacs multi-term
+# change prompt colors inside of emacs
 if [ -n "$INSIDE_EMACS" ]; then
     blue=$(tput setaf 4)
     green=$(tput setaf 2)

@@ -1,46 +1,17 @@
 # -*- mode: sh; -*-
 
+export TERM=screen-256color
+export COLUMNS
+export VISUAL=emacs
+export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
-
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-export TERM=screen-256color
-
-# export secrets if it exists
-source ~/dotfiles/secrets.sh 2> /dev/null
-
 source ~/dotfiles/resources/aliases.sh
-
-# Append to the Bash history file, rather than overwriting it
-shopt -s histappend;
-
-# Autocorrect typos in path names when using `cd`
-shopt -s cdspell;
+source ~/dotfiles/secrets.sh 2> /dev/null
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
-
-# Solarized colorscheme for GNU `ls`:
-eval `dircolors --sh ~/dotfiles/resources/dircolors-solarized`
-
-# setting path for my own scripts
-export PATH=$PATH:~/dotfiles/bin
-
-# add go path
-export PATH=$PATH:/usr/local/go/bin
-
-# export COLUMNS variable for proper setting of R's width on resize
-export COLUMNS
-
-# set default editor
-export VISUAL=emacs
-export EDITOR="$VISUAL"
-
-# exec $SHELL -l # use my dotfiles
-# source ~/.bash_profile
-
-# bash completion
-# [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
 # function for vterm in emacs to get proper escape sequences
 vterm_printf(){
@@ -59,27 +30,21 @@ vterm_printf(){
 # so emacs vterm can autoname buffers
 export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}:${PWD}\007"'
 
+source ~/dotfiles/resources/prompt.sh
 # so emacs vterm can autotrack directory and prompt
 vterm_prompt_end(){
     vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
 }
 PS1=$PS1'\[$(vterm_prompt_end)\]'
 
-# do the following only if on the HPC
-if command -v module &> /dev/null; then
-# load modules
-    module load tmux/2.4
-    module load vim
-fi
-
-source ~/dotfiles/resources/prompt.sh
-
-# gnutils without prefix "g"
+# brew paths
+eval "$(/opt/homebrew/bin/brew shellenv)"
 PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
 PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 
-if [ "$(uname)" == "Darwin" ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
+# Solarized colorscheme for GNU `ls`:
+eval `gdircolors --sh ~/dotfiles/resources/dircolors-solarized`
+
+PATH="$PATH:~/dotfiles/bin"
