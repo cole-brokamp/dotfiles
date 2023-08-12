@@ -68,7 +68,7 @@
   "hr" '(repeat-complex-command :which-key "repeat complex command")
   "hv" 'describe-variable
   "i" '(:ignore t :which-key :which-key "insert")
-  "ie" '(emojify-insert-emoji :which-key "insert emoji")
+  ;; "ie" '(emojify-insert-emoji :which-key "insert emoji")
   "ij" '(evil-collection-unimpaired-insert-newline-below :which-key "insert line below")
   "ik" '(evil-collection-unimpaired-insert-newline-above :which-key "insert line above")
   "io" '(newline-and-indent :which-key "open line")

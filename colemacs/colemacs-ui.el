@@ -39,7 +39,7 @@
 (setq browse-url-browser-function 'xwidget-webkit-browse-url)
 (setq browse-url-default-scheme "https")
 (setq browse-url-handlers
-      '(("https://docs.google.com/\.*" . xwidget-webkit-browse-url)
+      '(("127.0.0.1.*" . xwidget-webkit-browse-url)
 	("." . browse-url-default-browser)))
 
 ; fonts

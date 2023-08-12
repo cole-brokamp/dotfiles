@@ -8,27 +8,29 @@
   (ess-indent-with-fancy-comments nil)
   (ess-help-own-frame nil)
   (ess-help-reuse-window t)
-  (ess-ask-for-ess-directory nil)
+  ;; (ess-ask-for-ess-directory nil)
   (inferior-ess-R-program "R")
-  (ess-R-readline t)
   (inferior-R-args "--no-save --quiet")
+  ;; (ess-R-readline t)
   (ess-S-quit-kill-buffers-p nil)
   (comint-scroll-show-maximum-output t)
-  (comint-move-point-for-output t)
-  (comint-scroll-to-bottom-on-input t)
-  (comint-scroll-to-bottom-on-output t)
+  ;; (comint-move-point-for-output t)
+  ;; (comint-scroll-to-bottom-on-input t)
+  ;; (comint-scroll-to-bottom-on-output t)
   (ess-use-tracebug nil)
   (ess-use-flymake t)
   :config
   (add-hook 'inferior-ess-mode-hook 'my-inferior-ess-init)
-  (define-key ess-r-mode-map (kbd "C-'") 'cole/insert-pipe)
-  (define-key inferior-ess-r-mode-map (kbd "C-'") 'cole/insert-pipe)
-  ;; (evil-collection-define-key 'ess-r-mode-map 'inferior-ess-r-mode-map
-  ;;   (kbd "C-'") 'cole/insert-pipe)
+  (add-hook 'ess-r-mode-hook 'my-ess-r-mode-hook)
+  ;; (define-key ess-r-mode-map (kbd "C-'") 'cole/insert-pipe)
   )
 
+(defun my-ess-r-mode-hook ()
+  (define-key ess-r-mode-map (kbd "C-'") 'cole/insert-pipe))
+  
 
 (defun my-inferior-ess-init ()
+  (define-key inferior-ess-r-mode-map (kbd "C-'") 'cole/insert-pipe)
   (setq-local ansi-color-for-comint-mode 'filter))
 
 (cole/local-leader-keys ess-mode-map
@@ -49,9 +51,10 @@
   "dr" '(cole/ess-devtools-build-readme :which-key "build readme from Rmd")
   "ds" '(cole/ess-devtools-build-site :which-key "build pkgdown site")
   "h" '(ess-help :which-key "help")
-  ;; "H" '(ess-display-help-in-browser :which-key "help in browser")
+  "H" '(cole/ess-web-help :which-key "help in browser")
   "i" '(:ignore t :which-key "insert")
   "ic" '(cole/ess-insert-r-code-chunk :which-key "chunk")
+  "c" '(:ignore t :which-key "chunks")
   "r" '(:ignore t :which-key "renv")
   "rS" '(cole/ess-renv-status :which-key "status")
   "rs" '(cole/ess-renv-snapshot :which-key "snapshot")
@@ -61,7 +64,6 @@
   "sr" '(inferior-ess-reload :which-key "reload")
   "ss" '(ess-switch-process :which-key "switch")
   "sq" '(ess-quit :which-key "quit")
-  "c" '(:ignore t :which-key "chunks")
   )
 
 (defun cole/ess-devtools-load-all ()
@@ -143,6 +145,11 @@
   (let ((x (cole/ess-edit-word-at-point)))
     (ess-eval-linewise (concat "pillar::glimpse(" x ")"))))
 
+(defun cole/ess-web-help ()
+  (interactive)
+  (let ((x (cole/ess-edit-word-at-point)))
+    (ess-eval-linewise (concat "help('" x "', help_type = 'html', try.all.packages = TRUE)"))))
+
 (use-package poly-R)
 
 (use-package polymode
@@ -153,16 +160,5 @@
   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
   (add-to-list 'auto-mode-alist '("\\.qmd" . poly-markdown+r-mode))
   )
-
-
-
-;; (defun R-docker ()
-;;   (interactive)
-;;   (let ((ess-r-customize-alist
-;;           (append ess-r-customize-alist
-;;                   '((inferior-ess-program . "/home/francois/start-r-docker.sh"))))
-;;         (ess-R-readline t))
-;;     (R)))
-
 
 (provide 'colemacs-rstats)

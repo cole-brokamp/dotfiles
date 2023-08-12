@@ -13,11 +13,6 @@
   :custom
   (org-tree-slide-slide-in-effect nil))
 
-;; (use-package emojify
-;;   :custom
-;;   (emojify-display-style 'unicode)
-;;   :hook (after-init . global-emojify-mode))
-
 (use-package avy
   :config
   (setq avy-background t))
@@ -45,7 +40,7 @@
   ("q" git-timemachine-quit "quit" :exit t))
 
 (cole/leader-keys
-  "ts" '(cole/scale-text :which-key "scale text"))
+  "ts" '((lambda () (interactive) (cole/scale-text/body)) :which-key "scale text"))
 
 (defhydra cole/scale-text (:timeout 4)
   "scale text"
@@ -54,7 +49,7 @@
   ("q" nil "quit" :exit t))
 
 (cole/leader-keys
-  "wr" '(cole/resize-window :which-key "resize window"))
+  "wr" '((lambda () (interactive) (cole/resize-window/body)) :which-key "resize window"))
 
 (defhydra cole/resize-window ()
   "resize windows"
