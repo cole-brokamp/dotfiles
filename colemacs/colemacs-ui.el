@@ -10,16 +10,11 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; {light, dark}
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
-;; (use-package smooth-scrolling
-;;   :config
-;;   (smooth-scrolling-mode 1)
-;;   :custom
-;;   (smooth-scroll-margin 10)
-;;   )
-
+(pixel-scroll-mode)
+(pixel-scroll-precision-mode)
+(setq pixel-scroll-precision-use-momentum nil)
 (setq scroll-margin 0)
-(setq scroll-preserve-screen-position nil)
-(setq next-screen-context-lines 2)
+;; (setq scroll-preserve-screen-position nil)
 
 ;; line numbers
 (column-number-mode)
