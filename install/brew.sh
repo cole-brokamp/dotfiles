@@ -65,7 +65,7 @@ brew install udunits
 brew pin r gdal geos proj udunits
 brew install homebrew/cask/docker
 brew install libgit2
-# R -e "install.packages('tinytex'); tinytex::install_tinytex()"
+R -e "install.packages('tinytex'); tinytex::install_tinytex()"
 # *OR* brew install --cask mactex-no-gui
 
 # quick look plugins
