@@ -13,6 +13,9 @@
 (cole/leader-keys
   "SPC" '(counsel-M-x :which-key "M-x")
   "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
+  "#" '(:ignore :which-key "server edit")
+  "##" '(server-edit :which-key "done")
+  "#a" '(server-edit :which-key "abort")
   "/" 'swiper-all
   "|" 'shell-command-on-region
   "'" '(vterm-toggle-cd :which-key "shell")
