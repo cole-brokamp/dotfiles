@@ -54,7 +54,7 @@
   (org-agenda-start-day "-3d")
   (org-agenda-start-on-weekday nil)
   (org-agenda-custom-commands '(("n" "agenda + unscheduled tasks"
-				 ((agenda "") (tags "-SCHEDULED={.+}-DEADLINE={.+}/+TODO|+WAITING"))
+				 ((agenda "") (tags "-SCHEDULED={.+}-DEADLINE={.+}/+TODO|+WAITING|+WISHING"))
 				 )))
   (org-refile-targets '((org-agenda-files :maxlevel . 1)))
   (org-startup-folded t)
