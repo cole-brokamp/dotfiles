@@ -48,3 +48,4 @@ PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 eval `gdircolors --sh ~/dotfiles/resources/dircolors-solarized`
 
 PATH="$PATH:~/dotfiles/bin"
+. "$HOME/.cargo/env"
