@@ -10,11 +10,10 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; {light, dark}
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
-(pixel-scroll-mode)
-(pixel-scroll-precision-mode)
-(setq pixel-scroll-precision-use-momentum nil)
-(setq scroll-margin 0)
-;; (setq scroll-preserve-screen-position nil)
+;; (pixel-scroll-mode)
+;; (pixel-scroll-precision-mode)
+;; (setq pixel-scroll-precision-use-momentum nil)
+(setq scroll-margin 3)
 
 ;; line numbers
 (column-number-mode)
