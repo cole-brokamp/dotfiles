@@ -13,7 +13,7 @@
 ;; (pixel-scroll-mode)
 ;; (pixel-scroll-precision-mode)
 ;; (setq pixel-scroll-precision-use-momentum nil)
-(setq scroll-margin 3)
+(setq scroll-margin 2)
 
 ;; line numbers
 (column-number-mode)
@@ -37,8 +37,8 @@
 	("." . browse-url-default-browser)))
 
 ; fonts
-(set-face-attribute 'default nil :font "Source Code Pro" :height 130)
-(set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 130)
+(set-face-attribute 'default nil :font "Source Code Pro" :height 150)
+(set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 150)
 
 (use-package all-the-icons)
 ;; don't forget to run all-the-icons-install-fonts

@@ -9,8 +9,8 @@
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-  (evil-global-set-key 'motion (kbd "C-j") 'evil-scroll-down)
-  (evil-global-set-key 'motion (kbd "C-k") 'evil-scroll-up)
+  (evil-global-set-key 'motion (kbd "C-j") 'evil-scroll-line-down)
+  (evil-global-set-key 'motion (kbd "C-k") 'evil-scroll-line-up)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
   :custom

@@ -49,11 +49,20 @@
   (add-to-list 'auto-mode-alist '("\\.mmd" . mermaid-mode))
   :custom
   (mermaid-output-format ".svg")
+  ;; (mermaid-output-format ".png")
   (mermaid-flags "--scale 4 --pdfFit"))
 
 (cole/local-leader-keys mermaid-mode-map
-  "r" '(mermaid-compile :which-key "render file to image")
+  "r" '(:ignore t :which-key "render")
+  "rr" '(mermaid-compile-buffer :which-key "render to /tmp")
+  "rs" '(mermaid-compile :which-key "render to .svg file")
+  "rp" '(cole/mermaid-compile-png :which-key "render to .png file")
   "h" '(mermaid-open-doc :which-key "help open doc")
   "o" '(mermaid-open-browser :which-key "edit in online editor"))
+
+(defun cole/mermaid-compile-png ()
+  (interactive)
+  (setq mermaid-output-format ".png")
+  (mermaid-compile))
 
 (provide 'colemacs-markdown)

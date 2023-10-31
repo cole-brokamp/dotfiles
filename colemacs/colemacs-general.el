@@ -30,7 +30,7 @@
   "ao" '(:ignore t :which-key "org")
   "aoa" '(org-agenda :which-key "org agenda")
   "aoc" '(counsel-org-capture :which-key "org capture")
-  ;; "as" '(vterm :which-key "new vterm shell")
+  "as" '(vterm :which-key "new vterm shell")
   "b" '(:ignore t :which-key "buffers")
   "bM" '(buf-move :which-key "move buffer")
   "bR" '(font-lock-update :which-key "reload font locks")
