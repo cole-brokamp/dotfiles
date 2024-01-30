@@ -13,6 +13,7 @@
     "pp" '(projectile-switch-project :which-key "switch project")
     "pd" '(projectile-kill-buffers :which-key "close project buffers")
     "ps" '(projectile-ag :which-key "search in project files")
+    "pr" '(projectile-replace :which-key "replace in project files")
     "pl" '(:ignore t :which-key "TODO - open project in new layout")
   ))
 

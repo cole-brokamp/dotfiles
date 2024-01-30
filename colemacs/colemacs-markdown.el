@@ -1,6 +1,6 @@
 (use-package markdown-mode
   :custom
-  (markdown-command "pandoc --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --self-contained --css ~/dotfiles/resources/github-pandoc.css")
+  (markdown-command "pandoc --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --embed-resources --standalone --css ~/dotfiles/resources/github-pandoc.css")
   (markdown-header-scaling t)
   (markdown-header-scaling-values '(1.2 1.15 1.1 1.05 1 1))
   (markdown-list-item-bullets '("►" "●" "•" "○" "◆" "◇" "-"))
@@ -24,7 +24,7 @@
 (cole/local-leader-keys markdown-mode-map
   "P" '(grip-mode :which-key "preview (grip)")
   ;; "q" '((lambda () (interactive) (async-shell-command '(quarto preview))) :which-key "quarto preview")
-  "r" '(markdown-export :which-key "render")
+  "p" '(markdown-export :which-key "preview (gh.css)")
   "o" '(markdown-follow-thing-at-point :which-key "open thing at point")
   "i" '(:ignore t :which-key "insert")
   "il" '(markdown-insert-link :which-key "link")

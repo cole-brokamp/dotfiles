@@ -14,3 +14,5 @@ options(
     Version = "0.1.0"
    )
  )
+
+Sys.setenv("ESS_BACKGROUND_MODE" = "dark")

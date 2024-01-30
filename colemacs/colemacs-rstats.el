@@ -54,6 +54,7 @@
   "dc" '(cole/ess-devtools-check :which-key "check")
   "dr" '(cole/ess-devtools-build-readme :which-key "build readme from Rmd")
   "ds" '(cole/ess-devtools-build-site :which-key "build pkgdown site")
+  "dm" '(cole/ess-devtools-build-manual :which-key "build pdf manual")
   "h" '(ess-help :which-key "help")
   "H" '(cole/ess-web-help :which-key "help in browser")
   "i" '(:ignore t :which-key "insert")
@@ -77,6 +78,10 @@
 (defun cole/ess-devtools-build-readme ()
   (interactive)
   (ess-eval-linewise "devtools::build_readme()"))
+
+(defun cole/ess-devtools-build-manual ()
+  (interactive)
+  (ess-eval-linewise "devtools::build_manual()"))
 
 (defun cole/ess-devtools-build-site ()
   (interactive)

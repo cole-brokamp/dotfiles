@@ -1,7 +1,6 @@
 (use-package format-all)
 (use-package reveal-in-osx-finder)
 (use-package buffer-move)
-(use-package restart-emacs)
 
 (use-package hl-todo
   :custom

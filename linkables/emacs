@@ -13,6 +13,8 @@
 (require 'colemacs-ivy)
 (require 'colemacs-autocomplete)
 
+(require 'colemacs-dired)
+
 (require 'colemacs-functions)
 
 (require 'colemacs-layouts)
@@ -21,7 +23,6 @@
 (require 'colemacs-shell)
 (require 'colemacs-lisp)
 
-(require 'colemacs-dired)
 (require 'colemacs-markdown)
 (require 'colemacs-treemacs)
 (require 'colemacs-rstats)

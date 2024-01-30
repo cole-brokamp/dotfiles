@@ -15,6 +15,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+
 ;; ask to update packages on startup if they haven't been updated in the past 7 days
 (use-package auto-package-update
   :custom

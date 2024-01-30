@@ -10,6 +10,16 @@
     :non-normal-prefix "C-,")
   )
 
+(use-package restart-emacs)
+(cole/leader-keys
+  "q" '(:ignore t :which-key "quit")
+  "qf" '(delete-frame :which-key "kill frame")
+  "qq" '(save-buffers-kill-emacs :which-key "quit")
+  "qr" '(restart-emacs :which-key "restart")
+  "qQ" '(restart-emacs '("no-desktop") :which-key "restart without saving desktop file")
+  "qN" '(restart-emacs-start-new-emacs :which-key "start new emacs")
+)
+
 (cole/leader-keys
   "SPC" '(counsel-M-x :which-key "M-x")
   "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
@@ -27,9 +37,6 @@
   "aB" '(ivy-bibtex :which-key "bibtex (global bib)")
   "ab" '(ivy-bibtex-with-local-bibliography :which-key "bibtex (local bib)") ; auto uses bib file from \bibliography in files!
   "ac" 'calendar
-  "ao" '(:ignore t :which-key "org")
-  "aoa" '(org-agenda :which-key "org agenda")
-  "aoc" '(counsel-org-capture :which-key "org capture")
   "as" '(vterm :which-key "new vterm shell")
   "b" '(:ignore t :which-key "buffers")
   "bM" '(buf-move :which-key "move buffer")
@@ -50,7 +57,7 @@
   "d" '(dired-jump :which-key "dired")
   "D" '(project-dired :which-key "dired in project root")
   "e" '(:ignore t :which-key "emacs")
-  "ed" '(cole/find-user-init-file :which-key "open emacs dotfile")
+  ;; "ed" '(cole/find-user-init-file :which-key "open emacs dotfile")
   "f" '(:ignore t :which-key "files")
   "fD" '(delete-file :which-key "delete file")
   "fS" '(evil-write-all :which-key "save all")
@@ -70,8 +77,8 @@
   "hp" 'describe-package
   "hr" '(repeat-complex-command :which-key "repeat complex command")
   "hv" 'describe-variable
-  "i" '(:ignore t :which-key :which-key "insert")
-  ;; "ie" '(emojify-insert-emoji :which-key "insert emoji")
+  "i" '(:ignore t :which-key "insert")
+  "ie" '(emoji-insert :which-key "insert emoji")
   "ij" '(evil-collection-unimpaired-insert-newline-below :which-key "insert line below")
   "ik" '(evil-collection-unimpaired-insert-newline-above :which-key "insert line above")
   "io" '(newline-and-indent :which-key "open line")
@@ -80,17 +87,12 @@
   "jf" '(evil-jump-forward :which-key "forward")
   "jj" '(evil-avy-goto-char-timer :which-key "to char")
   "jl" '(evil-avy-goto-line :which-key "to line")
+  "J" '(justl :which-key "just")
   "m" '(counsel-evil-marks :which-key "marks")
   "o" '(:ignore t :which-key "open")
   "oo" '(org-open-at-point-global :which-key "open thing at point")
   "ou" '(browse-url-at-point :which-key "open url at point")
   "ox" '(xwidget-webkit-browse-url :which-key "open url in xwidget webkit")
-  "q" '(:ignore t :which-key "quit")
-  "qf" '(delete-frame :which-key "kill frame")
-  "qq" '(save-buffers-kill-emacs :which-key "quit")
-  "qr" '(restart-emacs :which-key "restart")
-  "qQ" '(restart-emacs '("no-desktop") :which-key "restart without saving desktop file")
-  "qN" '(restart-emacs-start-new-emacs :which-key "start new emacs")
   "r" '(:ignore t :which-key "registers")
   "rf" '(frameset-to-register :which-key "frames save")
   "ri" '(insert-register :which-key "insert text")
@@ -133,9 +135,6 @@
   "zc" '(evil-close-fold :which-key "close fold")
   "zo" '(evil-open-fold-rec :which-key "open fold")
   "zz" '(evil-toggle-fold :which-key "toggle fold")
-  ;; "ad" docker
-  ;; "d" '((lambda () (interactive) (dired-single-magic-buffer )) :which-key "dired")
-  ;; TODO make a whole sub menus for treemacs? and a good shortcut for showing/jumping to/hiding the tree window
   )
 
 (provide 'colemacs-general)
