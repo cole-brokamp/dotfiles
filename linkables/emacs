@@ -30,7 +30,6 @@
 (require 'colemacs-rstats)
 (require 'colemacs-lang)
 
-(run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
 (setq gc-cons-threshold (* 1 1000 1000))
 
 ; track startup time
