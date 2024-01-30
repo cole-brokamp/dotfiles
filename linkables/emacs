@@ -27,7 +27,6 @@
 (require 'colemacs-treemacs)
 (require 'colemacs-rstats)
 (require 'colemacs-spelling)
-;; (require 'colemacs-latex)
 (require 'colemacs-lang)
 (require 'colemacs-applications)
 (require 'colemacs-pdf)
