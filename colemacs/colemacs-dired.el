@@ -1,3 +1,8 @@
+(cole/leader-keys
+  "d" '(dired-jump :which-key "dired")
+  "D" '(project-dired :which-key "dired in project root")
+  )
+
 (use-package dired
   :commands (dired)
   :ensure nil
@@ -34,7 +39,7 @@
 ;; use TAB to toggle open subtrees in dired
 (use-package dired-subtree
   :custom
-  (dired-subtree-line-prefix "     ")
+  (dired-subtree-line-prefix "    ")
   (dired-subtree-use-backgrounds nil))
 
 
