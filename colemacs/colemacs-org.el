@@ -1,7 +1,7 @@
 (cole/leader-keys
-  "ao" '(:ignore t :which-key "org")
-  "aoa" '(org-agenda :which-key "org agenda")
-  "aoc" '(counsel-org-capture :which-key "org capture")
+  "O" '(:ignore t :which-key "org")
+  "Oa" '(org-agenda :which-key "org agenda")
+  "Oc" '(counsel-org-capture :which-key "org capture")
 )
 
 (cole/local-leader-keys org-mode-map

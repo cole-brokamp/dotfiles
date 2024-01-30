@@ -13,4 +13,9 @@
 
 (use-package rust-mode)
 
+(use-package doc-view
+  :custom
+  (doc-view-resolution '300)
+)
+
 (provide 'colemacs-lang)

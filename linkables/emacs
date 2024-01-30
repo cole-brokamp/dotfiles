@@ -9,6 +9,7 @@
 (require 'colemacs-package)
 (require 'colemacs-general)
 (require 'colemacs-ui)
+(require 'colemacs-jump-search)
 
 (require 'colemacs-evil)
 (require 'colemacs-ivy)
@@ -18,19 +19,16 @@
 (require 'colemacs-files-buffers)
 
 (require 'colemacs-dired)
-(require 'colemacs-quit)
 (require 'colemacs-lisp)
 
 (require 'colemacs-git)
 (require 'colemacs-compile)
 (require 'colemacs-org)
 (require 'colemacs-shell)
-(require 'colemacs-spelling)
 
 (require 'colemacs-markdown)
 (require 'colemacs-rstats)
 (require 'colemacs-lang)
-(require 'colemacs-pdf)
 
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
 (setq gc-cons-threshold (* 1 1000 1000))
