@@ -69,4 +69,9 @@
   "zz" '(evil-toggle-fold :which-key "toggle fold")
   )
 
+(use-package avy
+  :config
+  (setq avy-background t))
+
+
 (provide 'colemacs-general)
