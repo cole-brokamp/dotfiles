@@ -54,6 +54,7 @@
   "wk" '(evil-window-up :which-key "focus up")
   "wl" '(evil-window-right :which-key "focus right")
   "wm" '(cole/toggle-maximize-buffer :which-key "maximize window")
+  "wr" '((lambda () (interactive) (cole/resize-window/body)) :which-key "resize window")
 )
 
 (defun cole/split-window-below-and-focus ()
@@ -78,5 +79,13 @@
       (progn
 	(window-configuration-to-register ?_)
 	(delete-other-windows)))))
+
+(defhydra cole/resize-window ()
+  "resize windows"
+  ("j" evil-window-increase-height "increase height")
+  ("k" evil-window-decrease-height "decrease height")
+  ("l" evil-window-increase-width "increase width")
+  ("h" evil-window-decrease-width "decrease width")
+  ("q" nil "quit" :exit t))
 
 (provide 'colemacs-layouts-windows-projects)

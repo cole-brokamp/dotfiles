@@ -12,32 +12,14 @@
 
 (cole/leader-keys
   "SPC" '(counsel-M-x :which-key "M-x")
-  "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
   "#" '(:ignore :which-key "server edit")
   "##" '(server-edit :which-key "done")
   "#a" '(server-edit :which-key "abort")
   "/" 'swiper-all
-  "|" 'shell-command-on-region
-  "'" '(vterm-toggle-cd :which-key "shell")
-  "\"" '(vterm-toggle-show :which-key "new shell")
   ";" '(evilnc-comment-or-uncomment-lines :which-key "comment operator")
-  "&" '(async-shell-command :which-key "async shell command")
-  ":" '(shell-command :which-key "shell command")
   )
 
 (cole/leader-keys
-  "a" '(:ignore t :which-key "applications")
-  "aB" '(ivy-bibtex :which-key "bibtex (global bib)")
-  "ab" '(ivy-bibtex-with-local-bibliography :which-key "bibtex (local bib)") ; auto uses bib file from \bibliography in files!
-  "ac" 'calendar
-  "as" '(vterm :which-key "new vterm shell")
-  )
-
-(cole/leader-keys
-  "c" '(:ignore t :which-key "compile")
-  "cc" '(projectile-compile-project :which-key "compile")
-  "cd" '(cole/show-hide-compilation-window :which-key "show/hide compilation window")
-  "ck" '(kill-compilation :which-key "kill compilation")
   "e" '(:ignore t :which-key "emacs")
   "h" '(:ignore t :which-key "help")
   "h." 'display-local-help
@@ -62,7 +44,6 @@
   "jf" '(evil-jump-forward :which-key "forward")
   "jj" '(evil-avy-goto-char-timer :which-key "to char")
   "jl" '(evil-avy-goto-line :which-key "to line")
-  "J" '(justl :which-key "just")
   "m" '(counsel-evil-marks :which-key "marks")
   "o" '(:ignore t :which-key "open")
   "oo" '(org-open-at-point-global :which-key "open thing at point")
@@ -80,15 +61,6 @@
   "sp" '(projectile-ag :which-key "search in project files")
   "sr" '(query-replace :which-key "search and replace")
   "ss" '(swiper :which-key "swiper")
-  "t"  '(:ignore t :which-key "toggles")
-  "tL" '(visual-line-mode :which-key "visual line mode")
-  "tc" '(flymake-mode :which-key "checking code")
-  "tf" '(toggle-frame-fullscreen :which-key "full screen")
-  "ti" '(highlight-indent-guides-mode :which-key "indent highlights")
-  "tl" '(toggle-truncate-lines :which-key "truncate lines")
-  "tm" '(toggle-frame-maximized :which-key "maximize screen")
-  "tn" '(display-line-numbers-mode :which-key "numbers for lines")
-  "tt" '(counsel-load-theme :which-key "choose theme")
   "z" '(:ignore t :which-key "fold")
   "zC" '(evil-close-folds :which-key "close all folds")
   "zO" '(evil-open-folds :which-key "open all folds")

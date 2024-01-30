@@ -1,4 +1,6 @@
 (cole/leader-keys
+  "=" '(format-all-buffer)
+  "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
   "b" '(:ignore t :which-key "buffers")
   "bM" '(buf-move :which-key "move buffer")
   "bR" '(font-lock-update :which-key "reload font locks")
@@ -12,6 +14,10 @@
   "br" '(revert-buffer :which-key "reload from disk")
   "bs" '(cole/switch-to-scratch-buffer :which-key "scratch buffer")
   )
+
+(use-package buffer-move)
+(use-package reveal-in-osx-finder)
+(use-package format-all)
 
 (cole/leader-keys
   "f" '(:ignore t :which-key "files")

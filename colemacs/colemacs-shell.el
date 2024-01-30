@@ -1,10 +1,18 @@
+(cole/leader-keys
+  "a" '(:ignore t :which-key "applications")
+  "'" '(vterm-toggle-cd :which-key "shell")
+  "\"" '(vterm :which-key "new shell")
+  ":" '(shell-command :which-key "shell command")
+  "|" 'shell-command-on-region
+  "&" '(async-shell-command :which-key "async shell command")
+  )
+
 (use-package exec-path-from-shell
   :init
   (exec-path-from-shell-initialize))
 
 (use-package vterm
   :custom
-  (vterm-kill-buffer-on-exit t)
   (vterm-buffer-name-string "vterm %s")
   (vterm-always-compile-module t)
   (vterm-use-vterm-prompt-detection-method t)

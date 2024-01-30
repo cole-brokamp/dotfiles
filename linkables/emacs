@@ -7,8 +7,8 @@
 
 (require 'colemacs-basic)
 (require 'colemacs-package)
-(require 'colemacs-ui)
 (require 'colemacs-general)
+(require 'colemacs-ui)
 
 (require 'colemacs-evil)
 (require 'colemacs-ivy)
@@ -22,16 +22,16 @@
 (require 'colemacs-lisp)
 
 (require 'colemacs-git)
-; (require 'colemacs-compile)
-;; (require 'colemacs-org)
-;; (require 'colemacs-shell)
-; (require 'colemacs-spelling)
-; (require 'colemacs-applications)
+(require 'colemacs-compile)
+(require 'colemacs-org)
+(require 'colemacs-shell)
+(require 'colemacs-spelling)
+(require 'colemacs-applications)
 
-; (require 'colemacs-markdown)
-; (require 'colemacs-rstats)
-; (require 'colemacs-lang)
-; (require 'colemacs-pdf)
+(require 'colemacs-markdown)
+(require 'colemacs-rstats)
+(require 'colemacs-lang)
+(require 'colemacs-pdf)
 
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
 (setq gc-cons-threshold (* 1 1000 1000))

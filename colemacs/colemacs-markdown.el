@@ -1,26 +1,3 @@
-(use-package markdown-mode
-  :custom
-  (markdown-command "pandoc --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --embed-resources --standalone --css ~/dotfiles/resources/github-pandoc.css")
-  (markdown-header-scaling t)
-  (markdown-header-scaling-values '(1.2 1.15 1.1 1.05 1 1))
-  (markdown-list-item-bullets '("►" "●" "•" "○" "◆" "◇" "-"))
-  (markdown-list-indent-width 2)
-  :config
-  (set-face-attribute 'markdown-header-face-1 nil :foreground "#fff0bd")
-  (set-face-attribute 'markdown-header-face-2 nil :foreground "#5c7ae0")
-  (set-face-attribute 'markdown-header-face-3 nil :foreground "#23a39a")
-  (set-face-attribute 'markdown-header-face-4 nil :foreground "#81c87c")
-  (set-face-attribute 'markdown-header-delimiter-face nil :foreground "#474747")
-  (set-face-attribute 'markdown-italic-face nil :foreground "#fff0bd")
-  (set-face-attribute 'markdown-html-attr-name-face nil :foreground "#9f7161")
-  (set-face-attribute 'markdown-html-attr-value-face nil :foreground "#c08b4c")
-  (set-face-attribute 'markdown-list-face nil :foreground "#6a6a6a")
-  )
-
-(use-package grip-mode)
-;; (use-package quarto-mode
-;;   :custom quarto-force-preview nil)
-
 (cole/local-leader-keys markdown-mode-map
   "P" '(grip-mode :which-key "preview (grip)")
   ;; "q" '((lambda () (interactive) (async-shell-command '(quarto preview))) :which-key "quarto preview")
@@ -44,13 +21,28 @@
   "xb" '(markdown-insert-bold :which-key "bold")
   )
 
-(use-package mermaid-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.mmd" . mermaid-mode))
+(use-package markdown-mode
   :custom
-  (mermaid-output-format ".svg")
-  ;; (mermaid-output-format ".png")
-  (mermaid-flags "--scale 4 --pdfFit"))
+  (markdown-command "pandoc --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --embed-resources --standalone --css ~/dotfiles/resources/github-pandoc.css")
+  (markdown-header-scaling t)
+  (markdown-header-scaling-values '(1.2 1.15 1.1 1.05 1 1))
+  (markdown-list-item-bullets '("►" "●" "•" "○" "◆" "◇" "-"))
+  (markdown-list-indent-width 2)
+  :config
+  (set-face-attribute 'markdown-header-face-1 nil :foreground "#fff0bd")
+  (set-face-attribute 'markdown-header-face-2 nil :foreground "#5c7ae0")
+  (set-face-attribute 'markdown-header-face-3 nil :foreground "#23a39a")
+  (set-face-attribute 'markdown-header-face-4 nil :foreground "#81c87c")
+  (set-face-attribute 'markdown-header-delimiter-face nil :foreground "#474747")
+  (set-face-attribute 'markdown-italic-face nil :foreground "#fff0bd")
+  (set-face-attribute 'markdown-html-attr-name-face nil :foreground "#9f7161")
+  (set-face-attribute 'markdown-html-attr-value-face nil :foreground "#c08b4c")
+  (set-face-attribute 'markdown-list-face nil :foreground "#6a6a6a")
+  )
+
+(use-package grip-mode)
+;; (use-package quarto-mode
+;;   :custom quarto-force-preview nil)
 
 (cole/local-leader-keys mermaid-mode-map
   "r" '(:ignore t :which-key "render")
@@ -59,6 +51,15 @@
   "rp" '(cole/mermaid-compile-png :which-key "render to .png file")
   "h" '(mermaid-open-doc :which-key "help open doc")
   "o" '(mermaid-open-browser :which-key "edit in online editor"))
+
+
+(use-package mermaid-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.mmd" . mermaid-mode))
+  :custom
+  (mermaid-output-format ".svg")
+  ;; (mermaid-output-format ".png")
+  (mermaid-flags "--scale 4 --pdfFit"))
 
 (defun cole/mermaid-compile-png ()
   (interactive)

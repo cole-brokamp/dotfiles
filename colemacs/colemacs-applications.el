@@ -1,7 +1,3 @@
-(use-package format-all)
-(use-package reveal-in-osx-finder)
-(use-package buffer-move)
-
 (use-package hl-todo
   :custom
   (hl-todo-color-background t)
@@ -18,7 +14,6 @@
 
 ;; hydras ====================================================
 
-(use-package hydra)
 
 (defhydra cole/present ()
   "presentation"
@@ -26,17 +21,6 @@
   ("n" org-tree-slide-move-next-tree "next")
   ("p" org-tree-slide-move-previous-tree "previous")
   ("q" nil "quit" :exit t)) ;; how to add another "org-tree-slide-mode 0" to turn it off when quitting the hydra
-
-(cole/leader-keys
-  "gt" '(cole/git-timemachine "time machine"))
-
-(defhydra cole/git-timemachine ()
-  "git-timemachine"
-  ("j" git-timemachine-show-next-revision "next revision")
-  ("k" git-timemachine-show-previous-revision "previous revision")
-  ("c" git-timemachine-show-commit "show commit")
-  ("y" git-timemachine-kill-abbreviated-revision "yank short hash")
-  ("q" git-timemachine-quit "quit" :exit t))
 
 (cole/leader-keys
   "ts" '((lambda () (interactive) (cole/scale-text/body)) :which-key "scale text"))
@@ -47,15 +31,5 @@
   ("k" text-scale-decrease "out")
   ("q" nil "quit" :exit t))
 
-(cole/leader-keys
-  "wr" '((lambda () (interactive) (cole/resize-window/body)) :which-key "resize window"))
-
-(defhydra cole/resize-window ()
-  "resize windows"
-  ("j" evil-window-increase-height "increase height")
-  ("k" evil-window-decrease-height "decrease height")
-  ("l" evil-window-increase-width "increase width")
-  ("h" evil-window-decrease-width "decrease width")
-  ("q" nil "quit" :exit t))
 
 (provide 'colemacs-applications)
