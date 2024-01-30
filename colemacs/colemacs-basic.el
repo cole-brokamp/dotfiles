@@ -8,10 +8,10 @@
 (setq make-backup-files nil)
 (setq delete-by-moving-to-trash t)
 (setq initial-scratch-message nil)
-(setq initial-major-mode 'org-mode)
+(setq initial-major-mode 'R-mode)
 (setq confirm-kill-emacs 'y-or-n-p)
 (global-hl-line-mode 1)
-;; (setq-default frame-title-format "%b (%f)")
+(setq-default frame-title-format "%b (%f)")
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq help-window-select t)
 (global-auto-revert-mode 1)
@@ -41,6 +41,33 @@
 ;; thresholds for "other" windows
 (setq split-height-threshold 80)
 (setq split-width-threshold 160)
+
+(setq use-dialog-box nil)
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
+(global-prettify-symbols-mode 1)
+
+(setq display-time-load-average-threshold 5
+      display-time-day-and-date t)
+(display-time)
+
+(column-number-mode)
+(global-visual-line-mode 1)
+
+(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; {light, dark}
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+
+(setq scroll-margin 2)
+;; (pixel-scroll-mode)
+;; (pixel-scroll-precision-mode)
+;; (setq pixel-scroll-precision-use-momentum nil)
+
+; fonts
+(set-face-attribute 'default nil :font "Source Code Pro" :height 150)
+(set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 150)
+; to show emojis
+(when (>= emacs-major-version 27)
+  (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
 
 
 (provide 'colemacs-basic)

@@ -1,34 +1,3 @@
-(setq use-dialog-box nil)
-(setq visible-bell nil)
-(setq ring-bell-function 'ignore)
-(global-prettify-symbols-mode 1)
-
-(setq display-time-load-average-threshold 5
-      display-time-day-and-date t)
-(display-time)
-
-(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; {light, dark}
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-
-;; (pixel-scroll-mode)
-;; (pixel-scroll-precision-mode)
-;; (setq pixel-scroll-precision-use-momentum nil)
-(setq scroll-margin 2)
-
-;; line numbers
-(column-number-mode)
-; (global-display-line-numbers-mode t)
-(global-visual-line-mode 1)
-(setq display-line-numbers 'relative)
-(setq display-line-numbers-type 'relative)
-
-; enable line numbers for some modes
-(dolist (mode '(
-		ess-mode-hook
-		ess-r-mode-hook
-		))
-  (add-hook mode (lambda () (display-line-numbers-mode 1))))
-
 ;; use xwidget support built in on macOS and emacs 29, but only for certain URLs
 (setq browse-url-browser-function 'xwidget-webkit-browse-url)
 (setq browse-url-default-scheme "https")
@@ -36,20 +5,11 @@
       '(("127.0.0.1.*" . xwidget-webkit-browse-url)
 	("." . browse-url-default-browser)))
 
-; fonts
-(set-face-attribute 'default nil :font "Source Code Pro" :height 150)
-(set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 150)
-
 (use-package all-the-icons)
 ;; don't forget to run all-the-icons-install-fonts
 
 (use-package all-the-icons-ivy-rich)
 (use-package all-the-icons-ibuffer)
-
-
-; to show emojis
-(when (>= emacs-major-version 27)
-  (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
 
 (use-package highlight-indent-guides
   :custom

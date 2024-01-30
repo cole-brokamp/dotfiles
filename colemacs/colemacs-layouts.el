@@ -1,3 +1,28 @@
+(defun cole/split-window-below-and-focus ()
+  "Split the window vertically and focus the new window."
+  (interactive)
+  (split-window-below)
+  (windmove-down))
+
+(defun cole/split-window-right-and-focus ()
+  "Split the window horizontally and focus the new window."
+  (interactive)
+  (split-window-right)
+  (windmove-right))
+
+(defun cole/toggle-maximize-buffer ()
+  "Maximize buffer"
+  (interactive)
+  (save-excursion
+    (if (and (= 1 (length (window-list)))
+	     (assoc ?_ register-alist))
+	(jump-to-register ?_)
+      (progn
+	(window-configuration-to-register ?_)
+	(delete-other-windows)))))
+
+
+
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)

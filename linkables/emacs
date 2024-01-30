@@ -8,27 +8,27 @@
 (require 'colemacs-basic)
 (require 'colemacs-package)
 (require 'colemacs-general)
-(require 'colemacs-ui)
+
 (require 'colemacs-evil)
+(require 'colemacs-ui)
 (require 'colemacs-ivy)
 (require 'colemacs-autocomplete)
 
+
+(require 'colemacs-compile)
 (require 'colemacs-dired)
-
-(require 'colemacs-functions)
-
 (require 'colemacs-layouts)
 (require 'colemacs-git)
 (require 'colemacs-org)
-(require 'colemacs-shell)
+;; (require 'colemacs-shell)
+(require 'colemacs-spelling)
+(require 'colemacs-applications)
+
 (require 'colemacs-lisp)
 
 (require 'colemacs-markdown)
-(require 'colemacs-treemacs)
 (require 'colemacs-rstats)
-(require 'colemacs-spelling)
 (require 'colemacs-lang)
-(require 'colemacs-applications)
 (require 'colemacs-pdf)
 
 (run-with-idle-timer 0.1 nil 'toggle-frame-maximized)
