@@ -49,5 +49,8 @@
   (evil-collection-init))
 
 (use-package evil-nerd-commenter)
+(cole/leader-keys
+  ";" '(evilnc-comment-or-uncomment-lines :which-key "comment operator")
+  )
 
 (provide 'colemacs-evil)

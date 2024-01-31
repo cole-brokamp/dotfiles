@@ -12,10 +12,12 @@
 
 (cole/leader-keys
   "SPC" '(counsel-M-x :which-key "M-x")
+  )
+
+(cole/leader-keys
   "#" '(:ignore :which-key "server edit")
   "##" '(server-edit :which-key "done")
   "#a" '(server-edit :which-key "abort")
-  ";" '(evilnc-comment-or-uncomment-lines :which-key "comment operator")
   )
 
 (cole/leader-keys
