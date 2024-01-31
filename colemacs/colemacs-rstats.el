@@ -57,8 +57,6 @@
   "dm" '(cole/ess-devtools-build-manual :which-key "build pdf manual")
   "h" '(ess-help :which-key "help")
   "H" '(cole/ess-web-help :which-key "help in browser")
-  "i" '(:ignore t :which-key "insert")
-  "ic" '(cole/ess-insert-r-code-chunk :which-key "chunk")
   "c" '(:ignore t :which-key "chunks")
   "r" '(:ignore t :which-key "renv")
   "rs" '(cole/ess-renv-status :which-key "status")
@@ -130,14 +128,6 @@
 (defun cole/ess-graphics-view ()
   (interactive)
   (ess-eval-linewise "if (!names(dev.cur()) == 'httpgd') httpgd::hgd(silent = TRUE); httpgd::hgd_browse()"))
-
-(defun cole/ess-insert-r-code-chunk ()
-  "Insert an R Markdown code chunk."
-  (interactive)
-  (insert "```{r}\n")
-  (save-excursion
-    (insert "\n")
-    (insert "```\n")))
 
 (defun cole/insert-pipe ()
   "Insert a |>"

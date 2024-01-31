@@ -4,6 +4,7 @@
   "p" '(markdown-export :which-key "preview (gh.css)")
   "o" '(markdown-follow-thing-at-point :which-key "open thing at point")
   "i" '(:ignore t :which-key "insert")
+  "ic" '(cole/ess-insert-r-code-chunk :which-key "chunk")
   "il" '(markdown-insert-link :which-key "link")
   "if" '(markdown-insert-footnote :which-key "footnote")
   "iF" '(markdown-insert-foldable-block :which-key "foldable block")
@@ -20,6 +21,15 @@
   "xi" '(markdown-insert-italic :which-key "italic")
   "xb" '(markdown-insert-bold :which-key "bold")
   )
+
+(defun cole/ess-insert-r-code-chunk ()
+  "Insert an R Markdown code chunk."
+  (interactive)
+  (insert "```{r}\n")
+  (save-excursion
+    (insert "\n")
+    (insert "```\n")))
+
 
 (use-package markdown-mode
   :custom
