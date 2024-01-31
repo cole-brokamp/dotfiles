@@ -2,3 +2,4 @@
 rds_credentials
 secrets.sh
 *.swp
+/.DS_Store

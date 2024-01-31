@@ -20,8 +20,8 @@
 (use-package justl
   :custom
   (justl-executable "/opt/homebrew/bin/just")
-  :hook
-  (justl-mode . turn-off-evil-mode)
+  ;; :hook
+  ;; (justl-mode . turn-off-evil-mode)
 )
 
 (defun cole/switch-to-compilation-buffer ()
