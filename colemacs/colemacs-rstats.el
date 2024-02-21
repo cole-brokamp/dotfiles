@@ -45,6 +45,7 @@
   "=" '(format-all-buffer t :which-key "format buffer")
   "t" '(:ignore t :which-key "test")
   "tt" '(cole/ess-devtools-test :which-key "test")
+  "tf" '(cole/ess-devtools-test-file :which-key "test file")
   "tc" '(cole/ess-devtools-test-coverage :which-key "test coverage")
   "ts" '(cole/ess-devtools-snapshot-review :which-key "snapshot review")
   "d" '(:ignore t :which-key "devtools")
@@ -84,6 +85,11 @@
 (defun cole/ess-devtools-build-site ()
   (interactive)
   (ess-eval-linewise "pkgdown::build_site()"))
+
+; TODO how to get file name of active buffer?
+(defun cole/ess-devtools-test-file ()
+  (interactive)
+  (ess-eval-linewise "testthat::test_file()"))
 
 (defun cole/ess-devtools-document ()
   (interactive)

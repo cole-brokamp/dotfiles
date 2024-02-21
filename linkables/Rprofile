@@ -16,3 +16,4 @@ options(
  )
 
 Sys.setenv("ESS_BACKGROUND_MODE" = "dark")
+Sys.setenv("TESTTHAT_CPUS" = 4)

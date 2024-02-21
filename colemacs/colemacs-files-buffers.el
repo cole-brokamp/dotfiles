@@ -2,20 +2,20 @@
   "=" '(format-all-buffer)
   "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
   "b" '(:ignore t :which-key "buffers")
-  "bM" '(buf-move :which-key "move buffer")
+  "bm" '(buf-move :which-key "move buffer")
   "bR" '(font-lock-update :which-key "reload font locks")
   "bb" '(counsel-switch-buffer :which-key "switch to buffer")
   "bB" '(projectile-ibuffer :which-key "ibuffer in project")
   "bd" '(kill-current-buffer :which-key "delete buffer")
   "bf" '(reveal-in-osx-finder :which-key "show buffer in finder")
   "bi" '(ibuffer :which-key "ibuffer")
-  "bm" '(cole/switch-to-messages-buffer :which-key "messages buffer")
   "bn" '(cole/buffer-file-name :which-key "copy buffer filename")
   "br" '(revert-buffer :which-key "reload from disk")
   "bs" '(cole/switch-to-scratch-buffer :which-key "scratch buffer")
   )
 
 (use-package buffer-move)
+; TODO create hydra for buffer-move
 (use-package reveal-in-osx-finder)
 (use-package format-all)
 
