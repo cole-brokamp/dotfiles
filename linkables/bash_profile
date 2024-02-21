@@ -45,7 +45,7 @@ PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 
 # Solarized colorscheme for GNU `ls`:
-eval `gdircolors --sh ~/dotfiles/resources/dircolors-solarized`
+eval `dircolors --sh ~/dotfiles/resources/dircolors-solarized`
 
 PATH="$PATH:~/dotfiles/bin"
-. "$HOME/.cargo/env"
+PATH="$PATH:~/.cargo/bin"
