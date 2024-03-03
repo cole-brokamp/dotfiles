@@ -13,15 +13,6 @@ purple=$(tput setaf 61)
 purpleB=$(tput setab 61)
 red=$(tput setaf 160)
 
-# change prompt colors inside of emacs
-if [ -n "$INSIDE_EMACS" ]; then
-    blue=$(tput setaf 4)
-    green=$(tput setaf 2)
-    yellow=$(tput setaf 3)
-    red=$(tput setaf 1)
-    purple=$(tput setaf 5)
-fi
-
 find_git_dirty() {
   local status=$(git status --porcelain 2> /dev/null)
   if [[ "$status" != "" ]]; then

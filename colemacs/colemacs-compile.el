@@ -1,7 +1,8 @@
 (cole/leader-keys
   "c" '(:ignore t :which-key "compile")
   "cc" '(projectile-compile-project :which-key "compile")
-  "cd" '(cole/show-hide-compilation-window :which-key "show/hide compilation window")
+  "cb" '(cole/switch-to-compilation-buffer :which-key "switch to comilation buffer")
+  "cd" '(cole/show-hide-compilation-window :which-key "hide compilation window")
   "ck" '(kill-compilation :which-key "kill compilation")
   "J" '(justl :which-key "just")
   )
@@ -23,6 +24,9 @@
   ;; :hook
   ;; (justl-mode . turn-off-evil-mode)
 )
+
+; start compilation minor mode after shell does to run compilations in shell
+(add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
 
 (defun cole/switch-to-compilation-buffer ()
   "Go to last compilation buffer."

@@ -22,7 +22,3 @@ alias docker_update_all='docker images | grep -v REPOSITORY | awk '\''{print $1 
 
 # on mac, cd to current finder window
 alias cdf='cd "`osascript -e "tell application \\"Finder\\" to get POSIX path of (insertion location as alias)"`"'
-
-# # use gnu ls for better colors?? (link all coreutils in homebrew??)
-# alias ls='gls -Fhgo --color --group-directories-first'
-# alias dircolors='gdircolors'
