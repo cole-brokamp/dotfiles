@@ -33,6 +33,8 @@ brew install htop
 # brew install sshuttle
 brew install awscli
 brew install vim
+brew install just
+brew install watchexec
 
 # a/v
 # brew install asciinema

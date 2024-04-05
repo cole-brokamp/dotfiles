@@ -9,9 +9,7 @@
   "bd" '(kill-current-buffer :which-key "delete buffer")
   "bf" '(reveal-in-osx-finder :which-key "show buffer in finder")
   "bi" '(ibuffer :which-key "ibuffer")
-  "bn" '(cole/buffer-file-name :which-key "copy buffer filename")
   "br" '(revert-buffer :which-key "reload from disk")
-  "bs" '(cole/switch-to-scratch-buffer :which-key "scratch buffer")
   )
 
 (use-package buffer-move)
@@ -25,6 +23,8 @@
   "fS" '(evil-write-all :which-key "save all")
   "ff" '(counsel-find-file :which-key "find file")
   "fs" '(save-buffer :which-key "save")
+  "fR" '(recover-this-file :which-key "recover this file")
+  "fr" '(rename-file :which-key "rename file")
   )
 
 (provide 'colemacs-files-buffers)
