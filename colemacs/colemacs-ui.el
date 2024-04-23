@@ -7,7 +7,12 @@
   "tm" '(toggle-frame-maximized :which-key "maximize screen")
   "tn" '(display-line-numbers-mode :which-key "numbers for lines")
   "tt" '(counsel-load-theme :which-key "choose theme")
+  "tv" '(variable-pitch-mode :which-key "variable pitch")
   )
+
+(custom-theme-set-faces
+ 'user
+ '(variable-pitch ((t (:family "Arial")))))
 
 (use-package all-the-icons)
 ;; don't forget to run all-the-icons-install-fonts

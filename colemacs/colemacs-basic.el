@@ -4,7 +4,7 @@
 (tooltip-mode -1)
 (set-fringe-mode 10)
 (menu-bar-mode -1)
-(desktop-save-mode 1)
+;; (desktop-save-mode 1)
 (setq make-backup-files nil)
 (setq delete-by-moving-to-trash t)
 (setq initial-scratch-message nil)
