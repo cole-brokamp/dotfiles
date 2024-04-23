@@ -1,3 +1,6 @@
+(recentf-mode)
+(desktop-save-mode 1)
+
 (cole/leader-keys
   "=" '(format-all-buffer)
   "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
@@ -10,6 +13,7 @@
   "bf" '(reveal-in-osx-finder :which-key "show buffer in finder")
   "bi" '(ibuffer :which-key "ibuffer")
   "br" '(revert-buffer :which-key "reload from disk")
+  "bX" '(desktop-clear :which-key "close ALL the buffers")
   )
 
 (use-package buffer-move)
@@ -23,8 +27,9 @@
   "fS" '(evil-write-all :which-key "save all")
   "ff" '(counsel-find-file :which-key "find file")
   "fs" '(save-buffer :which-key "save")
-  "fR" '(recover-this-file :which-key "recover this file")
-  "fr" '(rename-file :which-key "rename file")
+  "fr" '(counsel-recentf :which-key "recent file")
+  "f!" '(recover-this-file :which-key "recover this file from autosave")
+  "fR" '(rename-file :which-key "rename file")
   )
 
 (provide 'colemacs-files-buffers)

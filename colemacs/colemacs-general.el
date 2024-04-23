@@ -1,12 +1,23 @@
 (use-package general
+  :init
+  (setq general-override-states '(insert
+				  emacs
+				  hybrid
+				  normal
+				  visual
+				  motion
+				  operator
+				  replace))
   :config
   (general-create-definer cole/leader-keys
-    :states '(normal insert visual)
+    :states '(normal insert visual motion)
     :prefix "SPC"
+    :keymaps 'override
     :non-normal-prefix "C-SPC")
   (general-create-definer cole/local-leader-keys
-    :states '(normal insert visual)
+    :states '(normal insert visual motion)
     :prefix ","
+    :keymaps 'override
     :non-normal-prefix "C-,")
   )
 
