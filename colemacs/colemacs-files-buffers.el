@@ -2,7 +2,7 @@
 (desktop-save-mode 1)
 
 (cole/leader-keys
-  "=" '(format-all-buffer)
+  "=" '(format-all-buffer :which-key "format buffer")
   "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
   "b" '(:ignore t :which-key "buffers")
   "bm" '(buf-move :which-key "move buffer")

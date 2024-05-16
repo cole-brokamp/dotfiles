@@ -3,24 +3,27 @@
   (global-company-mode)
   :custom
   (company-insertion-on-trigger nil)
-  (company-idle-delay nil)
+  (company-idle-delay (lambda () (if (company-in-string-or-comment) nil 0.0)))
   (company-minimum-prefix-length 1)
   (company-selection-wrap-around t)
   (company-require-match 'never)
   ;; (company-dabbrev-downcase nil)
   ;; (company-dabbrev-ignore-case t)
   (company-frontends
-   '(company-pseudo-tooltip-unless-just-one-frontend
+   '(company-pseudo-tooltip-frontend
      company-echo-metadata-frontend
      company-preview-frontend))
   (company-backends
    '(company-capf
+     company-dabbrev-code
+     company-keywords
+     company-dabbrev
      company-files
-     company-dabbrev-code))
+     company-ispell))
   :bind (:map company-active-map ("<tab>" . company-complete))
   )
 
-;; (global-set-key (kbd "<tab>") #'company-complete)
+(global-set-key (kbd "C-p") #'company-complete)
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
