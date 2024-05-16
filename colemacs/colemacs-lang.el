@@ -18,4 +18,14 @@
   (doc-view-resolution '300)
 )
 
+(cole/local-leader-keys doc-view-mode-map
+  ;; "q" '((lambda () (interactive) (async-shell-command '(quarto preview))) :which-key "quarto preview")
+  "W" '(doc-view-fit-width-to-window :which-key "fit width to window")
+  "H" '(doc-view-fit-height-to-window :which-key "fit height to window")
+  "f" '(doc-view-presentation-mode :which-key "full screen")
+  "F" '(doc-view-presentation-exit :which-key "exit full screen")
+  "j" '(doc-view-next-line-or-next-page :which-key "scroll down")
+  "k" '(doc-view-previous-line-or-previous-page :which-key "scroll down")
+  )
+
 (provide 'colemacs-lang)

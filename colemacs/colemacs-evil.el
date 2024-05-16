@@ -35,7 +35,7 @@
 (use-package evil-escape
   :init
   (setq-default evil-escape-key-sequence "jk")
-  (setq-default evil-escape-delay 0.1)
+  (setq-default evil-escape-delay 0.2)
   :config
   (evil-escape-mode 1))
 
@@ -47,6 +47,9 @@
   :after evil
   :config
   (evil-collection-init))
+; bind to a prefix?
+'(evil-collection-unimpaired-move-text-up)
+'(evil-collection-unimpaired-move-text-down)
 
 (use-package evil-nerd-commenter)
 (cole/leader-keys

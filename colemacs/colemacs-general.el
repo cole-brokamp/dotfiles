@@ -49,23 +49,18 @@
 
 (cole/leader-keys
   "i" '(:ignore t :which-key "insert")
+  "ic" '(counsel-colors-web :which-key "color (web)")
+  "iC" '(counsel-colors-emacs :which-key "color (emacs)")
   "ie" '(emoji-insert :which-key "insert emoji")
   "ij" '(evil-collection-unimpaired-insert-newline-below :which-key "insert line below")
   "ik" '(evil-collection-unimpaired-insert-newline-above :which-key "insert line above")
+  "iJ" '(evil-collection-unimpaired-paste-below :which-key "paste line below")
+  "iK" '(evil-collection-unimpaired-paste-above :which-key "paste line above")
   "io" '(newline-and-indent :which-key "open line")
-  "m" '(counsel-evil-marks :which-key "marks")
   )
 
 (cole/leader-keys
   "m" '(counsel-evil-marks :which-key "marks")
-  )
-
-(cole/leader-keys
-  "i" '(:ignore t :which-key "insert")
-  "ie" '(emoji-insert :which-key "insert emoji")
-  "ij" '(evil-collection-unimpaired-insert-newline-below :which-key "insert line below")
-  "ik" '(evil-collection-unimpaired-insert-newline-above :which-key "insert line above")
-  "io" '(newline-and-indent :which-key "open line")
   )
 
 (cole/leader-keys
