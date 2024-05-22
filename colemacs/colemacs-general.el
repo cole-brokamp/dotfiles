@@ -26,12 +26,6 @@
   )
 
 (cole/leader-keys
-  "#" '(:ignore :which-key "server edit")
-  "##" '(server-edit :which-key "done")
-  "#a" '(server-edit :which-key "abort")
-  )
-
-(cole/leader-keys
   "h" '(:ignore t :which-key "help")
   "h." 'display-local-help
   "hF" 'counsel-faces
@@ -94,7 +88,7 @@
   "qf" '(delete-frame :which-key "kill frame")
   "qq" '(save-buffers-kill-emacs :which-key "quit")
   "qr" '(restart-emacs :which-key "restart")
-  ;; "qQ" '(restart-emacs '("no-desktop") :which-key "restart without saving desktop file")
+  "qQ" '(restart-emacs '("no-desktop") :which-key "restart without saving desktop file")
   "qN" '(restart-emacs-start-new-emacs :which-key "start new emacs")
 )
 (use-package restart-emacs)
