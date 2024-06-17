@@ -47,9 +47,6 @@
   :after evil
   :config
   (evil-collection-init))
-; bind to a prefix?
-'(evil-collection-unimpaired-move-text-up)
-'(evil-collection-unimpaired-move-text-down)
 
 (use-package evil-nerd-commenter)
 (cole/leader-keys
