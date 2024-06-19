@@ -20,6 +20,7 @@
   (lsp-headerline-breadcrumb-mode 'symbols)
   (lsp-toggle-symbol-highlight
   :commands lsp)
+  )
 
 (cole/leader-keys
   "L" '(:ignore t :which-key "language server protocol")
