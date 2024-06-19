@@ -40,6 +40,7 @@
 ;; thresholds for "other" windows
 (setq split-height-threshold 80)
 (setq split-width-threshold 160)
+(setq max-mini-window-height 0.5)
 
 (setq use-dialog-box nil)
 (setq visible-bell nil)

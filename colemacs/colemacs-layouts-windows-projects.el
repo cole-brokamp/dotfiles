@@ -81,7 +81,7 @@
 	(delete-other-windows)))))
 
 (defhydra cole/resize-window ()
-  "resize windows"
+  "resize the current window"
   ("j" evil-window-increase-height "increase height")
   ("k" evil-window-decrease-height "decrease height")
   ("l" evil-window-increase-width "increase width")
