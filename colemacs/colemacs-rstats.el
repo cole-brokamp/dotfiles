@@ -164,8 +164,6 @@
   (let ((x (cole/ess-edit-word-at-point)))
     (ess-eval-linewise (concat "help('" x "', help_type = 'html', try.all.packages = TRUE)"))))
 
-(use-package poly-R)
-
 (use-package polymode
   :init
   (require 'poly-R)
@@ -174,5 +172,8 @@
   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
   (add-to-list 'auto-mode-alist '("\\.qmd" . poly-markdown+r-mode))
   )
+
+(use-package poly-R)
+
 
 (provide 'colemacs-rstats)
