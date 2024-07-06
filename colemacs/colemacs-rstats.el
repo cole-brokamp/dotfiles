@@ -17,8 +17,8 @@
   (comint-move-point-for-output t)
   ;; (comint-scroll-to-bottom-on-input t)
   ;; (comint-scroll-to-bottom-on-output t)
-  (ess-use-tracebug nil)
-  (ess-use-flymake t)
+  (ess-use-tracebug t)
+  (ess-use-flymake nil)
   :config
   (add-hook 'inferior-ess-mode-hook 'my-inferior-ess-init)
   (add-hook 'ess-r-mode-hook 'my-ess-r-mode-hook)
@@ -35,23 +35,34 @@
 
 (cole/local-leader-keys ess-mode-map
   "," '(ess-eval-line-and-step :which-key "eval line and step")
+  "=" '(format-all-buffer :which-key "format buffer")
+  "b" '(cole/r-ess-bp/body :which-key "breakpoints")
+  "c" '(:ignore t :which-key "chunks")
+  "d" '(cole/r-devtools/body :which-key "devtools")
   "e" '(ess-eval-paragraph-and-step :which-key "eval R/F/P and step")
+  "g" '(cole/r-graphics/body :which-key "graphics")
+  "h" '(lsp-describe-thing-at-point :which-key "help in new window")
+  "H" '(cole/ess-web-help :which-key "help in browser")
   "o" '(cole/ess-eval-word :which-key "print object")
   "O" '(cole/ess-glimpse-word :which-key "glimpse object")
-  "g" '(cole/r-graphics/body :which-key "graphics")
-  "=" '(format-all-buffer t :which-key "format buffer")
-  "t" '(cole/r-test/body :which-key "test")
-  "d" '(cole/r-devtools/body :which-key "devtools")
-  "h" '(lsp-ui-doc-glance :which-key "help")
-  "H" '(lsp-describe-thing-at-point :which-key "help in new window")
-  "w" '(cole/ess-web-help :which-key "help in browser")
-  "c" '(:ignore t :which-key "chunks")
   "s" '(:ignore t :which-key "session")
   "si" '(ess-interrupt :which-key "interrupt")
+  "sq" '(ess-quit :which-key "quit")
   "sr" '(inferior-ess-reload :which-key "reload")
   "ss" '(ess-switch-process :which-key "switch")
-  "sq" '(ess-quit :which-key "quit")
+  "t" '(cole/r-test/body :which-key "test")
+  "w" '(ess-watch-add :which-key "watch")
   )
+
+(defhydra cole/r-ess-bp ()
+  "ess breakpoints"
+  ("b" ess-bp-set "set")
+  ("x" ess-bp-kill "kill")
+  ("X" ess-bp-kill-all "kill all")
+  ("t" ess-bp-toggle-state "toggle state")
+  ("Q" (lambda () (interactive) (ess-eval-linewise "Q")) "quit debugger")
+  ("q" nil "quit" :exit t)
+)
 
 (defhydra cole/r-devtools (:exit t)
   "devtools package actions"
@@ -67,7 +78,7 @@
   "test with devtools"
   ("t" (lambda () (interactive) (ess-eval-linewise "devtools::test()")) "test package")
   ("c" (lambda () (interactive) (ess-eval-linewise "devtools::test_coverage()")) "coverage")
-  ("s" (lambda () (interactive) (ess-eval-linewise "devtools::snapshot_review()")) "snapshot review")
+  ("s" (lambda () (interactive) (ess-eval-linewise "testthat::snapshot_review()")) "snapshot review")
   ("f" cole/ess-devtools-test-file "file")
 )
 
@@ -76,7 +87,7 @@
   ("g" (lambda () (interactive) (ess-eval-linewise "if (!names(dev.cur()) == 'unigd') httpgd::hgd(); httpgd::hgd_browse()")) "open")
   ("s" (lambda () (interactive) (ess-eval-linewise "httpgd::hgd()")) "start")
   ("x" (lambda () (interactive) (ess-eval-linewise "httpgd::hgd_close()")) "close")
-  ("q" nil "quit")
+  ("q" nil "quit" :exit t)
 )
   
 ; TODO how to get file name of active buffer?

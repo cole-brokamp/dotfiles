@@ -13,6 +13,7 @@
   "bf" '(reveal-in-osx-finder :which-key "show buffer in finder")
   "bi" '(ibuffer :which-key "ibuffer")
   "br" '(revert-buffer :which-key "reload from disk")
+  "bs" '(scratch-buffer :which-key "scratch buffer")
   "bX" '(desktop-clear :which-key "close ALL the buffers")
   )
 
