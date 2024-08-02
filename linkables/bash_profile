@@ -37,12 +37,13 @@ source ~/dotfiles/resources/prompt.sh
 # }
 # PS1=$PS1'\[$(vterm_prompt_end)\]'
 
-# brew paths
-eval "$(/opt/homebrew/bin/brew shellenv)"
-PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
-PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
-PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+if command -v brew &> /dev/null; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+  PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
+  PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+  PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+fi
 
 # Solarized colorscheme for GNU `ls`:
 eval `dircolors --sh ~/dotfiles/resources/dircolors-solarized`
