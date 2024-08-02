@@ -67,9 +67,10 @@
 (defhydra cole/r-devtools (:exit t)
   "devtools package actions"
   ("l" (lambda () (interactive) (ess-eval-linewise "devtools::load_all()")) "load all")
-  ("d" (lambda () (interactive) (ess-eval-linewise "devtools::document()")) "document")
   ("c" (lambda () (interactive) (ess-eval-linewise "devtools::check()")) "check")
+  ("d" (lambda () (interactive) (ess-eval-linewise "devtools::document()")) "document")
   ("r" (lambda () (interactive) (ess-eval-linewise "devtools::build_readme()")) "build readme from Rmd")
+  ("e" (lambda () (interactive) (ess-eval-linewise "devtools::run_examples()")) "run examples")
   ("s" (lambda () (interactive) (ess-eval-linewise "devtools::build_site()")) "build pkgdown site")
   ("m" (lambda () (interactive) (ess-eval-linewise "devtools::build_manual()")) "build pdf manual")
 )
