@@ -1,7 +1,6 @@
 options(max.print = 100)
 options(sci.pen = 10)
 options(editor = "emacs")
-options(repos = c(CRAN = "https://cran.rstudio.com/"))
 options(menu.graphics = FALSE)
 
 options(tigris_use_cache = TRUE)
@@ -17,3 +16,4 @@ options(
 
 Sys.setenv("ESS_BACKGROUND_MODE" = "dark")
 Sys.setenv("TESTTHAT_CPUS" = 4)
+options(repos = c(CRAN = Sys.getenv("PKG_CRAN_MIRROR", unset = "https://cloud.r-project.org")))
