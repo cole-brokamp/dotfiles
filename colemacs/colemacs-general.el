@@ -66,12 +66,11 @@
 
 (cole/leader-keys
   "r" '(:ignore t :which-key "registers")
-  "rf" '(frameset-to-register :which-key "frames save")
-  "ri" '(insert-register :which-key "insert text")
-  "rj" '(jump-to-register :which-key "jump to")
-  "rv" '(counsel-register :which-key "view")
-  "rw" '(window-configuration-to-register :which-key "windows save")
+  "rr" '(counsel-register :which-key "choose a register")
+  "rp" '(point-to-register :which-key "point to")
   "ry" '(copy-to-register :which-key "yank text")
+  "rw" '(window-configuration-to-register :which-key "windows save")
+  "rf" '(frameset-to-register :which-key "frames save")
   )
 
 (cole/leader-keys
