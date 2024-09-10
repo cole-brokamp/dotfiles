@@ -39,6 +39,7 @@
   (markdown-list-item-bullets '("►" "●" "•" "○" "◆" "◇" "-"))
   (markdown-list-indent-width 2)
   :config
+  (add-to-list 'auto-mode-alist '("\\.rmd" . markdown-mode))
   (set-face-attribute 'markdown-header-face-1 nil :foreground "#fff0bd")
   (set-face-attribute 'markdown-header-face-2 nil :foreground "#5c7ae0")
   (set-face-attribute 'markdown-header-face-3 nil :foreground "#23a39a")

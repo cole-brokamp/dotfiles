@@ -73,6 +73,7 @@
   ("e" (lambda () (interactive) (ess-eval-linewise "devtools::run_examples()")) "run examples")
   ("s" (lambda () (interactive) (ess-eval-linewise "devtools::build_site()")) "build pkgdown site")
   ("m" (lambda () (interactive) (ess-eval-linewise "devtools::build_manual()")) "build pdf manual")
+  ("r" (lambda () (interactive) (ess-eval-linewise "rextendr::document()")) "rextendr document")
 )
 
 (defhydra cole/r-test (:exit t)
@@ -123,17 +124,5 @@
   (interactive)
   (let ((x (cole/ess-edit-word-at-point)))
     (ess-eval-linewise (concat "help('" x "', help_type = 'html', try.all.packages = TRUE)"))))
-
-(use-package polymode
-  :init
-  (require 'poly-R)
-  (require 'poly-markdown)
-  :config
-  (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
-  (add-to-list 'auto-mode-alist '("\\.qmd" . poly-markdown+r-mode))
-  )
-
-(use-package poly-R)
-
 
 (provide 'colemacs-rstats)
