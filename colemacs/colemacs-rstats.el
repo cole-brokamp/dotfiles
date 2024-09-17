@@ -73,7 +73,7 @@
   ("e" (lambda () (interactive) (ess-eval-linewise "devtools::run_examples()")) "run examples")
   ("s" (lambda () (interactive) (ess-eval-linewise "devtools::build_site()")) "build pkgdown site")
   ("m" (lambda () (interactive) (ess-eval-linewise "devtools::build_manual()")) "build pdf manual")
-  ("r" (lambda () (interactive) (ess-eval-linewise "rextendr::document()")) "rextendr document")
+  ("R" (lambda () (interactive) (ess-eval-linewise "rextendr::document()")) "rextendr document")
 )
 
 (defhydra cole/r-test (:exit t)
