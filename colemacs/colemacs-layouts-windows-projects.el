@@ -1,5 +1,6 @@
 (cole/leader-keys
   "p" '(:ignore t :which-key "projects")
+  "p:" '(project-shell :which-key "shell in project root")
   "pp" '(projectile-switch-project :which-key "switch project")
   "pd" '(projectile-kill-buffers :which-key "close project buffers")
   "ps" '(projectile-ag :which-key "search in project files")
