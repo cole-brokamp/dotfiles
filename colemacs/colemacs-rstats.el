@@ -31,7 +31,8 @@
 
 (defun my-inferior-ess-init ()
   (define-key inferior-ess-r-mode-map (kbd "C-'") 'cole/insert-pipe)
-  (setq-local ansi-color-for-comint-mode 'filter))
+  ;; (setq-local ansi-color-for-comint-mode 'filter)
+  )
 
 (cole/local-leader-keys ess-mode-map
   "," '(ess-eval-line-and-step :which-key "eval line and step")
