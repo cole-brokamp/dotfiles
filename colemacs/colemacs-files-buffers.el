@@ -1,5 +1,5 @@
 (recentf-mode)
-(desktop-save-mode 1)
+; (desktop-save-mode 1)
 
 (cole/leader-keys
   "=" '(format-all-buffer :which-key "format buffer")
