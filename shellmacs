@@ -1,0 +1,311 @@
+
+;;; user interface
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(menu-bar-mode -1)
+(setq inhibit-startup-message t)
+;; (setq initial-scratch-message nil)
+(setq initial-scratch-message "✨ welcome \n")
+;; (setq window-combination-resize t)
+;; (global-hl-line-mode 1)
+(custom-set-faces '(default ((t (:background nil :foreground nil)))))
+(setq frame-background-mode 'dark) ;; or 'light depending on your terminal theme
+(setq-default mode-line-format nil) ;; Disable mode line coloring if it conflicts
+
+;;; emacs behavior
+(global-auto-revert-mode 1)
+(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+(load custom-file 'noerror 'nomessage)
+
+
+(require 'package)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+(package-initialize)
+;; (unless package-archive-contents
+;;   (package-refresh-contents))
+
+;; Initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+(use-package doom-modeline
+             :init (doom-modeline-mode 1))
+
+(use-package rainbow-delimiters
+             :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package which-key
+             :init (which-key-mode)
+             :diminish which-key-mode
+             :config
+             (setq which-key-idle-delay 0.1))
+
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'lisp-interaction-mode 'normal)
+  )
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
+(use-package evil-surround
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
+
+(use-package general
+  :init
+  (setq general-override-states '(insert
+				  emacs
+				  hybrid
+				  normal
+				  visual
+				  motion
+				  operator
+				  replace))
+  :config
+  (general-create-definer cole/leader-keys
+    :states '(normal insert visual motion)
+    :prefix "SPC"
+    :keymaps 'override
+    :non-normal-prefix "C-SPC")
+  (general-create-definer cole/local-leader-keys
+    :states '(normal insert visual motion)
+    :prefix ","
+    :keymaps 'override
+    :non-normal-prefix "C-,")
+  )
+
+(cole/leader-keys
+  "SPC" '(counsel-M-x :which-key "M-x")
+  "m" '(counsel-evil-marks :which-key "marks")
+  "r" '(counsel-register :which-key "choose a register")
+  "q" '(save-buffers-kill-emacs :which-key "quit")
+  )
+
+(cole/leader-keys
+  "s" '(:ignore t :which-key "search")
+  "ss" '(swiper :which-key "swiper")
+  "sb" '(swiper-all :which-key "swiper all buffers")
+  "sr" '(query-replace :which-key "search and replace")
+  "sR" '(query-replace-regexp :which-key "search and replace (regex)")
+  "sp" '(projectile-ag :which-key "search in project files")
+  )
+
+(cole/leader-keys
+  "j" '(:ignore t :which-key "jump")
+  "jb" '(evil-jump-backward :which-key "back")
+  "jf" '(evil-jump-forward :which-key "forward")
+  "jj" '(evil-avy-goto-char-timer :which-key "to char")
+  "jl" '(evil-avy-goto-line :which-key "to line")
+  )
+
+(use-package avy
+  :config
+  (setq avy-background t))
+
+(use-package ivy
+  :diminish
+  :bind (
+	 :map ivy-minibuffer-map
+	 ("TAB" . ivy-alt-done)
+	 ("C-j" . ivy-next-line)
+	 ("C-k" . ivy-previous-line)
+	 ("C-o" . ivy-dispatching-done))
+  :config
+  (ivy-mode 1))
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history)))
+
+(use-package company
+  :config
+  (global-company-mode)
+  :custom
+  (company-insertion-on-trigger nil)
+  (company-idle-delay (lambda () (if (company-in-string-or-comment) nil 0.0)))
+  (company-minimum-prefix-length 1)
+  (company-selection-wrap-around t)
+  (company-require-match 'never)
+  ;; (company-dabbrev-downcase nil)
+  ;; (company-dabbrev-ignore-case t)
+  (company-frontends
+   '(company-pseudo-tooltip-frontend
+     company-echo-metadata-frontend
+     company-preview-frontend))
+  (company-backends
+   '(company-capf
+     company-dabbrev-code
+     company-keywords
+     company-dabbrev
+     company-files
+     company-ispell))
+  :bind (:map company-active-map ("<tab>" . company-complete))
+  )
+
+(global-set-key (kbd "C-p") #'company-complete)
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
+(cole/leader-keys
+  "l" '(:ignore t :which-key "layouts")
+  "l TAB" '(eyebrowse-last-window-config :which-key "last layout")
+  "lc" '(eyebrowse-create-named-window-config :which-key "create layout")
+  "lx" '(eyebrowse-close-window-config :which-key "close layout")
+  "lr" '(eyebrowse-rename-window-config :which-key "rename layout")
+  "ll" '(eyebrowse-switch-to-window-config :which-key "switch to layout")
+  )
+
+(use-package eyebrowse
+  :config
+  (eyebrowse-mode t)
+  :custom
+  (eyebrowse-new-workspace t)
+  :init)
+
+(cole/leader-keys
+  "w" '(:ignore t :which-key "windows")
+  "w-" '(cole/split-window-below-and-focus :which-key "split down")
+  "w/" '(cole/split-window-right-and-focus :which-key "split right")
+  "w=" '(balance-windows-area :which-key "equal window areas")
+  "wH" '(evil-window-move-far-left :which-key "move left")
+  "wJ" '(evil-window-move-very-bottom :which-key "move down")
+  "wK" '(evil-window-move-very-top :which-key "move up")
+  "wL" '(evil-window-move-far-right :which-key "move right")
+  "wd" '(evil-window-delete :which-key "delete window")
+  "wf" '(make-frame :which-key "make into frame")
+  "wh" '(evil-window-left :which-key "focus left")
+  "wj" '(evil-window-down :which-key "focus down")
+  "wk" '(evil-window-up :which-key "focus up")
+  "wl" '(evil-window-right :which-key "focus right")
+  "wm" '(cole/toggle-maximize-buffer :which-key "maximize window")
+  "wr" '((lambda () (interactive) (cole/resize-window/body)) :which-key "resize window")
+)
+
+(defun cole/split-window-below-and-focus ()
+  "Split the window vertically and focus the new window."
+  (interactive)
+  (split-window-below)
+  (windmove-down))
+
+(defun cole/split-window-right-and-focus ()
+  "Split the window horizontally and focus the new window."
+  (interactive)
+  (split-window-right)
+  (windmove-right))
+
+(defun cole/toggle-maximize-buffer ()
+  "Maximize buffer"
+  (interactive)
+  (save-excursion
+    (if (and (= 1 (length (window-list)))
+	     (assoc ?_ register-alist))
+	(jump-to-register ?_)
+      (progn
+	(window-configuration-to-register ?_)
+	(delete-other-windows)))))
+
+(use-package hydra)
+
+(defhydra cole/resize-window ()
+  "resize the current window"
+  ("j" evil-window-increase-height "increase height")
+  ("k" evil-window-decrease-height "decrease height")
+  ("l" evil-window-increase-width "increase width")
+  ("h" evil-window-decrease-width "decrease width")
+  ("q" nil "quit" :exit t))
+
+(cole/leader-keys
+  "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
+  "b" '(:ignore t :which-key "buffers")
+  "bb" '(counsel-switch-buffer :which-key "switch to buffer")
+  "bB" '(projectile-ibuffer :which-key "ibuffer in project")
+  "bd" '(kill-current-buffer :which-key "delete buffer")
+  "bi" '(ibuffer :which-key "ibuffer")
+  "br" '(revert-buffer :which-key "reload from disk")
+  "bs" '(scratch-buffer :which-key "scratch buffer")
+  )
+
+(cole/leader-keys
+  "f" '(:ignore t :which-key "files")
+  "fS" '(evil-write-all :which-key "save all")
+  "ff" '(counsel-find-file :which-key "find file")
+  "fs" '(save-buffer :which-key "save")
+  "fR" '(rename-file :which-key "rename file")
+  )
+
+; dired
+(cole/leader-keys
+  "d" '(dired-jump :which-key "dired")
+  "D" '(project-dired :which-key "dired in project root")
+  )
+(use-package dired
+  :commands (dired)
+  :ensure nil
+  :custom
+  (dired-listing-switches "-go --all --classify --group-directories-first --dired --human-readable")
+  (dired-clean-confirm-killing-deleted-buffers nil)
+  (dired-kill-when-opening-new-dired-buffer t)
+  (dired-dwim-target t)
+  (dired-auto-revert-buffer t)
+  (dired-omit-files "^\\..*$\\|^\\.\\.$")
+  :hook
+  (dired-mode . dired-hide-details-mode)
+  (dired-mode . all-the-icons-dired-mode)
+  (dired-mode . dired-omit-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "n" 'counsel-find-file
+    "c" 'dired-do-copy
+    "i" 'dired-hide-details-mode
+    "I" 'dired-toggle-read-only
+    "s" 'dired-sort-toggle-or-edit
+    (kbd "SPC") 'dired-mark
+    (kbd "RET") 'dired-find-alternate-file
+    "l" 'dired-find-alternate-file
+    "h" 'dired-up-directory)
+  ;; use gls instead of ls when on mac to support listing switches
+  (when (string= system-type "darwin")
+    (setq insert-directory-program "gls")))
+; git
+(cole/leader-keys
+  "g" '(:ignore t :which-key "git")
+  "gs" '(magit-status :which-key "git status")
+  "gc" '(magit-clone :which-key "git clone")
+  "gh" '(github-browse-file :which-key "browse on github")
+  )
+(use-package magit
+  :custom
+  ((vc-follow-symlinks t))
+  )
+(use-package github-browse-file)
+
+
+
+(add-to-list 'load-path "~/dotfiles/colemacs")
+; compile
+(require 'colemacs-compile)
+; org
+; shell
+(require 'colemacs-shell)
+; markdown
+(require 'colemacs-markdown)
+; rstats
+(require 'colemacs-rstats)
+; lang
+(require 'colemacs-lang)
