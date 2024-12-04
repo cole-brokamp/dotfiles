@@ -5,8 +5,16 @@
   "pd" '(projectile-kill-buffers :which-key "close project buffers")
   "ps" '(projectile-ag :which-key "search in project files")
   "pr" '(projectile-replace :which-key "replace in project files")
-  "pl" '(:ignore t :which-key "TODO - open project in new layout")
+  "pl" '(cole/new-project-layout :which-key "open project in new layout")
   )
+
+(defun cole/new-project-layout ()
+  "Switch to a Projectile project and create a new Eyebrowse workspace."
+  (interactive)
+  (let ((project-name (projectile-completing-read "Switch to project: "
+                                                  (projectile-relevant-known-projects))))
+    (eyebrowse-create-window-config)
+    (projectile-switch-project-by-name project-name)))
 
 (use-package projectile
   :diminish projectile-mode
@@ -21,7 +29,6 @@
 
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
-
 
 (cole/leader-keys
   "l" '(:ignore t :which-key "layouts")

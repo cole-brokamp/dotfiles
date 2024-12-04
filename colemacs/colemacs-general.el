@@ -23,6 +23,8 @@
 
 (cole/leader-keys
   "SPC" '(counsel-M-x :which-key "M-x")
+  "m" '(counsel-evil-marks :which-key "marks")
+  "r" '(counsel-register :which-key "registers")
   )
 
 (cole/leader-keys
@@ -43,18 +45,7 @@
 
 (cole/leader-keys
   "i" '(:ignore t :which-key "insert")
-  "ic" '(counsel-colors-web :which-key "color (web)")
-  "iC" '(counsel-colors-emacs :which-key "color (emacs)")
-  "ie" '(emoji-insert :which-key "insert emoji")
-  "ij" '(evil-collection-unimpaired-insert-newline-below :which-key "insert line below")
-  "ik" '(evil-collection-unimpaired-insert-newline-above :which-key "insert line above")
-  "iJ" '(evil-collection-unimpaired-paste-below :which-key "paste line below")
-  "iK" '(evil-collection-unimpaired-paste-above :which-key "paste line above")
   "io" '(newline-and-indent :which-key "open line")
-  )
-
-(cole/leader-keys
-  "m" '(counsel-evil-marks :which-key "marks")
   )
 
 (cole/leader-keys
@@ -62,15 +53,6 @@
   "oo" '(org-open-at-point-global :which-key "open thing at point")
   "ou" '(browse-url-at-point :which-key "open url at point")
   "ox" '(xwidget-webkit-browse-url :which-key "open url in xwidget webkit")
-  )
-
-(cole/leader-keys
-  "r" '(:ignore t :which-key "registers")
-  "rr" '(counsel-register :which-key "choose a register")
-  "rp" '(point-to-register :which-key "point to")
-  "ry" '(copy-to-register :which-key "yank text")
-  "rw" '(window-configuration-to-register :which-key "windows save")
-  "rf" '(frameset-to-register :which-key "frames save")
   )
 
 (cole/leader-keys
@@ -87,7 +69,6 @@
   "qf" '(delete-frame :which-key "kill frame")
   "qq" '(save-buffers-kill-emacs :which-key "quit")
   "qr" '(restart-emacs :which-key "restart")
-  "qQ" '(restart-emacs '("no-desktop") :which-key "restart without saving desktop file")
   "qN" '(restart-emacs-start-new-emacs :which-key "start new emacs")
 )
 (use-package restart-emacs)

@@ -2,8 +2,6 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
-  (setq evil-want-minibuffer nil)
-  (setq evil-want-C-i-jump nil) ; make TAB work in terminal again
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
@@ -14,8 +12,7 @@
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
   :custom
-  (evil-undo-system 'undo-fu)
-  (evil-scroll-count 5))
+  (evil-undo-system 'undo-fu))
 
 (use-package evil-org
   :after org

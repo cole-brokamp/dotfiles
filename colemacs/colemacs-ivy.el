@@ -5,17 +5,7 @@
 	 ("TAB" . ivy-alt-done)
 	 ("C-l" . ivy-alt-done)
 	 ("C-j" . ivy-next-line)
-	 ("C-k" . ivy-previous-line)
-	 ("C-o" . ivy-dispatching-done) ;; C-o for more options in ivy minibuffers
-	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-l" . ivy-done)
-	 ("C-d" . ivy-switch-buffer-kill)
-	 :map ivy-reverse-i-search-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-d" . ivy-reverse-i-search-kill))
-  :custom
-  (ivy-initial-inputs-alist nil)
+	 ("C-k" . ivy-previous-line))
   :config
   (ivy-mode 1))
 
