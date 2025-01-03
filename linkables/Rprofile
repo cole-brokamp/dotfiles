@@ -1,9 +1,6 @@
 options(max.print = 100)
 options(sci.pen = 10)
-options(editor = "emacs")
 options(menu.graphics = FALSE)
-
-options(tigris_use_cache = TRUE)
 
 options(
   usethis.full_name = "Cole Brokamp",

@@ -1,41 +1,28 @@
-# -*- mode: sh; -*-
+source ~/dotfiles/secrets.sh 2> /dev/null
 
-export TERM=screen-256color
-export COLUMNS
-export VISUAL=emacs
+export VISUAL=vim
 export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-source ~/dotfiles/resources/aliases.sh
-source ~/dotfiles/secrets.sh 2> /dev/null
+alias cdf='cd "`osascript -e "tell application \\"Finder\\" to get POSIX path of (insertion location as alias)"`"'
+alias ls='ls -F'
+alias ll='ls -o --human-readable --color --group-directories-first'
+alias la='ll --all'
+alias grep='grep --color=auto'
+alias reload="exec $SHELL -l"
+alias path='echo -e ${PATH//:/\\n}'
+alias R='R --quiet --no-save'
+alias ip_public='wget http://ipinfo.io/ip -qO -'
+alias ip_local="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias quick_serve="python3 -m http.server"
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
-# # function for vterm in emacs to get proper escape sequences
-# vterm_printf(){
-#     if [ -n "$TMUX" ]; then
-#         # Tell tmux to pass the escape sequences through
-#         # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
-#         printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-#     elif [ "${TERM%%-*}" = "screen" ]; then
-#         # GNU screen (screen, screen-256color, screen-256color-bce)
-#         printf "\eP\e]%s\007\e\\" "$1"
-#     else
-#         printf "\e]%s\e\\" "$1"
-#     fi
-# }
-
-# so emacs vterm can autoname buffers
-# export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}:${PWD}\007"'
-
-source ~/dotfiles/resources/prompt.sh
-# so emacs vterm can autotrack directory and prompt
-# vterm_prompt_end(){
-    # vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
-# }
-# PS1=$PS1'\[$(vterm_prompt_end)\]'
+PROMPT_DIRTRIM=3
+PS1="$(tput setaf 33)\u $(tput setaf 244)at $(tput setaf 29)\h $(tput setaf 244)in $(tput setaf 136)\w \n$(tput setaf 244)\$$(tput sgr0) "
+PS2="...\$ "
 
 if [ -d "/opt/homebrew" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -45,9 +32,6 @@ if [ -d "/opt/homebrew" ]; then
   PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
   HOMEBREW_NO_AUTO_UPDATE=1
 fi
-
-# Solarized colorscheme for GNU `ls`:
-eval `dircolors --sh ~/dotfiles/resources/dircolors-solarized`
 
 PATH="$PATH:~/dotfiles/bin"
 PATH="$PATH:~/.cargo/bin"
