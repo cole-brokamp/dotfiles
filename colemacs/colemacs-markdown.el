@@ -51,7 +51,18 @@
   (set-face-attribute 'markdown-list-face nil :foreground "#6a6a6a")
   )
 
-(use-package grip-mode)
+(use-package grip-mode
+  :custom
+  (grip-update-after-change nil)
+  (grip-github-user "cole-brokamp")
+  (grip-github-password (exec-path-from-shell-copy-env "GRIP_GH_PAT"))
+  )
+
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize)
+  )
+
 ;; (use-package quarto-mode
 ;;   :custom quarto-force-preview nil)
 

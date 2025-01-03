@@ -11,10 +11,10 @@
 (defun cole/new-project-layout ()
   "Switch to a Projectile project and create a new Eyebrowse workspace."
   (interactive)
-  (let ((project-name (projectile-completing-read "Switch to project: "
-                                                  (projectile-relevant-known-projects))))
+  (let ((project-name (projectile-completing-read "Switch to project: " (projectile-relevant-known-projects))))
     (eyebrowse-create-window-config)
-    (projectile-switch-project-by-name project-name)))
+    (projectile-switch-project-by-name project-name)
+    (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) (file-name-nondirectory (directory-file-name project-name)))))
 
 (use-package projectile
   :diminish projectile-mode
