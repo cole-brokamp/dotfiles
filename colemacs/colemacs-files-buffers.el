@@ -1,6 +1,3 @@
-(recentf-mode)
-; (desktop-save-mode 1)
-
 (cole/leader-keys
   "=" '(format-all-buffer :which-key "format buffer")
   "TAB" '(evil-switch-to-windows-last-buffer :which-key "last buffer")

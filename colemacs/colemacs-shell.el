@@ -1,10 +1,10 @@
 (cole/leader-keys
   "a" '(:ignore t :which-key "applications")
-  "'" '(vterm-toggle-cd :which-key "shell")
+  "'" '(vterm-toggle :which-key "shell")
+  "<" '(vterm-toggle-backward :which-key "vterm <")
+  ">" '(vterm-toggle-forward :which-key "vterm >")
   "\"" '(vterm :which-key "new shell")
   ":" '(shell-command :which-key "shell command")
-  "|" 'shell-command-on-region
-  "&" '(async-shell-command :which-key "async shell command")
   )
 
 (use-package exec-path-from-shell
@@ -28,11 +28,5 @@
                 (display-buffer-reuse-window display-buffer-at-bottom)
                 (reusable-frames . visible)
                 (window-height . 0.3))))
-
-
-
-;(with-eval-after-load 'shell
-;  (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
-;  (evil-define-key 'insert comint-mode-map [down] 'comint-next-input))
 
 (provide 'colemacs-shell)

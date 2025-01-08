@@ -1,76 +1,89 @@
-;;; user interface ;;;
-(setq initial-scratch-message "✨ welcome \n")
-(setq inhibit-startup-message t)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
-;; (set-fringe-mode 10)
 (menu-bar-mode -1)
-;; (setq initial-major-mode 'R-mode)
-(setq confirm-kill-emacs 'y-or-n-p)
-(global-hl-line-mode 1)
-(setq-default frame-title-format "%b (%f)")
+(setq initial-scratch-message "✨ welcome \n")
+(setq inhibit-startup-message t)
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq help-window-select t)
-(global-auto-revert-mode 1)
-;; (setq cursor-in-non-selected-windows nil)
-;; (setq warning-minimum-level :error)
-;; (setq window-combination-resize t)
-(setq x-stretch-cursor t)
-;; (delete-selection-mode 1)
-(setq ring-bell-function 'ignore)
-(global-visual-line-mode 1)
+(setq confirm-kill-emacs 'y-or-n-p)
 
-;;; emacs behavior ;;;
+(global-auto-revert-mode 1)
 (setq delete-by-moving-to-trash t)
 (setq make-backup-files nil)
-
-; keep custom variables in a different file
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
-
-;; (setq default-directory (concat (getenv "HOME") "/"))
-
-;; keep extra files created by emacs in /tmp
-(setq backup-directory-alist `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
-(make-directory (expand-file-name "tmp/auto-saves/" user-emacs-directory) t)
-(setq auto-save-list-file-prefix (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory)
-      auto-save-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
-
-; make ESC quit prompts too
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-; auto-indent on RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
+(recentf-mode)
+; (desktop-save-mode 1)
 
-;; thresholds for "other" windows
-;; (setq split-height-threshold 80)
-;; (setq split-width-threshold 160)
-;; (setq max-mini-window-height 0.5)
+(require 'package)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 
-;; (setq use-dialog-box nil)
-;; (setq visible-bell nil)
-;; (global-prettify-symbols-mode 1)
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 
-;; (setq display-time-load-average-threshold 5
-;;       display-time-day-and-date t)
-;; (display-time)
+;; Initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-;; (column-number-mode)
+(require 'use-package)
+(setq use-package-always-ensure t)
 
-(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; {light, dark}
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe)
+  )
 
-(setq scroll-margin 2)
-(pixel-scroll-mode 1)
-(pixel-scroll-precision-mode 1)
-;; (setq pixel-scroll-precision-use-momentum nil)
+(use-package ivy
+  :diminish
+  :bind (
+	 :map ivy-minibuffer-map
+	 ("TAB" . ivy-alt-done)
+	 ("C-l" . ivy-alt-done)
+	 ("C-j" . ivy-next-line)
+	 ("C-k" . ivy-previous-line))
+  :config
+  (ivy-mode 1))
 
-; fonts
-(set-face-attribute 'default nil :font "Source Code Pro" :height 150)
-(set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 150)
-; to show emojis
-(when (>= emacs-major-version 27)
-  (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
+(use-package ivy-rich
+  :after ivy
+  :init (ivy-rich-mode 1))
 
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history)))
+
+(use-package helpful
+  :after counsel
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
+(use-package ivy-prescient
+  :after counsel
+  :custom
+  (ivy-prescient-enable-filtering nil)
+  :config
+  (ivy-prescient-mode 1)
+  (prescient-persist-mode 1))
+
+(use-package all-the-icons-ivy
+  :after ivy
+  :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
+  :custom (all-the-icons-ivy-file-commands '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
 
 (provide 'colemacs-basic)

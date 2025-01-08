@@ -12,17 +12,16 @@
   (dired-kill-when-opening-new-dired-buffer t)
   (dired-dwim-target t)
   (dired-auto-revert-buffer t)
-  (dired-omit-files "^\\..*$\\|^\\.\\.$")
+  ;; (dired-omit-files "^\\..*$\\|^\\.\\.$")
   :hook
   (dired-mode . dired-hide-details-mode)
   (dired-mode . all-the-icons-dired-mode)
-  (dired-mode . dired-omit-mode)
+  ;; (dired-mode . dired-omit-mode)
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "n" 'counsel-find-file
     "c" 'dired-do-copy
     "i" 'dired-hide-details-mode
-    "I" 'dired-toggle-read-only
     "s" 'dired-sort-toggle-or-edit
     (kbd "SPC") 'dired-mark
     (kbd "RET") 'dired-find-alternate-file

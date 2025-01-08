@@ -1,29 +1,9 @@
-(cole/leader-keys
-  "t"  '(:ignore t :which-key "toggles")
-  "tL" '(visual-line-mode :which-key "visual line mode")
-  "tf" '(toggle-frame-fullscreen :which-key "full screen")
-  "ti" '(highlight-indent-guides-mode :which-key "indent highlights")
-  "tl" '(toggle-truncate-lines :which-key "truncate lines")
-  "tm" '(toggle-frame-maximized :which-key "maximize screen")
-  "tn" '(display-line-numbers-mode :which-key "numbers for lines")
-  "tt" '(counsel-load-theme :which-key "choose theme")
-  "tv" '(variable-pitch-mode :which-key "variable pitch")
-  )
-
-(custom-theme-set-faces
- 'user
- '(variable-pitch ((t (:family "Arial")))))
-
 (use-package all-the-icons)
 ;; don't forget to run all-the-icons-install-fonts
-
+(use-package hydra)
+(use-package restart-emacs)
 (use-package all-the-icons-ivy-rich)
 (use-package all-the-icons-ibuffer)
-
-(use-package highlight-indent-guides
-  :custom
-  (highlight-indent-guides-method 'column)
-  )
 
 (use-package doom-modeline
              :init (doom-modeline-mode 1)
@@ -33,24 +13,21 @@
 (use-package doom-themes
              :init (load-theme 'doom-dracula t))
 
-(use-package rainbow-delimiters
-             :hook (prog-mode . rainbow-delimiters-mode))
-
 (use-package which-key
              :init (which-key-mode)
              :diminish which-key-mode
              :config
              (setq which-key-idle-delay 0.1))
 
-(use-package origami
-             :init (global-origami-mode))
+;; (custom-set-faces '(default ((t (:background nil :foreground nil)))))
+;; (setq frame-background-mode 'dark) ;; or 'light depending on your terminal theme
+;; (setq-default mode-line-format nil) ;; Disable mode line coloring if it conflicts
 
-(use-package hl-todo
-  :init (global-hl-todo-mode)
-  :custom-face
-  (hl-todo ((t (:inherit hl-todo :italic t)))))
+(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; {light, dark}
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
-(use-package hydra)
+(set-face-attribute 'default nil :font "Source Code Pro" :height 150)
+(set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 150)
 
 ;; use xwidget support built in on macOS and emacs 29, but only for certain URLs
 (setq browse-url-browser-function 'xwidget-webkit-browse-url)
@@ -58,6 +35,5 @@
 (setq browse-url-handlers
       '(("127.0.0.1.*" . xwidget-webkit-browse-url)
 	("." . browse-url-default-browser)))
-
 
 (provide 'colemacs-ui)

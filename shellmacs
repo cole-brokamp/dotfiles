@@ -1,4 +1,3 @@
-
 ;;; user interface
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -6,10 +5,7 @@
 (menu-bar-mode -1)
 (setq inhibit-startup-message t)
 (fset 'yes-or-no-p 'y-or-n-p)
-;; (setq initial-scratch-message nil)
 (setq initial-scratch-message "✨ welcome \n")
-;; (setq window-combination-resize t)
-;; (global-hl-line-mode 1)
 (custom-set-faces '(default ((t (:background nil :foreground nil)))))
 (setq frame-background-mode 'dark) ;; or 'light depending on your terminal theme
 (setq-default mode-line-format nil) ;; Disable mode line coloring if it conflicts

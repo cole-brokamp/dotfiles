@@ -27,10 +27,12 @@
   "r" '(counsel-register :which-key "registers")
   )
 
+(cole/local-leader-keys emacs-lisp-mode-map
+  "e" '(eval-defun :which-key "eval defun"))
+
 (cole/leader-keys
   "h" '(:ignore t :which-key "help")
   "h." 'display-local-help
-  "hF" 'counsel-faces
   "hb" '(general-describe-keybindings :which-key "key bindings")
   "hc" 'describe-command
   "hf" 'describe-function
@@ -39,7 +41,6 @@
   "hk" 'describe-key
   "hm" 'describe-mode
   "hp" 'describe-package
-  "hr" '(repeat-complex-command :which-key "repeat complex command")
   "hv" 'describe-variable
   )
 
@@ -56,6 +57,22 @@
   )
 
 (cole/leader-keys
+  "q" '(:ignore t :which-key "quit")
+  "qf" '(delete-frame :which-key "kill frame")
+  "qq" '(save-buffers-kill-emacs :which-key "quit")
+  "qr" '(restart-emacs :which-key "restart")
+  "qN" '(restart-emacs-start-new-emacs :which-key "start new emacs")
+)
+
+(cole/leader-keys
+  "t"  '(:ignore t :which-key "toggles")
+  "tL" '(visual-line-mode :which-key "visual line mode")
+  "tl" '(toggle-truncate-lines :which-key "truncate lines")
+  "tn" '(display-line-numbers-mode :which-key "numbers for lines")
+  "tt" '(counsel-load-theme :which-key "choose theme")
+  )
+
+(cole/leader-keys
   "z" '(:ignore t :which-key "fold")
   "zC" '(evil-close-folds :which-key "close all folds")
   "zO" '(evil-open-folds :which-key "open all folds")
@@ -63,14 +80,5 @@
   "zo" '(evil-open-fold-rec :which-key "open fold")
   "zz" '(evil-toggle-fold :which-key "toggle fold")
   )
-
-(cole/leader-keys
-  "q" '(:ignore t :which-key "quit")
-  "qf" '(delete-frame :which-key "kill frame")
-  "qq" '(save-buffers-kill-emacs :which-key "quit")
-  "qr" '(restart-emacs :which-key "restart")
-  "qN" '(restart-emacs-start-new-emacs :which-key "start new emacs")
-)
-(use-package restart-emacs)
 
 (provide 'colemacs-general)

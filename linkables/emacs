@@ -6,20 +6,14 @@
 (add-to-list 'load-path "~/dotfiles/colemacs")
 
 (require 'colemacs-basic)
-(require 'colemacs-package)
 (require 'colemacs-general)
 (require 'colemacs-ui)
-(require 'colemacs-jump-search)
-
-(require 'colemacs-evil)
-(require 'colemacs-ivy)
-(require 'colemacs-autocomplete)
+(require 'colemacs-editing)
 
 (require 'colemacs-layouts-windows-projects)
 (require 'colemacs-files-buffers)
 
 (require 'colemacs-dired)
-(require 'colemacs-lisp)
 
 (require 'colemacs-git)
 (require 'colemacs-compile)

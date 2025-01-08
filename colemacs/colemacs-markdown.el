@@ -63,31 +63,6 @@
   (exec-path-from-shell-initialize)
   )
 
-;; (use-package quarto-mode
-;;   :custom quarto-force-preview nil)
-
-(cole/local-leader-keys mermaid-mode-map
-  "r" '(:ignore t :which-key "render")
-  "rr" '(mermaid-compile-buffer :which-key "render to /tmp")
-  "rs" '(mermaid-compile :which-key "render to .svg file")
-  "rp" '(cole/mermaid-compile-png :which-key "render to .png file")
-  "h" '(mermaid-open-doc :which-key "help open doc")
-  "o" '(mermaid-open-browser :which-key "edit in online editor"))
-
-
-(use-package mermaid-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.mmd" . mermaid-mode))
-  :custom
-  (mermaid-output-format ".svg")
-  ;; (mermaid-output-format ".png")
-  (mermaid-flags "--scale 4 --pdfFit"))
-
-(defun cole/mermaid-compile-png ()
-  (interactive)
-  (setq mermaid-output-format ".png")
-  (mermaid-compile))
-
 (cole/leader-keys
   "S" '(:ignore t :which-key "spelling")
   "Ss" '(flyspell-mode :which-key "toggle spelling mode")
