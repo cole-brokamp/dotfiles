@@ -42,6 +42,10 @@
   (auto-package-update-maybe)
   )
 
+(use-package restart-emacs)
+
+(use-package hydra)
+
 (use-package ivy
   :diminish
   :bind (
@@ -81,9 +85,18 @@
   (ivy-prescient-mode 1)
   (prescient-persist-mode 1))
 
+(use-package all-the-icons)
+(use-package all-the-icons-ivy-rich)
+(use-package all-the-icons-ibuffer)
 (use-package all-the-icons-ivy
   :after ivy
   :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
   :custom (all-the-icons-ivy-file-commands '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
+
+(use-package which-key
+             :init (which-key-mode)
+             :diminish which-key-mode
+             :config
+             (setq which-key-idle-delay 0.1))
 
 (provide 'colemacs-basic)

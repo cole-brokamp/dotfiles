@@ -23,7 +23,8 @@
     "c" 'dired-do-copy
     "i" 'dired-hide-details-mode
     "s" 'dired-sort-toggle-or-edit
-    (kbd "SPC") 'dired-mark
+    "I" 'dired-toggle-read-only
+    ;; (kbd "SPC") 'dired-mark
     (kbd "RET") 'dired-find-alternate-file
     "l" 'dired-find-alternate-file
     "h" 'dired-up-directory)
@@ -49,8 +50,6 @@
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "H" 'dired-hide-dotfiles-mode))
-
-;; TODO SPC doesn't work in dired mode (have to use Ctl-SPC), fix this!
 
 ;; Flaten display of nested directories with no other content.
 (use-package dired-collapse

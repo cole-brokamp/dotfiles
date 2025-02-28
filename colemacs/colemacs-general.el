@@ -70,6 +70,7 @@
   "tl" '(toggle-truncate-lines :which-key "truncate lines")
   "tn" '(display-line-numbers-mode :which-key "numbers for lines")
   "tt" '(counsel-load-theme :which-key "choose theme")
+  "tm" '(toggle-frame-maximized :which-key "maximize frame")
   )
 
 (cole/leader-keys

@@ -7,22 +7,19 @@
 
 (require 'colemacs-basic)
 (require 'colemacs-general)
-(require 'colemacs-ui)
 (require 'colemacs-editing)
-
 (require 'colemacs-layouts-windows-projects)
-(require 'colemacs-files-buffers)
 
 (require 'colemacs-dired)
-
-(require 'colemacs-git)
-(require 'colemacs-compile)
 (require 'colemacs-org)
+(require 'colemacs-markdown)
 (require 'colemacs-shell)
 
-(require 'colemacs-markdown)
-(require 'colemacs-rstats)
+(require 'colemacs-compile)
 (require 'colemacs-lang)
+(require 'colemacs-rstats)
+
+(require 'colemacs-gui)
 
 (setq gc-cons-threshold (* 1 1000 1000))
 
