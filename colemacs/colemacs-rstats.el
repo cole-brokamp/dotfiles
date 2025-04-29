@@ -14,10 +14,10 @@
   ;; (ess-R-readline t)
   (ess-S-quit-kill-buffers-p nil)
   (comint-scroll-show-maximum-output t)
-  (comint-move-point-for-output t)
+  ;; (comint-move-point-for-output t)
   ;; (comint-scroll-to-bottom-on-input t)
   ;; (comint-scroll-to-bottom-on-output t)
-  (ess-use-tracebug t)
+  ;; (ess-use-tracebug t)
   (ess-use-flymake nil)
   :config
   (add-hook 'inferior-ess-mode-hook 'my-inferior-ess-init)
@@ -55,15 +55,15 @@
   "w" '(ess-watch-add :which-key "watch")
   )
 
-(defhydra cole/r-ess-bp ()
-  "ess breakpoints"
-  ("b" ess-bp-set "set")
-  ("x" ess-bp-kill "kill")
-  ("X" ess-bp-kill-all "kill all")
-  ("t" ess-bp-toggle-state "toggle state")
-  ("Q" (lambda () (interactive) (ess-eval-linewise "Q")) "quit debugger")
-  ("q" nil "quit" :exit t)
-)
+;; (defhydra cole/r-ess-bp ()
+;;   "ess breakpoints"
+;;   ("b" ess-bp-set "set")
+;;   ("x" ess-bp-kill "kill")
+;;   ("X" ess-bp-kill-all "kill all")
+;;   ("t" ess-bp-toggle-state "toggle state")
+;;   ("Q" (lambda () (interactive) (ess-eval-linewise "Q")) "quit debugger")
+;;   ("q" nil "quit" :exit t)
+;; )
 
 (defhydra cole/r-devtools (:exit t)
   "devtools package actions"

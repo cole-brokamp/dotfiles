@@ -27,7 +27,6 @@
   "n" '(:ignore t :which-key "narrow")
   "nn" '(org-narrow-to-subtree :which-key "narrow")
   "nw" '(widen :which-key "widen")
-  "p" '(cole/present/body :which-key "present") ;; but how to only act on narrowed subtree?
   ) 
 
 (defun cole/org-mode-setup ()

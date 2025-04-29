@@ -1,7 +1,7 @@
 (cole/local-leader-keys markdown-mode-map
   "P" '(grip-mode :which-key "preview (grip)")
   ;; "q" '((lambda () (interactive) (async-shell-command '(quarto preview))) :which-key "quarto preview")
-  "p" '(markdown-export :which-key "preview (gh.css)")
+  "p" '(markdown-export :which-key "preview (mdopen)")
   "o" '(markdown-follow-thing-at-point :which-key "open thing at point")
   "i" '(:ignore t :which-key "insert")
   "ic" '(cole/ess-insert-r-code-chunk :which-key "chunk")
@@ -50,6 +50,11 @@
   (set-face-attribute 'markdown-html-attr-value-face nil :foreground "#c08b4c")
   (set-face-attribute 'markdown-list-face nil :foreground "#6a6a6a")
   )
+
+;; (use-package mdopen-mode
+;;   :load-path "~/.cargo/bin/mdopen"
+;;   :hook (markdown-mode . mdopen-mode)
+;; )
 
 (use-package grip-mode
   :custom

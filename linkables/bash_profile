@@ -41,3 +41,5 @@ fi
 
 PATH="$PATH:~/dotfiles/bin"
 PATH="$PATH:~/.cargo/bin"
+
+. "$HOME/.local/bin/env"
