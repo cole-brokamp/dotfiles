@@ -10,3 +10,4 @@ link:
     target="$HOME/.$( basename $fl)"
     ln -sf ~/dotfiles/$fl $target 
   done
+  ln -sf ~/dotfiles/nvim ~/.config
