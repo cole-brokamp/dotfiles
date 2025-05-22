@@ -14,10 +14,10 @@
   ;; (ess-R-readline t)
   (ess-S-quit-kill-buffers-p nil)
   (comint-scroll-show-maximum-output t)
-  ;; (comint-move-point-for-output t)
+  (comint-move-point-for-output t)
   ;; (comint-scroll-to-bottom-on-input t)
   ;; (comint-scroll-to-bottom-on-output t)
-  ;; (ess-use-tracebug t)
+  (ess-use-tracebug t)
   (ess-use-flymake nil)
   :config
   (add-hook 'inferior-ess-mode-hook 'my-inferior-ess-init)
