@@ -77,6 +77,9 @@ require("lazy").setup({
   },
 },
 
+{"Almo7aya/openingh.nvim"
+},
+
 {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -112,9 +115,15 @@ wk.add({
 })
 
 wk.add({
-	{ "<leader>q", group = "quit" },
-	{ "<leader>qq", "<cmd>qa<cr>", desc = "quit" },
-	{ "<leader>q!", "<cmd>qa!<cr>", desc = "quit without saving" },
+  { "<leader>q", group = "quit" },
+  { "<leader>qq", "<cmd>qa<cr>", desc = "quit" },
+  { "<leader>q!", "<cmd>qa!<cr>", desc = "quit without saving" },
+})
+
+wk.add({
+  { "<leader>g", group = "git" },
+  { "<leader>gs", "<cmd>Neogit kind=split<cr>", desc = "status" },
+  { "<leader>gh", "<cmd>OpenInGHRepo<cr>", desc = "github" },
 })
 
 wk.add({
