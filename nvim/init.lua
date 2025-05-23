@@ -69,6 +69,15 @@ require("lazy").setup({
 },
 
 {
+  "NeogitOrg/neogit",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "sindrets/diffview.nvim",
+    "nvim-telescope/telescope.nvim"
+  },
+},
+
+{
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
   },
