@@ -1,4 +1,4 @@
--- Bootstrap lazy.nvim
+--Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -180,7 +180,43 @@ require("conform").setup({
 
 -- vim.lsp.enable('R')
 
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.treesitter.stop()
+  end,
+})
+
+-- remap Esc to leave terminal mode for normal mode
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true })
+
+function open_terminal_below()
+  vim.cmd("belowright 12split")
+  vim.cmd("terminal")
+  vim.cmd("startinsert")
+end
+
+function command()
+  vim.ui.input({ prompt = " > " }, function(input)
+    local current_win = vim.api.nvim_get_current_win()
+    vim.cmd("belowright 12split")
+    local new_win = vim.api.nvim_get_current_win()
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_win_set_buf(new_win, buf)
+    vim.fn.termopen({ "sh", "-c", input .. "; exec " .. os.getenv("SHELL") })
+    vim.api.nvim_set_current_win(current_win)
+  end)
+end
+
+
+wk.add({
+  { "<leader>s", group = "search" }
+})
+
+wk.add({
+  { "<leader>t",  open_terminal_below, desc = "terminal"},
+  { "<leader>c",  command, desc = "command"},
+})
+
 vim.api.nvim_set_hl(0, "markdownH1", { fg = "#fff0bd", bold = true })
 vim.api.nvim_set_hl(0, "markdownH2", { fg = "#5c7ae0", italic = true })
 vim.api.nvim_set_hl(0, "markdownH3", { fg = "#23a39a" })
-vim.api.nvim_set_hl(0, "markdownH4", { fg = "#81c87c" })
