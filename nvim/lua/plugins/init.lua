@@ -17,8 +17,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { import = "plugins.which-key" },
-  { import = "plugins.command" },
   { import = "plugins.git" },
   { import = "plugins.lsp" },
   { import = "plugins.ui" },
+  { import = "plugins.org"},
 })
