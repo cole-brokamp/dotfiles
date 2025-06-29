@@ -1,10 +1,9 @@
 return {
-	{
-		"neovim/nvim-lspconfig",
-		lazy = false,
-		config = function()
-			require("lsp")
-		end,
-	},
+  {
+    "neovim/nvim-lspconfig",
+    lazy = false,
+    config = function()
+      require("lsp")
+    end,
+  },
 }
-

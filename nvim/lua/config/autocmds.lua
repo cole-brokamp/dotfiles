@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 -- remap Esc to leave terminal mode for normal mode
-vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true })
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
 
 function open_terminal_below()
   vim.cmd("belowright 12split")
@@ -42,7 +42,9 @@ function send_paragraph_to_terminal()
   local start_line = cur_line
   while start_line > 1 do
     local line = vim.api.nvim_buf_get_lines(bufnr, start_line - 2, start_line - 1, false)[1]
-    if is_blank(line) then break end
+    if is_blank(line) then
+      break
+    end
     start_line = start_line - 1
   end
 
@@ -50,7 +52,9 @@ function send_paragraph_to_terminal()
   local end_line = cur_line
   while end_line < total_lines do
     local line = vim.api.nvim_buf_get_lines(bufnr, end_line, end_line + 1, false)[1]
-    if is_blank(line) then break end
+    if is_blank(line) then
+      break
+    end
     end_line = end_line + 1
   end
 
@@ -70,9 +74,6 @@ function send_paragraph_to_terminal()
     end
   end
 
-
   print("❌ no terminal buffer found")
 end
 vim.keymap.set("n", "<leader>e", send_paragraph_to_terminal, { desc = "Eval paragraph in terminal" })
-
-
