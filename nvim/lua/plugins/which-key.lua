@@ -22,13 +22,6 @@ return{
     local telescope = require("telescope.builtin")
 
     wk.add({
-      { "<leader>f", group = "files" },
-      { "<leader>ff", telescope.find_files, desc = "find" },
-      { "<leader>fs", "<cmd>write<cr>", desc = "save" },
-      { "<leader>d", "<cmd>NvimTreeFindFile<cr>", desc = "dir" }
-    })
-
-    wk.add({
       { "<leader>q", group = "quit" },
       { "<leader>qq", "<cmd>qa<cr>", desc = "quit" },
       { "<leader>q!", "<cmd>qa!<cr>", desc = "quit without saving" },

@@ -1,26 +1,3 @@
-function SendLineToTerminal()
-  -- Get the current line under the cursor
-  local line = vim.api.nvim_get_current_line()
-
-  -- Find the first terminal buffer
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.bo[buf].buftype == "terminal" then
-      -- Get the terminal's channel ID
-      local chan_id = vim.b[buf].terminal_job_id
-      if chan_id then
-        -- Send the line + newline
-        vim.fn.chansend(chan_id, line .. "\n")
-        print("✅ Sent to terminal: " .. line)
-        return
-      end
-    end
-  end
-
-  print("❌ No terminal buffer found.")
-end
-vim.keymap.set("n", "<leader>e", SendLineToTerminal, { desc = "Eval line in terminal" })
-
-
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.treesitter.stop()
@@ -51,3 +28,51 @@ end
 vim.keymap.set("n", "<leader>c", command, { desc = "command" })
 
 vim.keymap.set("i", "<C-'>", [[|><CR>]], { desc = "insert |> and newline" })
+
+function send_paragraph_to_terminal()
+  local bufnr = 0
+  local cur_line = vim.api.nvim_win_get_cursor(0)[1]
+  local total_lines = vim.api.nvim_buf_line_count(bufnr)
+
+  local function is_blank(line)
+    return vim.trim(line) == ""
+  end
+
+  -- Expand upward
+  local start_line = cur_line
+  while start_line > 1 do
+    local line = vim.api.nvim_buf_get_lines(bufnr, start_line - 2, start_line - 1, false)[1]
+    if is_blank(line) then break end
+    start_line = start_line - 1
+  end
+
+  -- Expand downward
+  local end_line = cur_line
+  while end_line < total_lines do
+    local line = vim.api.nvim_buf_get_lines(bufnr, end_line, end_line + 1, false)[1]
+    if is_blank(line) then break end
+    end_line = end_line + 1
+  end
+
+  -- Get the paragraph lines
+  local lines = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, end_line, false)
+  local text = table.concat(lines, "\n") .. "\n"
+
+  -- Find first terminal buffer and send
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buftype == "terminal" then
+      local chan_id = vim.b[buf].terminal_job_id
+      if chan_id then
+        vim.fn.chansend(chan_id, text)
+        print("✅ sent paragraph to terminal")
+        return
+      end
+    end
+  end
+
+
+  print("❌ no terminal buffer found")
+end
+vim.keymap.set("n", "<leader>e", send_paragraph_to_terminal, { desc = "Eval paragraph in terminal" })
+
+
