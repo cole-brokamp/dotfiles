@@ -17,4 +17,3 @@ Run `install/macOS.sh` to set macOS options
 Run `install/brew.sh` to install macOS command line and GUI applications.
 
 Import `resources/CB_solarized.terminal` and set as default for Terminal's preferences
-

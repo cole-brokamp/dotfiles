@@ -10,4 +10,3 @@ require("plugins")
 -- wk.add({
 --   { "<leader>s", group = "search" }
 -- })
-
