@@ -16,28 +16,29 @@ return {
     end,
   },
 
-  {
-  "stevearc/conform.nvim",
-  config = function()
-    require("conform").setup({
-      format_on_save = {
-	      lsp_ffallback = true,
-	      timeout_ms = 500,
-      },
-      formatters_by_ft = {
-        lua = { "stylua" },
-        quarto = { "injected" },
-        rmd = { "injected" },
-        r = { "air" },
-        yaml = { "prettier" },
-        json = { "prettier" },
-        csv = { "prettier" },
-        markdown = { "prettier" },
-        dockerfile = { "prettier" },
-      },
-    })
-  end,
-},
+ --   {
+ --   "stevearc/conform.nvim",
+ --   config = function()
+ --     require("conform").setup({
+ --       format_on_save = {
+ -- 	      lsp_ffallback = true,
+ -- 	      timeout_ms = 500,
+ --       },
+ --       formatters_by_ft = {
+ --         lua = { "stylua" },
+ --         quarto = { "injected" },
+ --         rmd = { "injected" },
+ --         r = { "air" },
+ --         yaml = { "prettier" },
+ --         json = { "prettier" },
+ --         csv = { "prettier" },
+ --         markdown = { "prettier" },
+ --         dockerfile = { "prettier" },
+ --       },
+ --     })
+ --   end,
+ -- },
+
 }
 
 -- vim.lsp.enable("air")

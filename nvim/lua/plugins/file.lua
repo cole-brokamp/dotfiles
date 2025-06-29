@@ -15,6 +15,7 @@ return {
       { "<leader>f", group = "files" },
       { "<leader>ff", "<cmd>:Telescope file_browser path=%:p:h select_buffer=true<CR>" , desc = "find" },
       { "<leader>fs", "<cmd>write<cr>", desc = "save" },
+      { "<leader>fS", "<cmd>write<cr>", desc = "save all" },
     })
   end,
 },

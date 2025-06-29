@@ -21,7 +21,7 @@ require("lazy").setup({
   { import = "plugins.git" },
   { import = "plugins.lsp" },
   { import = "plugins.org" },
-  { import = "plugins.r" },
+  -- { import = "plugins.r" },
   { import = "plugins.ui" },
   { import = "plugins.which-key" },
 })
