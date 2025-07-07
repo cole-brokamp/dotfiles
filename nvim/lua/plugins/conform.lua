@@ -14,6 +14,7 @@ return {
           toml = { "taplo" },
           markdown = { "prettier" },
           rust = { "rustfmt" },
+          just = { "just" },
         },
       })
     end,

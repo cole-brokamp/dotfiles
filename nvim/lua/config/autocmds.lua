@@ -1,3 +1,26 @@
+-- set width option in R when term is resized
+vim.api.nvim_create_autocmd("VimResized", {
+  pattern = "*",
+  callback = function()
+    -- Get the current terminal width
+    local width = vim.o.columns
+    -- Send the R command to set options(width = ...)
+    -- Requires R.nvim (RSend function) to be loaded
+    if vim.fn.exists("*RSend") == 1 then
+      vim.fn["RSend"]("options(width = " .. width .. ")")
+    end
+  end,
+})
+
+-- set width option in R when it first starts
+vim.api.nvim_create_autocmd("User", {
+  pattern = "RReady", -- R.nvim triggers this when R is ready
+  callback = function()
+    local width = vim.o.columns
+    vim.fn["RSend"]("options(width = " .. width .. ")")
+  end,
+})
+
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.treesitter.stop()
