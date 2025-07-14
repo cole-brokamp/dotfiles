@@ -12,3 +12,9 @@ vim.cmd([[
 vim.api.nvim_set_hl(0, "markdownH1", { fg = "#fff0bd", bold = true })
 vim.api.nvim_set_hl(0, "markdownH2", { fg = "#5c7ae0", italic = true })
 vim.api.nvim_set_hl(0, "markdownH3", { fg = "#23a39a" })
+
+vim.o.hlsearch = true
+vim.o.incsearch = true
+
+-- consider a word to be between underscores
+vim.opt.iskeyword:remove("_")

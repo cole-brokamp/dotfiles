@@ -21,6 +21,25 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
+-- query search and replace
+function query_replace()
+  -- ask for the search pattern
+  vim.ui.input({ prompt = "Search for: " }, function(search)
+    if not search or search == "" then
+      return
+    end
+    -- ask for the replacement text
+    vim.ui.input({ prompt = "Replace with: " }, function(replace)
+      if replace == nil then
+        return
+      end
+      -- build and execute the substitute command with confirm
+      local cmd = string.format("%%s/%s/%s/gc", search, replace)
+      vim.cmd(cmd)
+    end)
+  end)
+end
+
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.treesitter.stop()

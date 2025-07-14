@@ -20,6 +20,7 @@ return {
         { "<leader>b", group = "buffers" },
         { "<leader>bb", "<cmd>Telescope buffers<CR>", desc = "buffers" },
         { "<leader>bd", "<cmd>bd<CR>", desc = "delete" },
+        { "<leader>bD", "<cmd>bd!<CR>", desc = "kill" },
         { "<leader>br", "<cmd>e!<CR>", desc = "reload" },
         { "<leader>bn", "<cmd>enew<CR>", desc = "new" },
         { "<leader>bs", "<cmd>new | setlocal buftype=nofile bufhidden=hide noswapfile<CR>", desc = "scratch" },

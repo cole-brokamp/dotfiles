@@ -23,7 +23,11 @@ return {
   {
     "nvim-tree/nvim-tree.lua",
     config = function()
-      require("nvim-tree").setup()
+      require("nvim-tree").setup({
+        view = { width = 50 },
+        git = { ignore = false },
+        filters = { dotfiles = false, git_ignored = false },
+      })
       local wk = require("which-key")
       wk.add({
         { "<leader>d", "<cmd>NvimTreeFindFile<cr>", desc = "dir" },
