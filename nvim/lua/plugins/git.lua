@@ -11,9 +11,16 @@ return {
       wk.add({
         { "<leader>g", group = "git" },
         { "<leader>gs", "<cmd>Neogit kind=split<cr>", desc = "status" },
+      })
+    end,
+  },
+  {
+    "Almo7aya/openingh.nvim",
+    config = function()
+      local wk = require("which-key")
+      wk.add({
         { "<leader>gh", "<cmd>OpenInGHRepo<cr>", desc = "github" },
       })
     end,
   },
-  -- { "Almo7aya/openingh.nvim" },
 }
