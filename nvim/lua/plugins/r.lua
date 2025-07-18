@@ -11,8 +11,7 @@ return {
       local opts = {
         Rout_more_colors = true,
         R_args = { "--quiet", "--no-save" },
-        save_win_pos = true,
-        -- user_only_maps = true,
+        user_only_maps = true,
         hook = {
           on_filetype = function()
             local function bufmap(mode, lhs, rhs, opts)
@@ -26,16 +25,50 @@ return {
 
             local maps = {
               -- send to R terminal
-              { { "n" }, "<LocalLeader>,", "<Plug>RDSendLine", { desc = "> line" } },
-              { { "v" }, "<C-Enter>", "<Plug>RSendSelection", { desc = "> selection" } },
+              {
+                { "n" },
+                "<LocalLeader>,",
+                "<Cmd>lua require('r.send').line('stay')<CR>",
+                { desc = "> line and stay" },
+              },
+              { { "v" }, "<C-Enter>", "<Plug>RSendSelection", { desc = "> selection<CR>" } },
+              { { "n" }, "<C-Enter>", "<Cmd>lua require('r.send').line('move')<CR>", { desc = "> line and step" } },
+              {
+                { "n" },
+                "<LocalLeader>e",
+                "<Cmd>lua require('r.send').paragraph(true)<CR>",
+                { desc = "> paragraph and step" },
+              },
 
               -- on word under cursor
               { { "n" }, "<LocalLeader>o", "<Cmd>lua require('r.run').action('print')<CR>", { desc = "object print" } },
+              { { "n" }, "<LocalLeader>h", "<Cmd>lua require('r.run').action('help')<CR>", { desc = "help" } },
+              {
+                { "n" },
+                "<LocalLeader>H",
+                "<Cmd>lua require('r.run').action('help(type = 'html')')<CR>",
+                { desc = "help in browser" },
+              },
+
               {
                 { "n" },
                 "<LocalLeader>O",
                 "<Cmd>lua require('r.run').action('tibble::glimpse')<CR>",
                 { desc = "object glimpse" },
+              },
+
+              -- graphics
+              {
+                { "n" },
+                "<LocalLeader>gg",
+                "<Cmd>lua require('r.send').cmd('if (!names(dev.cur()) == \"unigd\") httpgd::hgd(); httpgd::hgd_browse()')<CR>",
+                { desc = "open graphics server" },
+              },
+              {
+                { "n" },
+                "<LocalLeader>gx",
+                "<Cmd>lua require('r.send').cmd('httpgd::hgd_close()')<CR>",
+                { desc = "kill graphics server" },
               },
 
               -- devtools
