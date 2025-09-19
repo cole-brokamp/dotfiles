@@ -17,4 +17,7 @@ vim.o.hlsearch = true
 vim.o.incsearch = true
 
 -- consider a word to be between underscores
-vim.opt.iskeyword:remove("_")
+vim.opt.iskeyword = vim.opt.iskeyword - { "_" }
+
+-- use system clipboard
+vim.opt.clipboard = "unnamedplus"
