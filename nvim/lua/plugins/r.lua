@@ -11,7 +11,9 @@ return {
       local opts = {
         Rout_more_colors = true,
         R_args = { "--quiet", "--no-save" },
-        user_only_maps = true,
+        objbr_auto_start = false,
+        objbr_opendf = false,
+        objbr_openlist = false,
         hook = {
           on_filetype = function()
             local function bufmap(mode, lhs, rhs, opts)
@@ -120,6 +122,14 @@ return {
                 "<Cmd>lua require('r.send').cmd('rextendr::document()')<CR>",
                 { desc = "rextendr document" },
               },
+              {
+                { "n" },
+                "<LocalLeader>db",
+                function()
+                  require("r.browser").toggle_view()
+                end,
+                { desc = "R browser" },
+              },
 
               {
                 { "n" },
@@ -154,17 +164,40 @@ return {
         set_params = "no",
         debug = false,
         debug_jump = false,
-        disable_cmds = {
-          "RCustomStart",
-          "RSourceDir",
-          "RBuildTags",
-          "RSPlot",
-          "RMapsDesc",
-          "RSaveClose",
-          "RFormat",
-        },
+        disable_cmds = { "all" },
       }
       require("r").setup(opts)
+      local function strip_rnvim(buf)
+        -- remove any <Plug>R* maps, buffer and global
+        local modes = { "n", "v", "x", "i", "s", "o", "c", "t" }
+        for _, md in ipairs(modes) do
+          for _, m in ipairs(vim.api.nvim_buf_get_keymap(buf, md)) do
+            if m.rhs and m.rhs:find("<Plug>R") then
+              pcall(vim.keymap.del, md, m.lhs, { buffer = buf })
+            end
+          end
+          for _, m in ipairs(vim.api.nvim_get_keymap(md)) do
+            if m.rhs and m.rhs:find("<Plug>R") then
+              pcall(vim.keymap.del, md, m.lhs)
+            end
+          end
+        end
+        -- remove any autocmds added by the plugin in this buffer
+        for _, a in ipairs(vim.api.nvim_get_autocmds({ buffer = buf })) do
+          local d = a.desc or ""
+          local cmd = a.command or ""
+          if d:lower():find("r.nvim") or cmd:lower():find('require%("r"%)') then
+            pcall(vim.api.nvim_del_autocmd, a.id)
+          end
+        end
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "r", "rmd", "quarto" },
+        callback = function(args)
+          strip_rnvim(args.buf)
+        end,
+      })
     end,
   },
 
