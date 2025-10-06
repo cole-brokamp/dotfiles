@@ -21,7 +21,7 @@ require("lazy").setup({
   { import = "plugins.edit" },
   { import = "plugins.git" },
   { import = "plugins.lsp" },
-  { import = "plugins.org" },
+  -- { import = "plugins.org" },
   { import = "plugins.treesitter" },
   { import = "plugins.conform" },
   { import = "plugins.r" },

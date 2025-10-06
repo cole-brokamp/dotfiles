@@ -11,150 +11,6 @@ return {
       local opts = {
         Rout_more_colors = true,
         R_args = { "--quiet", "--no-save" },
-        objbr_auto_start = false,
-        objbr_opendf = false,
-        objbr_openlist = false,
-        hook = {
-          on_filetype = function()
-            local function bufmap(mode, lhs, rhs, opts)
-              opts = vim.tbl_extend("force", {
-                noremap = true,
-                silent = true,
-                buffer = true,
-              }, opts or {})
-              vim.keymap.set(mode, lhs, rhs, opts)
-            end
-
-            local maps = {
-              -- send to R terminal
-              {
-                { "n" },
-                "<LocalLeader>,",
-                "<Cmd>lua require('r.send').line('stay')<CR>",
-                { desc = "> line and stay" },
-              },
-              { { "v" }, "<C-Enter>", "<Plug>RSendSelection", { desc = "> selection<CR>" } },
-              { { "n" }, "<C-Enter>", "<Cmd>lua require('r.send').line('move')<CR>", { desc = "> line and step" } },
-              {
-                { "n" },
-                "<LocalLeader>e",
-                "<Cmd>lua require('r.send').paragraph(true)<CR>",
-                { desc = "> paragraph and step" },
-              },
-
-              -- on word under cursor
-              { { "n" }, "<LocalLeader>o", "<Cmd>lua require('r.run').action('print')<CR>", { desc = "object print" } },
-              { { "n" }, "<LocalLeader>h", "<Cmd>lua require('r.run').action('help')<CR>", { desc = "help" } },
-              {
-                { "n" },
-                "<LocalLeader>H",
-                "<Cmd>lua require('r.run').action('help(type = 'html')')<CR>",
-                { desc = "help in browser" },
-              },
-
-              {
-                { "n" },
-                "<LocalLeader>O",
-                "<Cmd>lua require('r.run').action('tibble::glimpse')<CR>",
-                { desc = "object glimpse" },
-              },
-
-              -- graphics
-              {
-                { "n" },
-                "<LocalLeader>gg",
-                "<Cmd>lua require('r.send').cmd('if (!names(dev.cur()) == \"unigd\") httpgd::hgd(); httpgd::hgd_browse()')<CR>",
-                { desc = "open graphics server" },
-              },
-              {
-                { "n" },
-                "<LocalLeader>gx",
-                "<Cmd>lua require('r.send').cmd('httpgd::hgd_close()')<CR>",
-                { desc = "kill graphics server" },
-              },
-
-              -- devtools
-              {
-                { "n" },
-                "<LocalLeader>dl",
-                "<Cmd>lua require('r.send').cmd('devtools::load_all()')<CR>",
-                { desc = "load all" },
-              },
-              {
-                { "n" },
-                "<LocalLeader>dd",
-                "<Cmd>lua require('r.send').cmd('devtools::document()')<CR>",
-                { desc = "document" },
-              },
-              {
-                { "n" },
-                "<LocalLeader>dc",
-                "<Cmd>lua require('r.send').cmd('devtools::check()')<CR>",
-                { desc = "check" },
-              },
-              {
-                { "n" },
-                "<LocalLeader>dr",
-                "<Cmd>lua require('r.send').cmd('devtools::build_readme()')<CR>",
-                { desc = "build readme" },
-              },
-              {
-                { "n" },
-                "<LocalLeader>de",
-                "<Cmd>lua require('r.send').cmd('devtools::run_examples()')<CR>",
-                { desc = "run examples" },
-              },
-              {
-                { "n" },
-                "<LocalLeader>ds",
-                "<Cmd>lua require('r.send').cmd('devtools::build_site()')<CR>",
-                { desc = "build site" },
-              },
-              {
-                { "n" },
-                "<LocalLeader>dm",
-                "<Cmd>lua require('r.send').cmd('devtools::build_manual()')<CR>",
-                { desc = "build pdf manual" },
-              },
-              {
-                { "n" },
-                "<LocalLeader>dR",
-                "<Cmd>lua require('r.send').cmd('rextendr::document()')<CR>",
-                { desc = "rextendr document" },
-              },
-              {
-                { "n" },
-                "<LocalLeader>db",
-                function()
-                  require("r.browser").toggle_view()
-                end,
-                { desc = "R browser" },
-              },
-
-              {
-                { "n" },
-                "<LocalLeader>tt",
-                "<Cmd>lua require('r.send').cmd('devtools::test()')<CR>",
-                { desc = "test package" },
-              },
-
-              -- example with Lua callback
-              {
-                { "n" },
-                "<LocalLeader>fi",
-                function()
-                  local fname = vim.api.nvim_buf_get_name(0)
-                  require("r.send").cmd('file.info("' .. fname .. '")')
-                end,
-              },
-            }
-
-            -- 3) loop and apply
-            for _, m in ipairs(maps) do
-              bufmap(m[1], m[2], m[3], m[4])
-            end
-          end,
-        },
         clear_line = true,
         nvimpager = "split_h",
         rmd_environment = "new.env()",
@@ -164,40 +20,112 @@ return {
         set_params = "no",
         debug = false,
         debug_jump = false,
-        disable_cmds = { "all" },
+        disable_cmds = {
+          "RSPlot",
+          "RHelp",
+          "RInsert",
+          "RObjBrowser",
+          "RObjBrowserEnv",
+          "RObjBrowserSearch",
+          "RObjBrowserRefresh",
+          "RClearConsole",
+          "RSaveClose",
+          "RCustomStart",
+          "RSourceDir",
+          "RFormat",
+          "RMapsDesc",
+          "RConfigShow",
+        },
+        objbr_auto_start = false,
+        objbr_opendf = false,
+        objbr_openlist = false,
+        hook = {
+          on_filetype = function()
+            -- helpers -------------------------------------------------
+            local Rs = require("r.send")
+            local Rrun = require("r.run")
+            local R = require("r")
+            local M = {}
+            -- stylua: ignore start
+            M.line_step = function() Rs.line("move") end
+            M.line_stay = function() Rs.line("stay") end
+            M.par_step = function() Rs.paragraph(true) end
+            M.gfx_open = function() Rs.cmd('if (!names(dev.cur()) == "unigd") httpgd::hgd(); httpgd::hgd_browse()') end
+            M.gfx_close = function() Rs.cmd("httpgd::hgd_close()") end
+            M.dev_load = function() Rs.cmd("devtools::load_all()") end
+            M.dev_doc = function() Rs.cmd("devtools::document()") end
+            M.dev_check = function() Rs.cmd("devtools::check()") end
+            M.dev_manual = function() Rs.cmd("devtools::build_manual()") end
+            M.dev_readme = function() Rs.cmd("devtools::build_readme()") end
+            M.dev_site = function() Rs.cmd("devtools::build_site()") end
+            M.dev_examples = function() Rs.cmd("devtools::run_examples()") end
+            M.dev_test = function() Rs.cmd("devtools::test()") end
+            M.rextendr_doc = function() Rs.cmd("rextendr::document()") end
+            M.help_text = function() Rrun.action("help") end
+            M.help_html = function() Rrun.action("help(type = 'html')") end
+            M.obj_print = function() Rrun.action("print") end
+            M.obj_glimpse = function() Rrun.action("tibble::glimpse") end
+            -- stylua: ignore end
+            local wk = require("which-key")
+            wk.register({
+              ["<C-Enter>"] = { M.line_step, "line step" },
+              ["<localleader>,"] = { M.line_stay, "line stay" },
+              ["<localleader>e"] = { M.par_step, "paragraph step" },
+
+              ["<localleader>d"] = { group = "devtools" },
+              ["<localleader>dR"] = { M.rextendr_doc, "rextendr doc" },
+              ["<localleader>dc"] = { M.dev_check, "check" },
+              ["<localleader>dd"] = { M.dev_doc, "document" },
+              ["<localleader>de"] = { M.dev_examples, "run examples" },
+              ["<localleader>dl"] = { M.dev_load, "load all" },
+              ["<localleader>dm"] = { M.dev_manual, "manual" },
+              ["<localleader>dr"] = { M.dev_readme, "readme" },
+              ["<localleader>ds"] = { M.dev_site, "site" },
+              ["<localleader>dt"] = { M.dev_test, "test" },
+
+              ["<localleader>g"] = { group = "graphics" },
+              ["<localleader>gg"] = { M.gfx_open, "open graphics" },
+              ["<localleader>gx"] = { M.gfx_close, "close graphics" },
+
+              ["<localleader>h"] = { group = "help" },
+              ["<localleader>hh"] = { M.help_text, "help" },
+              ["<localleader>hH"] = { M.help_html, "help html" },
+
+              ["<localleader>o"] = { group = "objects" },
+              ["<localleader>oo"] = { M.obj_print, "print object" },
+              ["<localleader>oO"] = { M.obj_glimpse, "glimpse" },
+
+              ["<localleader>s"] = { group = "session" },
+              ["<localleader>ss"] = { "<Cmd>RStart<CR>", "start R session" },
+            }, { buffer = 0 })
+          end,
+        },
       }
       require("r").setup(opts)
-      local function strip_rnvim(buf)
-        -- remove any <Plug>R* maps, buffer and global
-        local modes = { "n", "v", "x", "i", "s", "o", "c", "t" }
-        for _, md in ipairs(modes) do
-          for _, m in ipairs(vim.api.nvim_buf_get_keymap(buf, md)) do
-            if m.rhs and m.rhs:find("<Plug>R") then
-              pcall(vim.keymap.del, md, m.lhs, { buffer = buf })
-            end
-          end
-          for _, m in ipairs(vim.api.nvim_get_keymap(md)) do
-            if m.rhs and m.rhs:find("<Plug>R") then
-              pcall(vim.keymap.del, md, m.lhs)
-            end
-          end
-        end
-        -- remove any autocmds added by the plugin in this buffer
-        for _, a in ipairs(vim.api.nvim_get_autocmds({ buffer = buf })) do
-          local d = a.desc or ""
-          local cmd = a.command or ""
-          if d:lower():find("r.nvim") or cmd:lower():find('require%("r"%)') then
-            pcall(vim.api.nvim_del_autocmd, a.id)
-          end
-        end
-      end
 
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "r", "rmd", "quarto" },
-        callback = function(args)
-          strip_rnvim(args.buf)
-        end,
-      })
+      -- local function strip_rnvim(buf)
+      --   -- remove any <Plug>R* maps, buffer and global
+      --   local modes = { "n", "v", "x", "i", "s", "o", "c", "t" }
+      --   for _, md in ipairs(modes) do
+      --     for _, m in ipairs(vim.api.nvim_buf_get_keymap(buf, md)) do
+      --       if m.rhs and m.rhs:find("<Plug>R") then
+      --         pcall(vim.keymap.del, md, m.lhs, { buffer = buf })
+      --       end
+      --     end
+      --     for _, m in ipairs(vim.api.nvim_get_keymap(md)) do
+      --       if m.rhs and m.rhs:find("<Plug>R") then
+      --         pcall(vim.keymap.del, md, m.lhs)
+      --       end
+      --     end
+      --   end
+      -- end
+
+      -- vim.api.nvim_create_autocmd("FileType", {
+      --   pattern = { "r", "rmd", "quarto" },
+      --   callback = function(args)
+      --     strip_rnvim(args.buf)
+      --   end,
+      -- })
     end,
   },
 
