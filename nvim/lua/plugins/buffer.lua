@@ -26,10 +26,8 @@ return {
         { "<leader>bs", "<cmd>new | setlocal buftype=nofile bufhidden=hide noswapfile<CR>", desc = "scratch" },
         { "<leader>bn", "<cmd>bn<CR>", desc = "next" },
         { "<leader>bp", "<cmd>bp<CR>", desc = "previous" },
+        { "<leader><Tab>", "<cmd>b#<CR>", desc = "last buffer" },
       })
-
-      -- Jump to last buffer (previous buffer in this window)
-      vim.keymap.set("n", "<leader><Tab>", "<Cmd>b#<CR>", { desc = "Last buffer" })
     end,
   },
 }
