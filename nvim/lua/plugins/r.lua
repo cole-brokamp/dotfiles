@@ -62,7 +62,7 @@ return {
             M.dev_test = function() Rs.cmd("devtools::test()") end
             M.rextendr_doc = function() Rs.cmd("rextendr::document()") end
             M.help_text = function() Rrun.action("help") end
-            M.help_html = function() Rrun.action("help(type = 'html')") end
+            M.help_html = function() vim.cmd(("RSend help(%s, help_type='html')"):format(vim.fn.expand("<cword>"))) end
             M.obj_print = function() Rrun.action("print") end
             M.obj_glimpse = function() Rrun.action("tibble::glimpse") end
             -- stylua: ignore end
@@ -87,13 +87,11 @@ return {
               ["<localleader>gg"] = { M.gfx_open, "open graphics" },
               ["<localleader>gx"] = { M.gfx_close, "close graphics" },
 
-              ["<localleader>h"] = { group = "help" },
-              ["<localleader>hh"] = { M.help_text, "help" },
-              ["<localleader>hH"] = { M.help_html, "help html" },
+              ["<localleader>h"] = { M.help_text, "help" },
+              ["<localleader>H"] = { M.help_html, "help html" },
 
-              ["<localleader>o"] = { group = "objects" },
-              ["<localleader>oo"] = { M.obj_print, "print object" },
-              ["<localleader>oO"] = { M.obj_glimpse, "glimpse" },
+              ["<localleader>o"] = { M.obj_print, "print object" },
+              ["<localleader>O"] = { M.obj_glimpse, "glimpse" },
 
               ["<localleader>s"] = { group = "session" },
               ["<localleader>ss"] = { "<Cmd>RStart<CR>", "start R session" },
