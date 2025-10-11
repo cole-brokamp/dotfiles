@@ -2,23 +2,14 @@ source ~/dotfiles/secrets.sh 2> /dev/null
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
-export DOCKER_BUILDKIT=1
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-alias cdf='cd "`osascript -e "tell application \\"Finder\\" to get POSIX path of (insertion location as alias)"`"'
 alias ls='ls -F'
 alias ll='ls -o --human-readable --color --group-directories-first'
 alias la='ll --all'
-alias grep='grep --color=auto'
 alias reload="exec $SHELL -l"
 alias path='echo -e ${PATH//:/\\n}'
 alias R='R --quiet --no-save'
-alias ip_public='wget http://ipinfo.io/ip -qO -'
-alias ip_local="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
-alias quick_serve="python3 -m http.server"
-
-# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
 PROMPT_DIRTRIM=3
 PS1="$(tput setaf 33)\u $(tput setaf 244)at $(tput setaf 29)\h $(tput setaf 244)in $(tput setaf 136)\w \n$(tput setaf 244)\$$(tput sgr0) "
@@ -33,11 +24,13 @@ if [ -d "/opt/homebrew" ]; then
   HOMEBREW_NO_AUTO_UPDATE=1
 fi
 
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
+
 # Add completions for just
 if command -v just >/dev/null 2>&1; then
   source <(just --completions bash)
 fi
-
 
 PATH="$PATH:~/dotfiles/bin"
 PATH="$PATH:~/.cargo/bin"
