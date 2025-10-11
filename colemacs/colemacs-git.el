@@ -1,1 +1,0 @@
-(provide 'colemacs-git)
