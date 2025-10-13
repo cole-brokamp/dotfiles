@@ -8,17 +8,6 @@ set relativenumber
 set number
 set cursorline
 
-set history=1000
-set autoindent
-set smartindent
-set backspace=indent,eol,start
-set showmatch
-
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-
 set showcmd " show commands as they are typed
 set noshowmode "don't show mode in cmd line
 set wildmenu " enhance command-line completion

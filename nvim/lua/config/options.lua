@@ -1,5 +1,8 @@
 vim.opt.termguicolors = true
 
+vim.opt.cursorline = true
+vim.api.nvim_set_hl(0, "CursorLine", { underline = true })
+
 -- clear out background coloring
 vim.cmd([[
   hi Normal guibg=NONE ctermbg=NONE
