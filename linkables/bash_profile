@@ -11,26 +11,7 @@ alias reload="exec $SHELL -l"
 alias path='echo -e ${PATH//:/\\n}'
 alias R='R --quiet --no-save'
 
-alias tm='
-if [ -n "$TMUX" ]; then
-  echo "Already inside tmux. Exit first."
-  return
-fi
-
-# tmux session wrapper
-sessions=$(tmux list-sessions -F "#S" 2>/dev/null)
-if [ -n "$sessions" ]; then
-  echo "Available sessions:"
-  echo "$sessions"
-  read -p "Attach to (or new name): " s
-  s=${s:-default}
-  tmux attach -t "$s" 2>/dev/null || tmux new -s "$s"
-else
-  read -p "No sessions found. Create new (name): " s
-  s=${s:-default}
-  tmux new -s "$s"
-fi
-'
+alias tm='tmux new-session -A -s main'
 
 PROMPT_DIRTRIM=3
 PS1="$(tput setaf 33)\u $(tput setaf 244)at $(tput setaf 29)\h $(tput setaf 244)in $(tput setaf 136)\w \n$(tput setaf 244)\$$(tput sgr0) "
