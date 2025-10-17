@@ -4,11 +4,8 @@ set autoread
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
-set relativenumber
-set number
 set cursorline
 
-set showcmd " show commands as they are typed
 set noshowmode "don't show mode in cmd line
 set wildmenu " enhance command-line completion
 
@@ -16,17 +13,10 @@ set wildmenu " enhance command-line completion
 set ttyfast
 set lazyredraw
 
-set gdefault
-set incsearch
-set hlsearch
-set ignorecase
-set smartcase
 "This unsets the 'last search pattern' register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
 let mapleader = ","
 let maplocalleader = ","
-
-filetype plugin indent on
 
 hi CursorLine cterm=underline ctermfg=None ctermbg=None
