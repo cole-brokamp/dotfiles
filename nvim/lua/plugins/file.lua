@@ -24,7 +24,7 @@ return {
     "nvim-tree/nvim-tree.lua",
     config = function()
       require("nvim-tree").setup({
-        view = { width = 45 },
+        view = { width = 35 },
         git = { ignore = false },
         filters = { dotfiles = false, git_ignored = false },
       })

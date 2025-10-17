@@ -19,7 +19,7 @@ return {
       wk.add({
         { "<leader>b", group = "buffers" },
         { "<leader>bb", "<cmd>Telescope buffers<CR>", desc = "buffers" },
-        { "<leader>bd", "<cmd>bd<CR>", desc = "delete" },
+        { "<leader>bd", "<cmd>bp | bd #<CR>", desc = "delete" },
         { "<leader>bD", "<cmd>bd!<CR>", desc = "kill" },
         { "<leader>br", "<cmd>e!<CR>", desc = "reload" },
         { "<leader>bn", "<cmd>enew<CR>", desc = "new" },
