@@ -34,4 +34,6 @@ if command -v just >/dev/null 2>&1; then
   source <(just --completions bash)
 fi
 
-PATH="$PATH:~/.cargo/bin"
+if [ -d "$HOME/.cargo.bin" ]; then
+  PATH="$PATH:~/.cargo/bin"
+fi
