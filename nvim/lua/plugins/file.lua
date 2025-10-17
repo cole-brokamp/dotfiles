@@ -13,9 +13,18 @@ return {
       require("telescope").load_extension("file_browser")
       wk.add({
         { "<leader>f", group = "files" },
-        { "<leader>ff", "<cmd>:Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "find" },
+        {
+          "<leader>ff",
+          function()
+            require("telescope").extensions.file_browser.file_browser({
+              path = vim.fn.getcwd(),
+              select_buffer = true,
+            })
+          end,
+          desc = "find",
+        },
         { "<leader>fs", "<cmd>write<cr>", desc = "save" },
-        { "<leader>fS", "<cmd>write<cr>", desc = "save all" },
+        { "<leader>fS", "<cmd>wall<cr>", desc = "save all" },
       })
     end,
   },
@@ -27,6 +36,11 @@ return {
         view = { width = 35 },
         git = { ignore = false },
         filters = { dotfiles = false, git_ignored = false },
+        actions = {
+          open_file = {
+            quit_on_open = true,
+          },
+        },
       })
       local wk = require("which-key")
       wk.add({
