@@ -4,6 +4,8 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local format_group = vim.api.nvim_create_augroup("ColeLspFormat", { clear = true })
+      local ok_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+      local cmp_capabilities = ok_cmp and cmp_nvim_lsp.default_capabilities() or nil
 
       local function on_attach(client, bufnr)
         if client.server_capabilities.documentFormattingProvider then
@@ -20,6 +22,7 @@ return {
 
       vim.lsp.config("air", {
         on_attach = on_attach,
+        capabilities = cmp_capabilities,
       })
 
       vim.lsp.enable("air")
@@ -37,6 +40,7 @@ return {
             on_attach = on_attach,
             cmd = { "R", "--no-echo", "--slave", "-e", "languageserver::run()" },
             filetypes = { "r", "rmd", "rnoweb", "quarto" },
+            capabilities = cmp_capabilities,
             root_dir = function(bufnr, on_dir)
               local root = vim.fs.root(bufnr, { ".git", ".Rproj", "DESCRIPTION" })
               if root then

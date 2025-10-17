@@ -129,13 +129,17 @@ return {
 
   {
     "hrsh7th/nvim-cmp",
-    dependencies = { "R-nvim/cmp-r" },
+    dependencies = {
+      "R-nvim/cmp-r",
+      "hrsh7th/cmp-nvim-lsp",
+    },
     config = function()
       local cmp = require("cmp")
       cmp.setup({
-        sources = {
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
           { name = "cmp_r" },
-        },
+        }),
         mapping = {
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<C-n>"] = cmp.mapping.select_next_item(),
