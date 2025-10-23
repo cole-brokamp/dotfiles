@@ -46,5 +46,6 @@ if command -v just >/dev/null 2>&1; then
 fi
 
 if [ -d "$HOME/.cargo/bin" ]; then
-. "$HOME/.cargo/env"
+  export PATH="$HOME/.cargo/bin:$PATH"
+  #. "$HOME/.cargo/env"
 fi
