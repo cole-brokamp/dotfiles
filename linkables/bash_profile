@@ -9,6 +9,7 @@ alias ll='ls -o --human-readable --color --group-directories-first'
 alias la='ll --all'
 alias reload="exec $SHELL -l"
 alias path='echo -e ${PATH//:/\\n}'
+
 alias R='R --quiet --no-save'
 
 alias tm='tmux new-session -A -s main'

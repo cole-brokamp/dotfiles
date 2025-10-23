@@ -1,8 +1,11 @@
-options(max.print = 100)
-options(sci.pen = 10)
-options(menu.graphics = FALSE)
-
 options(
+  repos = c(
+    CRAN = Sys.getenv("PKG_CRAN_MIRROR", unset = "https://cloud.r-project.org")
+  ),
+  max.print = 100,
+  scipen = 10,
+  menu.graphics = FALSE,
+  setWidthOnResize = TRUE,
   usethis.full_name = "Cole Brokamp",
   usethis.description = list(
     `Authors@R` = 'person("Cole", "Brokamp", email = "cole@colebrokamp.com", role = c("aut", "cre"), 
@@ -12,8 +15,3 @@ options(
 )
 
 Sys.setenv("TESTTHAT_CPUS" = 4)
-options(
-  repos = c(
-    CRAN = Sys.getenv("PKG_CRAN_MIRROR", unset = "https://cloud.r-project.org")
-  )
-)
