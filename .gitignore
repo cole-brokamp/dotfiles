@@ -3,3 +3,4 @@ rds_credentials
 secrets.sh
 *.swp
 /.DS_Store
+nvim/lazy-lock.json
