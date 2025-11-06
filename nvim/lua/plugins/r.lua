@@ -136,14 +136,29 @@ return {
     config = function()
       local cmp = require("cmp")
       cmp.setup({
+        completion = {
+          autocomplete = false,
+        },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "cmp_r" },
         }),
         mapping = {
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-n>"] = cmp.mapping.select_next_item(),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ["<C-n>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              cmp.complete()
+            end
+          end, { "i", "s" }),
+          ["<C-p>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              cmp.complete()
+            end
+          end, { "i", "s" }),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.close()
