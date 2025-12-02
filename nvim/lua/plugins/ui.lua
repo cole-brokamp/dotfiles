@@ -4,8 +4,29 @@ return {
     priority = 1000, -- load before everything else
     config = function()
       vim.opt.termguicolors = true
+      vim.opt.laststatus = 3 -- single global statusline so horizontal splits use separators
       vim.o.background = "dark"
       vim.cmd([[colorscheme doom-dracula]])
+
+      local function set_split_highlights()
+        vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#ff79c6" })
+        vim.api.nvim_set_hl(0, "VertSplit", { fg = "#44475a" })
+        vim.opt.fillchars:append({
+          vert = "┃",
+          vertleft = "┣",
+          vertright = "┫",
+          verthoriz = "╋",
+          horiz = "━",
+          horizup = "┻",
+          horizdown = "┳",
+        })
+      end
+
+      set_split_highlights()
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "*",
+        callback = set_split_highlights,
+      })
     end,
   },
 
