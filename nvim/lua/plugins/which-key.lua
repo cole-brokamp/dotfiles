@@ -39,6 +39,12 @@ return {
       })
 
       wk.add({
+        { "<leader>f", group = "files" },
+        { "<leader>fs", "<cmd>write<cr>", desc = "save" },
+        { "<leader>fS", "<cmd>wall<cr>", desc = "save all" },
+      })
+
+      wk.add({
         { "<leader>w", group = "window" },
         { "<leader>w+", "<C-w>+", desc = "increase height" },
         { "<leader>w_", "<C-w>-", desc = "decrease height" },

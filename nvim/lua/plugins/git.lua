@@ -7,8 +7,7 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     config = function()
-      local wk = require("which-key")
-      wk.add({
+      require("which-key").add({
         { "<leader>g", group = "git" },
         { "<leader>gs", "<cmd>Neogit kind=split<cr>", desc = "status" },
       })
@@ -17,8 +16,7 @@ return {
   {
     "Almo7aya/openingh.nvim",
     config = function()
-      local wk = require("which-key")
-      wk.add({
+      require("which-key").add({
         { "<leader>gh", "<cmd>OpenInGHRepo<cr>", desc = "github" },
       })
     end,

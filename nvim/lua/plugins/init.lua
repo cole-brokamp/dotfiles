@@ -16,12 +16,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { import = "plugins.file" },
+  { import = "plugins.which-key" },
+  { import = "plugins.tree" },
   { import = "plugins.search" },
   { import = "plugins.git" },
   { import = "plugins.lsp" },
   { import = "plugins.format-on-save" },
   { import = "plugins.r" },
   { import = "plugins.ui" },
-  { import = "plugins.which-key" },
 })
