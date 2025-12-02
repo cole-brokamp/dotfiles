@@ -18,7 +18,6 @@ return {
     },
     config = function()
       local wk = require("which-key")
-      local telescope = require("telescope.builtin")
 
       wk.add({
         { "<leader>q", group = "quit" },
