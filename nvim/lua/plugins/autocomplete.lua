@@ -5,6 +5,10 @@ return {
       "R-nvim/cmp-r",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      "hrsh7th/cmp-cmdline",
     },
     config = function()
       local cmp = require("cmp")
@@ -16,6 +20,8 @@ return {
           { name = "nvim_lsp" },
           { name = "cmp_r" },
           { name = "path" },
+          { name = "buffer" },
+          { name = "nvim_lsp_signature_help" },
         }),
         mapping = {
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
@@ -41,6 +47,32 @@ return {
             end
           end, { "i", "s" }),
         },
+      })
+
+      cmp.setup.filetype("lua", {
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "nvim_lua" },
+        }, {
+          { name = "buffer" },
+          { name = "path" },
+        }),
+      })
+
+      cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
+      })
+
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
+          { name = "cmdline" },
+        }),
       })
       require("cmp_r").setup({
         filetypes = { "r", "rmd", "quarto" },
