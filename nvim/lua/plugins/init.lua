@@ -19,6 +19,7 @@ require("lazy").setup({
   { import = "plugins.which-key" },
   { import = "plugins.tree" },
   { import = "plugins.search" },
+  { import = "plugins.autocomplete" },
   { import = "plugins.git" },
   { import = "plugins.lsp" },
   { import = "plugins.format-on-save" },
