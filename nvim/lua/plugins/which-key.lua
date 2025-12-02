@@ -26,6 +26,19 @@ return {
       })
 
       wk.add({
+        { "<leader>b", group = "buffers" },
+        { "<leader>bb", "<cmd>Telescope buffers<CR>", desc = "buffers" },
+        { "<leader>bd", "<cmd>bp | bd #<CR>", desc = "delete" },
+        { "<leader>bD", "<cmd>bd!<CR>", desc = "kill" },
+        { "<leader>br", "<cmd>e!<CR>", desc = "reload" },
+        { "<leader>bn", "<cmd>enew<CR>", desc = "new" },
+        { "<leader>bs", "<cmd>new | setlocal buftype=nofile bufhidden=hide noswapfile<CR>", desc = "scratch" },
+        { "<leader>bn", "<cmd>bn<CR>", desc = "next" },
+        { "<leader>bp", "<cmd>bp<CR>", desc = "previous" },
+        { "<leader><Tab>", "<cmd>b#<CR>", desc = "last buffer" },
+      })
+
+      wk.add({
         { "<leader>w", group = "window" },
         { "<leader>w+", "<C-w>+", desc = "increase height" },
         { "<leader>w_", "<C-w>-", desc = "decrease height" },
