@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
 
 function open_terminal_below()
-  vim.cmd("belowright 12split")
+  vim.cmd("belowright 32split")
   vim.cmd("terminal")
   vim.cmd("startinsert")
 end
@@ -69,7 +69,7 @@ function command()
 end
 vim.keymap.set("n", "<leader>c", command, { desc = "command" })
 
-vim.keymap.set("i", "<C-'>", [[|><CR>]], { desc = "insert |> and newline" })
+vim.keymap.set("i", "<C-'>", [[ |><CR>]], { desc = "insert |> and newline" })
 
 function send_paragraph_to_terminal()
   local bufnr = 0
