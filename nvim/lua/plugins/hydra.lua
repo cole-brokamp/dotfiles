@@ -24,7 +24,7 @@ return {
       })
       vim.keymap.set("n", "<leader>wr", function()
         hydra_window_rearrange:activate()
-      end, { desc = "resize" })
+      end, { desc = "rearrange" })
     end,
   },
 }

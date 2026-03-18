@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
 
 function open_terminal_below()
-  vim.cmd("belowright 32split")
+  vim.cmd("belowright 48split")
   vim.cmd("terminal")
   vim.cmd("startinsert")
 end
@@ -59,7 +59,7 @@ vim.keymap.set("n", "<leader>t", open_terminal_below, { desc = "terminal" })
 function command()
   vim.ui.input({ prompt = " > " }, function(input)
     local current_win = vim.api.nvim_get_current_win()
-    vim.cmd("belowright 12split")
+    vim.cmd("belowright 24split")
     local new_win = vim.api.nvim_get_current_win()
     local buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_win_set_buf(new_win, buf)
