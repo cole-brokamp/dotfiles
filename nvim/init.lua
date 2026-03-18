@@ -55,12 +55,7 @@ vim.api.nvim_set_hl(0, "markdownH3", { fg = "#23a39a" })
 -- misc
 vim.opt.hidden = true
 vim.opt.mouse = "a"
+
+-- load other files
 require("config/autocmds")
 require("plugins")
-
--- local wk = require("which-key")
--- local telescope = require("telescope.builtin")
-
--- wk.add({
---   { "<leader>s", group = "search" }
--- })
