@@ -130,8 +130,15 @@ function Send.focus_terminal()
 end
 
 function Send.send_line()
+  local bufnr = 0
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  local last_row = vim.api.nvim_buf_line_count(bufnr)
   local line = vim.api.nvim_get_current_line()
   send_text(line)
+
+  if row < last_row then
+    vim.api.nvim_win_set_cursor(0, { row + 1, 0 })
+  end
 end
 
 function Send.send_word()
@@ -168,6 +175,16 @@ function Send.send_paragraph()
 
   local lines = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, end_line, false)
   send_text(table.concat(lines, "\n"))
+
+  local next_line = end_line + 1
+  while next_line <= total_lines do
+    local line = vim.api.nvim_buf_get_lines(bufnr, next_line - 1, next_line, false)[1]
+    if vim.trim(line) ~= "" then
+      vim.api.nvim_win_set_cursor(0, { next_line, 0 })
+      return
+    end
+    next_line = next_line + 1
+  end
 end
 
 function Send.send_selection()
@@ -241,10 +258,20 @@ vim.keymap.set("n", "<leader>t", Send.open_terminal, { desc = "terminal" })
 vim.keymap.set("n", "<leader>T", Send.open_scratch_terminal, { desc = "scratch terminal" })
 vim.keymap.set("n", "<leader>c", Send.prompt_and_send, { desc = "send command" })
 vim.keymap.set("n", "<leader>el", Send.send_line, { desc = "send line" })
-vim.keymap.set("n", "<leader>ep", Send.send_paragraph, { desc = "evaluate paragraph" })
-vim.keymap.set("n", "<leader>ew", Send.send_word, { desc = "send word" })
+vim.keymap.set("n", "<leader>ee", Send.send_paragraph, { desc = "evaluate paragraph" })
+vim.keymap.set("n", "<leader>eo", Send.send_word, { desc = "evaluate object" })
 vim.keymap.set("x", "<leader>es", function()
   vim.schedule(Send.send_selection)
-end, { desc = "send selection" })
+end, { desc = "evaluate selection" })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "r" },
+  callback = function(args)
+    local opts = { buffer = args.buf }
+    vim.keymap.set("n", "<localleader>e", Send.send_paragraph, opts)
+    vim.keymap.set("n", "<localleader>,", Send.send_line, opts)
+    vim.keymap.set("n", "<localleader>o", Send.send_word, opts)
+  end,
+})
 
 vim.keymap.set("i", "<C-'>", [[ |><CR>]], { desc = "insert |> and newline" })
