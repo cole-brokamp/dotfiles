@@ -257,7 +257,7 @@ vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>t", Send.open_terminal, { desc = "terminal" })
 vim.keymap.set("n", "<leader>T", Send.open_scratch_terminal, { desc = "scratch terminal" })
 vim.keymap.set("n", "<leader>c", Send.prompt_and_send, { desc = "send command" })
-vim.keymap.set("n", "<leader>el", Send.send_line, { desc = "send line" })
+vim.keymap.set("n", "<leader>el", Send.send_line, { desc = "evaluate line" })
 vim.keymap.set("n", "<leader>ee", Send.send_paragraph, { desc = "evaluate paragraph" })
 vim.keymap.set("n", "<leader>eo", Send.send_word, { desc = "evaluate object" })
 vim.keymap.set("x", "<leader>es", function()
@@ -268,9 +268,9 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "r" },
   callback = function(args)
     local opts = { buffer = args.buf }
-    vim.keymap.set("n", "<localleader>e", Send.send_paragraph, opts)
-    vim.keymap.set("n", "<localleader>,", Send.send_line, opts)
-    vim.keymap.set("n", "<localleader>o", Send.send_word, opts)
+    vim.keymap.set("n", "<localleader>e", Send.send_paragraph, { desc = "evaluate paragraph" }, opts)
+    vim.keymap.set("n", "<localleader>,", Send.send_line, { desc = "evaluate line" }, opts)
+    vim.keymap.set("n", "<localleader>o", Send.send_word, { desc = "evaluate object" }, opts)
   end,
 })
 
