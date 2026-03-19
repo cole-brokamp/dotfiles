@@ -20,10 +20,11 @@ require("lazy").setup({
   { import = "plugins.tree" },
   { import = "plugins.search" },
   { import = "plugins.autocomplete" },
+  { import = "plugins.treesitter" },
   { import = "plugins.git" },
   { import = "plugins.lsp" },
   { import = "plugins.format-on-save" },
-  { import = "plugins.r" },
+  -- { import = "plugins.r" },
   { import = "plugins.ui" },
   { import = "plugins.hydra" },
 })

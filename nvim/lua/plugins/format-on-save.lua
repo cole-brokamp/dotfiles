@@ -5,8 +5,7 @@ return {
     config = function()
       require("conform").setup({
         format_on_save = {
-          lsp_fallback = false,
-          timeout_ms = 1000,
+          lsp_format = "fallback",
         },
         formatters_by_ft = {
           lua = { "stylua" },
@@ -15,6 +14,9 @@ return {
           markdown = { "prettier" },
           rust = { "rustfmt" },
           just = { "just" },
+          quarto = { "injected" },
+          rmd = { "injected" },
+          r = { "air" },
         },
       })
     end,

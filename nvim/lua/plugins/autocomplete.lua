@@ -2,7 +2,6 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "R-nvim/cmp-r",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-buffer",
@@ -18,7 +17,6 @@ return {
         },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "cmp_r" },
           { name = "path" },
           { name = "buffer" },
           { name = "nvim_lsp_signature_help" },
@@ -73,10 +71,6 @@ return {
         }, {
           { name = "cmdline" },
         }),
-      })
-      require("cmp_r").setup({
-        filetypes = { "r", "rmd", "quarto" },
-        doc_width = 60,
       })
     end,
   },
