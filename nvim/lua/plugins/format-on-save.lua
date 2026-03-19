@@ -16,7 +16,6 @@ return {
           just = { "just" },
           quarto = { "injected" },
           rmd = { "injected" },
-          r = { "air" },
         },
       })
     end,

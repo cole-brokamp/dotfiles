@@ -3,29 +3,12 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local format_group = vim.api.nvim_create_augroup("ColeLspFormat", { clear = true })
       local ok_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
       local cmp_capabilities = ok_cmp and cmp_nvim_lsp.default_capabilities() or nil
 
       local function on_attach(client, bufnr)
         if client.name == "r_language_server" then
           client.server_capabilities.documentFormattingProvider = false
-        end
-
-        if client.name == "air" and client.server_capabilities.documentFormattingProvider then
-          vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            group = format_group,
-            buffer = bufnr,
-            callback = function()
-              vim.lsp.buf.format({
-                bufnr = bufnr,
-                filter = function(format_client)
-                  return format_client.name == "air"
-                end,
-              })
-            end,
-          })
         end
       end
 
