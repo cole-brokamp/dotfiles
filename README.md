@@ -51,12 +51,14 @@ session
 
 - new
 - quit
+- quit debug (Q)
 - restart
 - soft restart (rm all and unload env)
 
 send code to R session
 
-- line and step
-- line and stay
+- line
 - paragraph
--
+- visual selection
+
+*h*elp -> alias for lsp hover ??
