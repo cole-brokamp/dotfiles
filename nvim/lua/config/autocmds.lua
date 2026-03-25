@@ -52,11 +52,29 @@ local function ensure_terminal(opts)
 		return send_state.term_buf
 	end
 
-	local current_win = vim.api.nvim_get_current_win()
-	local height = opts.height or 16
+	local function open_right_terminal_split()
+		local source_win = vim.api.nvim_get_current_win()
+		local source_width = vim.api.nvim_win_get_width(source_win)
+		local left_width = math.floor(source_width / 2)
+		local right_width = source_width - left_width
 
-	vim.cmd(("belowright %dsplit"):format(height))
-	vim.cmd("terminal")
+		vim.cmd("rightbelow vsplit")
+		vim.cmd("terminal")
+
+		local term_win = vim.api.nvim_get_current_win()
+		if vim.api.nvim_win_is_valid(source_win) then
+			vim.api.nvim_win_set_width(source_win, left_width)
+		end
+		if vim.api.nvim_win_is_valid(term_win) then
+			vim.api.nvim_win_set_width(term_win, right_width)
+		end
+
+		return source_win
+	end
+
+	local current_win = vim.api.nvim_get_current_win()
+
+	current_win = open_right_terminal_split()
 
 	local term_buf = vim.api.nvim_get_current_buf()
 	send_state.term_buf = term_buf
@@ -80,9 +98,21 @@ end
 
 local function open_untracked_terminal(opts)
 	opts = opts or {}
+	local source_win = vim.api.nvim_get_current_win()
+	local source_width = vim.api.nvim_win_get_width(source_win)
+	local left_width = math.floor(source_width / 2)
+	local right_width = source_width - left_width
 
-	vim.cmd(("belowright %dsplit"):format(opts.height or 16))
+	vim.cmd("rightbelow vsplit")
 	vim.cmd("terminal")
+
+	local term_win = vim.api.nvim_get_current_win()
+	if vim.api.nvim_win_is_valid(source_win) then
+		vim.api.nvim_win_set_width(source_win, left_width)
+	end
+	if vim.api.nvim_win_is_valid(term_win) then
+		vim.api.nvim_win_set_width(term_win, right_width)
+	end
 	vim.cmd("startinsert")
 
 	return vim.api.nvim_get_current_buf()
@@ -114,7 +144,7 @@ local function send_text(text)
 end
 
 function Send.open_terminal()
-	local term_buf = ensure_terminal({ focus = true, height = 16 })
+	local term_buf = ensure_terminal({ focus = true })
 	local win = find_terminal_window(term_buf)
 	if win then
 		vim.api.nvim_set_current_win(win)
@@ -123,11 +153,11 @@ function Send.open_terminal()
 end
 
 function Send.open_scratch_terminal()
-	open_untracked_terminal({ height = 16 })
+	open_untracked_terminal()
 end
 
 function Send.focus_terminal()
-	local term_buf = ensure_terminal({ focus = false, height = 16 })
+	local term_buf = ensure_terminal({ focus = false })
 	local win = find_terminal_window(term_buf)
 	if win then
 		vim.api.nvim_set_current_win(win)
