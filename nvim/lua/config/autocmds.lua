@@ -328,4 +328,26 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "markdown" },
+	callback = function(args)
+		local opts = { scope = "local", win = 0 }
+
+		vim.api.nvim_set_option_value("number", false, opts)
+		vim.api.nvim_set_option_value("relativenumber", false, opts)
+		vim.api.nvim_set_option_value("signcolumn", "no", opts)
+		vim.api.nvim_set_option_value("colorcolumn", "150", opts)
+		vim.api.nvim_set_option_value("cursorline", false, opts)
+
+		vim.bo[args.buf].textwidth = 150
+		vim.bo[args.buf].wrapmargin = 0
+		vim.bo[args.buf].formatoptions = vim.bo[args.buf].formatoptions .. "t"
+
+		vim.wo.wrap = true
+		vim.wo.linebreak = true
+		vim.wo.breakindent = true
+		vim.wo.showbreak = "  "
+	end,
+})
+
 vim.keymap.set("i", "<C-'>", [[ |><CR>]], { desc = "insert |> and newline" })
