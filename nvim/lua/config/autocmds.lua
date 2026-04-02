@@ -88,6 +88,9 @@ local function ensure_terminal(opts)
 	})
 
 	if not opts.focus then
+		if opts.normal_mode then
+			vim.cmd("stopinsert")
+		end
 		vim.api.nvim_set_current_win(current_win)
 	else
 		vim.cmd("startinsert")
@@ -139,8 +142,32 @@ local function send_data(text, opts)
 	vim.fn.chansend(chan_id, text)
 end
 
+local function strip_roxygen_prefix(text)
+	local lines = vim.split(text, "\n", { plain = true })
+	local has_nonblank = false
+
+	for _, line in ipairs(lines) do
+		if vim.trim(line) ~= "" then
+			has_nonblank = true
+			if not line:match("^%s*#'") then
+				return text
+			end
+		end
+	end
+
+	if not has_nonblank then
+		return text
+	end
+
+	for i, line in ipairs(lines) do
+		lines[i] = line:gsub("^([ \t]*)#' ?", "%1", 1)
+	end
+
+	return table.concat(lines, "\n")
+end
+
 local function send_text(text)
-	send_data(text)
+	send_data(strip_roxygen_prefix(text))
 end
 
 function Send.open_terminal()
@@ -163,6 +190,22 @@ function Send.focus_terminal()
 		vim.api.nvim_set_current_win(win)
 		vim.cmd("startinsert")
 	end
+end
+
+function Send.start_r_session()
+	if is_tracked_terminal_valid() then
+		notify("A send terminal is already running; not starting another R session", vim.log.levels.WARN)
+		return
+	end
+
+	local term_buf = ensure_terminal({ focus = false, normal_mode = true })
+	local chan_id = get_term_job(term_buf)
+	if not chan_id then
+		notify("No terminal buffer available", vim.log.levels.ERROR)
+		return
+	end
+
+	vim.fn.chansend(chan_id, "R\n")
 end
 
 function Send.send_line()

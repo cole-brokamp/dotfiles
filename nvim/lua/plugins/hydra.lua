@@ -20,6 +20,19 @@ return {
         end
       end
 
+      local function call_send_method(method)
+        return function()
+          local send = rawget(_G, "ColeSend")
+
+          if not send or type(send[method]) ~= "function" then
+            vim.notify("ColeSend is unavailable", vim.log.levels.ERROR, { title = "R Hydra" })
+            return
+          end
+
+          send[method]()
+        end
+      end
+
       _G.hydra_window_rearrange = Hydra({
         name = "window rearrange",
         mode = "n",
@@ -61,6 +74,7 @@ return {
             { key = "q", desc = "quit", command = "q()" },
             { key = "Q", desc = "quit debug", command = "Q" },
             { key = "r", desc = "restart", command = "q('no')\nR" },
+            { key = "s", desc = "start R session", method = "start_r_session" },
           },
         },
       }
@@ -74,7 +88,14 @@ return {
 
         for _, spec in ipairs(r_command_specs) do
           for _, head in ipairs(spec.heads) do
-            vim.keymap.set("n", spec.body .. head.key, send_to_terminal(head.command, { raw = head.raw }), {
+            local rhs
+            if head.method then
+              rhs = call_send_method(head.method)
+            else
+              rhs = send_to_terminal(head.command, { raw = head.raw })
+            end
+
+            vim.keymap.set("n", spec.body .. head.key, rhs, {
               buffer = bufnr,
               desc = head.desc,
             })
