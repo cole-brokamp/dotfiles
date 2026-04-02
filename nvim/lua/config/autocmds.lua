@@ -366,6 +366,9 @@ vim.api.nvim_create_autocmd("FileType", {
 
 		vim.keymap.set("n", "<localleader>e", Send.send_paragraph, with_desc("evaluate paragraph"))
 		vim.keymap.set("n", "<localleader>,", Send.send_line, with_desc("evaluate line"))
+		vim.keymap.set("x", "<localleader>,", function()
+			vim.schedule(Send.send_selection)
+		end, with_desc("evaluate selection"))
 		vim.keymap.set("n", "<localleader>o", Send.send_word, with_desc("evaluate object"))
 		vim.keymap.set("n", "<localleader>h", vim.lsp.buf.hover, with_desc("hover"))
 	end,

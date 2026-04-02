@@ -24,7 +24,8 @@ return {
 					{ "<localleader>e", desc = "evaluate paragraph", buffer = bufnr },
 					{ "<localleader>h", desc = "hover", buffer = bufnr },
 					{ "<localleader>o", desc = "evaluate object", buffer = bufnr },
-					{ "<localleader>,", desc = "evaluate line", buffer = bufnr },
+					{ "<localleader>,", desc = "evaluate line", buffer = bufnr, mode = "n" },
+					{ "<localleader>,", desc = "evaluate selection", buffer = bufnr, mode = "x" },
 					{
 						"<localleader>d",
 						group = "devtools",
