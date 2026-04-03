@@ -71,6 +71,7 @@ return {
             { key = "c", desc = "colorize", command = "library(colorout)" },
             { key = "g", desc = "start graphics", command = "httpgd::hgd()" },
             { key = "i", desc = "interrupt", command = "\003", raw = true },
+            { key = "k", desc = "session kill", method = "kill_r_session" },
             { key = "q", desc = "quit", command = "q()" },
             { key = "Q", desc = "quit debug", command = "Q" },
             { key = "r", desc = "restart", command = "q('no')\nR" },

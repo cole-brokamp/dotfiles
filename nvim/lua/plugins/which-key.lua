@@ -45,6 +45,7 @@ return {
 					{ "<localleader>sc", desc = "colorize", buffer = bufnr },
 					{ "<localleader>sg", desc = "start graphics", buffer = bufnr },
 					{ "<localleader>si", desc = "interrupt", buffer = bufnr },
+					{ "<localleader>sk", desc = "session kill", buffer = bufnr },
 					{ "<localleader>sq", desc = "quit", buffer = bufnr },
 					{ "<localleader>sQ", desc = "quit debug", buffer = bufnr },
 					{ "<localleader>sr", desc = "restart", buffer = bufnr },

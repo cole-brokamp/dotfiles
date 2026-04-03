@@ -208,6 +208,16 @@ function Send.start_r_session()
 	vim.fn.chansend(chan_id, "R\n")
 end
 
+function Send.kill_r_session()
+	local chan_id = get_term_job(send_state.term_buf)
+	if not chan_id then
+		notify("No tracked terminal process to kill", vim.log.levels.WARN)
+		return
+	end
+
+	vim.fn.jobstop(chan_id)
+end
+
 function Send.send_line()
 	local bufnr = 0
 	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
