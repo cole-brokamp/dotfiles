@@ -47,11 +47,6 @@ vim.opt.updatetime = 300
 vim.opt.iskeyword = vim.opt.iskeyword - { "_" }
 vim.opt.clipboard = "unnamedplus"
 
--- markdown formatting
-vim.api.nvim_set_hl(0, "markdownH1", { fg = "#fff0bd", bold = true })
-vim.api.nvim_set_hl(0, "markdownH2", { fg = "#5c7ae0", italic = true })
-vim.api.nvim_set_hl(0, "markdownH3", { fg = "#23a39a" })
-
 -- misc
 vim.opt.hidden = true
 vim.opt.mouse = "a"

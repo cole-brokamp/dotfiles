@@ -4,3 +4,5 @@ secrets.sh
 *.swp
 /.DS_Store
 nvim/lazy-lock.json
+.nvimlog
+nvim/spell/*

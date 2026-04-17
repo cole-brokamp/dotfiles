@@ -411,10 +411,14 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.api.nvim_set_option_value("signcolumn", "no", opts)
 		vim.api.nvim_set_option_value("colorcolumn", "150", opts)
 		vim.api.nvim_set_option_value("cursorline", false, opts)
+		vim.api.nvim_set_option_value("foldenable", true, opts)
+		vim.api.nvim_set_option_value("foldmethod", "expr", opts)
+		vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.treesitter.foldexpr()", opts)
+		vim.api.nvim_set_option_value("foldlevel", 99, opts)
 
-		vim.bo[args.buf].textwidth = 150
+		vim.bo[args.buf].textwidth = 0
 		vim.bo[args.buf].wrapmargin = 0
-		vim.bo[args.buf].formatoptions = vim.bo[args.buf].formatoptions .. "t"
+		vim.opt_local.formatoptions:remove("t")
 
 		vim.wo.wrap = true
 		vim.wo.linebreak = true
