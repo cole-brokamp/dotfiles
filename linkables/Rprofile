@@ -15,3 +15,5 @@ options(
 )
 
 Sys.setenv("TESTTHAT_CPUS" = 4)
+library(colorout)
+options(width = as.integer(system("tput cols", intern = TRUE)))

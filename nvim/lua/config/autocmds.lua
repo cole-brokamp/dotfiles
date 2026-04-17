@@ -235,6 +235,15 @@ function Send.send_word()
 	send_text(word)
 end
 
+function Send.help_html_for_word()
+	local word = vim.fn.expand("<cword>")
+	if not word or word == "" then
+		return
+	end
+
+	send_text(string.format("help(%q, help_type = 'html')", word))
+end
+
 function Send.send_paragraph()
 	local bufnr = 0
 	local cur_line = vim.api.nvim_win_get_cursor(0)[1]
@@ -381,6 +390,14 @@ vim.api.nvim_create_autocmd("FileType", {
 		end, with_desc("evaluate selection"))
 		vim.keymap.set("n", "<localleader>o", Send.send_word, with_desc("evaluate object"))
 		vim.keymap.set("n", "<localleader>h", vim.lsp.buf.hover, with_desc("hover"))
+		vim.keymap.set("n", "<localleader>H", Send.help_html_for_word, with_desc("html help"))
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "gitcommit", "markdown", "text" },
+	callback = function()
+		vim.api.nvim_set_option_value("spell", true, { scope = "local", win = 0 })
 	end,
 })
 

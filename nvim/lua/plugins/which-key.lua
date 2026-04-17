@@ -23,6 +23,7 @@ return {
 					{ "<localleader>", group = "R", icon = { cat = "filetype", name = "r" }, buffer = bufnr },
 					{ "<localleader>e", desc = "evaluate paragraph", buffer = bufnr },
 					{ "<localleader>h", desc = "hover", buffer = bufnr },
+					{ "<localleader>H", desc = "html help", buffer = bufnr },
 					{ "<localleader>o", desc = "evaluate object", buffer = bufnr },
 					{ "<localleader>,", desc = "evaluate line", buffer = bufnr, mode = "n" },
 					{ "<localleader>,", desc = "evaluate selection", buffer = bufnr, mode = "x" },
