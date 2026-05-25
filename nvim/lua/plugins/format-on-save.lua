@@ -11,7 +11,7 @@ return {
           lua = { "stylua" },
           yaml = { "prettier" },
           toml = { "taplo" },
-          markdown = { "prettier" },
+          -- markdown = { "prettier" },
           rust = { "rustfmt" },
           just = { "just" },
           quarto = { "injected" },

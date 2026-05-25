@@ -1,7 +1,7 @@
 source ~/dotfiles/secrets.sh 2> /dev/null
 
 export VISUAL=vim
-export EDITOR="$VISUAL"
+export EDITOR=nvim
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 alias ls='ls -F'
@@ -9,6 +9,7 @@ alias ll='ls -o --human-readable --color --group-directories-first'
 alias la='ll --all'
 alias reload="exec $SHELL -l"
 alias path='echo -e ${PATH//:/\\n}'
+alias python='python3'
 
 alias R='R --quiet --no-save'
 
@@ -43,3 +44,5 @@ fi
 if [ -d "$HOME/.cargo/bin" ]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
+
+. "$HOME/.local/bin/env"
