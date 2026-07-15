@@ -24,8 +24,12 @@ return {
       vim.keymap.set("n", "<leader>lo", vim.lsp.buf.document_symbol, { desc = "document symbols" })
       vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "format" })
       vim.keymap.set("n", "<leader>le", vim.diagnostic.open_float, { desc = "line diagnostics" })
-      vim.keymap.set("n", "<leader>ln", vim.diagnostic.goto_next, { desc = "next diagnostic" })
-      vim.keymap.set("n", "<leader>lp", vim.diagnostic.goto_prev, { desc = "previous diagnostic" })
+      vim.keymap.set("n", "<leader>ln", function()
+        vim.diagnostic.jump({ count = 1, float = true })
+      end, { desc = "next diagnostic" })
+      vim.keymap.set("n", "<leader>lp", function()
+        vim.diagnostic.jump({ count = -1, float = true })
+      end, { desc = "previous diagnostic" })
 
       vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
         local bufnr, winnr = default_hover(err, result, ctx, config)
@@ -44,57 +48,69 @@ return {
         return bufnr, winnr
       end
 
-      local function on_attach(client, bufnr)
+      local function on_attach(client, _)
         if client.name == "r_language_server" then
           client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
         end
       end
 
-      vim.lsp.config("air", {
-        on_attach = on_attach,
+      vim.lsp.config("*", {
         capabilities = cmp_capabilities,
       })
 
-      vim.lsp.enable("air")
+      vim.lsp.config("air", {
+        on_attach = on_attach,
+      })
 
-      if vim.fn.executable("R") == 1 then
-        local has_languageserver = vim.fn.system({
-          "R",
-          "--slave",
-          "-e",
-          "cat(requireNamespace('languageserver', quietly=TRUE))",
-        })
+      vim.lsp.config("r_language_server", {
+        on_attach = on_attach,
+        cmd = { "R", "--no-echo", "--slave", "-e", "languageserver::run()" },
+        filetypes = { "r", "rmd", "rnoweb", "quarto" },
+        root_dir = function(bufnr, on_dir)
+          local root = vim.fs.root(bufnr, { ".git", ".Rproj", "DESCRIPTION" })
+          if root then
+            on_dir(root)
+            return
+          end
 
-        if has_languageserver:find("TRUE", 1, true) then
-          vim.lsp.config("r_language_server", {
-            on_attach = on_attach,
-            cmd = { "R", "--no-echo", "--slave", "-e", "languageserver::run()" },
-            filetypes = { "r", "rmd", "rnoweb", "quarto" },
-            capabilities = cmp_capabilities,
-            root_dir = function(bufnr, on_dir)
-              local root = vim.fs.root(bufnr, { ".git", ".Rproj", "DESCRIPTION" })
-              if root then
-                on_dir(root)
-                return
-              end
+          local name = vim.api.nvim_buf_get_name(bufnr)
+          if name ~= "" then
+            on_dir(vim.fs.dirname(vim.fs.normalize(name)))
+          else
+            on_dir(vim.uv.cwd())
+          end
+        end,
+      })
 
-              local name = vim.api.nvim_buf_get_name(bufnr)
-              if name ~= "" then
-                on_dir(vim.fs.dirname(vim.fs.normalize(name)))
-              else
-                on_dir(vim.uv.cwd())
-              end
-            end,
+      vim.lsp.config("lua_ls", {
+        root_dir = function(bufnr, on_dir)
+          local root = vim.fs.root(bufnr, {
+            ".git",
+            ".luarc.json",
+            ".luarc.jsonc",
+            ".stylua.toml",
+            "stylua.toml",
           })
+          on_dir(root or vim.uv.cwd())
+        end,
+        settings = {
+          Lua = {
+            runtime = { version = "LuaJIT" },
+            workspace = {
+              checkThirdParty = false,
+              library = { vim.env.VIMRUNTIME },
+            },
+          },
+        },
+      })
 
-          vim.lsp.enable("r_language_server")
-        else
-          vim.notify(
-            "Skipping r_language_server setup – install.packages('languageserver') not detected",
-            vim.log.levels.WARN
-          )
-        end
-      end
+      vim.lsp.enable({
+        "air",
+        "r_language_server",
+        "lua_ls",
+        "rust_analyzer",
+      })
     end,
   },
 }

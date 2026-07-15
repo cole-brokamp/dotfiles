@@ -14,6 +14,7 @@ return {
           -- markdown = { "prettier" },
           rust = { "rustfmt" },
           just = { "just" },
+          r = { "air" },
           quarto = { "injected" },
           rmd = { "injected" },
         },

@@ -18,6 +18,8 @@ return {
 		},
 		config = function()
 			local wk = require("which-key")
+			wk.setup()
+
 			local function add_r_mappings(bufnr)
 				wk.add({
 					{ "<localleader>", group = "R", icon = { cat = "filetype", name = "r" }, buffer = bufnr },
@@ -54,6 +56,7 @@ return {
 			end
 
 			wk.add({
+				{ "<leader>e", group = "evaluate" },
 				{ "<leader>q", group = "quit" },
 				{ "<leader>qq", "<cmd>qa<cr>", desc = "quit" },
 				{ "<leader>q!", "<cmd>qa!<cr>", desc = "quit without saving" },
@@ -65,7 +68,7 @@ return {
 				{ "<leader>bd", "<cmd>bp | bd #<CR>", desc = "delete" },
 				{ "<leader>bD", "<cmd>bd!<CR>", desc = "kill" },
 				{ "<leader>br", "<cmd>e!<CR>", desc = "reload" },
-				{ "<leader>bn", "<cmd>enew<CR>", desc = "new" },
+				{ "<leader>bN", "<cmd>enew<CR>", desc = "new" },
 				{ "<leader>bs", "<cmd>new | setlocal buftype=nofile bufhidden=hide noswapfile<CR>", desc = "scratch" },
 				{ "<leader>bn", "<cmd>bn<CR>", desc = "next" },
 				{ "<leader>bp", "<cmd>bp<CR>", desc = "previous" },

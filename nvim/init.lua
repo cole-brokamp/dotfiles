@@ -2,14 +2,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 -- ui
-vim.cmd([[
-  hi Normal guibg=NONE ctermbg=NONE
-  hi NormalNC guibg=NONE ctermbg=NONE
-  hi EndOfBuffer guibg=NONE ctermbg=NONE
-  hi SignColumn guibg=NONE ctermbg=NONE
-  hi VertSplit guibg=NONE ctermbg=NONE
-]])
-vim.api.nvim_set_hl(0, "CursorLine", { underline = true })
 vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = false

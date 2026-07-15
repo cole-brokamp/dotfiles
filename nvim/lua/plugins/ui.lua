@@ -25,6 +25,21 @@ return {
         vim.api.nvim_set_hl(0, "@label.markdown", { fg = "#bd93f9" })
       end
 
+      local function set_editor_highlights()
+        for _, group in ipairs({ "Normal", "NormalNC", "EndOfBuffer", "SignColumn", "VertSplit" }) do
+          local highlight = vim.api.nvim_get_hl(0, { name = group, link = false })
+          highlight.bg = nil
+          highlight.ctermbg = nil
+          vim.api.nvim_set_hl(0, group, highlight)
+        end
+
+        local cursor_line = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false })
+        cursor_line.bg = nil
+        cursor_line.ctermbg = nil
+        cursor_line.underline = true
+        vim.api.nvim_set_hl(0, "CursorLine", cursor_line)
+      end
+
       vim.opt.termguicolors = true
       vim.opt.laststatus = 3 -- single global statusline so horizontal splits use separators
       vim.o.background = "dark"
@@ -45,11 +60,13 @@ return {
       end
 
       set_split_highlights()
+      set_editor_highlights()
       set_markdown_highlights()
       vim.api.nvim_create_autocmd("ColorScheme", {
         pattern = "*",
         callback = function()
           set_split_highlights()
+          set_editor_highlights()
           set_markdown_highlights()
         end,
       })
