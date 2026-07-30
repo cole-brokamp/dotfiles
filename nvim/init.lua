@@ -38,6 +38,7 @@ vim.opt.updatetime = 300
 -- editing
 vim.opt.iskeyword = vim.opt.iskeyword - { "_" }
 vim.opt.clipboard = "unnamedplus"
+vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 
 -- misc
 vim.opt.hidden = true

@@ -63,6 +63,18 @@ return {
 			})
 
 			wk.add({
+				{ "<leader>S", group = "spelling" },
+				{ "<leader>St", "<cmd>setlocal spell! spell?<cr>", desc = "toggle spell check" },
+				{ "<leader>Sn", "]s", desc = "next misspelling" },
+				{ "<leader>Sp", "[s", desc = "previous misspelling" },
+				{ "<leader>Ss", "z=", desc = "suggestions" },
+				{ "<leader>Sa", "zg", desc = "add word" },
+				{ "<leader>Su", "zug", desc = "undo added word" },
+				{ "<leader>Sw", "zw", desc = "mark word wrong" },
+				{ "<leader>SW", "zuw", desc = "undo wrong word" },
+			})
+
+			wk.add({
 				{ "<leader>b", group = "buffers" },
 				{ "<leader>bb", "<cmd>Telescope buffers<CR>", desc = "buffers" },
 				{ "<leader>bd", "<cmd>bp | bd #<CR>", desc = "delete" },
