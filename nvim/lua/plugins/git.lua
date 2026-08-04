@@ -26,6 +26,13 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     config = function()
+      require("neogit").setup({
+        highlight = {
+          line_green = "#24352b",
+          line_red = "#3b272b",
+        },
+      })
+
       require("which-key").add({
         { "<leader>g", group = "git" },
         { "<leader>gs", "<cmd>Neogit kind=split<cr>", desc = "status" },
