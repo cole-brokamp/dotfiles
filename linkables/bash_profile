@@ -14,6 +14,7 @@ alias python='python3'
 alias R='R --quiet --no-save'
 
 alias tm='tmux new-session -A -s main'
+alias bsi='bsub -Is -n 4 -M 32000 -W 10:00 -R "span[hosts=1]" bash'
 
 PROMPT_DIRTRIM=3
 PS1="$(tput setaf 33)\u $(tput setaf 244)at $(tput setaf 29)\h $(tput setaf 244)in $(tput setaf 136)\w \n$(tput setaf 244)\$$(tput sgr0) "
