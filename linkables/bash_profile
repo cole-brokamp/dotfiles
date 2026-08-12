@@ -43,8 +43,4 @@ fi
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
-if [ -d "$HOME/.cargo/bin" ]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-. "$HOME/.local/bin/env"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
