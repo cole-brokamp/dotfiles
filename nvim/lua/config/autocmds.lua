@@ -286,31 +286,15 @@ function Send.send_paragraph()
 end
 
 function Send.send_selection()
-	local bufnr = 0
-	local start_pos = vim.fn.getpos("'<")
-	local end_pos = vim.fn.getpos("'>")
-
-	local start_row = start_pos[2]
-	local start_col = start_pos[3]
-	local end_row = end_pos[2]
-	local end_col = end_pos[3]
-
-	if start_row == 0 or end_row == 0 then
+	local mode = vim.fn.mode()
+	if mode ~= "v" and mode ~= "V" and mode ~= "\22" then
 		return
 	end
 
-	if start_row > end_row or (start_row == end_row and start_col > end_col) then
-		start_row, end_row = end_row, start_row
-		start_col, end_col = end_col, start_col
-	end
-
-	local lines = vim.api.nvim_buf_get_lines(bufnr, start_row - 1, end_row, false)
+	local lines = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = mode })
 	if #lines == 0 then
 		return
 	end
-
-	lines[1] = string.sub(lines[1], start_col)
-	lines[#lines] = string.sub(lines[#lines], 1, end_col)
 
 	send_text(table.concat(lines, "\n"))
 end
@@ -370,9 +354,7 @@ vim.keymap.set("n", "<leader>c", Send.prompt_and_send, { desc = "send command" }
 vim.keymap.set("n", "<leader>el", Send.send_line, { desc = "evaluate line" })
 vim.keymap.set("n", "<leader>ee", Send.send_paragraph, { desc = "evaluate paragraph" })
 vim.keymap.set("n", "<leader>eo", Send.send_word, { desc = "evaluate object" })
-vim.keymap.set("x", "<leader>es", function()
-	vim.schedule(Send.send_selection)
-end, { desc = "evaluate selection" })
+vim.keymap.set("x", "<leader>es", Send.send_selection, { desc = "evaluate selection" })
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "r" },
@@ -384,10 +366,8 @@ vim.api.nvim_create_autocmd("FileType", {
 		end
 
 		vim.keymap.set("n", "<localleader>e", Send.send_paragraph, with_desc("evaluate paragraph"))
+		vim.keymap.set("x", "<localleader>e", Send.send_selection, with_desc("evaluate selection"))
 		vim.keymap.set("n", "<localleader>,", Send.send_line, with_desc("evaluate line"))
-		vim.keymap.set("x", "<localleader>,", function()
-			vim.schedule(Send.send_selection)
-		end, with_desc("evaluate selection"))
 		vim.keymap.set("n", "<localleader>o", Send.send_word, with_desc("evaluate object"))
 		vim.keymap.set("n", "<localleader>h", vim.lsp.buf.hover, with_desc("hover"))
 		vim.keymap.set("n", "<localleader>H", Send.help_html_for_word, with_desc("html help"))
