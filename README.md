@@ -4,13 +4,18 @@
 
 If on macOS, install the XCode CLI tools before starting: `xcode-select --install`
 
-Clone the repo and run the `link` script to symmlink the dotfiles:
+Clone the repo and run `just link` to symlink the dotfiles:
 
-```
+```sh
 git clone https://github.com/cole-brokamp/dotfiles
 cd ~/dotfiles
-./install/link.sh
+just link
 ```
+
+The recipe links each file in `linkables/` into your home directory and links
+`nvim/` to `~/.config/nvim` (or `$XDG_CONFIG_HOME/nvim` when that variable is
+set). It is safe to rerun. Existing files, directories, and links to other
+locations are left untouched.
 
 Run `install/macOS.sh` to set macOS options
 
