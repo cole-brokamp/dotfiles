@@ -1,6 +1,6 @@
-# options(
-#   max.print = 100,
-#   scipen = 10,
-#   menu.graphics = FALSE,
-#   setWidthOnResize = TRUE
-# )
+options(
+  max.print = 100,
+  scipen = 10,
+  menu.graphics = FALSE,
+  setWidthOnResize = TRUE
+)
