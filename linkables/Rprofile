@@ -1,19 +1,6 @@
-options(
-  repos = c(
-    CRAN = Sys.getenv("PKG_CRAN_MIRROR", unset = "https://cloud.r-project.org")
-  ),
-  max.print = 100,
-  scipen = 10,
-  menu.graphics = FALSE,
-  setWidthOnResize = TRUE,
-  usethis.full_name = "Cole Brokamp",
-  usethis.description = list(
-    `Authors@R` = 'person("Cole", "Brokamp", email = "cole@colebrokamp.com", role = c("aut", "cre"), 
-    comment = c(ORCID = "0000-0002-0289-3151"))',
-    Version = "0.1.0"
-  )
-)
-
-Sys.setenv("TESTTHAT_CPUS" = 4)
-# library(colorout)
-options(width = as.integer(system("tput cols", intern = TRUE)))
+# options(
+#   max.print = 100,
+#   scipen = 10,
+#   menu.graphics = FALSE,
+#   setWidthOnResize = TRUE
+# )
