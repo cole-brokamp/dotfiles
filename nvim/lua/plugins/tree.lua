@@ -4,7 +4,7 @@ return {
 		config = function()
 			require("nvim-tree").setup({
 				view = {
-					width = 35,
+					width = 25,
 					preserve_window_proportions = true,
 				},
 				git = { ignore = false },
@@ -12,7 +12,7 @@ return {
 				actions = {
 					open_file = {
 						quit_on_open = false,
-						resize_window = false,
+						resize_window = true,
 						window_picker = { enable = false },
 					},
 				},
