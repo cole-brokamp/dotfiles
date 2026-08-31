@@ -25,5 +25,6 @@ require("lazy").setup({
   { import = "plugins.lsp" },
   { import = "plugins.format-on-save" },
   { import = "plugins.ui" },
+  { import = "plugins.writing" },
   { import = "plugins.hydra" },
 })
