@@ -1,0 +1,10 @@
+[user]
+  name = Cole Brokamp
+  email = cole@colebrokamp.com
+
+[init]
+  defaultBranch = main
+
+[alias]
+  st = status -sb
+  ls = log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
