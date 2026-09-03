@@ -1,6 +1,4 @@
-source ~/dotfiles/secrets.sh 2> /dev/null
-
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR=nvim
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
@@ -14,7 +12,13 @@ alias python='python3'
 alias R='R --quiet --no-save'
 
 alias tm='tmux new-session -A -s main'
-alias bsi='bsub -Is -n 4 -M 32000 -W 10:00 -R "span[hosts=1]" bash'
+
+alias bsi='bsub -Is -n 2 -M 16000 -W 4:00 -R "span[hosts=1]" bash'
+alias bsi-xl='bsub -Is -n 4 -M 32000 -W 12:00 -R "span[hosts=1]" bash'
+alias bsi-xxl='bsub -Is -n 24 -M 128000 -W 24:00 -R "span[hosts=1]" bash'
+
+alias git-st='git status -sb'
+alias git-ls="git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 
 PROMPT_DIRTRIM=3
 PS1="$(tput setaf 33)\u $(tput setaf 244)at $(tput setaf 29)\h $(tput setaf 244)in $(tput setaf 136)\w \n$(tput setaf 244)\$$(tput sgr0) "
