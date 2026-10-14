@@ -34,6 +34,7 @@ brew install htop
 brew install awscli
 brew install vim
 brew install just
+brew install shfmt
 brew install watchexec
 
 # a/v

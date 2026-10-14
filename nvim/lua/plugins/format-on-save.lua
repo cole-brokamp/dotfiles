@@ -9,6 +9,7 @@ return {
         },
         formatters_by_ft = {
           lua = { "stylua" },
+          sh = { "shfmt" },
           yaml = { "prettier" },
           toml = { "taplo" },
           -- markdown = { "prettier" },
