@@ -24,6 +24,7 @@ brew install git
 brew install openssh
 brew install htop
 brew install neovim
+brew install tree-sitter-cli
 brew install just
 brew install shfmt
 brew install watchexec
