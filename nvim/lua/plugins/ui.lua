@@ -26,7 +26,10 @@ return {
       end
 
       local function set_editor_highlights()
-        for _, group in ipairs({ "Normal", "NormalNC", "EndOfBuffer", "SignColumn", "VertSplit" }) do
+        for _, group in ipairs({
+          "Normal", "NormalNC", "EndOfBuffer", "SignColumn", "VertSplit",
+          "TabLine", "TabLineFill", "TabLineSel",
+        }) do
           local highlight = vim.api.nvim_get_hl(0, { name = group, link = false })
           highlight.bg = nil
           highlight.ctermbg = nil
@@ -80,7 +83,15 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("bufferline").setup({
+        highlights = function(defaults)
+          local highlights = vim.deepcopy(defaults.highlights)
+          for _, highlight in pairs(highlights) do
+            highlight.bg = "NONE"
+          end
+          return highlights
+        end,
         options = {
+          themable = false, -- apply transparent highlights over the colorscheme defaults
           mode = "buffers",
           diagnostics = "nvim_lsp",
           show_buffer_close_icons = false,
